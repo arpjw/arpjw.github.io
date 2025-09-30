@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>arpjw — experience</title>
-    <meta name="description" content="Arya Somu's Experiences" />
+    <meta name="description" content="Experiences of Arya Somu (arpjw): work, clubs, leadership, research." />
     <meta property="og:title" content="arpjw — experience" />
     <meta property="og:description" content="Experiences of Arya Somu (arpjw): work, clubs, leadership, research." />
     <meta property="og:type" content="website" />
@@ -33,12 +33,10 @@
       h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 4px}
       .sub{color:var(--muted); margin:0 0 18px}
 
-      /* filters */
       .filters{display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 20px}
       .chip{padding:6px 10px; border:1px dashed var(--ring); border-radius:999px; font-size:12px; color:var(--muted); cursor:pointer; user-select:none}
       .chip.active{border-style:solid; border-color:var(--accent); color:var(--fg)}
 
-      /* timeline */
       .timeline{position:relative; margin:24px 0; padding-left:22px}
       .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent 60%)}
       .year{position:sticky; top:0; background:rgba(10,10,11,.75); backdrop-filter: blur(6px); padding:4px 8px; width:max-content; border:1px solid var(--ring); border-radius:8px; margin:24px 0; font-weight:700}
@@ -53,7 +51,7 @@
       .desc{font-size:13px; line-height:1.55; margin:8px 0}
       .bullets{margin:8px 0 0 0; padding-left:18px}
       .bullets li{margin:4px 0}
-      .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
+      .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
       .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
 
       .empty{color:var(--muted); text-align:center; padding:24px 0}
@@ -73,6 +71,7 @@
       <div class="filters" role="tablist" aria-label="filter experiences">
         <span class="chip" data-filter="work" role="tab">work</span>
         <span class="chip" data-filter="clubs" role="tab">clubs</span>
+        <span class="chip" data-filter="leadership" role="tab">leadership</span>
       </div>
 
       <section class="timeline" id="timeline" aria-live="polite">
@@ -128,8 +127,8 @@
             <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
             <p class="desc">Exec board for De Anza’s largest club (100+ members); programming & growth.</p>
             <ul class="bullets">
-              <li>The <b>biggest</b> and <b>most active</b> club at De Anza College</li>
-              <li>Built a case‑comp bootcamp serving <b>150+</b> students.
+              <li>The <b>biggest</b> and <b>most active</b> club at De Anza College.</li>
+              <li>Built a case‑comp bootcamp serving <b>150+</b> students.</li>
               <li>Co‑created PBL Consulting, the first on‑campus consulting group; supporting <b>5</b> orgs.</li>
             </ul>
             <div class="tags"><span class="tag">programming</span><span class="tag">coaching</span><span class="tag">consulting</span></div>
@@ -141,7 +140,6 @@
     </div>
 
     <script>
-      // simple filtering
       const chips = document.querySelectorAll('.chip');
       const items = document.querySelectorAll('.item');
       const empty = document.getElementById('empty');
@@ -150,7 +148,7 @@
         let shown = 0;
         items.forEach(el=>{
           const types = (el.getAttribute('data-type')||'').split(/\s+/);
-          const show = (kind==='all') || types.includes(kind);
+          const show = types.includes(kind);
           el.style.display = show ? '' : 'none';
           if(show) shown++;
         });
@@ -165,17 +163,17 @@
         });
       });
 
-      if(location.hash){
-        const wanted = location.hash.slice(1);
-        const target = [...chips].find(c=>c.dataset.filter===wanted);
-        if(target){ target.click(); }
-      }
-
+      // default: work selected
       window.addEventListener('load', ()=>{
-        const hash = location.hash?.slice(1);
-        if(hash && !['all','work','clubs','leadership'].includes(hash)){
-          const el = document.getElementById(hash);
-          if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+        const workChip = document.querySelector('.chip[data-filter="work"]');
+        if(workChip){
+          workChip.classList.add('active');
+          applyFilter('work');
+        }
+        if(location.hash){
+          const wanted = location.hash.slice(1);
+          const target = [...chips].find(c=>c.dataset.filter===wanted);
+          if(target){ target.click(); }
         }
       });
     </script>
