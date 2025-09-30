@@ -1,1 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>arpjw — education</title>
+    <meta name="description" content="Education of Arya Somu (arpjw): schools, coursework, awards." />
+    <meta property="og:title" content="arpjw — education" />
+    <meta property="og:description" content="Education of Arya Somu (arpjw): schools, coursework, awards." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0f0f10" />
+    <style>
+      :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3; --ring:#2b2b33; --accent:#6ee7ff }
+      html,body{height:100%}
+      *{box-sizing:border-box}
+      body{margin:0; min-height:100%; color:var(--fg); background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+      a{color:inherit}
+      .container{width:min(920px, 92vw); margin:0 auto; padding:32px 0 80px}
+      header{display:flex; align-items:center; gap:12px}
+      .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
+      .home:hover{border-color:var(--accent)}
+      h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:16px 0 6px}
+      .sub{color:var(--muted); margin:0 0 18px}
+
+      .timeline{position:relative; margin:24px 0; padding-left:22px}
+      .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent 60%)}
+      .year{position:sticky; top:0; background:rgba(10,10,11,.75); backdrop-filter: blur(6px); padding:4px 8px; width:max-content; border:1px solid var(--ring); border-radius:8px; margin:24px 0; font-weight:700}
+
+      .item{position:relative; margin:14px 0 18px}
+      .item::before{content:""; position:absolute; left:-15px; top:8px; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.15)}
+      .card{border:1px solid var(--ring); border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12)); padding:14px 16px}
+      .row{display:flex; flex-wrap:wrap; gap:8px; align-items:baseline}
+      .row b{font-size:16px}
+      .org{color:var(--muted)}
+      .meta{display:flex; flex-wrap:wrap; gap:10px; color:var(--muted); font-size:12px; margin:6px 0 8px}
+      .desc{font-size:13px; line-height:1.55; margin:8px 0}
+      .badges{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
+      .badge{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
+
+      @media (max-width:600px){ .container{padding:20px 0 64px} }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a class="home" href="./">← home</a>
+      </header>
+
+      <h1>education</h1>
+      <p class="sub">schools • coursework • awards</p>
+
+      <section class="timeline">
+        <div class="year">2025</div>
+
+        <article class="item" id="deanza">
+          <div class="card">
+            <div class="row"><b>De Anza College</b><span class="org">— Applied Mathematics + Finance (intended transfer)</span></div>
+            <div class="meta"><span>Cupertino, CA</span><span>2024 — present</span></div>
+            <p class="desc">Finance major (possible double in Statistics). Activities: Phi Beta Lambda (VP Strategy & Development), Polaris Research Group (Co‑Founder & President).</p>
+            <div class="badges"><span class="badge">Calculus</span><span class="badge">Managerial Accounting</span><span class="badge">Astronomy</span></div>
+          </div>
+        </article>
+
+        <!-- COPY-PASTE TEMPLATE
+        <article class="item" id="UNIQUE_ID">
+          <div class="card">
+            <div class="row"><b>SCHOOL</b><span class="org">— DEGREE / PROGRAM</span></div>
+            <div class="meta"><span>CITY, STATE</span><span>DATES</span></div>
+            <p class="desc">Concise summary. Mention activities, awards, or focus areas.</p>
+            <div class="badges"><span class="badge">keyword</span><span class="badge">keyword</span></div>
+          </div>
+        </article>
+        -->
+      </section>
+    </div>
+  </body>
+</html>
 
