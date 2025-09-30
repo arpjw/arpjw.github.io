@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>arpjw — home</title>
+    <meta name="description" content="Personal landing page for arpjw (Arya Somu) — links, projects, and contact." />
+    <meta property="og:title" content="arpjw — home" />
+    <meta property="og:description" content="Personal landing page for arpjw (Arya Somu) — links, projects, and contact." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0f0f10" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Ccircle cx='128' cy='128' r='120' fill='black'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' fill='white' font-family='monospace' font-size='120'%3Eα%3C/text%3E%3C/svg%3E" />
+    <style>
+      :root{
+        --bg: #0a0a0b;
+        --fg: #e7e7ea;
+        --muted: #9c9ca3;
+        --card: #121214;
+        --accent: #6ee7ff;
+        --ring: #2b2b33;
+      }
+      html,body{height:100%}
+      *{box-sizing:border-box}
+      body{
+        margin:0; display:grid; place-items:center; min-height:100%;
+        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
+        color:var(--fg); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+      .wrap{width:min(680px, 92vw); text-align:center; padding:48px 20px}
+      h1{font-size:clamp(28px, 6vw, 64px); line-height:1.05; margin:0 0 8px; letter-spacing:-0.02em}
+      .tag{color:var(--muted); font-size:clamp(12px, 2.4vw, 16px); margin-bottom:28px}
+      .links{display:grid; gap:12px; margin:28px 0}
+      .btn{
+        display:flex; align-items:center; justify-content:center; gap:10px;
+        padding:14px 16px; border:1px solid var(--ring); border-radius:14px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        text-decoration:none; color:var(--fg); transition:transform .06s ease, border-color .2s ease;
+      }
+      .btn:hover{ transform: translateY(-1px); border-color:var(--accent) }
+      .btn span{opacity:.9}
+      .btn small{opacity:.6}
+      .ghost{opacity:.7}
+      footer{margin-top:36px; color:var(--muted); font-size:12px}
+      .curse{
+        display:inline-block; position:relative; font-weight:700;
+        filter: drop-shadow(0 1px 0 #000);
+      }
+      .curse::after, .curse::before{
+        content: attr(data-text);
+        position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
+      }
+      .curse::before{ left:1px; text-shadow:-1px 0 #07f; opacity:.6 }
+      .curse::after{ right:1px; text-shadow:1px 0 #f0f; opacity:.6 }
+      .social{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px }
+      .chip{ padding:6px 10px; border:1px dashed var(--ring); border-radius:999px; font-size:12px; color:var(--muted) }
+    </style>
+  </head>
+  <body>
+    <main class="wrap" aria-label="content">
+      <h1 class="curse" data-text="you have been noticed">you have been noticed</h1>
+      <div class="tag">minimal landing page • inspired by <a href="https://dhan.lol" target="_blank" rel="noopener" class="ghost">dhan.lol</a></div>
+
+      <nav class="links" aria-label="primary">
+        <a class="btn" href="https://github.com/arpjw" target="_blank" rel="noopener">
+          <span>GitHub</span><small>/arpjw</small>
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/aryasomu" target="_blank" rel="noopener">
+          <span>LinkedIn</span><small>@aryasomu</small>
+        </a>
+        <a class="btn" href="https://x.com/arrrrrryaa" target="_blank" rel="noopener">
+          <span>Twitter/X</span><small>@arrrrrryaa</small>
+        </a>
+        <a class="btn" href="mailto:aryasomu18@gmail.com">
+          <span>Email</span><small>aryasomu18@gmail.com</small>
+        </a>
+      </nav>
+
+      <div class="social" aria-label="meta">
+        <span class="chip">© 2025 arpjw</span>
+        <span class="chip">Cupertino ↔︎ Seattle</span>
+        <span class="chip">built on GitHub Pages</span>
+      </div>
+
+      <footer>
+        <p>
+          P.S. swap the headline to anything (e.g., <code>you have been cursed</code>) or add more links as needed.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
