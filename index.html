@@ -78,6 +78,8 @@
         background:rgba(0,0,0,0.15);
       }
       .dropdown-links a:hover {border-color:var(--accent)}
+          .caret{display:inline-block; transition:transform .15s ease; margin-right:8px}
+      .dropdown[open] .caret{transform:rotate(90deg)}
     </style>
   </head>
   <body>
@@ -90,7 +92,7 @@
           <span>Experience</span><small>what i be up to</small>
         </a>
         <details class="dropdown">
-          <summary>Find me</summary>
+          <summary><span class="caret">▸</span>Find me</summary>
           <div class="dropdown-links">
             <a href="https://github.com/arpjw" target="_blank" rel="noopener"><span>GitHub</span><small>/arpjw</small></a>
             <a href="https://www.linkedin.com/in/aryasomu" target="_blank" rel="noopener"><span>LinkedIn</span><small>@aryasomu</small></a>
@@ -98,6 +100,9 @@
             <a href="mailto:aryasomu18@gmail.com"><span>Email</span><small>aryasomu18 [@] gmail.com</small></a>
           </div>
         </details>
+              <a class="btn" href="education.html">
+          <span>Education</span><small>schools & coursework</small>
+        </a>
       </nav>
 
       <div class="social" aria-label="meta">
