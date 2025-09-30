@@ -53,6 +53,31 @@
       .curse::after{ right:1px; text-shadow:1px 0 #f0f; opacity:.6 }
       .social{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:8px }
       .chip{ padding:6px 10px; border:1px dashed var(--ring); border-radius:999px; font-size:12px; color:var(--muted) }
+
+      /* Dropdown container */
+      .dropdown {
+        border:1px solid var(--ring);
+        border-radius:14px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+        overflow:hidden;
+      }
+      .dropdown summary {
+        list-style:none;
+        cursor:pointer;
+        padding:14px 16px;
+        font-weight:600;
+      }
+      .dropdown[open] summary {border-bottom:1px solid var(--ring)}
+      .dropdown-links {display:grid; gap:10px; padding:14px}
+      .dropdown-links a {
+        display:flex; justify-content:space-between;
+        padding:10px 12px;
+        border:1px solid var(--ring);
+        border-radius:10px;
+        text-decoration:none; color:var(--fg);
+        background:rgba(0,0,0,0.15);
+      }
+      .dropdown-links a:hover {border-color:var(--accent)}
     </style>
   </head>
   <body>
@@ -61,21 +86,18 @@
       <div class="tag">the home of arya somu </div>
 
       <nav class="links" aria-label="primary">
-         <a class="btn" href="experience.html">
+        <a class="btn" href="experience.html">
           <span>Experience</span><small>what i be up to</small>
         </a>
-        <a class="btn" href="https://github.com/arpjw" target="_blank" rel="noopener">
-          <span>GitHub</span><small>/arpjw</small>
-        </a>
-        <a class="btn" href="https://www.linkedin.com/in/aryasomu" target="_blank" rel="noopener">
-          <span>LinkedIn</span><small>@aryasomu</small>
-        </a>
-        <a class="btn" href="https://x.com/arrrrrryaa" target="_blank" rel="noopener">
-          <span>Twitter/X</span><small>@arrrrrryaa</small>
-        </a>
-        <a class="btn" href="mailto:aryasomu18@gmail.com">
-          <span>Email</span><small>aryasomu18 [@] gmail.com</small>
-        </a>
+        <details class="dropdown">
+          <summary>Find me</summary>
+          <div class="dropdown-links">
+            <a href="https://github.com/arpjw" target="_blank" rel="noopener"><span>GitHub</span><small>/arpjw</small></a>
+            <a href="https://www.linkedin.com/in/aryasomu" target="_blank" rel="noopener"><span>LinkedIn</span><small>@aryasomu</small></a>
+            <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener"><span>Twitter/X</span><small>@arrrrrryaa</small></a>
+            <a href="mailto:aryasomu18@gmail.com"><span>Email</span><small>aryasomu18 [@] gmail.com</small></a>
+          </div>
+        </details>
       </nav>
 
       <div class="social" aria-label="meta">
