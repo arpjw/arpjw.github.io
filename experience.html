@@ -13,7 +13,11 @@
       :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3; --card:#121214; --accent:#6ee7ff; --ring:#2b2b33 }
       html,body{height:100%}
       *{box-sizing:border-box}
-      body{ margin:0; min-height:100%; color:var(--fg); background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
+      body{
+        margin:0; min-height:100%; color:var(--fg);
+        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
       a{color:inherit}
       .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 80px}
       header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
@@ -65,100 +69,106 @@
       </div>
 
       <section class="timeline" id="timeline" aria-live="polite">
-        <div class="year">2025</div>
+        <!-- ===== 2025 GROUP ===== -->
+        <div class="year-group" data-year="2025">
+          <div class="year">2025</div>
 
-        <!-- WORK -->
-        <article class="item" data-type="work" id="pplx">
-          <div class="card">
-            <div class="role"><b>Campus Partner</b><span class="org">@ Perplexity</span></div>
-            <div class="meta"><span>San Francisco, CA (Remote) | </span><span>Sept 2025 — present</span></div>
-            <p class="desc">Bringing Comet to De Anza College.</p>
-            <ul class="bullets">
-              <li>Partnered with De Anza Phi Beta Lambda to host the De Anza Innovation Summit, powered by Perplexity.</li>
-              <li>Converted 45+ leads into Comet sign‑ups with my unique referral code.</li>
-            </ul>
-            <div class="tags"><span class="tag">ambassadorship</span><span class="tag">marketing</span><span class="tag">events</span></div>
-          </div>
-        </article>
-
-        <article class="item" data-type="work" id="stealth">
-          <div class="card">
-            <div class="role"><b>Quantitative Research Intern</b><span class="org">@ Stealth (Hedge Fund)</span></div>
-            <div class="meta"><span>New York, NY (Remote) | </span><span>Aug 2025 — Oct 2025</span></div>
-            <p class="desc">Fixed‑income quant focusing on MBS valuation and risk.</p>
-            <ul class="bullets">
-              <li>Built OAS valuation models for ~$75M MBS ($9.4M portfolio) using 10,000+ stochastic rate paths & borrower prepayment hazard models; improved pricing accuracy vs. benchmarks by <b>12 bps</b>.</li>
-              <li>Analyzed 30+ negative‑convexity scenarios; tested swap & Treasury futures hedges to optimize ratios and reduce duration mismatch by ~<b>15%</b>.</li>
-              <li>Ran 50,000+ path Monte Carlo cash‑flow sims to compare TBA vs. specified pools, informing allocation on ~$<b>5M</b> trades.</li>
-            </ul>
-            <div class="tags"><span class="tag">MBS</span><span class="tag">OAS</span><span class="tag">convexity</span><span class="tag">hedging</span><span class="tag">Monte Carlo</span></div>
-          </div>
-        </article>
-
-        <article class="item" data-type="work" id="verdevista">
-          <div class="card">
-            <div class="role"><b>Private Equity Summer Analyst</b><span class="org">@ VerdeVista Partners</span></div>
-            <div class="meta"><span>Philadelphia, PA (Remote) | </span><span>Jun 2025 — Aug 2025</span></div>
-            <p class="desc">Sourcing and diligence for platform & add‑on acquisitions in the green services sector.</p>
-            <ul class="bullets">
-              <li>Sourced <b>100+ targets</b> (landscaping, tree care, plant health) and maintained pipeline tracking to optimize outreach.</li>
-              <li>Supported <b>4</b> transactions: drafted <b>70+</b> memos and <b>50+</b> models/valuations (DCF, comps, precedents) for IC.</li>
-              <li>Completed diligence on <b>30+</b> targets (EBITDA margins, customer concentration, growth levers) with scenario sensitivities.</li>
-            </ul>
-            <div class="tags"><span class="tag">sourcing</span><span class="tag">DCF</span><span class="tag">diligence</span><span class="tag">IC memos</span></div>
-          </div>
-        </article>
-
-        <!-- CLUBS -->
-        <article class="item" data-type="clubs" id="prg">
-          <div class="card">
-            <div class="role">
-              <b>Co‑Founder & President</b>
-              <span class="org">@ <a href="https://sites.google.com/view/deanzaphibetalambda/polaris?authuser=0" target="_blank" rel="noopener">Polaris Research Group</a></span>
+          <!-- WORK (2025) -->
+          <article class="item" data-type="work" id="pplx">
+            <div class="card">
+              <div class="role"><b>Campus Partner</b><span class="org">@ Perplexity</span></div>
+              <div class="meta"><span>San Francisco, CA (Remote) | </span><span>Sept 2025 — present</span></div>
+              <p class="desc">Bringing Comet to De Anza College.</p>
+              <ul class="bullets">
+                <li>Partnered with De Anza Phi Beta Lambda to host the De Anza Innovation Summit, powered by Perplexity.</li>
+                <li>Converted 45+ leads into Comet sign-ups with my unique referral code.</li>
+              </ul>
+              <div class="tags"><span class="tag">ambassadorship</span><span class="tag">marketing</span><span class="tag">events</span></div>
             </div>
-            <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
-            <p class="desc">Leading a 14‑analyst team across Equity, Macro, and Legal verticals; ship professional‑grade research.</p>
-            <ul class="bullets">
-              <li>Directed valuation workstreams in semiconductors & financials; produced an equity research paper (DCF, comps, precedents).</li>
-              <li>Reviewed <b>10+</b> company financials and <b>5+</b> macro datasets with sector KPIs to form investable theses.</li>
-              <li>Managing hiring, onboarding, and training of <b>14</b> analysts.</li>
-            </ul>
-            <div class="tags"><span class="tag">leadership</span><span class="tag">equity research</span><span class="tag">semiconductors</span></div>
-          </div>
-        </article>
+          </article>
 
-        <article class="item" data-type="clubs" id="pbl">
-          <div class="card">
-            <div class="role">
-              <b>VP, Strategy & Development</b>
-              <span class="org">@ <a href="https://www.deanza.edu/clubs/pbl/" target="_blank" rel="noopener">De Anza Phi Beta Lambda</a></span>
+          <article class="item" data-type="work" id="stealth">
+            <div class="card">
+              <div class="role"><b>Quantitative Research Intern</b><span class="org">@ Stealth (Hedge Fund)</span></div>
+              <div class="meta"><span>New York, NY (Remote) | </span><span>Aug 2025 — Oct 2025</span></div>
+              <p class="desc">Fixed-income quant focusing on MBS valuation and risk.</p>
+              <ul class="bullets">
+                <li>Built OAS valuation models for ~$75M MBS ($9.4M portfolio) using 10,000+ stochastic rate paths & borrower prepayment hazard models; improved pricing accuracy vs. benchmarks by <b>12 bps</b>.</li>
+                <li>Analyzed 30+ negative-convexity scenarios; tested swap & Treasury futures hedges to optimize ratios and reduce duration mismatch by ~<b>15%</b>.</li>
+                <li>Ran 50,000+ path Monte Carlo cash-flow sims to compare TBA vs. specified pools, informing allocation on ~$<b>5M</b> trades.</li>
+              </ul>
+              <div class="tags"><span class="tag">MBS</span><span class="tag">OAS</span><span class="tag">convexity</span><span class="tag">hedging</span><span class="tag">Monte Carlo</span></div>
             </div>
-            <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
-            <p class="desc">Exec board for De Anza’s largest club (100+ members); programming & growth.</p>
-            <ul class="bullets">
-              <li>Built a case‑comp bootcamp serving <b>150+</b> students.</li>
-              <li>Co‑created PBL Consulting, the first on‑campus consulting group; supporting <b>5</b> orgs.</li>
-            </ul>
-            <div class="tags"><span class="tag">programming</span><span class="tag">coaching</span><span class="tag">consulting</span></div>
-          </div>
-        </article>
+          </article>
 
-        <!-- 2023 RESEARCH -->
-        <div class="year">2023</div>
-        <article class="item" data-type="research" id="asu">
-          <div class="card">
-            <div class="role"><b>Computational Astrophysics Researcher</b><span class="org">@ Arizona State University</span></div>
-            <div class="meta"><span>Tempe, AZ (Remote/High School) | </span><span>Fall 2023 — Winter 2023</span></div>
-            <p class="desc">High‑school research applying machine learning to space‑weather prediction.</p>
-            <ul class="bullets">
-              <li>Developed and trained <b>Convolutional Neural Networks (CNNs)</b> on solar observational data to classify and predict solar flare events.</li>
-              <li>Implemented preprocessing and feature extraction pipelines to handle astrophysical imaging datasets at scale.</li>
-              <li>Validated model outputs against existing heliophysics research, exploring implications for real‑time space‑weather forecasting.</li>
-            </ul>
-            <div class="tags"><span class="tag">astrophysics</span><span class="tag">CNNs</span><span class="tag">solar flares</span><span class="tag">machine learning</span></div>
-          </div>
-        </article>
+          <article class="item" data-type="work" id="verdevista">
+            <div class="card">
+              <div class="role"><b>Private Equity Summer Analyst</b><span class="org">@ VerdeVista Partners</span></div>
+              <div class="meta"><span>Philadelphia, PA (Remote) | </span><span>Jun 2025 — Aug 2025</span></div>
+              <p class="desc">Sourcing and diligence for platform & add-on acquisitions in the green services sector.</p>
+              <ul class="bullets">
+                <li>Sourced <b>100+ targets</b> (landscaping, tree care, plant health) and maintained pipeline tracking to optimize outreach.</li>
+                <li>Supported <b>4</b> transactions: drafted <b>70+</b> memos and <b>50+</b> models/valuations (DCF, comps, precedents) for IC.</li>
+                <li>Completed diligence on <b>30+</b> targets (EBITDA margins, customer concentration, growth levers) with scenario sensitivities.</li>
+              </ul>
+              <div class="tags"><span class="tag">sourcing</span><span class="tag">DCF</span><span class="tag">diligence</span><span class="tag">IC memos</span></div>
+            </div>
+          </article>
 
+          <!-- CLUBS (2025) -->
+          <article class="item" data-type="clubs" id="prg">
+            <div class="card">
+              <div class="role">
+                <b>Co-Founder & President</b>
+                <span class="org">@ <a href="https://sites.google.com/view/deanzaphibetalambda/polaris?authuser=0" target="_blank" rel="noopener">Polaris Research Group</a></span>
+              </div>
+              <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
+              <p class="desc">Leading a 14-analyst team across Equity, Macro, and Legal verticals; ship professional-grade research.</p>
+              <ul class="bullets">
+                <li>Directed valuation workstreams in semiconductors & financials; produced an equity research paper (DCF, comps, precedents).</li>
+                <li>Reviewed <b>10+</b> company financials and <b>5+</b> macro datasets with sector KPIs to form investable theses.</li>
+                <li>Managing hiring, onboarding, and training of <b>14</b> analysts.</li>
+              </ul>
+              <div class="tags"><span class="tag">leadership</span><span class="tag">equity research</span><span class="tag">semiconductors</span></div>
+            </div>
+          </article>
+
+          <article class="item" data-type="clubs" id="pbl">
+            <div class="card">
+              <div class="role">
+                <b>VP, Strategy & Development</b>
+                <span class="org">@ <a href="https://www.deanza.edu/clubs/pbl/" target="_blank" rel="noopener">De Anza Phi Beta Lambda</a></span>
+              </div>
+              <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
+              <p class="desc">Exec board for De Anza’s largest club (100+ members); programming & growth.</p>
+              <ul class="bullets">
+                <li>Built a case-comp bootcamp serving <b>150+</b> students.</li>
+                <li>Co-created PBL Consulting, the first on-campus consulting group; supporting <b>5</b> orgs.</li>
+              </ul>
+              <div class="tags"><span class="tag">programming</span><span class="tag">coaching</span><span class="tag">consulting</span></div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ===== 2023 GROUP ===== -->
+        <div class="year-group" data-year="2023">
+          <div class="year">2023</div>
+
+          <!-- RESEARCH (2023) -->
+          <article class="item" data-type="research" id="asu">
+            <div class="card">
+              <div class="role"><b>Computational Astrophysics Researcher</b><span class="org">@ Arizona State University</span></div>
+              <div class="meta"><span>Tempe, AZ (Remote/High School) | </span><span>Fall 2023 — Winter 2023</span></div>
+              <p class="desc">High-school research applying machine learning to space-weather prediction.</p>
+              <ul class="bullets">
+                <li>Developed and trained <b>Convolutional Neural Networks (CNNs)</b> on solar observational data to classify and predict solar flare events.</li>
+                <li>Implemented preprocessing and feature extraction pipelines to handle astrophysical imaging datasets at scale.</li>
+                <li>Validated model outputs against existing heliophysics research, exploring implications for real-time space-weather forecasting.</li>
+              </ul>
+              <div class="tags"><span class="tag">astrophysics</span><span class="tag">CNNs</span><span class="tag">solar flares</span><span class="tag">machine learning</span></div>
+            </div>
+          </article>
+        </div>
       </section>
 
       <p class="empty" id="empty" hidden>no items match this filter (yet)</p>
@@ -169,6 +179,15 @@
       const items = document.querySelectorAll('.item');
       const empty = document.getElementById('empty');
 
+      function updateYearGroupsVisibility(){
+        const groups = document.querySelectorAll('.year-group');
+        groups.forEach(g=>{
+          const anyVisible = Array.from(g.querySelectorAll('.item'))
+            .some(it => it.style.display !== 'none');
+          g.style.display = anyVisible ? '' : 'none';
+        });
+      }
+
       function applyFilter(kind){
         let shown = 0;
         items.forEach(el=>{
@@ -178,6 +197,7 @@
           if(show) shown++;
         });
         empty.hidden = shown !== 0;
+        updateYearGroupsVisibility();
       }
 
       chips.forEach(ch=>{
@@ -191,7 +211,7 @@
 
       // default: work selected, but allow deep links like #clubs or #research
       window.addEventListener('load', ()=>{
-        const hash = location.hash?.slice(1);
+        const hash = location.hash ? location.hash.slice(1) : '';
         const target = [...chips].find(c=>c.dataset.filter===hash);
         if(target){
           target.click();
@@ -199,6 +219,7 @@
           const workChip = document.querySelector('.chip[data-filter="work"]');
           if(workChip){ workChip.classList.add('active'); applyFilter('work'); }
         }
+        updateYearGroupsVisibility();
       });
     </script>
   </body>
