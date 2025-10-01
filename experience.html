@@ -4,39 +4,30 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>arpjw — experience</title>
-    <meta name="description" content="Experiences of Arya Somu (arpjw): work, clubs, leadership, research." />
+    <meta name="description" content="Experiences of Arya Somu (arpjw): work, clubs, research." />
     <meta property="og:title" content="arpjw — experience" />
-    <meta property="og:description" content="Experiences of Arya Somu (arpjw): work, clubs, leadership, research." />
+    <meta property="og:description" content="Experiences of Arya Somu (arpjw): work, clubs, research." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0f0f10" />
     <style>
-      :root{
-        --bg: #0a0a0b;
-        --fg: #e7e7ea;
-        --muted: #9c9ca3;
-        --card: #121214;
-        --accent: #6ee7ff;
-        --ring: #2b2b33;
-      }
-      html, body{height:100%}
+      :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3; --card:#121214; --accent:#6ee7ff; --ring:#2b2b33 }
+      html,body{height:100%}
       *{box-sizing:border-box}
-      body{
-        margin:0; min-height:100%; color:var(--fg);
-        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      }
+      body{ margin:0; min-height:100%; color:var(--fg); background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
       a{color:inherit}
-      .container{width:min(920px, 92vw); margin:0 auto; padding:32px 0 80px}
-      header{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 0 16px}
+      .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 80px}
+      header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
       .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
       .home:hover{border-color:var(--accent)}
       h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 4px}
       .sub{color:var(--muted); margin:0 0 18px}
 
+      /* filters */
       .filters{display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 20px}
       .chip{padding:6px 10px; border:1px dashed var(--ring); border-radius:999px; font-size:12px; color:var(--muted); cursor:pointer; user-select:none}
       .chip.active{border-style:solid; border-color:var(--accent); color:var(--fg)}
 
+      /* timeline */
       .timeline{position:relative; margin:24px 0; padding-left:22px}
       .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent 60%)}
       .year{position:sticky; top:0; background:rgba(10,10,11,.75); backdrop-filter: blur(6px); padding:4px 8px; width:max-content; border:1px solid var(--ring); border-radius:8px; margin:24px 0; font-weight:700}
@@ -62,7 +53,6 @@
     <div class="container">
       <header>
         <a class="home" href="./">← home</a>
-        <div style="flex:1"></div>
       </header>
 
       <h1>experience</h1>
@@ -81,13 +71,13 @@
         <article class="item" data-type="work" id="pplx">
           <div class="card">
             <div class="role"><b>Campus Partner</b><span class="org">@ Perplexity</span></div>
-            <div class="meta"><span>San Francisco, CA (Remote) | </span><span>Sept 2025 - present</span></div>
-            <p class="desc">Bringing Comet to De Anza College</p>
+            <div class="meta"><span>San Francisco, CA (Remote) | </span><span>Sept 2025 — present</span></div>
+            <p class="desc">Bringing Comet to De Anza College.</p>
             <ul class="bullets">
               <li>Partnered with De Anza Phi Beta Lambda to host the De Anza Innovation Summit, powered by Perplexity.</li>
-              <li>Converted 45+ leads into Comet sign-ups with my unique referral code.</li>
+              <li>Converted 45+ leads into Comet sign‑ups with my unique referral code.</li>
             </ul>
-            <div class="tags"><span class="tag">Ambassadorship</span><span class="tag">Marketing</span><span class="tag">Events</span><span </div>
+            <div class="tags"><span class="tag">ambassadorship</span><span class="tag">marketing</span><span class="tag">events</span></div>
           </div>
         </article>
 
@@ -119,13 +109,13 @@
           </div>
         </article>
 
-        <!-- CLUBS / LEADERSHIP -->
+        <!-- CLUBS -->
         <article class="item" data-type="clubs" id="prg">
           <div class="card">
             <div class="role">
               <b>Co‑Founder & President</b>
-              <span class="org">
-                @ <a href="https://sites.google.com/view/deanzaphibetalambda/polaris?authuser=0" target="_blank" rel="noopener">Polaris Research Group</a></span></div>
+              <span class="org">@ <a href="https://sites.google.com/view/deanzaphibetalambda/polaris?authuser=0" target="_blank" rel="noopener">Polaris Research Group</a></span>
+            </div>
             <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
             <p class="desc">Leading a 14‑analyst team across Equity, Macro, and Legal verticals; ship professional‑grade research.</p>
             <ul class="bullets">
@@ -140,33 +130,35 @@
         <article class="item" data-type="clubs" id="pbl">
           <div class="card">
             <div class="role">
-
-         <!-- RESEARCH -->
-              <!-- 2023 entries -->
-  <div class="year">2023</div>
-  <article class="item" data-type="research" id="asu">
-    <div class="card">
-      <div class="role"><b>Computational Astrophysics Researcher</b><span class="org">@ Arizona State University</span></div>
-      <div class="meta"><span>Tempe, AZ (Remote) | </span><span>Oct 2023 — Feb 2023</span></div>
-      <p class="desc">High school research experience focused on computational astrophysics projects.</p>
-      <ul class="bullets">
-        <li>Developed simulations and data analysis pipelines to study astrophysical phenomena using computational methods.</li>
-        <li>Gained exposure to research workflows and coding applied to scientific data.</li>
-      </ul>
-      <div class="tags"><span class="tag">astrophysics</span><span class="tag">computational research</span><span class="tag">high school</span></div>
-    </div>
-  </article>
-
+              <b>VP, Strategy & Development</b>
+              <span class="org">@ <a href="https://www.deanza.edu/clubs/pbl/" target="_blank" rel="noopener">De Anza Phi Beta Lambda</a></span>
+            </div>
             <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
             <p class="desc">Exec board for De Anza’s largest club (100+ members); programming & growth.</p>
             <ul class="bullets">
-      <li>Developed and trained <b>Convolutional Neural Networks (CNNs)</b> on solar observational data to classify and predict solar flare events.</li>
-      <li>Implemented preprocessing and feature extraction pipelines to handle astrophysical imaging datasets at scale.</li>
-      <li>Validated model outputs against existing heliophysics research, exploring implications for real-time space weather forecasting.</li>
-    </ul>
+              <li>Built a case‑comp bootcamp serving <b>150+</b> students.</li>
+              <li>Co‑created PBL Consulting, the first on‑campus consulting group; supporting <b>5</b> orgs.</li>
+            </ul>
             <div class="tags"><span class="tag">programming</span><span class="tag">coaching</span><span class="tag">consulting</span></div>
           </div>
         </article>
+
+        <!-- 2023 RESEARCH -->
+        <div class="year">2023</div>
+        <article class="item" data-type="research" id="asu">
+          <div class="card">
+            <div class="role"><b>Computational Astrophysics Researcher</b><span class="org">@ Arizona State University</span></div>
+            <div class="meta"><span>Tempe, AZ (Remote/High School) | </span><span>Fall 2023 — Winter 2023</span></div>
+            <p class="desc">High‑school research applying machine learning to space‑weather prediction.</p>
+            <ul class="bullets">
+              <li>Developed and trained <b>Convolutional Neural Networks (CNNs)</b> on solar observational data to classify and predict solar flare events.</li>
+              <li>Implemented preprocessing and feature extraction pipelines to handle astrophysical imaging datasets at scale.</li>
+              <li>Validated model outputs against existing heliophysics research, exploring implications for real‑time space‑weather forecasting.</li>
+            </ul>
+            <div class="tags"><span class="tag">astrophysics</span><span class="tag">CNNs</span><span class="tag">solar flares</span><span class="tag">machine learning</span></div>
+          </div>
+        </article>
+
       </section>
 
       <p class="empty" id="empty" hidden>no items match this filter (yet)</p>
@@ -187,6 +179,7 @@
         });
         empty.hidden = shown !== 0;
       }
+
       chips.forEach(ch=>{
         ch.addEventListener('click', ()=>{
           chips.forEach(c=>c.classList.remove('active'));
@@ -196,17 +189,15 @@
         });
       });
 
-      // default: work selected
+      // default: work selected, but allow deep links like #clubs or #research
       window.addEventListener('load', ()=>{
-        const workChip = document.querySelector('.chip[data-filter="work"]');
-        if(workChip){
-          workChip.classList.add('active');
-          applyFilter('work');
-        }
-        if(location.hash){
-          const wanted = location.hash.slice(1);
-          const target = [...chips].find(c=>c.dataset.filter===wanted);
-          if(target){ target.click(); }
+        const hash = location.hash?.slice(1);
+        const target = [...chips].find(c=>c.dataset.filter===hash);
+        if(target){
+          target.click();
+        } else {
+          const workChip = document.querySelector('.chip[data-filter="work"]');
+          if(workChip){ workChip.classList.add('active'); applyFilter('work'); }
         }
       });
     </script>
