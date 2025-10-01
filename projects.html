@@ -1,1 +1,95 @@
-/
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>arpjw — projects</title>
+    <meta name="description" content="Projects by Arya Somu (arpjw): code, research, experiments." />
+    <meta property="og:title" content="arpjw — projects" />
+    <meta property="og:description" content="Projects by Arya Somu (arpjw): code, research, experiments." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0f0f10" />
+    <style>
+      :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3;
+        --card:#121214; --accent:#6ee7ff; --ring:#2b2b33; }
+      html,body{height:100%}
+      *{box-sizing:border-box}
+      body{ margin:0; min-height:100%; color:var(--fg);
+        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+      a{color:inherit}
+      .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 80px}
+      header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
+      .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
+      .home:hover{border-color:var(--accent)}
+      h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 4px}
+      .sub{color:var(--muted); margin:0 0 28px}
+
+      .projects{display:grid; gap:20px}
+      .project-card{border:1px solid var(--ring); border-radius:14px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        padding:20px; display:flex; flex-direction:column; gap:10px;}
+      .project-title{font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px}
+      .project-title a{font-size:14px; color:var(--accent); text-decoration:none}
+      .project-title a:hover{text-decoration:underline}
+      .project-desc{font-size:14px; line-height:1.55}
+      .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px}
+      .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
+      .links{display:flex; gap:12px; margin-top:6px}
+      .links a{font-size:12px; color:var(--accent); text-decoration:none}
+      .links a:hover{text-decoration:underline}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a class="home" href="./">← home</a>
+      </header>
+
+      <h1>projects</h1>
+      <p class="sub">selected builds, research, and experiments</p>
+
+      <section class="projects">
+
+        <!-- Example Project Skeleton -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>ExecutionAlgoSim</span>
+            <a href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <p class="project-desc">
+            Simulator for algorithmic execution strategies (TWAP, VWAP, POV), modeling order book dynamics and slippage.
+          </p>
+          <div class="tags">
+            <span class="tag">C++</span><span class="tag">order book</span><span class="tag">quant</span>
+          </div>
+          <div class="links">
+            <a href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">source</a>
+            <a href="#" target="_blank" rel="noopener">demo</a>
+            <a href="#" target="_blank" rel="noopener">write-up</a>
+          </div>
+        </div>
+
+        <!-- Duplicate and edit below for more projects -->
+        <div class="project-card">
+          <div class="project-title">
+            <span>Project Name</span>
+            <a href="#" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <p class="project-desc">
+            Short description of the project. What it does, why you built it, and key results or features.
+          </p>
+          <div class="tags">
+            <span class="tag">skill1</span><span class="tag">skill2</span><span class="tag">skill3</span>
+          </div>
+          <div class="links">
+            <a href="#">source</a>
+            <a href="#">demo</a>
+            <a href="#">write-up</a>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </body>
+</html>
