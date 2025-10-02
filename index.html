@@ -78,13 +78,36 @@
         background:rgba(0,0,0,0.15);
       }
       .dropdown-links a:hover {border-color:var(--accent)}
-          .caret{display:inline-block; transition:transform .15s ease; margin-right:8px}
+      .caret{display:inline-block; transition:transform .15s ease; margin-right:8px}
       .dropdown[open] .caret{transform:rotate(90deg)}
+
+      /* --- current location + clock --- */
+      .nowline{
+        display:inline-flex; align-items:center; gap:10px;
+        margin-top:8px; padding:8px 12px;
+        border:1px solid var(--ring); border-radius:12px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        font-size:13px; color:var(--fg);
+      }
+      .nowline .lbl{ color:var(--muted); letter-spacing:0.02em }
+      .nowline .city{ font-weight:700 }
+      .nowline .dot{ color:var(--muted); opacity:.8 }
+      .nowline .clock{ font-variant-numeric: tabular-nums; opacity:.95 }
+      .nowline:hover{ border-color:var(--accent) }
     </style>
   </head>
   <body>
     <main class="wrap" aria-label="content">
       <h1 class="curse" data-text="you have been noticed">you have been noticed</h1>
+
+      <!-- CURRENT LOCATION + LIVE CLOCK -->
+      <div id="locationBar" class="nowline" data-city="San Francisco, CA" data-timezone="America/Los_Angeles" title="Click to copy time zone">
+          <span class="lbl">currently in:</span>
+          <span class="city">san francisco, ca</span>
+          <span class="dot">•</span>
+          <span class="clock" aria-live="polite">--:--:--</span>
+      </div>
+
       <div class="tag">‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ </div>
       <div class="tag">hi, im arya</div>
 
@@ -130,41 +153,66 @@
     </main>
 
     <style>
-  .promo-bubble {
-    margin-top: 28px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--card);
-    border: 1px solid var(--accent);
-    border-radius: 50px;
-    padding: 10px 16px;
-    font-size: 13px;
-    color: var(--fg);
-    box-shadow: 0 0 12px rgba(110,231,255,0.25);
-    text-decoration: none;
-  }
-  .promo-bubble:hover {
-    border-color: white;
-    transform: scale(1.02);
-  }
-  .promo-close {
-    background: transparent;
-    border: none;
-    color: var(--muted);
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 4px;
-  }
-  .promo-close:hover { color: var(--fg); }
-</style>
+      .promo-bubble {
+        margin-top: 28px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--card);
+        border: 1px solid var(--accent);
+        border-radius: 50px;
+        padding: 10px 16px;
+        font-size: 13px;
+        color: var(--fg);
+        box-shadow: 0 0 12px rgba(110,231,255,0.25);
+        text-decoration: none;
+      }
+      .promo-bubble:hover {
+        border-color: white;
+        transform: scale(1.02);
+      }
+      .promo-close {
+        background: transparent;
+        border: none;
+        color: var(--muted);
+        font-size: 14px;
+        cursor: pointer;
+        margin-left: 4px;
+      }
+      .promo-close:hover { color: var(--fg); }
+    </style>
 
-<div id="promo-container" style="text-align:center;">
-  <a href="https://pplx.ai/arya-somu" target="_blank" class="promo-bubble">
-    Claim <b>FREE</b> Perplexity Pro + Comet
-    <button class="promo-close" onclick="document.getElementById('promo-container').remove()">✕</button>
-  </a>
-</div>
+    <div id="promo-container" style="text-align:center;">
+      <a href="https://pplx.ai/arya-somu" target="_blank" class="promo-bubble">
+        Claim <b>FREE</b> Perplexity Pro + Comet
+        <button class="promo-close" onclick="document.getElementById('promo-container').remove()">✕</button>
+      </a>
+    </div>
+
+    <!-- Live clock script -->
+    <script>
+      (function(){
+        const bar = document.getElementById('locationBar');
+        if(!bar) return;
+        const city = bar.dataset.city || 'Somewhere';
+        const tz   = bar.dataset.timezone || 'UTC';
+        bar.querySelector('.city').textContent = city;
+
+        function tick(){
+          try{
+            const t = new Date().toLocaleTimeString('en-US', {
+              hour: '2-digit', minute: '2-digit', second: '2-digit',
+              hour12: true, timeZone: tz
+            });
+            bar.querySelector('.clock').textContent = t;
+          }catch(e){
+            bar.querySelector('.clock').textContent = new Date().toLocaleTimeString();
+          }
+        }
+        tick();
+        setInterval(tick, 1000);
+      })();
+    </script>
 
   </body>
 </html>
