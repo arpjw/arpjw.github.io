@@ -3,84 +3,270 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>arpjw — events</title>
-  <meta name="description" content="Events and places you can find Arya Somu (arpjw)." />
-  <meta property="og:title" content="arpjw — events" />
-  <meta property="og:description" content="Events and places you can find Arya Somu (arpjw)." />
+  <title>Events</title>
+  <meta name="description" content="Upcoming and previous events for Arya Somu." />
+  <meta property="og:title" content="Arya Somu — Events" />
+  <meta property="og:description" content="Upcoming and previous events for Arya Somu." />
   <meta property="og:type" content="website" />
   <meta name="theme-color" content="#0f0f10" />
+
   <style>
-    :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3; --card:#121214; --accent:#6ee7ff; --ring:#2b2b33 }
-    html,body{height:100%}
+    :root{
+      --bg:#0a0a0b;
+      --fg:#e7e7ea;
+      --muted:#a3a3ad;
+      --card:rgba(18,18,20,0.9);
+      --accent:#6ee7ff;
+      --ring:#2b2b33;
+      --shadow:0 12px 40px rgba(0,0,0,0.35);
+    }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0; min-height:100%; color:var(--fg);
-      background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      margin:0;
+      min-height:100%;
+      color:var(--fg);
+      background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
     a{color:inherit}
-    .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 80px}
-    header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
-    .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
-    .home:hover{border-color:var(--accent)}
-    h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 4px}
-    .sub{color:var(--muted); margin:0 0 18px}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
-    .filters{display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 20px}
-    .chip{padding:6px 10px; border:1px dashed var(--ring); border-radius:999px; font-size:12px; color:var(--muted); cursor:pointer; user-select:none}
-    .chip.active{border-style:solid; border-color:var(--accent); color:var(--fg)}
+    .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
 
-    .timeline{position:relative; margin:24px 0; padding-left:22px}
-    .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent 60%)}
-    .year{margin:24px 0 12px; padding:4px 8px; border:1px solid var(--ring); border-radius:8px; background:rgba(10,10,11,.75); font-weight:700; width:max-content}
+    /* top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+    .home{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--ring);
+      border-radius:14px;
+      text-decoration:none;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      transition:transform .06s ease, border-color .2s ease;
+      font-size:14px;
+    }
+    .home:hover{transform:translateY(-1px); border-color:var(--accent)}
 
-    .event{position:relative; margin:14px 0 18px}
-    .event::before{content:""; position:absolute; left:-15px; top:8px; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.15)}
-    .card{border:1px solid var(--ring); border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12)); padding:14px 16px}
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      text-decoration:none;
+      font-size:13px;
+      color:var(--fg);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      transition:transform .06s ease, border-color .2s ease;
+    }
+    .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
 
-    .topline{font-weight:700; font-size:16px}
-    .meta{color:var(--muted); font-size:12px; margin:6px 0 8px}
+    /* cards */
+    .card{
+      border:1px solid var(--ring);
+      border-radius:18px;
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    /* hero */
+    .hero{padding:22px 20px; margin-bottom:14px}
+    h1{
+      margin:0;
+      font-size:clamp(28px, 4.3vw, 44px);
+      letter-spacing:-0.03em;
+      line-height:1.08;
+    }
+    .sub{
+      margin:10px 0 0;
+      color:var(--muted);
+      line-height:1.55;
+      max-width:78ch;
+      font-size:15px;
+    }
+
+    /* section headers */
+    .section-head{
+      margin:18px 2px 10px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:12px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .section-head .note{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* list */
+    .list{display:grid; gap:12px}
+    .event{padding:16px 16px}
+    .event-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .title{
+      margin:0;
+      font-size:16px;
+      font-weight:700;
+      letter-spacing:-0.01em;
+      line-height:1.25;
+    }
+    .badge{
+      font-size:12px;
+      padding:7px 10px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(0,0,0,0.12);
+      white-space:nowrap;
+    }
+    .meta{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    footer{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <header>
-      <a class="home" href="./">← home</a>
-    </header>
+    <div class="topbar">
+      <a class="home" href="./">← Home</a>
+      <div class="pillrow">
+        <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
+        <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
+        <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
+        <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
+      </div>
+    </div>
 
-    <h1>events</h1>
-    <p class="sub">where i’ll be</p>
-
-    <section class="timeline">
-
-      <!-- 2025 -->
-      <div class="year">2025</div>
-
-      <article class="event">
-        <div class="card">
-          <div class="topline">De Anza Hacks 4.0</div>
-          <div class="meta">Nov 21–22, 2025 • 8:00 AM – 8:00 PM • Cupertino, CA</div>
-        </div>
-      </article>
-
-      <!-- 2026 -->
-      <div class="year">2026</div>
-
-      <article class="event">
-        <div class="card">
-          <div class="topline">FBLA State Leadership Conference 2026 (Tentative)</div>
-          <div class="meta">Mar/Apr 2026 • San Francisco, CA</div>
-        </div>
-      </article>
-
-      <article class="event">
-        <div class="card">
-          <div class="topline">FBLA National Leadership Conference 2026</div>
-          <div class="meta">Jun 7–9, 2026 • Las Vegas, NV</div>
-        </div>
-      </article>
-
+    <section class="card hero">
+      <h1>Events</h1>
+      <p class="sub">Upcoming and previous events.</p>
     </section>
+
+    <!-- UPCOMING -->
+    <div class="section-head">
+      <h2>Upcoming</h2>
+      <div class="note">Where I’ll be next.</div>
+    </div>
+
+    <section class="list" aria-label="upcoming events">
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">FBLA State Leadership Conference</h3>
+          <span class="badge">Mar 27–29</span>
+        </div>
+        <div class="meta">San Francisco, CA</div>
+      </article>
+
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">FBLA National Leadership Conference</h3>
+          <span class="badge">Jun 7–9</span>
+        </div>
+        <div class="meta">Las Vegas, NV</div>
+      </article>
+    </section>
+
+    <!-- PREVIOUS -->
+    <div class="section-head">
+      <h2>Previous</h2>
+      <div class="note">Recent events, programs, and conferences.</div>
+    </div>
+
+    <section class="list" aria-label="previous events">
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">De Anza Innovation Summit</h3>
+          <span class="badge">Oct 10–11</span>
+        </div>
+        <div class="meta">Cupertino, CA</div>
+      </article>
+
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">FBLA Fall State Leadership Conference</h3>
+          <span class="badge">Nov 7–9</span>
+        </div>
+        <div class="meta">San Diego, CA</div>
+      </article>
+
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">TEDx De Anza — Community College to Success</h3>
+          <span class="badge">Nov 10</span>
+        </div>
+        <div class="meta">Cupertino, CA</div>
+      </article>
+
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">De Anza Hacks 4.0</h3>
+          <span class="badge">Nov 21–22</span>
+        </div>
+        <div class="meta">Cupertino, CA</div>
+      </article>
+
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">Susquehanna International Group — Virtual Discovery Program</h3>
+          <span class="badge">Dec 4</span>
+        </div>
+        <div class="meta">Bala Cynwyd, PA (remote)</div>
+      </article>
+
+      <article class="card event">
+        <div class="event-top">
+          <h3 class="title">Bain Capital – Investors of Tomorrow</h3>
+          <span class="badge">Dec 10</span>
+        </div>
+        <div class="meta">Boston, MA (remote)</div>
+      </article>
+    </section>
+
+    <footer>
+      <span class="mono">© <span id="y"></span> Arya Somu</span>
+    </footer>
   </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
