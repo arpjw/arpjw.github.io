@@ -136,12 +136,7 @@
       }
 
       /* Based pills */
-      .basedstack{
-        display:flex;
-        gap:10px;
-        align-items:center;
-        flex-wrap:wrap;
-      }
+      .basedstack{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 
       .nowline{
         display:flex;
@@ -154,70 +149,33 @@
         font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
         max-width:100%;
         overflow:hidden;
-        position:relative;
         cursor:pointer;
         user-select:none;
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
       }
       .nowline .city{font-weight:700}
       .nowline .clock{margin-left:auto; font-variant-numeric:tabular-nums; white-space:nowrap}
+      .nowline:hover{border-color:rgba(110,231,255,0.65)}
 
-      /* Full-oval pulse (instead of tiny dot) */
+      /* Full-oval pulse outline (Seattle) */
       .nowline.here{
-        border-color:rgba(110,231,255,0.9);
+        border-color:rgba(110,231,255,0.95);
+        position:relative;
       }
       .nowline.here::after{
         content:"";
         position:absolute;
         inset:-2px;
         border-radius:999px;
-        box-shadow:0 0 0 0 rgba(110,231,255,0.32);
+        box-shadow:0 0 0 0 rgba(110,231,255,0.26);
         animation:ovalPulse 1.7s ease-out infinite;
         pointer-events:none;
       }
       @keyframes ovalPulse{
-        0%   { box-shadow:0 0 0 0 rgba(110,231,255,0.28); opacity:1; }
+        0%   { box-shadow:0 0 0 0 rgba(110,231,255,0.24); opacity:1; }
         70%  { box-shadow:0 0 0 10px rgba(110,231,255,0.0); opacity:0; }
         100% { box-shadow:0 0 0 10px rgba(110,231,255,0.0); opacity:0; }
       }
-
-      /* Popover (no iframe; reliable everywhere) */
-      .popover{
-        position:absolute;
-        left:0;
-        top:calc(100% + 10px);
-        width:min(320px, 86vw);
-        background:rgba(10,10,11,0.96);
-        border:1px solid var(--ring);
-        border-radius:16px;
-        box-shadow:0 14px 44px rgba(0,0,0,0.55);
-        padding:12px;
-        opacity:0;
-        transform:translateY(-4px);
-        pointer-events:none;
-        transition:opacity .15s ease, transform .15s ease;
-        z-index:50;
-      }
-      .nowline:hover .popover,
-      .nowline.open .popover{
-        opacity:1;
-        transform:translateY(0);
-        pointer-events:auto;
-      }
-
-      .pop-title{font-weight:700; font-size:13px}
-      .pop-sub{color:var(--muted); font-size:12px; margin-top:4px}
-      .pop-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-      .pop-actions a{
-        text-decoration:none;
-        font-size:12px;
-        padding:8px 10px;
-        border-radius:999px;
-        border:1px solid var(--ring);
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        color:var(--fg);
-      }
-      .pop-actions a:hover{border-color:var(--accent)}
 
       /* Nav cards */
       .nav{
@@ -245,6 +203,46 @@
       }
       .social{display:flex; gap:10px; flex-wrap:wrap}
       .muted{font-size:12px; color:var(--muted)}
+
+      /* ===== Global fixed popover that cannot be clipped ===== */
+      .map-pop{
+        position:fixed;
+        z-index:99999;
+        width:min(360px, 92vw);
+        background:rgba(10,10,11,0.96);
+        border:1px solid var(--ring);
+        border-radius:16px;
+        box-shadow:0 16px 52px rgba(0,0,0,0.60);
+        padding:12px;
+        display:none;
+      }
+      .map-pop.show{display:block}
+      .map-pop .title{font-weight:700; font-size:13px}
+      .map-pop .sub{color:var(--muted); font-size:12px; margin-top:4px}
+      .map-pop .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+      .map-pop .actions a{
+        text-decoration:none;
+        font-size:12px;
+        padding:8px 10px;
+        border-radius:999px;
+        border:1px solid var(--ring);
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        color:var(--fg);
+      }
+      .map-pop .actions a:hover{border-color:var(--accent)}
+      .map-pop .close{
+        position:absolute;
+        top:8px;
+        right:8px;
+        width:28px;
+        height:28px;
+        border-radius:10px;
+        border:1px solid var(--ring);
+        background:rgba(255,255,255,0.03);
+        color:var(--fg);
+        cursor:pointer;
+      }
+      .map-pop .close:hover{border-color:var(--accent)}
     </style>
   </head>
 
@@ -292,34 +290,26 @@
             <div class="k">Based</div>
             <div class="v">
               <div class="basedstack">
-                <!-- Seattle (current) -->
-                <span id="locSeattle" class="nowline here" data-loc data-city="Seattle, WA">
+                <span
+                  id="locSeattle"
+                  class="nowline here"
+                  data-loc
+                  data-place="Seattle, WA"
+                  data-query="Seattle, WA"
+                >
                   <span class="city">Seattle, WA</span>
                   <span class="clock">--:--:--</span>
-
-                  <div class="popover" role="dialog" aria-label="Seattle links">
-                    <div class="pop-title">Seattle, WA</div>
-                    <div class="pop-sub">Currently here</div>
-                    <div class="pop-actions">
-                      <a href="https://www.google.com/maps/search/?api=1&query=Seattle%2C%20WA" target="_blank" rel="noopener">Open in Maps</a>
-                      <a href="https://www.google.com/maps/dir/?api=1&destination=Seattle%2C%20WA" target="_blank" rel="noopener">Directions</a>
-                    </div>
-                  </div>
                 </span>
 
-                <!-- San Francisco (study/work) -->
-                <span id="locSF" class="nowline" data-loc data-city="San Francisco, CA">
+                <span
+                  id="locSF"
+                  class="nowline"
+                  data-loc
+                  data-place="San Francisco, CA"
+                  data-query="San Francisco, CA"
+                >
                   <span class="city">San Francisco, CA</span>
                   <span class="clock">--:--:--</span>
-
-                  <div class="popover" role="dialog" aria-label="San Francisco links">
-                    <div class="pop-title">San Francisco, CA</div>
-                    <div class="pop-sub">Study &amp; work</div>
-                    <div class="pop-actions">
-                      <a href="https://www.google.com/maps/search/?api=1&query=San%20Francisco%2C%20CA" target="_blank" rel="noopener">Open in Maps</a>
-                      <a href="https://www.google.com/maps/dir/?api=1&destination=San%20Francisco%2C%20CA" target="_blank" rel="noopener">Directions</a>
-                    </div>
-                  </div>
                 </span>
               </div>
             </div>
@@ -365,10 +355,22 @@
       </div>
     </main>
 
+    <!-- Global popover (fixed, cannot be clipped) -->
+    <div id="mapPop" class="map-pop" role="dialog" aria-label="Map popover">
+      <button class="close" type="button" aria-label="Close">✕</button>
+      <div class="title" id="mapPopTitle">Place</div>
+      <div class="sub">Open maps for details</div>
+      <div class="actions">
+        <a id="mapOpen" href="#" target="_blank" rel="noopener">Open in Maps</a>
+        <a id="mapDir" href="#" target="_blank" rel="noopener">Directions</a>
+      </div>
+    </div>
+
     <script>
+      // footer year
       document.getElementById('y').textContent = new Date().getFullYear();
 
-      // live clocks (same timezone for both; just showing current time)
+      // live clocks (same timezone for both)
       (function(){
         const els = Array.from(document.querySelectorAll('[data-loc]'));
         function tick(el){
@@ -382,30 +384,118 @@
         setInterval(()=>els.forEach(tick), 1000);
       })();
 
-      // hover preview + click to pin (mobile friendly)
+      // global fixed popover logic (hover opens, click pins)
       (function(){
+        const pop = document.getElementById('mapPop');
+        const popTitle = document.getElementById('mapPopTitle');
+        const openA = document.getElementById('mapOpen');
+        const dirA = document.getElementById('mapDir');
+        const closeBtn = pop.querySelector('.close');
+
         const locs = Array.from(document.querySelectorAll('[data-loc]'));
+        let pinned = false;
+        let currentEl = null;
 
-        function closeAll(){ locs.forEach(el=>el.classList.remove('open')); }
+        function setLinks(query){
+          const q = encodeURIComponent(query);
+          openA.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+          dirA.href  = `https://www.google.com/maps/dir/?api=1&destination=${q}`;
+        }
 
-        document.addEventListener('click', (e)=>{
-          const loc = e.target.closest('[data-loc]');
-          const insidePopover = e.target.closest('.popover');
-          if(insidePopover) return;
+        function positionPopover(el){
+          const r = el.getBoundingClientRect();
+          const pad = 10;
 
-          if(loc){
-            const willOpen = !loc.classList.contains('open');
-            closeAll();
-            if(willOpen) loc.classList.add('open');
-            e.stopPropagation();
-            return;
+          // default below-left
+          let left = r.left;
+          let top = r.bottom + pad;
+
+          // keep on-screen horizontally
+          const popW = Math.min(360, Math.floor(window.innerWidth * 0.92));
+          const maxLeft = window.innerWidth - popW - pad;
+          left = Math.max(pad, Math.min(left, maxLeft));
+
+          // if not enough space below, place above
+          const estimatedH = 150;
+          if(top + estimatedH > window.innerHeight - pad){
+            top = r.top - estimatedH - pad;
+            top = Math.max(pad, top);
           }
+
+          pop.style.left = left + "px";
+          pop.style.top = top + "px";
+        }
+
+        function show(el){
+          currentEl = el;
+          popTitle.textContent = el.dataset.place || "Location";
+          setLinks(el.dataset.query || el.dataset.place || "");
+          positionPopover(el);
+          pop.classList.add('show');
+        }
+
+        function hide(){
+          if(pinned) return;
+          pop.classList.remove('show');
+          currentEl = null;
+        }
+
+        function closeAll(){
+          pinned = false;
+          pop.classList.remove('show');
+          currentEl = null;
+        }
+
+        // hover to preview (desktop)
+        locs.forEach(el=>{
+          el.addEventListener('mouseenter', ()=>{
+            if(pinned) return;
+            show(el);
+          });
+          el.addEventListener('mouseleave', ()=>{
+            if(pinned) return;
+            // slight delay so moving toward pop doesn't instantly hide
+            setTimeout(()=>{
+              if(!pinned) hide();
+            }, 120);
+          });
+
+          // click to pin
+          el.addEventListener('click', (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            if(currentEl === el && pinned){
+              closeAll();
+              return;
+            }
+            pinned = true;
+            show(el);
+          });
+        });
+
+        // keep pop open when hovering over it (when not pinned)
+        pop.addEventListener('mouseenter', ()=>{
+          if(!pinned && currentEl) pop.classList.add('show');
+        });
+        pop.addEventListener('mouseleave', ()=>{
+          if(!pinned) hide();
+        });
+
+        // close controls
+        closeBtn.addEventListener('click', (e)=>{
+          e.stopPropagation();
           closeAll();
         });
+        document.addEventListener('click', ()=> closeAll());
+        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeAll(); });
 
-        document.addEventListener('keydown', (e)=>{
-          if(e.key === 'Escape') closeAll();
+        // reposition on resize/scroll so it doesn't drift
+        window.addEventListener('resize', ()=>{
+          if(pop.classList.contains('show') && currentEl) positionPopover(currentEl);
         });
+        window.addEventListener('scroll', ()=>{
+          if(pop.classList.contains('show') && currentEl) positionPopover(currentEl);
+        }, { passive:true });
       })();
     </script>
   </body>
