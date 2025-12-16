@@ -3,74 +3,309 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Post Title — arpjw</title>
-  <meta name="description" content="Short description of this post." />
+  <title>welcome to the blog — Arya Somu</title>
+  <meta name="description" content="Entry #1: why this blog exists and what it’s for." />
+  <meta property="og:title" content="welcome to the blog — Arya Somu" />
+  <meta property="og:description" content="Entry #1: why this blog exists and what it’s for." />
+  <meta property="og:type" content="article" />
   <meta name="theme-color" content="#0f0f10" />
+
   <style>
-    :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3; --card:#121214; --accent:#6ee7ff; --ring:#2b2b33 }
-    html,body{height:100%} *{box-sizing:border-box}
-    body{ margin:0; min-height:100%; color:var(--fg);
-      background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
+    :root{
+      --bg:#0a0a0b;
+      --fg:#e7e7ea;
+      --muted:#a3a3ad;
+      --card:rgba(18,18,20,0.9);
+      --accent:#6ee7ff;
+      --ring:#2b2b33;
+      --shadow:0 12px 40px rgba(0,0,0,0.35);
+
+      /* homey flair */
+      --warm: rgba(255, 214, 170, 0.14);
+      --paper: rgba(255,255,255,0.035);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      min-height:100%;
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%),
+        radial-gradient(760px 420px at 14% 14%, var(--warm) 0%, transparent 60%),
+        radial-gradient(720px 420px at 88% 12%, rgba(110,231,255,0.10) 0%, transparent 60%);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
     a{color:inherit}
-    .wrap{width:min(800px,92vw); margin:0 auto; padding:32px 0 80px}
-    header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
-    .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
-    .home:hover{border-color:var(--accent)}
-    h1{font-size:clamp(28px,6vw,44px); line-height:1.08; margin:8px 0 8px}
-    .meta{color:var(--muted); font-size:12px; margin-bottom:20px}
-    .content{border:1px solid var(--ring); border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12)); padding:20px}
-    .content p{line-height:1.75; margin:12px 0}
-    .content h2{margin-top:24px; margin-bottom:8px; font-size:18px}
-    .content pre{overflow:auto; padding:12px; border:1px solid var(--ring); border-radius:12px}
-    .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:16px}
-    .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    .container{width:min(920px,92vw); margin:0 auto; padding:34px 0 86px}
+
+    /* top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+    .home{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--ring);
+      border-radius:14px;
+      text-decoration:none;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      transition:transform .06s ease, border-color .2s ease;
+      font-size:14px;
+      cursor:pointer;
+    }
+    .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      text-decoration:none;
+      font-size:13px;
+      color:var(--fg);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      transition:transform .06s ease, border-color .2s ease;
+    }
+    .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+    /* card */
+    .card{
+      border:1px solid var(--ring);
+      border-radius:18px;
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(6px);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.035), rgba(0,0,0,0)),
+        repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(255,255,255,0.010) 7px);
+      pointer-events:none;
+      opacity:.85;
+      mix-blend-mode:screen;
+    }
+
+    /* post header */
+    .post-head{padding:22px 20px; margin-bottom:14px}
+    h1{
+      margin:0;
+      font-size:clamp(28px, 4.3vw, 44px);
+      letter-spacing:-0.03em;
+      line-height:1.08;
+      position:relative;
+      z-index:1;
+    }
+    .meta{
+      position:relative;
+      z-index:1;
+      margin-top:12px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .dot{opacity:.6}
+
+    .badge{
+      font-size:12px;
+      padding:7px 10px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(0,0,0,0.12);
+      white-space:nowrap;
+    }
+
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-left:auto}
+    .tag{
+      font-size:12px;
+      padding:6px 10px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(0,0,0,0.12);
+    }
+
+    /* content */
+    .content{padding:20px 20px 18px}
+    .prose{
+      position:relative;
+      z-index:1;
+      font-size:15px;
+      line-height:1.8;
+      color:rgba(231,231,234,0.92);
+    }
+    .prose p{margin:14px 0}
+    .prose h2{
+      margin:22px 0 8px;
+      font-size:16px;
+      letter-spacing:-0.01em;
+      color:var(--fg);
+    }
+    .prose em{color:rgba(231,231,234,0.88)}
+    .prose strong{color:var(--fg)}
+    .prose a{
+      text-decoration:none;
+      border-bottom:1px solid rgba(163,163,173,0.25);
+      padding-bottom:2px;
+    }
+    .prose a:hover{border-bottom-color: rgba(110,231,255,0.7)}
+
+    .prose blockquote{
+      margin:16px 0;
+      padding:12px 14px;
+      border-left:3px solid rgba(110,231,255,0.55);
+      background:rgba(0,0,0,0.12);
+      border-radius:14px;
+      color:rgba(231,231,234,0.88);
+    }
+
+    .prose code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.95em;
+      padding: 2px 6px;
+      border:1px solid var(--ring);
+      border-radius:10px;
+      background:rgba(0,0,0,0.18);
+      color:rgba(231,231,234,0.92);
+    }
+    .prose pre{
+      margin:16px 0;
+      padding:14px 14px;
+      border:1px solid var(--ring);
+      border-radius:16px;
+      background:rgba(0,0,0,0.18);
+      overflow:auto;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+    }
+    .prose pre code{
+      border:0;
+      padding:0;
+      background:transparent;
+      border-radius:0;
+      display:block;
+      white-space:pre;
+    }
+
+    /* bottom nav */
+    .post-nav{
+      margin-top:14px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .navbtn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--ring);
+      border-radius:14px;
+      text-decoration:none;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      transition:transform .06s ease, border-color .2s ease;
+      font-size:14px;
+      color:var(--fg);
+    }
+    .navbtn:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+    footer{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
   </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <a class="home" href="../blog.html">← all posts</a>
-      <button class="home" data-toggle-theme title="Toggle light mode">☼ / ○</button>
-    </header>
+  <div class="container">
+    <div class="topbar">
+      <a class="home" href="../blog.html">← All posts</a>
+      <div class="pillrow">
+        <a class="pill" href="../index.html"><span class="mono">→</span> Home</a>
+        <a class="pill" href="../projects.html"><span class="mono">→</span> Projects</a>
+        <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
+      </div>
+    </div>
 
-    <h1>welcome to the blog</h1>
-    <div class="meta">2025-10-02 • 1 min read • tags: hi</div>
+    <section class="card post-head" aria-label="post header">
+      <h1>Welcome to the Blog</h1>
 
-    <article class="content">
-      <p>entry #1</p>
-      <h2>understanding the blog</h2>
-      <p>this is not in place for me to post on consistently. as someone who has lots of interests that are always changing, im always in some sort of discovery/research phase. i want to keep this blog available to me so when i do get very passionate about something i can come on here and talk about it. like i said, my interests change all the time, so this kind of thing is there mostly just for me, so i can look back at how much i have grown over time.</p>
-      <div class="tags">
-        <span class="tag">hi</span>
+      <div class="meta">
+        <span class="badge mono">entry #1</span>
+        <span class="dot">•</span>
+        <span class="mono">2025-10-02</span>
+        <span class="dot">•</span>
+        <span>1 min read</span>
+
+        <div class="tags" aria-label="tags">
+          <span class="tag">hi</span>
+        </div>
+      </div>
+    </section>
+
+    <article class="card content" aria-label="post content">
+      <div class="prose">
+        <p><em>Quick Intro.</em></p>
+
+        <h2>Understanding my blog!</h2>
+
+        <p>
+          This is not in place for me to post on consistently. As someone who has lots of interests that are always changing,
+          I'm always in some sort of discovery/research phase.
+        </p>
+
+        <p>
+          I want to keep this blog available to me so when I do get very passionate about something, I can come on here and talk about it.
+          Like I said, my interests change all the time, so this kind of thing is there mostly just for me,
+          so I can look back at how much I have grown over time.
+        </p>
+
+        <blockquote>
+          If you’re reading this, you’re basically sitting at my desk.
+        </blockquote>
       </div>
     </article>
+
+    <div class="post-nav" aria-label="post navigation">
+      <a class="navbtn" href="../blog.html">← Back to blog</a>
+      <a class="navbtn" href="../index.html">Go home →</a>
+    </div>
+
+    <footer>
+      <span>Built to be readable first, fancy second.</span>
+      <span class="mono">© <span id="y"></span> Arya Somu</span>
+    </footer>
   </div>
 
-  <!-- same JS mini-bundle as other pages (fade, theme) -->
   <script>
-    document.addEventListener('click', e=>{
-      const a = e.target.closest('a');
-      if(!a) return;
-      const sameHost = a.host === location.host;
-      const isHash = a.getAttribute('href')?.startsWith('#');
-      const newTab = a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
-      if(sameHost && !isHash && !newTab){
-        document.documentElement.classList.add('is-exiting');
-      }
-    });
-    (function(){
-      const root = document.documentElement;
-      const saved = localStorage.getItem('theme');
-      if(saved) root.setAttribute('data-theme', saved);
-      document.addEventListener('click', (e)=>{
-        const t = e.target.closest('[data-toggle-theme]');
-        if(!t) return;
-        const next = root.getAttribute('data-theme') === 'light' ? '' : 'light';
-        if(next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
-        localStorage.setItem('theme', next);
-      });
-    })();
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
