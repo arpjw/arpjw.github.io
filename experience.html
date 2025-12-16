@@ -3,76 +3,324 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>arpjw — experience</title>
-    <meta name="description" content="Experiences of Arya Somu (arpjw): work, clubs, research." />
-    <meta property="og:title" content="arpjw — experience" />
-    <meta property="og:description" content="Experiences of Arya Somu (arpjw): work, clubs, research." />
+    <title>Arya Somu — Experience</title>
+    <meta name="description" content="Arya Somu — experience across investment banking, quantitative research, leadership, and research." />
+    <meta property="og:title" content="Arya Somu — Experience" />
+    <meta property="og:description" content="Experience across investment banking, quantitative research, leadership, and research." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0f0f10" />
+
     <style>
       :root{
-        --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3;
-        --card:#121214; --accent:#6ee7ff; --ring:#2b2b33;
+        --bg:#0a0a0b;
+        --fg:#e7e7ea;
+        --muted:#a3a3ad;
+        --card: rgba(18,18,20,0.9);
+        --accent:#6ee7ff;
+        --ring:#2b2b33;
+        --shadow: 0 12px 40px rgba(0,0,0,0.35);
       }
       html,body{height:100%}
       *{box-sizing:border-box}
       body{
-        margin:0; min-height:100%; color:var(--fg);
-        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        margin:0;
+        min-height:100%;
+        color:var(--fg);
+        background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       }
       a{color:inherit}
-      .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 80px}
-      header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
-      .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
-      .home:hover{border-color:var(--accent)}
-      h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 4px}
-      .sub{color:var(--muted); margin:0 0 18px}
+      .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
+      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
-      /* filters */
-      .filters{display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 20px}
-      .chip{padding:6px 10px; border:1px dashed var(--ring); border-radius:999px; font-size:12px; color:var(--muted); cursor:pointer; user-select:none}
-      .chip.active{border-style:solid; border-color:var(--accent); color:var(--fg)}
+      /* top nav */
+      .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+        margin-bottom:18px;
+      }
+      .home{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:10px 12px;
+        border:1px solid var(--ring);
+        border-radius:14px;
+        text-decoration:none;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition:transform .06s ease, border-color .2s ease;
+        font-size:14px;
+      }
+      .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+      .quicklinks{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+      }
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:9px 12px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        text-decoration:none;
+        font-size:13px;
+        color:var(--fg);
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition:transform .06s ease, border-color .2s ease;
+      }
+      .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
 
-      /* timeline */
-      .timeline{position:relative; margin:24px 0; padding-left:22px}
-      .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent 60%)}
-      .year{ /* no sticky; scrolls away naturally */
-        background:rgba(10,10,11,.75); backdrop-filter: blur(6px);
-        padding:4px 8px; width:max-content; border:1px solid var(--ring);
-        border-radius:8px; margin:24px 0; font-weight:700;
+      /* hero */
+      .hero{
+        border:1px solid var(--ring);
+        border-radius:20px;
+        background:var(--card);
+        box-shadow:var(--shadow);
+        padding:22px 20px;
+        backdrop-filter: blur(6px);
+      }
+      h1{
+        margin:0;
+        font-size:clamp(28px, 4.3vw, 44px);
+        letter-spacing:-0.03em;
+        line-height:1.08;
+      }
+      .sub{
+        margin:10px 0 0;
+        color:var(--muted);
+        line-height:1.55;
+        max-width:78ch;
+        font-size:15px;
+      }
+      .stats{
+        display:grid;
+        gap:10px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top:14px;
+      }
+      @media (max-width: 900px){ .stats{grid-template-columns: 1fr 1fr} }
+      @media (max-width: 520px){ .stats{grid-template-columns: 1fr} }
+      .stat{
+        border:1px solid var(--ring);
+        border-radius:16px;
+        padding:12px 12px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      }
+      .stat .k{
+        font-size:11px;
+        color:var(--muted);
+        letter-spacing:0.08em;
+        text-transform:uppercase;
+      }
+      .stat .v{
+        margin-top:6px;
+        font-size:14px;
+        line-height:1.35;
       }
 
-      .item{position:relative; margin:14px 0 18px}
-      .item::before{content:""; position:absolute; left:-15px; top:8px; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.15)}
-      .card{border:1px solid var(--ring); border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12)); padding:14px 16px}
-      .role{display:flex; flex-wrap:wrap; gap:8px; align-items:baseline}
-      .role b{font-size:16px}
-      .role .org{color:var(--muted)}
-      .meta{display:flex; flex-wrap:wrap; gap:10px; color:var(--muted); font-size:12px; margin:6px 0 8px}
-      .desc{font-size:13px; line-height:1.55; margin:8px 0}
-      .bullets{margin:8px 0 0 0; padding-left:18px}
-      .bullets li{margin:4px 0}
-      .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
-      .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
+      /* filters */
+      .filters{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        margin:16px 0 8px;
+      }
+      .chip{
+        appearance:none;
+        border:1px solid var(--ring);
+        background:transparent;
+        color:var(--muted);
+        border-radius:999px;
+        padding:8px 12px;
+        font-size:13px;
+        cursor:pointer;
+        user-select:none;
+        transition:transform .06s ease, border-color .2s ease, color .2s ease, background .2s ease;
+      }
+      .chip:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.55); color:var(--fg)}
+      .chip.active{
+        border-color: rgba(110,231,255,0.75);
+        color: var(--fg);
+        background: rgba(110,231,255,0.08);
+        box-shadow: 0 0 0 3px rgba(110,231,255,0.06);
+      }
 
-      .empty{color:var(--muted); text-align:center; padding:24px 0}
-      @media (max-width:600px){ .container{padding:20px 0 64px} }
+      /* timeline */
+      .timeline{position:relative; margin:18px 0 0; padding-left:18px}
+      .timeline::before{
+        content:"";
+        position:absolute;
+        left:7px; top:0; bottom:0;
+        width:2px;
+        background:linear-gradient(var(--accent), transparent 70%);
+        opacity:0.85;
+      }
+      .year{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        margin:26px 0 12px;
+        padding:6px 10px;
+        border:1px solid var(--ring);
+        border-radius:10px;
+        background: rgba(10,10,11,.55);
+        backdrop-filter: blur(6px);
+        font-weight:700;
+        letter-spacing:0.02em;
+      }
+
+      .item{position:relative; margin:12px 0 16px}
+      .item::before{
+        content:"";
+        position:absolute;
+        left:-13px; top:14px;
+        width:10px; height:10px;
+        border-radius:50%;
+        background:var(--accent);
+        box-shadow:0 0 0 3px rgba(110,231,255,0.12);
+      }
+
+      .card{
+        border:1px solid var(--ring);
+        border-radius:18px;
+        background:var(--card);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+        padding:16px 16px 14px;
+        backdrop-filter: blur(6px);
+      }
+
+      .row{
+        display:flex;
+        gap:10px;
+        justify-content:space-between;
+        align-items:flex-start;
+        flex-wrap:wrap;
+      }
+      .titleline{
+        display:flex;
+        flex-direction:column;
+        gap:4px;
+        min-width:min(520px,100%);
+      }
+      .role{
+        margin:0;
+        font-size:16px;
+        font-weight:700;
+        letter-spacing:-0.01em;
+        line-height:1.25;
+      }
+      .org{
+        color:var(--muted);
+        font-size:14px;
+        line-height:1.35;
+      }
+      .org a{color:inherit}
+      .org a:hover{color:var(--fg)}
+
+      .meta{
+        color:var(--muted);
+        font-size:12px;
+        line-height:1.35;
+        text-align:right;
+        white-space:nowrap;
+      }
+      @media (max-width: 720px){
+        .meta{ text-align:left; white-space:normal; }
+      }
+
+      .desc{
+        margin:10px 0 0;
+        color:var(--muted);
+        font-size:13px;
+        line-height:1.55;
+      }
+      .bullets{
+        margin:10px 0 0;
+        padding-left:18px;
+        font-size:13px;
+        line-height:1.55;
+      }
+      .bullets li{margin:6px 0}
+      .tags{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+        margin-top:12px;
+      }
+      .tag{
+        font-size:12px;
+        padding:6px 10px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        color:var(--muted);
+        background: rgba(0,0,0,0.12);
+      }
+
+      .empty{
+        color:var(--muted);
+        text-align:center;
+        padding:20px 0 0;
+      }
+
+      /* small footer */
+      .footer{
+        margin-top:22px;
+        color:var(--muted);
+        font-size:12px;
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
+      }
     </style>
   </head>
+
   <body>
     <div class="container">
-      <header>
-        <a class="home" href="./">← home</a>
-      </header>
+      <div class="topbar">
+        <a class="home" href="./">← Home</a>
+        <div class="quicklinks">
+          <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
+          <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
+        </div>
+      </div>
 
-      <h1>experience</h1>
-      <p class="sub">work • clubs • research</p>
+      <section class="hero" aria-label="experience header">
+        <h1>Experience</h1>
+        <p class="sub">
+          A timeline of work, leadership, and research. I optimize for high-signal execution: clear deliverables, measurable impact, and strong writing.
+        </p>
+
+        <div class="stats" aria-label="quick stats">
+          <div class="stat">
+            <div class="k">Work</div>
+            <div class="v">Biopharma M&amp;A · Fixed-income quant research</div>
+          </div>
+          <div class="stat">
+            <div class="k">Leadership</div>
+            <div class="v">Polaris Research Group · De Anza PBL · TEDx</div>
+          </div>
+          <div class="stat">
+            <div class="k">Research</div>
+            <div class="v">ASU computational astrophysics (CNNs)</div>
+          </div>
+          <div class="stat">
+            <div class="k">Focus</div>
+            <div class="v">Derivatives · fixed income · execution · microstructure</div>
+          </div>
+        </div>
+      </section>
 
       <div class="filters" role="tablist" aria-label="filter experiences">
-        <span class="chip" data-filter="work" role="tab">work</span>
-        <span class="chip" data-filter="clubs" role="tab">clubs</span>
-        <span class="chip" data-filter="research" role="tab">research</span>
+        <button class="chip active" data-filter="all" type="button" role="tab" aria-selected="true">All</button>
+        <button class="chip" data-filter="work" type="button" role="tab" aria-selected="false">Work</button>
+        <button class="chip" data-filter="clubs" type="button" role="tab" aria-selected="false">Leadership</button>
+        <button class="chip" data-filter="research" type="button" role="tab" aria-selected="false">Research</button>
       </div>
 
       <section class="timeline" id="timeline" aria-live="polite">
@@ -80,139 +328,178 @@
         <div class="year-group" data-year="2025">
           <div class="year">2025</div>
 
-          <!-- WORK (2025) -->
-
-          <article class="item" data-type="work" id="hrl">
+          <!-- WORK -->
+          <article class="item" data-type="work" id="kcc">
             <div class="card">
-              <div class="role">
-                <b>Investment Banking Analyst Intern</b>
-                <span class="org">@ <a href="https://kcccapitalpartners.com/" target="_blank" rel="noopener">KCC Capital Partners</a></span>
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Investment Banking Analyst Intern</div>
+                  <div class="org">@ <a href="https://kcccapitalpartners.com/" target="_blank" rel="noopener">KCC Capital Partners</a></div>
+                </div>
+                <div class="meta">Newport Beach, CA<br/>Oct 2025 — Present</div>
               </div>
-              <div class="meta"><span>Newport Beach, CA | </span><span>Oct 2025 — present</span></div>
-              <p class="desc">Sellside M&A | Market Research Team</p>
-            <ul class="bullets">
+              <p class="desc">Healthcare / biopharma M&amp;A execution, valuation, and diligence.</p>
+              <ul class="bullets">
+                <li>Supported execution of <b>5+</b> biopharma M&amp;A mandates, contributing to valuation, diligence, and buyer-facing materials across clinical-stage and commercial companies.</li>
+                <li>Built risk-adjusted <b>DCF</b> models incorporating clinical trial outcomes, regulatory probabilities, and peak-sales scenarios for assets with <b>$100M–$2B</b> valuation ranges.</li>
+                <li>Evaluated <b>20+</b> clinical and commercial drug assets, analyzing trial endpoints, competitive positioning, and reimbursement dynamics.</li>
+                <li>Conducted comparable company and transaction analysis across <b>30+</b> public and private biopharma peers, benchmarking valuation drivers and deal premiums.</li>
+                <li>Supported sell-side diligence by reviewing financials, pipeline disclosures, and data room materials for multiple live transactions.</li>
               </ul>
+              <div class="tags">
+                <span class="tag">biopharma M&amp;A</span>
+                <span class="tag">DCF</span>
+                <span class="tag">clinical diligence</span>
+                <span class="tag">valuation</span>
+                <span class="tag">sell-side</span>
+              </div>
             </div>
           </article>
-          
+
           <article class="item" data-type="work" id="pplx">
             <div class="card">
-              <div class="role"><b>Campus Partner</b><span class="org">@ Perplexity</span></div>
-              <div class="meta"><span>San Francisco, CA (Remote) | </span><span>Sept 2025 — present</span></div>
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Campus Partner</div>
+                  <div class="org">@ Perplexity</div>
+                </div>
+                <div class="meta">San Francisco, CA (Remote)<br/>Sep 2025 — Present</div>
+              </div>
               <p class="desc">Bringing Comet to De Anza College.</p>
               <ul class="bullets">
                 <li>Partnered with De Anza Phi Beta Lambda to host the De Anza Innovation Summit, powered by Perplexity.</li>
-                <li>Converted 45+ leads into Comet sign-ups with my unique referral code.</li>
+                <li>Converted <b>45+</b> leads into Comet sign-ups via a unique referral code.</li>
               </ul>
-              <div class="tags"><span class="tag">ambassadorship</span><span class="tag">marketing</span><span class="tag">events</span></div>
+              <div class="tags">
+                <span class="tag">events</span><span class="tag">growth</span><span class="tag">campus marketing</span>
+              </div>
             </div>
           </article>
 
           <article class="item" data-type="work" id="stealth">
             <div class="card">
-              <div class="role"><b>Quantitative Research Intern</b><span class="org">@ Stealth (Hedge Fund)</span></div>
-              <div class="meta"><span>New York, NY (Remote) | </span><span>Aug 2025 — Oct 2025</span></div>
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Quantitative Research Intern</div>
+                  <div class="org">@ Stealth (Hedge Fund)</div>
+                </div>
+                <div class="meta">New York, NY (Remote)<br/>Aug 2025 — Oct 2025</div>
+              </div>
               <p class="desc">Fixed-income quant focusing on MBS valuation and risk.</p>
               <ul class="bullets">
-                <li>Built OAS valuation models for ~$75M MBS ($9.4M portfolio) using 10,000+ stochastic rate paths & borrower prepayment hazard models; improved pricing accuracy vs. benchmarks by <b>12 bps</b>.</li>
-                <li>Analyzed 30+ negative-convexity scenarios; tested swap & Treasury futures hedges to optimize ratios and reduce duration mismatch by ~<b>15%</b>.</li>
-                <li>Ran 50,000+ path Monte Carlo cash-flow sims to compare TBA vs. specified pools, informing allocation on ~$<b>5M</b> trades.</li>
+                <li>Built OAS valuation models for ~$75M MBS ($9.4M portfolio) using <b>10,000+</b> stochastic rate paths &amp; prepayment hazard models; improved pricing accuracy vs. benchmarks by <b>12 bps</b>.</li>
+                <li>Analyzed <b>30+</b> negative-convexity scenarios; tested swap &amp; Treasury futures hedges, reducing duration mismatch by ~<b>15%</b>.</li>
+                <li>Ran <b>50,000+</b> path Monte Carlo cash-flow sims to compare TBA vs. specified pools, informing allocation on ~$<b>5M</b> trades.</li>
               </ul>
-              <div class="tags"><span class="tag">MBS</span><span class="tag">OAS</span><span class="tag">convexity</span><span class="tag">hedging</span><span class="tag">Monte Carlo</span></div>
+              <div class="tags">
+                <span class="tag">MBS</span><span class="tag">OAS</span><span class="tag">convexity</span><span class="tag">hedging</span><span class="tag">Monte Carlo</span>
+              </div>
             </div>
           </article>
 
-          <article class="item" data-type="work" id="verdevista">
-            <div class="card">
-              <div class="role"><b>Private Equity Summer Analyst</b><span class="org">@ VerdeVista Partners</span></div>
-              <div class="meta"><span>Philadelphia, PA (Remote) | </span><span>Jun 2025 — Aug 2025</span></div>
-              <p class="desc">Sourcing and diligence for platform & add-on acquisitions in the green services sector.</p>
-              <ul class="bullets">
-                <li>Sourced <b>100+ targets</b> (landscaping, tree care, plant health) and maintained pipeline tracking to optimize outreach.</li>
-                <li>Supported <b>4</b> transactions: drafted <b>70+</b> memos and <b>50+</b> models/valuations (DCF, comps, precedents) for IC.</li>
-                <li>Completed diligence on <b>30+</b> targets (EBITDA margins, customer concentration, growth levers) with scenario sensitivities.</li>
-              </ul>
-              <div class="tags"><span class="tag">sourcing</span><span class="tag">DCF</span><span class="tag">diligence</span><span class="tag">IC memos</span></div>
-            </div>
-          </article>
-
-          <!-- CLUBS (2025) -->
+          <!-- LEADERSHIP -->
           <article class="item" data-type="clubs" id="prg">
             <div class="card">
-              <div class="role">
-                <b>Co-Founder & President</b>
-                <span class="org">@ <a href="https://sites.google.com/view/deanzaphibetalambda/polaris?authuser=0" target="_blank" rel="noopener">Polaris Research Group</a></span>
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Co-Founder &amp; President</div>
+                  <div class="org">@ <a href="https://sites.google.com/view/deanzaphibetalambda/polaris?authuser=0" target="_blank" rel="noopener">Polaris Research Group</a></div>
+                </div>
+                <div class="meta">Cupertino, CA<br/>Jun 2025 — Present</div>
               </div>
-              <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
-              <p class="desc">Leading a 14-analyst team across Equity, Macro, and Legal verticals; ship professional-grade research.</p>
+              <p class="desc">Leading a 14-analyst team across Equity, Macro, and Legal; shipping professional-grade research.</p>
               <ul class="bullets">
-                <li>Directed valuation workstreams in semiconductors & financials; produced an equity research paper (DCF, comps, precedents).</li>
+                <li>Directed valuation workstreams in semiconductors &amp; financials; produced an equity research paper (DCF, comps, precedents).</li>
                 <li>Reviewed <b>10+</b> company financials and <b>5+</b> macro datasets with sector KPIs to form investable theses.</li>
-                <li>Managing hiring, onboarding, and training of <b>14</b> analysts.</li>
+                <li>Managed hiring, onboarding, and training of <b>14</b> analysts.</li>
               </ul>
-              <div class="tags"><span class="tag">leadership</span><span class="tag">equity research</span><span class="tag">semiconductors</span></div>
+              <div class="tags">
+                <span class="tag">leadership</span><span class="tag">equity research</span><span class="tag">semiconductors</span>
+              </div>
             </div>
           </article>
 
           <article class="item" data-type="clubs" id="pbl">
             <div class="card">
-              <div class="role">
-                <b>VP, Strategy & Development</b>
-                <span class="org">@ <a href="https://sites.google.com/view/deanzaphibetalambda/home?authuser=0" target="_blank" rel="noopener">De Anza Phi Beta Lambda</a></span>
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">VP, Strategy &amp; Development</div>
+                  <div class="org">@ <a href="https://sites.google.com/view/deanzaphibetalambda/home?authuser=0" target="_blank" rel="noopener">De Anza Phi Beta Lambda</a></div>
+                </div>
+                <div class="meta">Cupertino, CA<br/>Jun 2025 — Present</div>
               </div>
-              <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
-              <p class="desc">Exec board for De Anza’s largest club (100+ members); programming & growth.</p>
+              <p class="desc">Exec board for De Anza’s largest club (100+ members); programming &amp; growth.</p>
               <ul class="bullets">
-                <li>Built a case-comp bootcamp serving <b>150+</b> students.</li>
-                <li>Co-created PBL Consulting, the first on-campus consulting group; supporting <b>5</b> orgs.</li>
+                <li>Built a case-competition bootcamp serving <b>150+</b> students.</li>
+                <li>Co-created PBL Consulting, the first on-campus consulting group; supporting <b>5</b> organizations.</li>
               </ul>
-              <div class="tags"><span class="tag">programming</span><span class="tag">coaching</span><span class="tag">consulting</span></div>
+              <div class="tags">
+                <span class="tag">programming</span><span class="tag">coaching</span><span class="tag">consulting</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="item" data-type="clubs" id="ted">
+            <div class="card">
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Chair of Outreach</div>
+                  <div class="org">@ TEDx De Anza</div>
+                </div>
+                <div class="meta">Cupertino, CA<br/>Jun 2025 — Present</div>
+              </div>
+              <p class="desc">Bringing speakers and partners to TEDx at De Anza College.</p>
+              <ul class="bullets">
+                <li>Led outreach for speaker recruitment and partnerships; supported the Nov 10 event theme: “Community College to Success.”</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">outreach</span><span class="tag">partnerships</span><span class="tag">events</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="item" data-type="clubs" id="dah">
+            <div class="card">
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Finance Organizer</div>
+                  <div class="org">@ De Anza Hacks</div>
+                </div>
+                <div class="meta">Cupertino, CA<br/>Apr 2025 — Nov 2025</div>
+              </div>
+              <p class="desc">Sponsorship + finance support for De Anza’s flagship hackathon.</p>
+              <ul class="bullets">
+                <li>Supported budgeting and sponsor outreach for DA Hacks planning and operations.</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">sponsorship</span><span class="tag">event ops</span><span class="tag">budgeting</span>
+              </div>
             </div>
           </article>
         </div>
-
-        <article class="item" data-type="clubs" id="ted">
-            <div class="card">
-              <div class="role">
-                <b>Chair of Outreach</b><span class="org">@ TEDx De Anza</a></span>
-              </div>
-              <div class="meta"><span>Cupertino, CA | </span><span>Jun 2025 — present</span></div>
-              <p class="desc">Bringing people to speak at De Anza College.</p>
-              <ul class="bullets">
-                <li>Our first event is on Nov 10th @ De Anza College, focusing on Community College to Success.</li>
-              <div class="tags"><span class="tag">outreach</span><span class="tag">event organization</span></div>
-            </div>
-          </article>
-
-        <article class="item" data-type="clubs" id="dah">
-            <div class="card">
-              <div class="role">
-                <b>Finance Organizer</b><span class="org">@ De Anza Hacks</a></span>
-              </div>
-              <div class="meta"><span>Cupertino, CA | </span><span>April 2025 — present</span></div>
-              <p class="desc">Bringing sponsors to De Anza's biggest hackathon.</p>
-              <ul class="bullets">
-                <li>Worked on DA Hacks 3.5, working on DA Hacks 4.0</li>
-              <div class="tags"><span class="tag">outreach</span><span class="tag">event organization</span></div>
-            </div>
-          </article>
 
         <!-- ===== 2024 ===== -->
         <div class="year-group" data-year="2024">
           <div class="year">2024</div>
 
-          <!-- WORK (2024) — Idori -->
           <article class="item" data-type="work" id="idori">
             <div class="card">
-              <div class="role"><b>Business Development Intern</b><span class="org">@ Idori</span></div>
-              <div class="meta"><span>Boston, MA (Remote) | </span><span>Oct 2024 — May 2025</span></div>
-              <p class="desc">Environmental education startup internship focused on growth strategy and product development.</p>
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Business Development Intern</div>
+                  <div class="org">@ Idori</div>
+                </div>
+                <div class="meta">Boston, MA (Remote)<br/>Oct 2024 — May 2025</div>
+              </div>
+              <p class="desc">Growth strategy and product work for an environmental education startup.</p>
               <ul class="bullets">
                 <li>Designed and executed A/B testing campaigns (Google Ads vs. Meta Ads) to optimize conversions and traffic.</li>
-                <li>Built Instagram growth strategy, increasing engagement and followers by refining content & cadence.</li>
-                <li>Lead fundraising campaign that raised <b>$14,000</b> in 2 weeks.</li>
+                <li>Built an Instagram growth strategy, increasing engagement and followers via improved content and cadence.</li>
+                <li>Led a fundraising campaign that raised <b>$14,000</b> in <b>2 weeks</b>.</li>
               </ul>
-              <div class="tags"><span class="tag">strategy</span><span class="tag">growth</span><span class="tag">marketing</span><span class="tag">edtech</span></div>
+              <div class="tags">
+                <span class="tag">growth</span><span class="tag">A/B testing</span><span class="tag">fundraising</span><span class="tag">marketing</span>
+              </div>
             </div>
           </article>
         </div>
@@ -221,27 +508,47 @@
         <div class="year-group" data-year="2022">
           <div class="year">2022</div>
 
-          <!-- RESEARCH (2023) -->
           <article class="item" data-type="research" id="asu">
             <div class="card">
-              <div class="role"><b>Student Researcher</b><span class="org">@ Arizona State University</span></div>
-              <div class="meta"><span>Tempe, AZ (Remote) | </span><span>Oct 2022 — Feb 2023</span></div>
-              <p class="desc">Computational Astrophysics Research at BCCF</p>
+              <div class="row">
+                <div class="titleline">
+                  <div class="role">Student Researcher</div>
+                  <div class="org">@ Arizona State University</div>
+                </div>
+                <div class="meta">Tempe, AZ (Remote)<br/>Oct 2022 — Feb 2023</div>
+              </div>
+              <p class="desc">Computational astrophysics research (BCCF).</p>
               <ul class="bullets">
-                <li>Developed and trained <b>Convolutional Neural Networks (CNNs)</b> on solar observational data to classify and predict solar flare events.</li>
-                <li>Implemented preprocessing and feature extraction pipelines to handle astrophysical imaging datasets at scale.</li>
-                <li>Validated model outputs against existing heliophysics research, exploring implications for real-time space-weather forecasting.</li>
+                <li>Developed and trained <b>CNNs</b> on solar observational data to classify and predict solar flare events.</li>
+                <li>Implemented preprocessing and feature extraction pipelines for astrophysical imaging datasets at scale.</li>
+                <li>Validated model outputs against prior heliophysics research; explored implications for real-time space-weather forecasting.</li>
               </ul>
-              <div class="tags"><span class="tag">astrophysics</span><span class="tag">CNNs</span><span class="tag">solar flares</span><span class="tag">machine learning</span></div>
+              <div class="tags">
+                <span class="tag">astrophysics</span><span class="tag">CNNs</span><span class="tag">ML</span><span class="tag">solar flares</span>
+              </div>
             </div>
           </article>
         </div>
       </section>
 
-      <p class="empty" id="empty" hidden>no items match this filter (yet)</p>
+      <p class="empty" id="empty" hidden>No items match this filter (yet).</p>
+
+      <div class="footer">
+        <span>Tip: use filters to quickly show only work / leadership / research.</span>
+        <span class="mono">Updated: <span id="updated"></span></span>
+      </div>
     </div>
 
     <script>
+      // footer updated date (local)
+      (function(){
+        const el = document.getElementById('updated');
+        if(el){
+          const d = new Date();
+          el.textContent = d.toLocaleDateString('en-US', { year:'numeric', month:'short' });
+        }
+      })();
+
       const chips = document.querySelectorAll('.chip');
       const items = document.querySelectorAll('.item');
       const empty = document.getElementById('empty');
@@ -255,36 +562,45 @@
         });
       }
 
+      function setActive(btn){
+        chips.forEach(c=>{
+          c.classList.remove('active');
+          c.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+      }
+
       function applyFilter(kind){
         let shown = 0;
+
         items.forEach(el=>{
           const types = (el.getAttribute('data-type')||'').split(/\s+/);
-          const show = types.includes(kind);
+          const show = (kind === 'all') ? true : types.includes(kind);
           el.style.display = show ? '' : 'none';
           if(show) shown++;
         });
+
         empty.hidden = shown !== 0;
         updateYearGroupsVisibility();
       }
 
       chips.forEach(ch=>{
         ch.addEventListener('click', ()=>{
-          chips.forEach(c=>c.classList.remove('active'));
-          ch.classList.add('active');
+          setActive(ch);
           applyFilter(ch.dataset.filter);
           history.replaceState(null, '', '#'+ch.dataset.filter);
         });
       });
 
-      // default: work selected, but allow deep links like #clubs or #research
       window.addEventListener('load', ()=>{
         const hash = location.hash ? location.hash.slice(1) : '';
         const target = [...chips].find(c=>c.dataset.filter===hash);
         if(target){
           target.click();
         } else {
-          const workChip = document.querySelector('.chip[data-filter="work"]');
-          if(workChip){ workChip.classList.add('active'); applyFilter('work'); }
+          const allChip = document.querySelector('.chip[data-filter="all"]');
+          if(allChip){ setActive(allChip); applyFilter('all'); }
         }
         updateYearGroupsVisibility();
       });
