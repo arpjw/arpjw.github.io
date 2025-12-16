@@ -3,159 +3,274 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>arpjw — projects</title>
-    <meta name="description" content="Projects by Arya Somu (arpjw): code, research, experiments." />
-    <meta property="og:title" content="arpjw — projects" />
-    <meta property="og:description" content="Projects by Arya Somu (arpjw): code, research, experiments." />
+    <title>Projects</title>
+    <meta name="description" content="Projects by Arya Somu: Code, Research, and Experiments." />
+    <meta property="og:title" content="Arya Somu — Projects" />
+    <meta property="og:description" content="Projects by Arya Somu: Code, Research, and Experiments." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0f0f10" />
+
     <style>
-      :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3;
-        --card:#121214; --accent:#6ee7ff; --ring:#2b2b33; }
+      :root{
+        --bg:#0a0a0b;
+        --fg:#e7e7ea;
+        --muted:#9c9ca3;
+        --card:#121214;
+        --accent:#6ee7ff;
+        --ring:#2b2b33;
+      }
+
       html,body{height:100%}
       *{box-sizing:border-box}
-      body{ margin:0; min-height:100%; color:var(--fg);
-        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-      a{color:inherit}
-      .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 80px}
-      header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
-      .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
-      .home:hover{border-color:var(--accent)}
-      h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 4px}
-      .sub{color:var(--muted); margin:0 0 28px}
 
-      .projects{display:grid; gap:20px}
-      .project-card{border:1px solid var(--ring); border-radius:14px;
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        padding:20px; display:flex; flex-direction:column; gap:10px;}
-      .project-title{font-size:18px; font-weight:700; display:flex; align-items:center; gap:8px}
-      .project-title a{font-size:14px; color:var(--accent); text-decoration:none}
-      .project-title a:hover{text-decoration:underline}
-      .project-desc{font-size:14px; line-height:1.55}
-      .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px}
-      .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
+      body{
+        margin:0;
+        min-height:100%;
+        color:var(--fg);
+        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      }
+
+      a{color:inherit}
+
+      .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 84px}
+
+      header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0 18px}
+
+      .home{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:8px 12px;
+        border:1px solid var(--ring);
+        border-radius:12px;
+        text-decoration:none;
+      }
+
+      .home:hover{border-color:var(--accent)}
+
+      .meta{
+        display:flex;
+        align-items:center;
+        gap:10px;
+        color:var(--muted);
+        font-size:12px;
+      }
+
+      .dot{opacity:.6}
+
+      h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 6px}
+      .sub{color:var(--muted); margin:0 0 26px; line-height:1.6}
+
+      .toolbar{
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        align-items:center;
+        justify-content:space-between;
+        margin:0 0 18px;
+      }
+
+      .hint{color:var(--muted); font-size:12px}
+
+      .pillrow{display:flex; gap:8px; flex-wrap:wrap}
+      .pill{
+        font-size:11px;
+        padding:6px 10px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        color:var(--muted);
+        background:rgba(255,255,255,0.02);
+        text-transform:none;
+      }
+
+      .projects{display:grid; gap:16px}
+
+      .project-card{
+        border:1px solid var(--ring);
+        border-radius:14px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
+        padding:18px 18px 16px;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        transition:transform .18s ease, border-color .18s ease;
+      }
+
+      .project-card:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.75)}
+
+      .project-top{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:12px;
+      }
+
+      .project-title{
+        font-size:16px;
+        font-weight:700;
+        letter-spacing:-0.01em;
+        display:flex;
+        align-items:center;
+        gap:10px;
+        margin:0;
+      }
+
+      .badge{
+        font-size:10px;
+        padding:3px 8px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        color:var(--muted);
+      }
+
+      .project-actions{
+        display:flex;
+        gap:10px;
+        align-items:center;
+        white-space:nowrap;
+      }
+
+      .action{
+        font-size:12px;
+        color:var(--accent);
+        text-decoration:none;
+      }
+
+      .action:hover{text-decoration:underline}
+
+      .project-desc{font-size:13px; line-height:1.6; margin:0}
+
+      .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:2px}
+      .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted); text-transform:none}
+
       .links{display:flex; gap:12px; margin-top:6px}
       .links a{font-size:12px; color:var(--accent); text-decoration:none}
       .links a:hover{text-decoration:underline}
+
+      footer{margin-top:56px; color:var(--muted); font-size:12px}
+
+      @media (min-width: 880px){
+        .projects{grid-template-columns:1fr 1fr}
+      }
+
+      @media (max-width: 520px){
+        .project-actions{gap:8px}
+        .action{font-size:11px}
+      }
     </style>
   </head>
+
   <body>
     <div class="container">
       <header>
-        <a class="home" href="./">← home</a>
+        <a class="home" href="./">← Home</a>
+        <div class="meta">
+          <span>Arya Somu</span><span class="dot">•</span><span>Projects</span>
+        </div>
       </header>
 
-      <h1>projects</h1>
-      <p class="sub">selected builds, research, and experiments</p>
+      <h1>Projects</h1>
+      <p class="sub">Selected Builds, Research, and Experiments</p>
+
+      <div class="toolbar">
+        <div class="hint">A Few Highlights — More on GitHub</div>
+        <div class="pillrow">
+          <span class="pill">Quant Systems</span>
+          <span class="pill">Research</span>
+          <span class="pill">C++</span>
+          <span class="pill">Python</span>
+        </div>
+      </div>
 
       <section class="projects">
 
-        <!-- Example Project Skeleton -->
         <div class="project-card">
-          <div class="project-title">
-            <span>executionrl</span>
-            <a href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
+          <div class="project-top">
+            <p class="project-title">executionrl <span class="badge">RL</span></p>
+            <div class="project-actions">
+              <a class="action" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
+            </div>
           </div>
-          <p class="project-desc">
-            reinforcement learning-based trade execution simulator
-          </p>
+          <p class="project-desc">Reinforcement Learning–Based Trade Execution Simulator</p>
           <div class="tags">
             <span class="tag">C++</span>
-            <span class="tag">reinforcement learning</span>
-            <span class="tag">q-learning</span>
-            <span class="tag">simulation / market environment</span>
-            <span class="tag">backtesting</span>
-            <span class="tag">algorithmic trading</span>
-            <span class="tag">financial markets</span>
-            <span class="tag">state and action modeling</span>
-            <span class="tag">reward functions</span>
-            <span class="tag">data processing</span>
+            <span class="tag">Reinforcement Learning</span>
+            <span class="tag">Q-Learning</span>
+            <span class="tag">Simulation</span>
+            <span class="tag">Backtesting</span>
           </div>
           <div class="links">
-            <a href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">source</a>
-            <a href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">write-up</a>
+            <a href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">Source</a>
+            <a href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-Up</a>
           </div>
         </div>
 
-        <!-- Duplicate and edit below for more projects -->
         <div class="project-card">
-          <div class="project-title">
-            <span>quant project library</span>
-            <a href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">GitHub</a>
+          <div class="project-top">
+            <p class="project-title">quant project library <span class="badge">core</span></p>
+            <div class="project-actions">
+              <a class="action" href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">GitHub</a>
+            </div>
           </div>
-          <p class="project-desc">
-            documentation of all my quant research/dev projects
-          </p>
+          <p class="project-desc">Documentation of Quantitative Research and Development Projects</p>
           <div class="tags">
-            <span class="tag">python</span>
-            <span class="tag">pandas</span>
-            <span class="tag">numpy</span>
-            <span class="tag">time series analysis</span>
-            <span class="tag">statistical modeling</span>
-            <span class="tag">backtrader</span>
-            <span class="tag">portfolio optimization</span>
-            <span class="tag">VaR</span>
-            <span class="tag">sharpe</span>
-            <span class="tag">dropdown</span>
-            <span class="tag">matplotlib</span>
-            <span class="tag">seaborn</span>
-            <span class="tag">financial data api</span>
+            <span class="tag">Python</span>
+            <span class="tag">Time Series</span>
+            <span class="tag">Portfolio Optimization</span>
+            <span class="tag">Risk</span>
+            <span class="tag">Backtesting</span>
           </div>
           <div class="links">
-            <a href="https://github.com/arpjw/quant-projects">source</a>
-            <a href="https://github.com/arpjw/quant-projects/blob/main/README.md">write-up</a>
+            <a href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">Source</a>
+            <a href="https://github.com/arpjw/quant-projects/blob/main/README.md" target="_blank" rel="noopener">Write-Up</a>
           </div>
         </div>
 
         <div class="project-card">
-          <div class="project-title">
-            <span>miniquantlib</span>
-            <a href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
+          <div class="project-top">
+            <p class="project-title">miniquantlib <span class="badge">C++</span></p>
+            <div class="project-actions">
+              <a class="action" href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
+            </div>
           </div>
-          <p class="project-desc">
-            a minimal c++ library for vector and matrix operations, built from scratch to explore numerical computing and performance-oriented design
-          </p>
+          <p class="project-desc">A Minimal C++ Library for Vector and Matrix Operations, Built from Scratch to Explore Numerical Computing and Performance-Oriented Design</p>
           <div class="tags">
-            <span class="tag">c++</span>
-            <span class="tag">linear algebra</span>
-            <span class="tag">vector and matrix operations</span>
-            <span class="tag">performance optimization</span>
-            <span class="tag">numerical computing</span>
-            <span class="tag">algorithmic math</span>
-            <span class="tag">low-level data structures</span>
-            <span class="tag">monte carlo utilities</span>
+            <span class="tag">C++</span>
+            <span class="tag">Linear Algebra</span>
+            <span class="tag">Numerical Computing</span>
+            <span class="tag">Performance</span>
+            <span class="tag">Utilities</span>
           </div>
           <div class="links">
-            <a href="https://github.com/arpjw/miniquantlib">source</a>
-            <a href="https://github.com/arpjw/miniquantlib/blob/main/README.md">write-up</a>
+            <a href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">Source</a>
+            <a href="https://github.com/arpjw/miniquantlib/blob/main/README.md" target="_blank" rel="noopener">Write-Up</a>
           </div>
         </div>
 
         <div class="project-card">
-  <div class="project-title">
-    <span>Pseudorandom Number Generation with Xor Shifting</span>
-    <a href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">PDF</a>
-  </div>
-  <p class="project-desc">
-    an investigative paper on the design and analysis of pseudorandom number generators (PRNG) using xor shifting, 
-    combining mathematical modeling, simulation, and cybersecurity applications. demonstrated a working model 
-    with statistical validation and explored implications for global data security.
-  </p>
-  <div class="tags">
-    <span class="tag">research</span>
-    <span class="tag">PRNG</span>
-    <span class="tag">Xor Shift</span>
-    <span class="tag">cryptography</span>
-    <span class="tag">mathematics</span>
-    <span class="tag">cybersecurity</span>
-  </div>
-  <div class="links">
-<a href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">read paper</a>
-  </div>
-</div>
+          <div class="project-top">
+            <p class="project-title">Pseudorandom Number Generation with Xor Shifting <span class="badge">paper</span></p>
+            <div class="project-actions">
+              <a class="action" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">PDF</a>
+            </div>
+          </div>
+          <p class="project-desc">An Investigative Paper on Xor-Shift PRNG Design and Analysis, Combining Mathematical Modeling and Simulation with Security Implications</p>
+          <div class="tags">
+            <span class="tag">Research</span>
+            <span class="tag">PRNG</span>
+            <span class="tag">Xor Shift</span>
+            <span class="tag">Cryptography</span>
+            <span class="tag">Simulation</span>
+          </div>
+          <div class="links">
+            <a href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">Read Paper</a>
+          </div>
+        </div>
 
       </section>
+
+      <footer>© Arya Somu</footer>
     </div>
   </body>
 </html>
