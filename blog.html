@@ -3,107 +3,455 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>arpjw — blog</title>
-  <meta name="description" content="Writing by Arya Somu (arpjw): notes, research, and experiments." />
-  <meta property="og:title" content="arpjw — blog" />
-  <meta property="og:description" content="Writing by Arya Somu (arpjw): notes, research, and experiments." />
+  <title>Arya Somu — Blog</title>
+  <meta name="description" content="Writing by Arya Somu: notes, research, and experiments." />
+  <meta property="og:title" content="Arya Somu — Blog" />
+  <meta property="og:description" content="Writing by Arya Somu: notes, research, and experiments." />
+  <meta property="og:type" content="website" />
   <meta name="theme-color" content="#0f0f10" />
-  <style>
-    :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3; --card:#121214; --accent:#6ee7ff; --ring:#2b2b33 }
-    html,body{height:100%} *{box-sizing:border-box}
-    body{ margin:0; min-height:100%; color:var(--fg);
-      background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace }
-    a{color:inherit}
-    .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 80px}
-    header{display:flex; align-items:center; gap:12px; padding:8px 0 16px}
-    .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
-    .home:hover{border-color:var(--accent)}
-    h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 4px}
-    .sub{color:var(--muted); margin:0 0 28px}
 
-    .posts{display:grid; gap:16px}
-    .post{border:1px solid var(--ring); border-radius:14px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-      padding:16px 18px; transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease;
-      box-shadow:0 8px 24px rgba(0,0,0,.18);
+  <style>
+    :root{
+      --bg:#0a0a0b;
+      --fg:#e7e7ea;
+      --muted:#a3a3ad;
+      --card:rgba(18,18,20,0.9);
+      --accent:#6ee7ff;
+      --ring:#2b2b33;
+      --shadow:0 12px 40px rgba(0,0,0,0.35);
+
+      /* “homey” accents */
+      --warm: rgba(255, 214, 170, 0.16);
+      --warm2: rgba(255, 214, 170, 0.10);
+      --paper: rgba(255,255,255,0.035);
     }
-    .post:hover{ transform:translateY(-2px); box-shadow:0 12px 32px rgba(0,0,0,.24); border-color:var(--accent) }
-    .post h3{margin:0 0 6px; font-size:18px}
-    .meta{display:flex; flex-wrap:wrap; gap:10px; color:var(--muted); font-size:12px; margin-bottom:6px}
-    .excerpt{color:var(--fg); opacity:.9; line-height:1.6; margin:6px 0 10px}
-    .tags{display:flex; flex-wrap:wrap; gap:6px}
-    .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      min-height:100%;
+      color:var(--fg);
+      background:
+        radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%),
+        radial-gradient(800px 500px at 12% 18%, var(--warm) 0%, transparent 55%),
+        radial-gradient(700px 420px at 88% 12%, rgba(110,231,255,0.10) 0%, transparent 55%);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+    a{color:inherit}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
+
+    /* top bar (matches rest of site) */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+    .home{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border:1px solid var(--ring);
+      border-radius:14px;
+      text-decoration:none;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      transition:transform .06s ease, border-color .2s ease;
+      font-size:14px;
+      cursor:pointer;
+    }
+    .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      text-decoration:none;
+      font-size:13px;
+      color:var(--fg);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      transition:transform .06s ease, border-color .2s ease;
+    }
+    .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+    /* cards */
+    .card{
+      border:1px solid var(--ring);
+      border-radius:18px;
+      background:var(--card);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    /* hero */
+    .hero{
+      padding:22px 20px;
+      margin-bottom:14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0)),
+        repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(255,255,255,0.012) 7px);
+      pointer-events:none;
+      opacity:.8;
+      mix-blend-mode:screen;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(28px, 4.3vw, 44px);
+      letter-spacing:-0.03em;
+      line-height:1.08;
+      position:relative;
+      z-index:1;
+    }
+    .sub{
+      margin:10px 0 0;
+      color:var(--muted);
+      line-height:1.55;
+      max-width:78ch;
+      font-size:15px;
+      position:relative;
+      z-index:1;
+    }
+
+    /* “homey” note row */
+    .note-row{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:12px;
+      position:relative;
+      z-index:1;
+    }
+    @media (max-width: 860px){
+      .note-row{grid-template-columns:1fr}
+    }
+
+    .note{
+      border:1px solid var(--ring);
+      border-radius:16px;
+      padding:14px 14px;
+      background: rgba(0,0,0,0.10);
+    }
+    .note h2{
+      margin:0;
+      font-size:12px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .note p{
+      margin:10px 0 0;
+      color:var(--fg);
+      line-height:1.65;
+      font-size:14px;
+      opacity:.95;
+    }
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .chip{
+      font-size:12px;
+      padding:6px 10px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(0,0,0,0.12);
+    }
+
+    /* toolbar */
+    .toolbar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin:12px 0 18px;
+    }
+    .hint{color:var(--muted); font-size:12px}
+    .search{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      border:1px solid var(--ring);
+      border-radius:14px;
+      padding:9px 12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      min-width:min(360px, 92vw);
+    }
+    .search input{
+      width:100%;
+      background:transparent;
+      border:0;
+      outline:none;
+      color:var(--fg);
+      font-size:13px;
+    }
+    .search input::placeholder{color:rgba(163,163,173,0.75)}
+
+    /* posts */
+    .posts{
+      display:grid;
+      gap:12px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 920px){
+      .posts{grid-template-columns: 1fr 1fr}
+    }
+
+    .post{
+      border:1px solid var(--ring);
+      border-radius:18px;
+      background:var(--card);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+      padding:16px 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      backdrop-filter: blur(6px);
+      transition:transform .06s ease, border-color .2s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .post::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(420px 160px at 20% 0%, var(--warm2) 0%, transparent 55%),
+        radial-gradient(380px 160px at 90% 10%, rgba(110,231,255,0.08) 0%, transparent 55%);
+      pointer-events:none;
+      opacity:.9;
+    }
+    .post:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.75)}
+
+    .post-inner{position:relative; z-index:1}
+
+    .post-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .post h3{
+      margin:0;
+      font-size:16px;
+      font-weight:750;
+      letter-spacing:-0.01em;
+      line-height:1.25;
+    }
+    .post h3 a{
+      text-decoration:none;
+      border-bottom:1px solid rgba(163,163,173,0.22);
+      padding-bottom:2px;
+    }
+    .post h3 a:hover{border-bottom-color: rgba(110,231,255,0.7)}
+
+    .meta{
+      color:var(--muted);
+      font-size:12px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+      white-space:nowrap;
+      margin-top:2px;
+    }
+    .dot{opacity:.6}
+
+    .excerpt{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:13px;
+    }
+
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px}
+    .tag{
+      font-size:12px;
+      padding:6px 10px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      color:var(--muted);
+      background:rgba(0,0,0,0.12);
+    }
+
+    .empty{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:13px;
+      padding:14px 16px;
+      border:1px dashed var(--ring);
+      border-radius:18px;
+      background:rgba(0,0,0,0.10);
+    }
+
+    /* reveal */
+    .reveal{opacity:0; transform:translateY(8px); transition:opacity .35s ease, transform .35s ease}
+    .reveal.visible{opacity:1; transform:none}
+
+    footer{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <header>
-      <a class="home" href="./">← home</a>
-      <button class="home" data-toggle-theme title="Toggle light mode">☼ / ○</button>
-    </header>
+    <div class="topbar">
+      <a class="home" href="./">← Home</a>
+      <div class="pillrow">
+        <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
+        <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
+        <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
+        <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
+      </div>
+    </div>
 
-    <h1>blog</h1>
-    <p class="sub">notes, experiments, and occasional rants</p>
+    <section class="card hero" aria-label="blog header">
+      <h1>Blog</h1>
+      <p class="sub">Notes, experiments, and occasional rants — written like a lab notebook, but with feelings.</p>
 
-    <section class="posts">
-
-      <!-- Post skeleton 1 -->
-      <article class="post reveal">
-        <h3><a href="posts/post-template.html">welcome to the blog</a></h3>
-        <div class="meta">
-          <span>2025-10-02</span> • <span>1 min read</span>
+      <div class="note-row">
+        <div class="note">
+          <h2>Small note</h2>
+          <p>
+            This is where I write things I’m actively learning: markets, modeling, systems, and whatever I’m curious about.
+            If you’re reading this, you’re basically sitting at my desk.
+          </p>
         </div>
-        <p class="excerpt">understanding the blog?</p>
-        <div class="tags">
-          <span class="tag">hi</span>
-        </div>
-      </article>
 
-      <!-- Duplicate skeletons for more posts 
-      <article class="post reveal">
-        <h3><a href="posts/post-2.html">Another Post Title</a></h3>
-        <div class="meta">
-          <span>YYYY-MM-DD</span> • <span>n min read</span>
+        <div class="note">
+          <h2>Currently thinking about</h2>
+          <div class="chips">
+            <span class="chip">structured credit</span>
+            <span class="chip">execution</span>
+            <span class="chip">market microstructure</span>
+            <span class="chip">C++ systems</span>
+            <span class="chip">risk modeling</span>
+          </div>
         </div>
-        <p class="excerpt">Short teaser describing what’s inside—keep to one or two sentences max.</p>
-        <div class="tags">
-          <span class="tag">tag1</span><span class="tag">tag2</span>
-        </div>
-      </article>
-
+      </div>
     </section>
+
+    <div class="toolbar" aria-label="blog toolbar">
+      <div class="hint">Search posts (client-side filter):</div>
+      <div class="search" role="search" aria-label="search posts">
+        <span class="mono" style="color:var(--muted)">⌕</span>
+        <input id="search" type="text" placeholder="type to filter by title, tags, or excerpt..." autocomplete="off" />
+      </div>
+    </div>
+
+    <section class="posts" id="posts" aria-label="posts">
+      <!-- Post 1 -->
+      <article class="post reveal" data-title="welcome to the blog" data-tags="hi" data-excerpt="understanding the blog?">
+        <div class="post-inner">
+          <div class="post-top">
+            <h3><a href="posts/post-template.html">welcome to the blog</a></h3>
+            <div class="meta">
+              <span>2025-10-02</span><span class="dot">•</span><span>1 min read</span>
+            </div>
+          </div>
+
+          <p class="excerpt">understanding the blog?</p>
+
+          <div class="tags">
+            <span class="tag">hi</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Copy/paste template
+      <article class="post reveal" data-title="post title" data-tags="tag1,tag2" data-excerpt="Short teaser...">
+        <div class="post-inner">
+          <div class="post-top">
+            <h3><a href="posts/post-2.html">post title</a></h3>
+            <div class="meta">
+              <span>YYYY-MM-DD</span><span class="dot">•</span><span>n min read</span>
+            </div>
+          </div>
+          <p class="excerpt">Short teaser describing what’s inside—keep to one or two sentences max.</p>
+          <div class="tags">
+            <span class="tag">tag1</span><span class="tag">tag2</span>
+          </div>
+        </div>
+      </article>
+      -->
+    </section>
+
+    <div class="empty" id="empty" style="display:none;">
+      No matches. Try a different keyword (or remove filters).
+    </div>
+
+    <footer>
+      <span>Tip: keep posts short and honest. You can always write part 2.</span>
+      <span class="mono">© <span id="y"></span> Arya Somu</span>
+    </footer>
   </div>
--->
-  <!-- page transitions + scroll reveal + theme toggle -->
+
   <script>
-    document.addEventListener('click', e=>{
-      const a = e.target.closest('a');
-      if(!a) return;
-      const sameHost = a.host === location.host;
-      const isHash = a.getAttribute('href')?.startsWith('#');
-      const newTab = a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey;
-      if(sameHost && !isHash && !newTab){
-        document.documentElement.classList.add('is-exiting');
-      }
-    });
+    // reveal on scroll
     const io = new IntersectionObserver((ents)=>{
-      ents.forEach(ent=>{ if(ent.isIntersecting){ ent.target.classList.add('visible'); io.unobserve(ent.target); } });
+      ents.forEach(ent=>{
+        if(ent.isIntersecting){
+          ent.target.classList.add('visible');
+          io.unobserve(ent.target);
+        }
+      });
     },{ threshold:.12 });
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+    // simple client-side search
     (function(){
-      const root = document.documentElement;
-      const saved = localStorage.getItem('theme');
-      if(saved) root.setAttribute('data-theme', saved);
-      document.addEventListener('click', (e)=>{
-        const t = e.target.closest('[data-toggle-theme]');
-        if(!t) return;
-        const next = root.getAttribute('data-theme') === 'light' ? '' : 'light';
-        if(next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
-        localStorage.setItem('theme', next);
-      });
+      const input = document.getElementById('search');
+      const posts = Array.from(document.querySelectorAll('#posts .post'));
+      const empty = document.getElementById('empty');
+
+      function norm(s){ return (s || '').toLowerCase().trim(); }
+
+      function apply(){
+        const q = norm(input.value);
+        let shown = 0;
+
+        posts.forEach(p=>{
+          const hay =
+            norm(p.dataset.title) + " " +
+            norm(p.dataset.tags) + " " +
+            norm(p.dataset.excerpt);
+
+          const ok = !q || hay.includes(q);
+          p.style.display = ok ? '' : 'none';
+          if(ok) shown++;
+        });
+
+        empty.style.display = shown ? 'none' : '';
+      }
+
+      input.addEventListener('input', apply);
+      apply();
     })();
+
+    // footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
