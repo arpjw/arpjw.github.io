@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Projects</title>
-    <meta name="description" content="Projects by Arya Somu: Code, Research, and Experiments." />
+    <title>Arya Somu — Projects</title>
+    <meta name="description" content="Projects by Arya Somu: code, research, and experiments." />
     <meta property="og:title" content="Arya Somu — Projects" />
-    <meta property="og:description" content="Projects by Arya Somu: Code, Research, and Experiments." />
+    <meta property="og:description" content="Projects by Arya Somu: code, research, and experiments." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0f0f10" />
 
@@ -14,89 +14,129 @@
       :root{
         --bg:#0a0a0b;
         --fg:#e7e7ea;
-        --muted:#9c9ca3;
-        --card:#121214;
+        --muted:#a3a3ad;
+        --card:rgba(18,18,20,0.9);
         --accent:#6ee7ff;
         --ring:#2b2b33;
+        --shadow:0 12px 40px rgba(0,0,0,0.35);
       }
-
-      html,body{height:100%}
       *{box-sizing:border-box}
-
+      html,body{height:100%}
       body{
         margin:0;
         min-height:100%;
         color:var(--fg);
-        background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%);
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       }
-
       a{color:inherit}
+      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
-      .container{width:min(920px,92vw); margin:0 auto; padding:32px 0 84px}
+      .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
 
-      header{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 0 18px}
-
+      /* top bar (matches other pages) */
+      .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+        margin-bottom:18px;
+      }
       .home{
         display:inline-flex;
         align-items:center;
-        gap:8px;
-        padding:8px 12px;
-        border:1px solid var(--ring);
-        border-radius:12px;
-        text-decoration:none;
-      }
-
-      .home:hover{border-color:var(--accent)}
-
-      .meta{
-        display:flex;
-        align-items:center;
         gap:10px;
+        padding:10px 12px;
+        border:1px solid var(--ring);
+        border-radius:14px;
+        text-decoration:none;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition:transform .06s ease, border-color .2s ease;
+        font-size:14px;
+      }
+      .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+      .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:9px 12px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        text-decoration:none;
+        font-size:13px;
+        color:var(--fg);
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition:transform .06s ease, border-color .2s ease;
+      }
+      .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+      /* hero card */
+      .card{
+        border:1px solid var(--ring);
+        border-radius:18px;
+        background:var(--card);
+        box-shadow:var(--shadow);
+        backdrop-filter: blur(6px);
+      }
+      .hero{padding:22px 20px; margin-bottom:14px}
+      h1{
+        margin:0;
+        font-size:clamp(28px, 4.3vw, 44px);
+        letter-spacing:-0.03em;
+        line-height:1.08;
+      }
+      .sub{
+        margin:10px 0 0;
         color:var(--muted);
-        font-size:12px;
+        line-height:1.55;
+        max-width:78ch;
+        font-size:15px;
       }
 
-      .dot{opacity:.6}
-
-      h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:8px 0 6px}
-      .sub{color:var(--muted); margin:0 0 26px; line-height:1.6}
-
+      /* toolbar */
       .toolbar{
         display:flex;
         flex-wrap:wrap;
         gap:10px;
         align-items:center;
         justify-content:space-between;
-        margin:0 0 18px;
+        margin:12px 0 18px;
       }
-
       .hint{color:var(--muted); font-size:12px}
-
-      .pillrow{display:flex; gap:8px; flex-wrap:wrap}
-      .pill{
-        font-size:11px;
+      .chiprow{display:flex; gap:8px; flex-wrap:wrap}
+      .chip{
+        font-size:12px;
         padding:6px 10px;
         border:1px solid var(--ring);
         border-radius:999px;
         color:var(--muted);
-        background:rgba(255,255,255,0.02);
-        text-transform:none;
+        background: rgba(0,0,0,0.12);
       }
 
-      .projects{display:grid; gap:16px}
+      /* project grid + cards */
+      .projects{
+        display:grid;
+        gap:14px;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 920px){
+        .projects{grid-template-columns:1fr 1fr}
+      }
 
       .project-card{
         border:1px solid var(--ring);
-        border-radius:14px;
-        background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.14));
-        padding:18px 18px 16px;
+        border-radius:18px;
+        background:var(--card);
+        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+        padding:16px 16px 14px;
         display:flex;
         flex-direction:column;
         gap:10px;
-        transition:transform .18s ease, border-color .18s ease;
+        backdrop-filter: blur(6px);
+        transition:transform .06s ease, border-color .2s ease;
       }
-
       .project-card:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.75)}
 
       .project-top{
@@ -105,23 +145,24 @@
         justify-content:space-between;
         gap:12px;
       }
-
       .project-title{
+        margin:0;
         font-size:16px;
         font-weight:700;
         letter-spacing:-0.01em;
+        line-height:1.25;
         display:flex;
         align-items:center;
         gap:10px;
-        margin:0;
       }
-
       .badge{
-        font-size:10px;
-        padding:3px 8px;
+        font-size:11px;
+        padding:5px 10px;
         border:1px solid var(--ring);
         border-radius:999px;
         color:var(--muted);
+        background: rgba(0,0,0,0.12);
+        white-space:nowrap;
       }
 
       .project-actions{
@@ -130,60 +171,83 @@
         align-items:center;
         white-space:nowrap;
       }
-
       .action{
-        font-size:12px;
-        color:var(--accent);
+        font-size:13px;
         text-decoration:none;
+        padding:8px 10px;
+        border:1px solid var(--ring);
+        border-radius:12px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition:transform .06s ease, border-color .2s ease;
+      }
+      .action:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+      .project-desc{
+        margin:0;
+        font-size:13px;
+        line-height:1.6;
+        color:var(--muted);
       }
 
-      .action:hover{text-decoration:underline}
-
-      .project-desc{font-size:13px; line-height:1.6; margin:0}
-
-      .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:2px}
-      .tag{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted); text-transform:none}
-
-      .links{display:flex; gap:12px; margin-top:6px}
-      .links a{font-size:12px; color:var(--accent); text-decoration:none}
-      .links a:hover{text-decoration:underline}
-
-      footer{margin-top:56px; color:var(--muted); font-size:12px}
-
-      @media (min-width: 880px){
-        .projects{grid-template-columns:1fr 1fr}
+      .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px}
+      .tag{
+        font-size:12px;
+        padding:6px 10px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        color:var(--muted);
+        background: rgba(0,0,0,0.12);
       }
 
-      @media (max-width: 520px){
-        .project-actions{gap:8px}
-        .action{font-size:11px}
+      .links{display:flex; gap:10px; flex-wrap:wrap; margin-top:2px}
+      .links a{
+        font-size:13px;
+        color:var(--fg);
+        text-decoration:none;
+        border-bottom:1px solid rgba(163,163,173,0.25);
+        padding-bottom:2px;
+      }
+      .links a:hover{border-bottom-color: rgba(110,231,255,0.7)}
+
+      footer{
+        margin-top:22px;
+        color:var(--muted);
+        font-size:12px;
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
       }
     </style>
   </head>
 
   <body>
     <div class="container">
-      <header>
+      <div class="topbar">
         <a class="home" href="./">← Home</a>
-        <div class="meta">
-          <span>Arya Somu</span><span class="dot">•</span><span>Projects</span>
-        </div>
-      </header>
-
-      <h1>Projects</h1>
-      <p class="sub">Selected Builds, Research, and Experiments</p>
-
-      <div class="toolbar">
-        <div class="hint">A Few Highlights — More on GitHub</div>
         <div class="pillrow">
-          <span class="pill">Quant Systems</span>
-          <span class="pill">Research</span>
-          <span class="pill">C++</span>
-          <span class="pill">Python</span>
+          <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
+          <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
+          <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
         </div>
       </div>
 
-      <section class="projects">
+      <section class="card hero" aria-label="projects header">
+        <h1>Projects</h1>
+        <p class="sub">Selected builds, research, and experiments. More on GitHub.</p>
+      </section>
+
+      <div class="toolbar" aria-label="projects toolbar">
+        <div class="hint">A few highlights — curated for signal.</div>
+        <div class="chiprow" aria-label="tags">
+          <span class="chip">Quant systems</span>
+          <span class="chip">Research</span>
+          <span class="chip">C++</span>
+          <span class="chip">Python</span>
+        </div>
+      </div>
+
+      <section class="projects" aria-label="projects grid">
 
         <div class="project-card">
           <div class="project-top">
@@ -192,17 +256,17 @@
               <a class="action" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
             </div>
           </div>
-          <p class="project-desc">Reinforcement Learning–Based Trade Execution Simulator</p>
+          <p class="project-desc">Reinforcement learning–based trade execution simulator.</p>
           <div class="tags">
             <span class="tag">C++</span>
-            <span class="tag">Reinforcement Learning</span>
-            <span class="tag">Q-Learning</span>
+            <span class="tag">Reinforcement learning</span>
+            <span class="tag">Q-learning</span>
             <span class="tag">Simulation</span>
             <span class="tag">Backtesting</span>
           </div>
           <div class="links">
             <a href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">Source</a>
-            <a href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-Up</a>
+            <a href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
           </div>
         </div>
 
@@ -213,17 +277,17 @@
               <a class="action" href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">GitHub</a>
             </div>
           </div>
-          <p class="project-desc">Documentation of Quantitative Research and Development Projects</p>
+          <p class="project-desc">Documentation of quantitative research and development projects.</p>
           <div class="tags">
             <span class="tag">Python</span>
-            <span class="tag">Time Series</span>
-            <span class="tag">Portfolio Optimization</span>
+            <span class="tag">Time series</span>
+            <span class="tag">Portfolio optimization</span>
             <span class="tag">Risk</span>
             <span class="tag">Backtesting</span>
           </div>
           <div class="links">
             <a href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">Source</a>
-            <a href="https://github.com/arpjw/quant-projects/blob/main/README.md" target="_blank" rel="noopener">Write-Up</a>
+            <a href="https://github.com/arpjw/quant-projects/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
           </div>
         </div>
 
@@ -234,17 +298,19 @@
               <a class="action" href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
             </div>
           </div>
-          <p class="project-desc">A Minimal C++ Library for Vector and Matrix Operations, Built from Scratch to Explore Numerical Computing and Performance-Oriented Design</p>
+          <p class="project-desc">
+            A minimal C++ library for vector and matrix operations, built from scratch to explore numerical computing and performance-oriented design.
+          </p>
           <div class="tags">
             <span class="tag">C++</span>
-            <span class="tag">Linear Algebra</span>
-            <span class="tag">Numerical Computing</span>
+            <span class="tag">Linear algebra</span>
+            <span class="tag">Numerical computing</span>
             <span class="tag">Performance</span>
             <span class="tag">Utilities</span>
           </div>
           <div class="links">
             <a href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">Source</a>
-            <a href="https://github.com/arpjw/miniquantlib/blob/main/README.md" target="_blank" rel="noopener">Write-Up</a>
+            <a href="https://github.com/arpjw/miniquantlib/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
           </div>
         </div>
 
@@ -255,22 +321,31 @@
               <a class="action" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">PDF</a>
             </div>
           </div>
-          <p class="project-desc">An Investigative Paper on Xor-Shift PRNG Design and Analysis, Combining Mathematical Modeling and Simulation with Security Implications</p>
+          <p class="project-desc">
+            Investigative paper on xor-shift PRNG design and analysis, combining mathematical modeling and simulation with security implications.
+          </p>
           <div class="tags">
             <span class="tag">Research</span>
             <span class="tag">PRNG</span>
-            <span class="tag">Xor Shift</span>
+            <span class="tag">Xor shift</span>
             <span class="tag">Cryptography</span>
             <span class="tag">Simulation</span>
           </div>
           <div class="links">
-            <a href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">Read Paper</a>
+            <a href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">Read paper</a>
           </div>
         </div>
 
       </section>
 
-      <footer>© Arya Somu</footer>
+      <footer>
+        <span>Just some of my technical side.</span>
+        <span class="mono">© <span id="y"></span> Arya Somu</span>
+      </footer>
     </div>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
