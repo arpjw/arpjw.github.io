@@ -135,15 +135,12 @@
         overflow-wrap:anywhere;
       }
 
-      /* Based pills (original style + extensions) */
+      /* Based pills */
       .basedstack{
         display:flex;
         gap:10px;
         align-items:center;
         flex-wrap:wrap;
-      }
-      @media(max-width:820px){
-        .basedstack{gap:8px}
       }
 
       .nowline{
@@ -162,67 +159,34 @@
         user-select:none;
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
       }
-      .nowline .lbl{color:var(--muted); font-weight:600; white-space:nowrap}
       .nowline .city{font-weight:700}
       .nowline .clock{margin-left:auto; font-variant-numeric:tabular-nums; white-space:nowrap}
 
+      /* Full-oval pulse (instead of tiny dot) */
       .nowline.here{
-        border-color:rgba(110,231,255,0.85);
-        box-shadow:0 0 0 3px rgba(110,231,255,0.12);
+        border-color:rgba(110,231,255,0.9);
       }
-
-      /* animated pulse */
-      .pulse{
-        width:8px;
-        height:8px;
-        border-radius:999px;
-        background:var(--accent);
-        position:relative;
-        flex:0 0 auto;
-        box-shadow:0 0 0 1px rgba(0,0,0,0.6);
-      }
-      .pulse::after{
+      .nowline.here::after{
         content:"";
         position:absolute;
-        inset:-6px;
+        inset:-2px;
         border-radius:999px;
-        border:2px solid rgba(110,231,255,0.55);
-        opacity:0;
-        transform:scale(0.55);
-        animation:pulse 1.6s ease-out infinite;
-      }
-      @keyframes pulse{
-        0%{opacity:.65; transform:scale(0.55)}
-        70%{opacity:0; transform:scale(1.6)}
-        100%{opacity:0; transform:scale(1.6)}
-      }
-
-      /* tooltip (simple) */
-      .nowline::before{
-        content:attr(data-tip);
-        position:absolute;
-        bottom:calc(100% + 8px);
-        left:50%;
-        transform:translateX(-50%);
-        white-space:nowrap;
-        background:#000;
-        color:#fff;
-        padding:6px 10px;
-        font-size:11px;
-        border-radius:8px;
-        opacity:0;
+        box-shadow:0 0 0 0 rgba(110,231,255,0.32);
+        animation:ovalPulse 1.7s ease-out infinite;
         pointer-events:none;
-        transition:opacity .15s ease;
       }
-      .nowline:hover::before{opacity:0.9}
-      .nowline.open::before{opacity:0} /* avoid double UI when pinned */
+      @keyframes ovalPulse{
+        0%   { box-shadow:0 0 0 0 rgba(110,231,255,0.28); opacity:1; }
+        70%  { box-shadow:0 0 0 10px rgba(110,231,255,0.0); opacity:0; }
+        100% { box-shadow:0 0 0 10px rgba(110,231,255,0.0); opacity:0; }
+      }
 
-      /* map popover: hover OR click to pin */
+      /* Popover (no iframe; reliable everywhere) */
       .popover{
         position:absolute;
         left:0;
         top:calc(100% + 10px);
-        width:min(360px, 86vw);
+        width:min(320px, 86vw);
         background:rgba(10,10,11,0.96);
         border:1px solid var(--ring);
         border-radius:16px;
@@ -241,23 +205,8 @@
         pointer-events:auto;
       }
 
-      .pop-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px}
       .pop-title{font-weight:700; font-size:13px}
-      .pop-sub{color:var(--muted); font-size:12px; margin-top:3px}
-
-      .map{
-        border-radius:14px;
-        overflow:hidden;
-        border:1px solid var(--ring);
-        background:rgba(255,255,255,0.03);
-      }
-      .map iframe{
-        width:100%;
-        height:190px;
-        border:0;
-        display:block;
-      }
-
+      .pop-sub{color:var(--muted); font-size:12px; margin-top:4px}
       .pop-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
       .pop-actions a{
         text-decoration:none;
@@ -339,40 +288,18 @@
             <div class="v">Biopharma IB, CMO/SC QR, GTM &amp; Fundraising.</div>
           </div>
 
-          <!-- ✅ Based card (patched, but keeps your original layout) -->
           <div class="card mini">
             <div class="k">Based</div>
             <div class="v">
               <div class="basedstack">
-
-                <!-- Seattle (current location) -->
-                <span
-                  id="locHome"
-                  class="nowline here"
-                  data-loc
-                  data-tip="Home — currently in Seattle"
-                  aria-label="Home: Seattle"
-                >
-                  <span class="pulse" aria-hidden="true"></span>
-                  <span class="lbl">Home</span>
-                  <span class="city">🇺🇸 Seattle, WA</span>
+                <!-- Seattle (current) -->
+                <span id="locSeattle" class="nowline here" data-loc data-city="Seattle, WA">
+                  <span class="city">Seattle, WA</span>
                   <span class="clock">--:--:--</span>
 
-                  <div class="popover" role="dialog" aria-label="Seattle map">
-                    <div class="pop-head">
-                      <div>
-                        <div class="pop-title">Seattle, WA</div>
-                        <div class="pop-sub">Home • currently here</div>
-                      </div>
-                    </div>
-                    <div class="map">
-                      <iframe
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://www.google.com/maps?q=Seattle%2C%20WA&output=embed"
-                        title="Seattle map"
-                      ></iframe>
-                    </div>
+                  <div class="popover" role="dialog" aria-label="Seattle links">
+                    <div class="pop-title">Seattle, WA</div>
+                    <div class="pop-sub">Currently here</div>
                     <div class="pop-actions">
                       <a href="https://www.google.com/maps/search/?api=1&query=Seattle%2C%20WA" target="_blank" rel="noopener">Open in Maps</a>
                       <a href="https://www.google.com/maps/dir/?api=1&destination=Seattle%2C%20WA" target="_blank" rel="noopener">Directions</a>
@@ -380,40 +307,20 @@
                   </div>
                 </span>
 
-                <!-- San Francisco -->
-                <span
-                  id="locWork"
-                  class="nowline"
-                  data-loc
-                  data-tip="Study/Work — De Anza + SF"
-                  aria-label="Study/Work: San Francisco"
-                >
-                  <span class="lbl">School</span>
-                  <span class="city">🇺🇸 San Francisco, CA</span>
+                <!-- San Francisco (study/work) -->
+                <span id="locSF" class="nowline" data-loc data-city="San Francisco, CA">
+                  <span class="city">San Francisco, CA</span>
                   <span class="clock">--:--:--</span>
 
-                  <div class="popover" role="dialog" aria-label="San Francisco map">
-                    <div class="pop-head">
-                      <div>
-                        <div class="pop-title">San Francisco, CA</div>
-                        <div class="pop-sub">School &amp; work</div>
-                      </div>
-                    </div>
-                    <div class="map">
-                      <iframe
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://www.google.com/maps?q=San%20Francisco%2C%20CA&output=embed"
-                        title="San Francisco map"
-                      ></iframe>
-                    </div>
+                  <div class="popover" role="dialog" aria-label="San Francisco links">
+                    <div class="pop-title">San Francisco, CA</div>
+                    <div class="pop-sub">Study &amp; work</div>
                     <div class="pop-actions">
                       <a href="https://www.google.com/maps/search/?api=1&query=San%20Francisco%2C%20CA" target="_blank" rel="noopener">Open in Maps</a>
                       <a href="https://www.google.com/maps/dir/?api=1&destination=San%20Francisco%2C%20CA" target="_blank" rel="noopener">Directions</a>
                     </div>
                   </div>
                 </span>
-
               </div>
             </div>
           </div>
@@ -461,12 +368,13 @@
     <script>
       document.getElementById('y').textContent = new Date().getFullYear();
 
-      // live clocks
+      // live clocks (same timezone for both; just showing current time)
       (function(){
         const els = Array.from(document.querySelectorAll('[data-loc]'));
         function tick(el){
           const clock = el.querySelector('.clock');
-          if(clock) clock.textContent = new Date().toLocaleTimeString('en-US',{
+          if(!clock) return;
+          clock.textContent = new Date().toLocaleTimeString('en-US',{
             hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true
           });
         }
@@ -478,18 +386,13 @@
       (function(){
         const locs = Array.from(document.querySelectorAll('[data-loc]'));
 
-        function closeAll(){
-          locs.forEach(el=>el.classList.remove('open'));
-        }
+        function closeAll(){ locs.forEach(el=>el.classList.remove('open')); }
 
         document.addEventListener('click', (e)=>{
           const loc = e.target.closest('[data-loc]');
           const insidePopover = e.target.closest('.popover');
-
-          // clicking inside the popover should not close it
           if(insidePopover) return;
 
-          // clicking a location pill pins it (and closes others)
           if(loc){
             const willOpen = !loc.classList.contains('open');
             closeAll();
@@ -497,12 +400,9 @@
             e.stopPropagation();
             return;
           }
-
-          // click outside closes everything
           closeAll();
         });
 
-        // escape closes
         document.addEventListener('keydown', (e)=>{
           if(e.key === 'Escape') closeAll();
         });
