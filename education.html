@@ -3,89 +3,301 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>arpjw — education</title>
-    <meta name="description" content="Education of Arya Somu (arpjw): schools, coursework, awards." />
-    <meta property="og:title" content="arpjw — education" />
-    <meta property="og:description" content="Education of Arya Somu (arpjw): schools, coursework, awards." />
+    <title>Education</title>
+    <meta name="description" content="Education of Arya Somu: schools, coursework, awards, and campus leadership." />
+    <meta property="og:title" content="Arya Somu — Education" />
+    <meta property="og:description" content="Schools, coursework, awards, and campus leadership." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0f0f10" />
+
     <style>
-      :root{ --bg:#0a0a0b; --fg:#e7e7ea; --muted:#9c9ca3; --ring:#2b2b33; --accent:#6ee7ff }
-      html,body{height:100%}
+      :root{
+        --bg:#0a0a0b;
+        --fg:#e7e7ea;
+        --muted:#a3a3ad;
+        --card:rgba(18,18,20,0.9);
+        --accent:#6ee7ff;
+        --ring:#2b2b33;
+        --shadow:0 12px 40px rgba(0,0,0,0.35);
+      }
       *{box-sizing:border-box}
-      body{margin:0; min-height:100%; color:var(--fg); background: radial-gradient(1200px 800px at 50% 10%, #121212 0%, var(--bg) 65%); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+      html,body{height:100%}
+      body{
+        margin:0;
+        min-height:100%;
+        color:var(--fg);
+        background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      }
       a{color:inherit}
-      .container{width:min(920px, 92vw); margin:0 auto; padding:32px 0 80px}
-      header{display:flex; align-items:center; gap:12px}
-      .home{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--ring); border-radius:12px; text-decoration:none}
-      .home:hover{border-color:var(--accent)}
-      h1{font-size:clamp(28px,6vw,48px); letter-spacing:-0.02em; margin:16px 0 6px}
-      .sub{color:var(--muted); margin:0 0 18px}
+      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
-      .timeline{position:relative; margin:24px 0; padding-left:22px}
-      .timeline::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent 60%)}
-      .year{position:sticky; top:0; background:rgba(10,10,11,.75); backdrop-filter: blur(6px); padding:4px 8px; width:max-content; border:1px solid var(--ring); border-radius:8px; margin:24px 0; font-weight:700}
+      .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
 
-      .item{position:relative; margin:14px 0 18px}
-      .item::before{content:""; position:absolute; left:-15px; top:8px; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.15)}
-      .card{border:1px solid var(--ring); border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12)); padding:14px 16px}
-      .row{display:flex; flex-wrap:wrap; gap:8px; align-items:baseline}
-      .row b{font-size:16px}
-      .org{color:var(--muted)}
-      .meta{display:flex; flex-wrap:wrap; gap:10px; color:var(--muted); font-size:12px; margin:6px 0 8px}
-      .desc{font-size:13px; line-height:1.55; margin:8px 0}
-      .badges{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
-      .badge{font-size:11px; padding:4px 8px; border:1px solid var(--ring); border-radius:999px; color:var(--muted)}
+      /* top bar */
+      .topbar{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:14px;
+        margin-bottom:18px;
+      }
+      .home{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding:10px 12px;
+        border:1px solid var(--ring);
+        border-radius:14px;
+        text-decoration:none;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition:transform .06s ease, border-color .2s ease;
+        font-size:14px;
+      }
+      .home:hover{transform:translateY(-1px); border-color:var(--accent)}
 
-      @media (max-width:600px){ .container{padding:20px 0 64px} }
+      .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:9px 12px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        text-decoration:none;
+        font-size:13px;
+        color:var(--fg);
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition:transform .06s ease, border-color .2s ease;
+      }
+      .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+      /* cards */
+      .card{
+        border:1px solid var(--ring);
+        border-radius:18px;
+        background:var(--card);
+        box-shadow:var(--shadow);
+        backdrop-filter: blur(6px);
+      }
+
+      /* hero */
+      .hero{padding:22px 20px; margin-bottom:14px}
+      h1{
+        margin:0;
+        font-size:clamp(28px, 4.3vw, 44px);
+        letter-spacing:-0.03em;
+        line-height:1.08;
+      }
+      .sub{
+        margin:10px 0 0;
+        color:var(--muted);
+        line-height:1.55;
+        max-width:78ch;
+        font-size:15px;
+      }
+
+      /* content */
+      .edu-card{padding:18px 18px}
+      .row{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:14px;
+        flex-wrap:wrap;
+      }
+      .school{
+        display:flex;
+        gap:12px;
+        align-items:flex-start;
+      }
+      .logo{
+        width:34px;
+        height:34px;
+        border-radius:10px;
+        border:1px solid var(--ring);
+        background:rgba(0,0,0,0.18);
+        display:grid;
+        place-items:center;
+        color:var(--muted);
+        font-weight:700;
+        font-size:14px;
+        flex:0 0 auto;
+      }
+      .titleblock b{
+        font-size:16px;
+        letter-spacing:-0.01em;
+      }
+      .titleblock .program{
+        color:var(--muted);
+        margin-top:4px;
+        font-size:13px;
+        line-height:1.45;
+      }
+      .meta{
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        color:var(--muted);
+        font-size:12px;
+        margin-top:8px;
+      }
+
+      .stats{
+        display:flex;
+        gap:8px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+      }
+      .stat{
+        font-size:12px;
+        padding:7px 10px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        color:var(--muted);
+        background:rgba(0,0,0,0.12);
+        white-space:nowrap;
+      }
+      .stat b{color:var(--fg); font-weight:700}
+
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap:12px;
+        margin-top:14px;
+      }
+      @media (max-width: 820px){
+        .grid{grid-template-columns:1fr}
+        .stats{justify-content:flex-start}
+      }
+
+      .block{
+        border:1px solid var(--ring);
+        border-radius:16px;
+        padding:14px 14px;
+        background:rgba(0,0,0,0.10);
+      }
+      .block h2{
+        margin:0;
+        font-size:12px;
+        letter-spacing:0.08em;
+        text-transform:uppercase;
+        color:var(--muted);
+      }
+      ul{
+        margin:10px 0 0;
+        padding-left:18px;
+        color:var(--fg);
+        font-size:13px;
+        line-height:1.6;
+      }
+      li{margin:6px 0}
+
+      .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+      .chip{
+        font-size:12px;
+        padding:6px 10px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        color:var(--muted);
+        background:rgba(0,0,0,0.12);
+      }
+
+      footer{
+        margin-top:22px;
+        color:var(--muted);
+        font-size:12px;
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
+      }
     </style>
   </head>
+
   <body>
     <div class="container">
-      <header>
-        <a class="home" href="./">← home</a>
-      </header>
-
-      <h1>education</h1>
-      <p class="sub">schools • coursework • awards</p>
-
-      <section class="timeline">
-        <div class="year">2025</div>
-
-        <article class="item" id="deanza">
-  <div class="card">
-    <div class="row"><b>De Anza College</b><span class="org"> — Applied Mathematics + Finance (intended transfer)</span></div>
-    <div class="meta"><span>Cupertino, CA | </span><span>2024 — present</span></div>
-
-    <div class="section">
-      <span class="section-title">Coursework</span>
-      <div class="badges">
-        <span class="badge">Differential Calculus</span>
-        <span class="badge">Integral Calculus</span>
-        <span class="badge">Series Calculus</span>
-        <span class="badge">Statistics</span>
-        <span class="badge">Financial Accounting</span>
-        <span class="badge">Managerial Accounting</span>
-        <span class="badge">General Chemistry</span>
-        <span class="badge">Physics: Mechanics</span>
+      <div class="topbar">
+        <a class="home" href="./">← Home</a>
+        <div class="pillrow">
+          <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
+          <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
+          <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
+          <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
+        </div>
       </div>
-    </div>
-  </div>
-</article>
 
-
-        <!-- COPY-PASTE TEMPLATE
-        <article class="item" id="UNIQUE_ID">
-          <div class="card">
-            <div class="row"><b>SCHOOL</b><span class="org">— DEGREE / PROGRAM</span></div>
-            <div class="meta"><span>CITY, STATE</span><span>DATES</span></div>
-            <p class="desc">Concise summary. Mention activities, awards, or focus areas.</p>
-            <div class="badges"><span class="badge">keyword</span><span class="badge">keyword</span></div>
-          </div>
-        </article>
-        -->
+      <section class="card hero">
+        <h1>Education</h1>
+        <p class="sub">Academics, awards, and campus leadership.</p>
       </section>
+
+      <section class="card edu-card" aria-label="De Anza College">
+        <div class="row">
+          <div class="school">
+            <div class="logo" aria-hidden="true">DA</div>
+            <div class="titleblock">
+              <b>De Anza College</b>
+              <div class="program">
+                Associate of Science (AS) — Applied Mathematics, Business Administration (Finance)<br />
+                <span class="mono">2024 — 2026</span> · Grade: Sophomore
+              </div>
+              <div class="meta">
+                <span>Cupertino, CA</span>
+                <span>•</span>
+                <span>Applied Math &amp; Finance</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stats" aria-label="academic stats">
+            <span class="stat"><b>4.0</b> GPA</span>
+            <span class="stat"><b>5×</b> Dean’s List</span>
+          </div>
+        </div>
+
+        <div class="grid" aria-label="education details">
+          <div class="block">
+            <h2>Events hosted</h2>
+            <ul>
+              <li>De Anza Innovation Summit</li>
+              <li>De Anza Phi Beta Lambda: Shark Tank</li>
+              <li>De Anza Phi Beta Lambda: Casing Bootcamp</li>
+              <li>De Anza Hacks 3.5</li>
+              <li>De Anza Hacks 4.0</li>
+              <li>TEDx De Anza: CC to Success</li>
+            </ul>
+          </div>
+
+          <div class="block">
+            <h2>Organizations</h2>
+            <div class="chips">
+              <span class="chip">De Anza PBL</span>
+              <span class="chip">Polaris Research Group</span>
+              <span class="chip">DA Hacks</span>
+              <span class="chip">De Anza Innovation Center</span>
+              <span class="chip">TEDx</span>
+              <span class="chip">Mentors</span>
+            </div>
+
+            <h2 style="margin-top:14px;">Programs</h2>
+            <div class="chips">
+              <span class="chip">Perplexity Campus Partner</span>
+              <span class="chip">AMATYC</span>
+              <span class="chip">Putnam</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span>My education is focused on signal: academics + leadership + outcomes.</span>
+        <span class="mono">© <span id="y"></span> Arya Somu</span>
+      </footer>
     </div>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
-
