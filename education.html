@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Education</title>
-    <meta name="description" content="Education of Arya Somu: schools, coursework, awards, and campus leadership." />
+    <meta name="description" content="Education of Arya Somu: schools, coursework, awards, campus leadership, and certifications." />
     <meta property="og:title" content="Arya Somu — Education" />
-    <meta property="og:description" content="Schools, coursework, awards, and campus leadership." />
+    <meta property="og:description" content="Schools, coursework, awards, campus leadership, and certifications." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0f0f10" />
 
@@ -203,6 +203,45 @@
         background:rgba(0,0,0,0.12);
       }
 
+      /* certifications list */
+      .certs{
+        margin-top:14px;
+        display:grid;
+        gap:10px;
+      }
+      .cert{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:12px;
+        padding:12px 12px;
+        border:1px solid var(--ring);
+        border-radius:14px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      }
+      .cert-left{display:flex; gap:10px; align-items:flex-start}
+      .cert-logo{
+        width:30px;
+        height:30px;
+        border-radius:10px;
+        border:1px solid var(--ring);
+        background:rgba(0,0,0,0.14);
+        display:grid;
+        place-items:center;
+        color:var(--muted);
+        font-weight:700;
+        font-size:12px;
+        flex:0 0 auto;
+      }
+      .cert-title{margin:0; font-weight:700; font-size:13px; letter-spacing:-0.01em}
+      .cert-org{margin-top:2px; color:var(--muted); font-size:12px}
+      .cert-date{
+        color:var(--muted);
+        font-size:12px;
+        white-space:nowrap;
+        padding-top:2px;
+      }
+
       footer{
         margin-top:22px;
         color:var(--muted);
@@ -229,9 +268,10 @@
 
       <section class="card hero">
         <h1>Education</h1>
-        <p class="sub">Academics, awards, and campus leadership.</p>
+        <p class="sub">Academics, awards, campus leadership, and certifications.</p>
       </section>
 
+      <!-- De Anza -->
       <section class="card edu-card" aria-label="De Anza College">
         <div class="row">
           <div class="school">
@@ -239,8 +279,7 @@
             <div class="titleblock">
               <b>De Anza College</b>
               <div class="program">
-                AST - Associate's for Transfer (4x) | Mathematics, Business Adminstration, Economics, Accounting <br />
-                <span> </span>
+                AST - Associate's for Transfer (4x) | Mathematics, Business Administration, Economics, Accounting <br />
                 <span class="mono">2024 — 2026</span> · Grade: Sophomore
               </div>
               <div class="meta">
@@ -284,6 +323,68 @@
               <span class="chip">Perplexity Campus Partner</span>
               <span class="chip">AMATYC</span>
               <span class="chip">Putnam</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="block" style="margin-top:12px;" aria-label="certifications">
+          <h2>Certifications</h2>
+
+          <div class="certs">
+            <div class="cert">
+              <div class="cert-left">
+                <div class="cert-logo" aria-hidden="true">SIG</div>
+                <div>
+                  <p class="cert-title">Virtual Discovery Program (~1/300)</p>
+                  <div class="cert-org">Susquehanna International Group</div>
+                </div>
+              </div>
+              <div class="cert-date">Issued Dec 2025</div>
+            </div>
+
+            <div class="cert">
+              <div class="cert-left">
+                <div class="cert-logo" aria-hidden="true">C</div>
+                <div>
+                  <p class="cert-title">Pricing Options with Mathematical Models</p>
+                  <div class="cert-org">Caltech</div>
+                </div>
+              </div>
+              <div class="cert-date">Issued Aug 2025</div>
+            </div>
+
+            <div class="cert">
+              <div class="cert-left">
+                <div class="cert-logo" aria-hidden="true">MIT</div>
+                <div>
+                  <p class="cert-title">Mathematical Methods for Quantitative Finance</p>
+                  <div class="cert-org">MITx Courses</div>
+                </div>
+              </div>
+              <div class="cert-date">Issued Mar 2025</div>
+            </div>
+
+            <div class="cert">
+              <div class="cert-left">
+                <div class="cert-logo" aria-hidden="true">AK</div>
+                <div>
+                  <p class="cert-title">Options 101</p>
+                  <div class="cert-org">Akuna Capital</div>
+                </div>
+              </div>
+              <div class="cert-date">Issued Mar 2025</div>
+            </div>
+
+            <div class="cert">
+              <div class="cert-left">
+                <div class="cert-logo" aria-hidden="true">CU</div>
+                <div>
+                  <p class="cert-title">Financial Engineering and Risk Management</p>
+                  <div class="cert-org">Columbia University</div>
+                </div>
+              </div>
+              <div class="cert-date">Issued Feb 2025</div>
             </div>
           </div>
         </div>
