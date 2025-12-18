@@ -26,34 +26,44 @@
 html,body{height:100%}
 body{
   margin:0;
-  background:radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 70%);
+  background:
+    radial-gradient(1100px 740px at 50% 10%, rgba(20,20,22,1) 0%, var(--bg) 72%),
+    radial-gradient(900px 600px at 10% 20%, rgba(110,231,255,.06), transparent 60%),
+    radial-gradient(900px 600px at 90% 60%, rgba(110,231,255,.04), transparent 55%);
   color:var(--fg);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 }
 
 a{color:inherit}
 .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;}
-.container{width:min(1080px,92vw); margin:0 auto; padding:36px 0 90px}
+.container{width:min(1120px,92vw); margin:0 auto; padding:36px 0 90px}
 
-/* top nav */
+/* top nav (matches your other pages) */
 .topbar{
   display:flex; justify-content:space-between; align-items:center;
-  margin-bottom:18px;
+  gap:14px; margin-bottom:18px;
 }
 .home{
-  padding:10px 14px;
-  border-radius:14px;
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 12px; border-radius:14px;
   border:1px solid var(--ring);
   text-decoration:none;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  transition:transform .06s ease, border-color .2s ease;
+  font-size:14px;
 }
-.pillrow{display:flex; gap:10px}
+.home:hover{transform:translateY(-1px); border-color:var(--accent)}
+.pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
 .pill{
-  padding:9px 14px;
-  border-radius:999px;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 12px; border-radius:999px;
   border:1px solid var(--ring);
   text-decoration:none;
   font-size:13px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  transition:transform .06s ease, border-color .2s ease;
 }
+.pill:hover{transform:translateY(-1px); border-color:var(--accent)}
 
 /* hero */
 .hero{
@@ -62,102 +72,194 @@ a{color:inherit}
   background:var(--card);
   box-shadow:var(--shadow);
   padding:26px;
-  margin-bottom:20px;
+  margin-bottom:16px;
 }
 .hero h1{
   margin:0;
   font-size:clamp(30px,4.5vw,48px);
   letter-spacing:-.03em;
+  line-height:1.1;
 }
 .hero p{
-  margin-top:10px;
+  margin:10px 0 0;
   color:var(--muted);
-  max-width:70ch;
+  max-width:78ch;
   line-height:1.55;
+  font-size:15px;
 }
 
 /* spotlight */
 .spotlight{
-  margin:22px 0;
-  padding:22px;
+  margin:14px 0 18px;
+  padding:18px;
   border-radius:20px;
-  border:1px solid rgba(110,231,255,.4);
+  border:1px solid rgba(110,231,255,.42);
   background:
-    radial-gradient(600px 260px at 20% 0%, rgba(110,231,255,.08), transparent),
+    radial-gradient(720px 320px at 14% 0%, rgba(110,231,255,.09), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12)),
     var(--card);
+  box-shadow:0 18px 65px rgba(0,0,0,.5);
 }
-.spotlight h2{
-  margin:0;
-  font-size:18px;
+.spotlight-top{
+  display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;
 }
-.spotlight .grid{
+.spotlight h2{margin:0; font-size:16px; letter-spacing:-.01em}
+.kicker{color:var(--muted); font-size:12px; margin-top:6px; line-height:1.4}
+.spotlight-grid{
   margin-top:14px;
   display:grid;
-  grid-template-columns: 2fr 1fr;
-  gap:18px;
+  grid-template-columns: 2.2fr 1fr;
+  gap:16px;
 }
-@media(max-width:900px){
-  .spotlight .grid{grid-template-columns:1fr}
-}
+@media(max-width:900px){ .spotlight-grid{grid-template-columns:1fr} }
 .metric{
   font-size:12px;
   color:var(--muted);
   border-left:2px solid var(--accent);
   padding-left:10px;
-  margin-bottom:10px;
+  margin:8px 0;
 }
+.spot-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:flex-start}
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; text-decoration:none;
+  padding:9px 12px;
+  border:1px solid var(--ring);
+  border-radius:14px;
+  background:rgba(0,0,0,0.14);
+  transition:transform .06s ease, border-color .2s ease;
+}
+.btn:hover{transform:translateY(-1px); border-color:var(--accent)}
 
 /* filters */
 .filters{
   display:flex; gap:10px; flex-wrap:wrap;
-  margin:24px 0 14px;
+  margin:14px 0 14px;
 }
 .filter{
   padding:7px 14px;
   border-radius:999px;
   border:1px solid var(--ring);
+  background:rgba(0,0,0,0.10);
   font-size:12px;
   cursor:pointer;
+  color:var(--muted);
+  transition:border-color .2s ease, transform .06s ease, color .2s ease;
 }
+.filter:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.5); color:var(--fg)}
 .filter.active{
   border-color:var(--accent);
   color:var(--fg);
 }
 
-/* projects */
+/* grid */
 .projects{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
   gap:16px;
 }
+@media(max-width:420px){ .projects{grid-template-columns:1fr} }
+
 .project{
   border-radius:18px;
   border:1px solid var(--ring);
   background:var(--card);
   padding:16px;
-  box-shadow:var(--shadow);
+  box-shadow:0 14px 44px rgba(0,0,0,.35);
+  transition:transform .06s ease, border-color .2s ease;
 }
-.project h3{
+.project:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.55)}
+.top{
+  display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+}
+.title{
   margin:0;
   font-size:16px;
   letter-spacing:-.01em;
+  line-height:1.25;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
 }
-.badges{display:flex; gap:8px; margin-top:6px}
+.badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
 .badge{
   font-size:11px;
-  padding:4px 10px;
+  padding:5px 10px;
   border-radius:999px;
   border:1px solid var(--ring);
   color:var(--muted);
+  background:rgba(0,0,0,0.10);
+  white-space:nowrap;
+}
+.maturity{
+  border-color:rgba(110,231,255,.35);
+  color:rgba(231,231,234,.9);
 }
 .desc{
-  margin:10px 0;
-  font-size:13px;
+  margin:10px 0 0;
   color:var(--muted);
+  font-size:13px;
   line-height:1.55;
 }
 
-/* expandable */
+/* action links */
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.link{
+  font-size:13px;
+  text-decoration:none;
+  padding:8px 10px;
+  border:1px solid var(--ring);
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  transition:transform .06s ease, border-color .2s ease;
+}
+.link:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+/* signal meter */
+.meter{
+  margin-top:12px;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid var(--ring);
+  background:rgba(0,0,0,0.10);
+}
+.mrow{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  font-size:12px; color:var(--muted);
+  margin:7px 0;
+}
+.bar{
+  height:7px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  background:rgba(0,0,0,0.12);
+  overflow:hidden;
+  flex: 1 1 auto;
+  margin-left:12px;
+}
+.fill{
+  height:100%;
+  background:rgba(110,231,255,.55);
+  box-shadow:0 0 18px rgba(110,231,255,.18);
+}
+
+/* expandable case study */
+.toggle{
+  margin-top:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--accent);
+  font-size:12px;
+  cursor:pointer;
+  user-select:none;
+}
 .details{
   margin-top:10px;
   border-top:1px solid var(--ring);
@@ -165,24 +267,19 @@ a{color:inherit}
   display:none;
 }
 .details p{
-  margin:6px 0;
+  margin:7px 0;
   font-size:13px;
   line-height:1.55;
 }
-.toggle{
-  font-size:12px;
-  cursor:pointer;
-  margin-top:6px;
-  display:inline-block;
-  color:var(--accent);
-}
+.details b{color:rgba(231,231,234,.95)}
+.smallmuted{color:var(--muted)}
 
-/* footer */
 footer{
-  margin-top:28px;
+  margin-top:26px;
   color:var(--muted);
   font-size:12px;
   display:flex; justify-content:space-between;
+  gap:12px; flex-wrap:wrap;
 }
 </style>
 </head>
@@ -190,124 +287,245 @@ footer{
 <body>
 <div class="container">
 
-<div class="topbar">
-  <a class="home" href="./">← Home</a>
-  <div class="pillrow">
-    <a class="pill" href="experience.html">Experience</a>
-    <a class="pill" href="aboutme.html">About</a>
-  </div>
-</div>
-
-<section class="hero">
-  <h1>Projects</h1>
-  <p>
-    Quantitative systems, research papers, and infrastructure experiments.
-    I focus on **mechanics, incentives, and failure modes** — not demos.
-  </p>
-</section>
-
-<section class="spotlight">
-  <h2>Spotlight · ExecutionRL</h2>
-  <div class="grid">
-    <div>
-      <p class="desc">
-        Reinforcement-learning execution simulator modeling market impact,
-        slippage, and order-book constraints. Built to study *decision timing*.
-      </p>
-      <div class="metric">State: order book depth, remaining inventory</div>
-      <div class="metric">Action: trade size / wait decision</div>
-      <div class="metric">Reward: slippage-adjusted execution cost</div>
-    </div>
-    <div>
-      <a href="https://github.com/arpjw/executionrl" class="pill">GitHub</a>
+  <div class="topbar">
+    <a class="home" href="./">← Home</a>
+    <div class="pillrow">
+      <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
+      <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
+      <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
     </div>
   </div>
-</section>
 
-<div class="filters">
-  <span class="filter active" data-filter="all">All</span>
-  <span class="filter" data-filter="cpp">C++</span>
-  <span class="filter" data-filter="rl">RL</span>
-  <span class="filter" data-filter="research">Research</span>
-</div>
+  <section class="hero">
+    <h1>Projects</h1>
+    <p>
+      Selected builds, research, and experiments. I care about mechanics, incentives, and failure modes —
+      not demos. More on GitHub.
+    </p>
 
-<section class="projects">
+    <section class="spotlight" aria-label="spotlight project">
+      <div class="spotlight-top">
+        <div>
+          <h2>Spotlight · executionrl</h2>
+          <div class="kicker">Reinforcement-learning execution simulator modeling slippage + constraints.</div>
+        </div>
+        <div class="spot-actions">
+          <a class="btn" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
+        </div>
+      </div>
 
-<div class="project" data-tags="rl cpp">
-  <h3>ExecutionRL</h3>
-  <div class="badges">
-    <span class="badge">RL</span>
-    <span class="badge">C++</span>
+      <div class="spotlight-grid">
+        <div>
+          <div class="metric"><span class="mono">State</span>: depth / inventory / time remaining</div>
+          <div class="metric"><span class="mono">Action</span>: trade size vs wait decision</div>
+          <div class="metric"><span class="mono">Reward</span>: execution cost + impact penalty</div>
+          <div class="metric"><span class="mono">Goal</span>: learn policy under varying liquidity regimes</div>
+        </div>
+        <div>
+          <div class="meter">
+            <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:78%"></div></div></div>
+            <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:86%"></div></div></div>
+            <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:62%"></div></div></div>
+          </div>
+          <div class="smallmuted" style="margin-top:10px; font-size:12px; line-height:1.5;">
+            This is the “systems” project: constraints first, learn policy second.
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <div class="filters" aria-label="filters">
+    <span class="filter active" data-filter="all">All</span>
+    <span class="filter" data-filter="cpp">C++</span>
+    <span class="filter" data-filter="rl">RL</span>
+    <span class="filter" data-filter="research">Research</span>
   </div>
-  <p class="desc">Trade execution environment for learning optimal execution policies.</p>
-  <span class="toggle">View case study →</span>
-  <div class="details">
-    <p><b>Problem:</b> Static execution schedules ignore state-dependent liquidity.</p>
-    <p><b>Approach:</b> Q-learning over discrete execution decisions.</p>
-    <p><b>Learning:</b> Reward shaping dominates policy stability.</p>
-  </div>
-</div>
 
-<div class="project" data-tags="cpp">
-  <h3>MiniQuantLib</h3>
-  <div class="badges">
-    <span class="badge">C++</span>
-    <span class="badge">Numerics</span>
-  </div>
-  <p class="desc">From-scratch vector & matrix primitives for numerical finance.</p>
-  <span class="toggle">View case study →</span>
-  <div class="details">
-    <p><b>Problem:</b> Black-box libraries hide performance tradeoffs.</p>
-    <p><b>Approach:</b> Explicit memory layouts, templates, no dependencies.</p>
-    <p><b>Learning:</b> Cache locality matters more than FLOPs.</p>
-  </div>
-</div>
+  <section class="projects" aria-label="projects grid">
 
-<div class="project" data-tags="research">
-  <h3>Xor-Shift PRNG Analysis</h3>
-  <div class="badges">
-    <span class="badge">Research</span>
-  </div>
-  <p class="desc">Paper analyzing xor-shift generators & statistical weaknesses.</p>
-  <span class="toggle">View case study →</span>
-  <div class="details">
-    <p><b>Problem:</b> Fast PRNGs are often misused in simulations.</p>
-    <p><b>Approach:</b> Spectral testing + empirical simulation.</p>
-    <p><b>Learning:</b> Speed ≠ randomness quality.</p>
-  </div>
-</div>
+    <!-- executionrl -->
+    <article class="project" data-tags="rl cpp">
+      <div class="top">
+        <div>
+          <p class="title">executionrl <span class="badge maturity">In progress</span></p>
+          <div class="badges">
+            <span class="badge">C++</span>
+            <span class="badge">Reinforcement learning</span>
+            <span class="badge">Q-learning</span>
+            <span class="badge">Simulation</span>
+            <span class="badge">Backtesting</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
+          <a class="link" href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">Related</a>
+        </div>
+      </div>
 
-</section>
+      <p class="desc">Reinforcement learning–based trade execution simulator.</p>
 
-<footer>
-  <span class="mono">© <span id="y"></span> Arya Somu</span>
-</footer>
+      <div class="meter" aria-label="signal meter">
+        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:78%"></div></div></div>
+        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:86%"></div></div></div>
+        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:62%"></div></div></div>
+      </div>
+
+      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
+      <div class="details">
+        <p><b>Problem:</b> Fixed execution schedules (TWAP/VWAP) ignore state-dependent liquidity.</p>
+        <p><b>Approach:</b> Discrete-time environment; Q-learning chooses when/how much to trade under constraints.</p>
+        <p><b>What matters:</b> reward design, impact modeling, and state definition dominate learning stability.</p>
+        <p><b>Next:</b> richer market-impact model + more granular order book simulation.</p>
+      </div>
+    </article>
+
+    <!-- quant project library -->
+    <article class="project" data-tags="research">
+      <div class="top">
+        <div>
+          <p class="title">quant project library <span class="badge maturity">Core</span></p>
+          <div class="badges">
+            <span class="badge">Python</span>
+            <span class="badge">Time series</span>
+            <span class="badge">Portfolio optimization</span>
+            <span class="badge">Risk</span>
+            <span class="badge">Backtesting</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/quant-projects/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
+        </div>
+      </div>
+
+      <p class="desc">Documentation of quantitative research and development projects.</p>
+
+      <div class="meter">
+        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:70%"></div></div></div>
+        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:74%"></div></div></div>
+        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:72%"></div></div></div>
+      </div>
+
+      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
+      <div class="details">
+        <p><b>Problem:</b> Quant work gets lost without a consistent “research → build” pipeline.</p>
+        <p><b>Approach:</b> Central repo that standardizes project structure, assumptions, and evaluation notes.</p>
+        <p><b>Why it matters:</b> makes projects reproducible and reduces narrative-driven overfitting.</p>
+      </div>
+    </article>
+
+    <!-- miniquantlib -->
+    <article class="project" data-tags="cpp">
+      <div class="top">
+        <div>
+          <p class="title">miniquantlib <span class="badge maturity">Prototype</span></p>
+          <div class="badges">
+            <span class="badge">C++</span>
+            <span class="badge">Linear algebra</span>
+            <span class="badge">Numerical computing</span>
+            <span class="badge">Performance</span>
+            <span class="badge">Utilities</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/miniquantlib/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
+        </div>
+      </div>
+
+      <p class="desc">A minimal C++ library for vector and matrix operations, built from scratch to explore numerical computing and performance-oriented design.</p>
+
+      <div class="meter">
+        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:58%"></div></div></div>
+        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:80%"></div></div></div>
+        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:60%"></div></div></div>
+      </div>
+
+      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
+      <div class="details">
+        <p><b>Problem:</b> High-level libraries hide important implementation tradeoffs.</p>
+        <p><b>Approach:</b> Build primitives explicitly: layout, allocation, operations, and interfaces.</p>
+        <p><b>Learning:</b> cache locality and predictable allocation patterns can dominate “clever math”.</p>
+      </div>
+    </article>
+
+    <!-- PRNG paper -->
+    <article class="project" data-tags="research">
+      <div class="top">
+        <div>
+          <p class="title">Pseudorandom Number Generation with Xor Shifting <span class="badge maturity">Paper</span></p>
+          <div class="badges">
+            <span class="badge">Research</span>
+            <span class="badge">PRNG</span>
+            <span class="badge">Xor shift</span>
+            <span class="badge">Cryptography</span>
+            <span class="badge">Simulation</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">PDF</a>
+          <a class="link" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">Read</a>
+        </div>
+      </div>
+
+      <p class="desc">Investigative paper on xor-shift PRNG design and analysis, combining mathematical modeling and simulation with security implications.</p>
+
+      <div class="meter">
+        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:52%"></div></div></div>
+        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:76%"></div></div></div>
+        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:82%"></div></div></div>
+      </div>
+
+      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
+      <div class="details">
+        <p><b>Problem:</b> “Fast” RNGs often get used where statistical quality actually matters.</p>
+        <p><b>Approach:</b> Analyze xor-shift structure + run simulations to test statistical behavior.</p>
+        <p><b>Takeaway:</b> performance is cheap; randomness quality is not.</p>
+      </div>
+    </article>
+
+  </section>
+
+  <footer>
+    <span class="mono">© <span id="y"></span> Arya Somu</span>
+  </footer>
 
 </div>
 
 <script>
 document.getElementById('y').textContent = new Date().getFullYear();
 
-/* expand logic */
+/* expand logic (mouse + keyboard) */
+function toggleDetails(toggleEl){
+  const details = toggleEl.nextElementSibling;
+  const isOpen = details.style.display === "block";
+  details.style.display = isOpen ? "none" : "block";
+  toggleEl.textContent = isOpen ? "View case study →" : "Hide case study ←";
+  toggleEl.setAttribute("aria-expanded", String(!isOpen));
+}
+
 document.querySelectorAll('.toggle').forEach(t=>{
-  t.onclick=()=>{
-    const d=t.nextElementSibling;
-    const open=d.style.display==="block";
-    d.style.display=open?"none":"block";
-    t.textContent=open?"View case study →":"Hide case study ←";
-  }
+  t.addEventListener('click', ()=>toggleDetails(t));
+  t.addEventListener('keydown', (e)=>{
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleDetails(t); }
+  });
 });
 
 /* filtering */
 document.querySelectorAll('.filter').forEach(f=>{
-  f.onclick=()=>{
+  f.addEventListener('click', ()=>{
     document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
     f.classList.add('active');
-    const tag=f.dataset.filter;
+    const tag = f.dataset.filter;
+
     document.querySelectorAll('.project').forEach(p=>{
-      p.style.display=(tag==="all"||p.dataset.tags.includes(tag))?"block":"none";
+      const tags = p.dataset.tags || "";
+      p.style.display = (tag === "all" || tags.includes(tag)) ? "block" : "none";
     });
-  };
+  });
 });
 </script>
 
