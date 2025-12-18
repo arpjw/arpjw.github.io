@@ -188,7 +188,7 @@ a{color:inherit}
 .project:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.55)}
 .project:target{
   border-color:rgba(110,231,255,.85);
-  box-shadow:0 0 0 2px rgba(110,231,255,.22), 0 18px 70px rgba(0,0,0,.55);
+  box-shadow:0 0 0 2px rgba(110,231,255,.22), 0 18px 70px rgba(0,0,0,0.55);
 }
 .top{
   display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
@@ -242,34 +242,6 @@ a{color:inherit}
 }
 .link:hover{transform:translateY(-1px); border-color:var(--accent)}
 
-/* signal meter */
-.meter{
-  margin-top:12px;
-  padding:12px;
-  border-radius:16px;
-  border:1px solid var(--ring);
-  background:rgba(0,0,0,0.10);
-}
-.mrow{
-  display:flex; justify-content:space-between; align-items:center; gap:10px;
-  font-size:12px; color:var(--muted);
-  margin:7px 0;
-}
-.bar{
-  height:7px;
-  border-radius:999px;
-  border:1px solid var(--ring);
-  background:rgba(0,0,0,0.12);
-  overflow:hidden;
-  flex: 1 1 auto;
-  margin-left:12px;
-}
-.fill{
-  height:100%;
-  background:rgba(110,231,255,.55);
-  box-shadow:0 0 18px rgba(110,231,255,.18);
-}
-
 /* expandable case study */
 .toggle{
   margin-top:10px;
@@ -293,7 +265,6 @@ a{color:inherit}
   line-height:1.55;
 }
 .details b{color:rgba(231,231,234,.95)}
-.smallmuted{color:var(--muted)}
 
 /* MAP */
 .mapwrap{
@@ -369,11 +340,10 @@ a{color:inherit}
   position:relative;
 }
 
-/* tooltip card (floating) */
 .tip{
   position:absolute;
   min-width:240px;
-  max-width:320px;
+  max-width:360px;
   pointer-events:none;
   opacity:0;
   transform:translateY(6px);
@@ -402,36 +372,47 @@ a{color:inherit}
   color:rgba(231,231,234,0.75);
 }
 
-/* SVG styling */
 svg{width:100%; height:520px; display:block;}
+
 .edge{
-  stroke:rgba(163,163,173,0.30);
+  stroke:rgba(163,163,173,0.28);
   stroke-width:1.1;
   vector-effect:non-scaling-stroke;
 }
 .edge.flow{
-  stroke:rgba(110,231,255,0.22);
+  stroke:rgba(110,231,255,0.20);
   stroke-width:2.6;
   filter:url(#glow);
   stroke-dasharray:7 10;
   vector-effect:non-scaling-stroke;
 }
+.edge.on{
+  stroke:rgba(110,231,255,0.72);
+  stroke-width:1.8;
+}
+.edge.flow.on{
+  stroke:rgba(110,231,255,0.40);
+  stroke-width:3.2;
+}
+
 .particle{
   fill:rgba(110,231,255,0.55);
   filter:url(#glowSoft);
 }
+
 .node{
-  cursor:pointer;
+  cursor:grab;
   outline:none;
 }
+.node:active{cursor:grabbing}
 .node circle{
   fill:rgba(0,0,0,0.22);
-  stroke:rgba(110,231,255,0.55);
+  stroke:rgba(110,231,255,0.52);
   stroke-width:1.3;
   vector-effect:non-scaling-stroke;
 }
 .node:hover circle{stroke:rgba(110,231,255,0.95)}
-.node:focus-visible circle{
+.node.on circle{
   stroke:rgba(110,231,255,0.98);
   filter:url(#glow);
 }
@@ -447,7 +428,6 @@ svg{width:100%; height:520px; display:block;}
   font-size:11px;
 }
 
-/* mini HUD */
 .hud{
   position:absolute;
   right:12px;
@@ -462,7 +442,6 @@ svg{width:100%; height:520px; display:block;}
   backdrop-filter: blur(6px);
   z-index:3;
 }
-.hud .mono{opacity:.95}
 kbd{
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size:11px;
@@ -522,14 +501,9 @@ footer{
           <div class="metric"><span class="mono">Goal</span>: learn policy under varying liquidity regimes</div>
         </div>
         <div>
-          <div class="meter">
-            <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:78%"></div></div></div>
-            <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:86%"></div></div></div>
-            <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:62%"></div></div></div>
-          </div>
-          <div class="smallmuted" style="margin-top:10px; font-size:12px; line-height:1.5;">
-            This is the “systems” project: constraints first, learn policy second.
-          </div>
+          <div class="metric"><span class="mono">Signal</span>: market microstructure first</div>
+          <div class="metric"><span class="mono">Risk</span>: reward shaping</div>
+          <div class="metric"><span class="mono">Output</span>: policy + diagnostics</div>
         </div>
       </div>
     </section>
@@ -541,6 +515,7 @@ footer{
       <span class="filter" data-filter="cpp">C++</span>
       <span class="filter" data-filter="rl">RL</span>
       <span class="filter" data-filter="research">Research</span>
+      <span class="filter" data-filter="micro">Microstructure</span>
     </div>
 
     <div class="switch" aria-label="view switch">
@@ -554,8 +529,8 @@ footer{
     <div class="maphead">
       <p class="title">Projects Map</p>
       <div class="note">
-        Drag nodes. Scroll to zoom. Drag background to pan. Click a node to jump.
-        <span class="mono"><kbd>Esc</kbd></span> returns to Grid.
+        Drag nodes. Scroll to zoom. Drag background to pan.
+        Click = select. Double-click = open. <span class="mono"><kbd>Esc</kbd></span> grid.
       </div>
     </div>
 
@@ -564,6 +539,7 @@ footer{
         <button class="mapbtn active" id="btnRun" type="button">Live</button>
         <button class="mapbtn" id="btnFreeze" type="button">Freeze</button>
         <button class="mapbtn" id="btnReset" type="button">Reset View</button>
+        <button class="mapbtn" id="btnClear" type="button">Clear Selection</button>
       </div>
       <div class="mapstatus">
         <span><span class="dot"></span> flow</span>
@@ -572,12 +548,11 @@ footer{
     </div>
 
     <div class="mapcanvas" id="mapcanvas">
-      <!-- floating tooltip -->
       <div class="tip" id="tip">
         <strong id="tipTitle">—</strong>
         <div class="sub" id="tipSub">—</div>
         <div class="chips" id="tipChips"></div>
-        <div class="hint" id="tipHint">Click to open.</div>
+        <div class="hint" id="tipHint">Click to select · Double-click to open</div>
       </div>
 
       <svg id="mapsvg" viewBox="0 0 1100 520" role="img" aria-label="Interactive project relationship graph">
@@ -598,10 +573,7 @@ footer{
           </filter>
         </defs>
 
-        <!-- background pan layer -->
         <rect id="bg" x="0" y="0" width="1100" height="520" fill="transparent"></rect>
-
-        <!-- graph root (panned/zoomed) -->
         <g id="root">
           <g id="edges"></g>
           <g id="flows"></g>
@@ -613,7 +585,7 @@ footer{
       <div class="hud">
         <div class="mono">controls</div>
         <div style="margin-top:6px;">
-          drag node · pan bg · wheel zoom · <kbd>Esc</kbd> grid
+          drag node · pan bg · wheel zoom · click select · dblclick open
         </div>
       </div>
     </div>
@@ -622,7 +594,6 @@ footer{
   <!-- GRID VIEW -->
   <section class="projects" id="grid" aria-label="projects grid">
 
-    <!-- executionrl -->
     <article class="project" id="executionrl" data-tags="rl cpp">
       <div class="top">
         <div>
@@ -632,30 +603,18 @@ footer{
             <span class="badge">Reinforcement learning</span>
             <span class="badge">Q-learning</span>
             <span class="badge">Simulation</span>
-            <span class="badge">Backtesting</span>
           </div>
         </div>
         <div class="actions">
           <a class="link" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
           <a class="link" href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
-          <a class="link" href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">Related</a>
         </div>
       </div>
-
-      <p class="desc">Reinforcement learning–based trade execution simulator.</p>
-
-      <div class="meter" aria-label="signal meter">
-        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:78%"></div></div></div>
-        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:86%"></div></div></div>
-        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:62%"></div></div></div>
-      </div>
-
+      <p class="desc">Reinforcement learning–based trade execution simulator under liquidity constraints.</p>
       <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
       <div class="details">
-        <p><b>Problem:</b> Fixed execution schedules (TWAP/VWAP) ignore state-dependent liquidity.</p>
-        <p><b>Approach:</b> Discrete-time environment; Q-learning chooses when/how much to trade under constraints.</p>
-        <p><b>What matters:</b> reward design, impact modeling, and state definition dominate learning stability.</p>
-        <p><b>Next:</b> richer market-impact model + more granular order book simulation.</p>
+        <p><b>Problem:</b> Fixed schedules ignore state-dependent liquidity.</p>
+        <p><b>Approach:</b> Discrete-time environment; Q-learning learns a policy across regimes.</p>
       </div>
     </article>
 
@@ -668,40 +627,23 @@ footer{
             <span class="badge">TWAP</span>
             <span class="badge">VWAP</span>
             <span class="badge">POV</span>
-            <span class="badge">Simulation</span>
           </div>
         </div>
         <div class="actions">
           <a class="link" href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-
-      <p class="desc">Execution algorithm simulator (TWAP/VWAP/POV) under order book constraints.</p>
-
-      <div class="meter">
-        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:66%"></div></div></div>
-        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:70%"></div></div></div>
-        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:56%"></div></div></div>
-      </div>
-
-      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
-      <div class="details">
-        <p><b>Problem:</b> Need baselines to compare learning-based execution against.</p>
-        <p><b>Approach:</b> Simulated schedules with constraint checks and execution cost accounting.</p>
-        <p><b>Why it matters:</b> establishes a “control group” for executionrl experiments.</p>
-      </div>
+      <p class="desc">Baselines for execution: TWAP / VWAP / POV under constraints.</p>
     </article>
 
     <article class="project" id="quantprojects" data-tags="research">
       <div class="top">
         <div>
-          <p class="title">quant project library <span class="badge maturity">Core</span></p>
+          <p class="title">quant-projects <span class="badge maturity">Core</span></p>
           <div class="badges">
             <span class="badge">Python</span>
-            <span class="badge">Time series</span>
-            <span class="badge">Portfolio optimization</span>
-            <span class="badge">Risk</span>
             <span class="badge">Backtesting</span>
+            <span class="badge">Research</span>
           </div>
         </div>
         <div class="actions">
@@ -709,21 +651,7 @@ footer{
           <a class="link" href="https://github.com/arpjw/quant-projects/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
         </div>
       </div>
-
-      <p class="desc">Documentation of quantitative research and development projects.</p>
-
-      <div class="meter">
-        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:70%"></div></div></div>
-        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:74%"></div></div></div>
-        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:72%"></div></div></div>
-      </div>
-
-      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
-      <div class="details">
-        <p><b>Problem:</b> Quant work gets lost without a consistent “research → build” pipeline.</p>
-        <p><b>Approach:</b> Central repo that standardizes project structure, assumptions, and evaluation notes.</p>
-        <p><b>Why it matters:</b> makes projects reproducible and reduces narrative-driven overfitting.</p>
-      </div>
+      <p class="desc">A research library + portfolio of market systems experiments and notes.</p>
     </article>
 
     <article class="project" id="miniquantlib" data-tags="cpp">
@@ -733,42 +661,23 @@ footer{
           <div class="badges">
             <span class="badge">C++</span>
             <span class="badge">Linear algebra</span>
-            <span class="badge">Numerical computing</span>
             <span class="badge">Performance</span>
-            <span class="badge">Utilities</span>
           </div>
         </div>
         <div class="actions">
           <a class="link" href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/miniquantlib/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
         </div>
       </div>
-
-      <p class="desc">A minimal C++ library for vector and matrix operations, built from scratch to explore numerical computing and performance-oriented design.</p>
-
-      <div class="meter">
-        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:58%"></div></div></div>
-        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:80%"></div></div></div>
-        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:60%"></div></div></div>
-      </div>
-
-      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
-      <div class="details">
-        <p><b>Problem:</b> High-level libraries hide important implementation tradeoffs.</p>
-        <p><b>Approach:</b> Build primitives explicitly: layout, allocation, operations, and interfaces.</p>
-        <p><b>Learning:</b> cache locality and predictable allocation patterns can dominate “clever math”.</p>
-      </div>
+      <p class="desc">Minimal vector/matrix primitives built from scratch for numerical computing practice.</p>
     </article>
 
     <article class="project" id="prngpaper" data-tags="research">
       <div class="top">
         <div>
-          <p class="title">Pseudorandom Number Generation with Xor Shifting <span class="badge maturity">Paper</span></p>
+          <p class="title">xor-shift PRNG paper <span class="badge maturity">Paper</span></p>
           <div class="badges">
             <span class="badge">Research</span>
             <span class="badge">PRNG</span>
-            <span class="badge">Xor shift</span>
-            <span class="badge">Cryptography</span>
             <span class="badge">Simulation</span>
           </div>
         </div>
@@ -776,21 +685,118 @@ footer{
           <a class="link" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">PDF</a>
         </div>
       </div>
+      <p class="desc">Investigative paper on xor-shift PRNG design, simulation quality, and implications.</p>
+    </article>
 
-      <p class="desc">Investigative paper on xor-shift PRNG design and analysis, combining mathematical modeling and simulation with security implications.</p>
-
-      <div class="meter">
-        <div class="mrow"><span>Impact</span><div class="bar"><div class="fill" style="width:52%"></div></div></div>
-        <div class="mrow"><span>Depth</span><div class="bar"><div class="fill" style="width:76%"></div></div></div>
-        <div class="mrow"><span>Polish</span><div class="bar"><div class="fill" style="width:82%"></div></div></div>
+    <!-- NEW: quant-projects subprojects (Coming soon) -->
+    <article class="project" id="ofi" data-tags="micro research">
+      <div class="top">
+        <div>
+          <p class="title">OFIAnalyzer <span class="badge maturity">Coming soon</span></p>
+          <div class="badges">
+            <span class="badge">Microstructure</span>
+            <span class="badge">Order book</span>
+            <span class="badge">Signals</span>
+            <span class="badge">Visualization</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/OFIAnalyzer" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/OFIAnalyzer" target="_blank" rel="noopener">Folder</a>
+        </div>
       </div>
+      <p class="desc">Order Flow Imbalance computation + pressure visualization against price movement.</p>
+    </article>
 
-      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
-      <div class="details">
-        <p><b>Problem:</b> “Fast” RNGs often get used where statistical quality actually matters.</p>
-        <p><b>Approach:</b> Analyze xor-shift structure + run simulations to test statistical behavior.</p>
-        <p><b>Takeaway:</b> performance is cheap; randomness quality is not.</p>
+    <article class="project" id="tickrule" data-tags="micro research">
+      <div class="top">
+        <div>
+          <p class="title">TickRuleClassifier <span class="badge maturity">Coming soon</span></p>
+          <div class="badges">
+            <span class="badge">Microstructure</span>
+            <span class="badge">Trade classification</span>
+            <span class="badge">Tape</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/TickRuleClassifier" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/TickRuleClassifier" target="_blank" rel="noopener">Folder</a>
+        </div>
       </div>
+      <p class="desc">Labels buy vs sell initiated trades using tick rule variants and edge cases.</p>
+    </article>
+
+    <article class="project" id="liqheat" data-tags="micro research">
+      <div class="top">
+        <div>
+          <p class="title">LiquidityHeatmapGenerator <span class="badge maturity">Coming soon</span></p>
+          <div class="badges">
+            <span class="badge">Order book</span>
+            <span class="badge">Visualization</span>
+            <span class="badge">Liquidity</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/LiquidityHeatmapGenerator" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/LiquidityHeatmapGenerator" target="_blank" rel="noopener">Folder</a>
+        </div>
+      </div>
+      <p class="desc">Depth heatmaps + structure metrics to study liquidity regimes and price response.</p>
+    </article>
+
+    <article class="project" id="exchangesim" data-tags="cpp micro">
+      <div class="top">
+        <div>
+          <p class="title">ExchangeSimulator <span class="badge maturity">Coming soon</span></p>
+          <div class="badges">
+            <span class="badge">C++</span>
+            <span class="badge">Matching engine</span>
+            <span class="badge">Market design</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/ExchangeSimulator" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/ExchangeSimulator" target="_blank" rel="noopener">Folder</a>
+        </div>
+      </div>
+      <p class="desc">A from-scratch exchange simulator to generate events, fills, and microstructure artifacts.</p>
+    </article>
+
+    <article class="project" id="mm" data-tags="cpp micro">
+      <div class="top">
+        <div>
+          <p class="title">MarketMakerSim <span class="badge maturity">Coming soon</span></p>
+          <div class="badges">
+            <span class="badge">C++</span>
+            <span class="badge">Quoting</span>
+            <span class="badge">PnL</span>
+            <span class="badge">Risk</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/MarketMakerSim" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/MarketMakerSim" target="_blank" rel="noopener">Folder</a>
+        </div>
+      </div>
+      <p class="desc">Market making simulator: quoting logic, inventory risk, and PnL diagnostics.</p>
+    </article>
+
+    <article class="project" id="heston" data-tags="research">
+      <div class="top">
+        <div>
+          <p class="title">HestonOptionSim <span class="badge maturity">Coming soon</span></p>
+          <div class="badges">
+            <span class="badge">Derivatives</span>
+            <span class="badge">Stochastic volatility</span>
+            <span class="badge">Simulation</span>
+          </div>
+        </div>
+        <div class="actions">
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/HestonOptionSim" target="_blank" rel="noopener">GitHub</a>
+          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/HestonOptionSim" target="_blank" rel="noopener">Folder</a>
+        </div>
+      </div>
+      <p class="desc">Stochastic volatility option simulator based on the Heston model with correlated Brownian motion.</p>
     </article>
 
   </section>
@@ -814,7 +820,6 @@ function toggleDetails(toggleEl){
   toggleEl.textContent = isOpen ? "View case study →" : "Hide case study ←";
   toggleEl.setAttribute("aria-expanded", String(!isOpen));
 }
-
 document.querySelectorAll('.toggle').forEach(t=>{
   t.addEventListener('click', ()=>toggleDetails(t));
   t.addEventListener('keydown', (e)=>{
@@ -832,7 +837,6 @@ function setFilter(tag){
     p.style.display = (tag === "all" || tags.includes(tag)) ? "block" : "none";
   });
 }
-
 document.querySelectorAll('.filter').forEach(f=>{
   f.addEventListener('click', ()=>setFilter(f.dataset.filter));
 });
@@ -842,7 +846,6 @@ document.querySelectorAll('.filter').forEach(f=>{
 ======================= */
 const grid = document.getElementById('grid');
 const mapwrap = document.getElementById('mapwrap');
-
 function setView(view){
   document.querySelectorAll('.switchbtn').forEach(x=>x.classList.remove('active'));
   const btn = document.querySelector(`.switchbtn[data-view="${view}"]`);
@@ -859,21 +862,19 @@ function setView(view){
     stopMap();
   }
 }
-
 document.querySelectorAll('.switchbtn').forEach(b=>{
   b.addEventListener('click', ()=>setView(b.dataset.view));
 });
 
 function jumpToProject(id){
-  setView('grid');
-  setFilter('all');
   const el = document.getElementById(id);
   if (!el) return;
+  setView('grid');
+  setFilter('all');
   const y = el.getBoundingClientRect().top + window.scrollY - 18;
   window.scrollTo({ top: y, behavior: "smooth" });
   history.replaceState(null, "", "#" + id);
 }
-
 document.addEventListener('keydown', (e)=>{
   if (e.key === 'Escape'){
     const mapVisible = mapwrap.style.display === "block";
@@ -882,8 +883,7 @@ document.addEventListener('keydown', (e)=>{
 });
 
 /* =======================
-   MAP: Force graph + pan/zoom + animated flows
-   No libraries. Pure SVG + JS.
+   MAP: click selects, dblclick opens
 ======================= */
 let raf = null;
 let running = false;
@@ -907,45 +907,75 @@ const fpsEl = document.getElementById('fps');
 const btnRun = document.getElementById('btnRun');
 const btnFreeze = document.getElementById('btnFreeze');
 const btnReset = document.getElementById('btnReset');
+const btnClear = document.getElementById('btnClear');
 
 const VIEW_W = 1100;
 const VIEW_H = 520;
 
 const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp = (a,b,t)=>a+(b-a)*t;
-
 function rand(min,max){ return min + Math.random()*(max-min); }
+
+let selectedId = null;
+
+const PROJECT_URLS = {
+  ofi: "https://github.com/arpjw/quant-projects/tree/main/OFIAnalyzer",
+  tickrule: "https://github.com/arpjw/quant-projects/tree/main/TickRuleClassifier",
+  liqheat: "https://github.com/arpjw/quant-projects/tree/main/LiquidityHeatmapGenerator",
+  exchangesim: "https://github.com/arpjw/quant-projects/tree/main/ExchangeSimulator",
+  mm: "https://github.com/arpjw/quant-projects/tree/main/MarketMakerSim",
+  heston: "https://github.com/arpjw/quant-projects/tree/main/HestonOptionSim",
+  quantprojects: "https://github.com/arpjw/quant-projects",
+  executionrl: "https://github.com/arpjw/executionrl",
+  executionalgosim: "https://github.com/arpjw/ExecutionAlgoSim",
+  miniquantlib: "https://github.com/arpjw/miniquantlib",
+  prngpaper: "assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf"
+};
 
 const graph = {
   nodes: [
-    { id:"executionrl", label:"executionrl", sub:"RL execution", tags:["C++","RL","Q-learning"], status:"Growing",  r:58, x:260, y:210, vx:0, vy:0 },
+    { id:"executionrl", label:"executionrl", sub:"RL execution", tags:["C++","RL","Q-learning"], status:"Growing", r:58, x:260, y:210, vx:0, vy:0 },
     { id:"executionalgosim", label:"ExecutionAlgoSim", sub:"TWAP/VWAP/POV", tags:["C++","Simulation","Baselines"], status:"Prototype", r:54, x:520, y:130, vx:0, vy:0 },
     { id:"miniquantlib", label:"miniquantlib", sub:"numerics core", tags:["C++","Linear algebra","Perf"], status:"Prototype", r:54, x:520, y:310, vx:0, vy:0 },
     { id:"quantprojects", label:"quant-projects", sub:"research library", tags:["Python","Backtesting","Docs"], status:"Core", r:56, x:860, y:230, vx:0, vy:0 },
-    { id:"prngpaper", label:"xor-shift PRNG", sub:"paper", tags:["Research","PRNG","Simulation"], status:"Paper", r:54, x:860, y:390, vx:0, vy:0 }
+    { id:"prngpaper", label:"xor-shift PRNG", sub:"paper", tags:["Research","PRNG","Simulation"], status:"Paper", r:54, x:860, y:390, vx:0, vy:0 },
+
+    { id:"ofi", label:"OFIAnalyzer", sub:"order flow imbalance", tags:["Microstructure","Order book","Signals"], status:"Coming soon", r:52, x:210, y:390, vx:0, vy:0 },
+    { id:"tickrule", label:"TickRuleClassifier", sub:"trade classifier", tags:["Microstructure","Tape","Labels"], status:"Coming soon", r:52, x:320, y:80, vx:0, vy:0 },
+    { id:"liqheat", label:"LiquidityHeatmapGenerator", sub:"depth heatmaps", tags:["Order book","Viz","Liquidity"], status:"Coming soon", r:52, x:680, y:420, vx:0, vy:0 },
+    { id:"exchangesim", label:"ExchangeSimulator", sub:"matching engine", tags:["C++","Microstructure","Sim"], status:"Coming soon", r:52, x:720, y:70, vx:0, vy:0 },
+    { id:"mm", label:"MarketMakerSim", sub:"quoting sandbox", tags:["C++","PnL","Risk"], status:"Coming soon", r:52, x:990, y:120, vx:0, vy:0 },
+    { id:"heston", label:"HestonOptionSim", sub:"stoch vol sim", tags:["Derivatives","SDEs","Calibration"], status:"Coming soon", r:52, x:980, y:470, vx:0, vy:0 }
   ],
   edges: [
-    { a:"executionrl", b:"executionalgosim", w:1.0, label:"baselines" },
-    { a:"executionrl", b:"miniquantlib", w:0.9, label:"core numerics" },
-    { a:"miniquantlib", b:"quantprojects", w:0.7, label:"shared utils" },
+    { a:"executionrl", b:"executionalgosim", w:1.00, label:"baselines" },
+    { a:"executionrl", b:"miniquantlib", w:0.90, label:"core numerics" },
+    { a:"executionrl", b:"quantprojects", w:0.55, label:"docs" },
+
+    { a:"executionalgosim", b:"exchangesim", w:0.75, label:"market plumbing" },
+    { a:"exchangesim", b:"mm", w:0.70, label:"quoting sandbox" },
+
+    { a:"miniquantlib", b:"quantprojects", w:0.65, label:"shared utils" },
     { a:"executionalgosim", b:"prngpaper", w:0.45, label:"sim rigor" },
-    { a:"executionalgosim", b:"quantprojects", w:0.55, label:"pipeline" },
-    { a:"executionrl", b:"quantprojects", w:0.55, label:"documentation" }
+
+    { a:"ofi", b:"liqheat", w:0.70, label:"book structure" },
+    { a:"ofi", b:"exchangesim", w:0.60, label:"feeds" },
+    { a:"tickrule", b:"ofi", w:0.62, label:"tape signals" },
+
+    { a:"heston", b:"miniquantlib", w:0.62, label:"numerics" },
+    { a:"heston", b:"quantprojects", w:0.55, label:"writeups" }
   ]
 };
 
 const nodeById = new Map(graph.nodes.map(n=>[n.id,n]));
-function edgeLen(e){ return 240 - 70*e.w; }
+function edgeLen(e){ return 260 - 90*e.w; }
 
 let edgeEls = [];
 let flowEls = [];
 let nodeEls = [];
 let particleEls = [];
 
-function clearGroup(g){
-  while(g.firstChild) g.removeChild(g.firstChild);
-}
-
+function clearGroup(g){ while(g.firstChild) g.removeChild(g.firstChild); }
 function makeSVG(tag, attrs={}){
   const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
   for (const [k,v] of Object.entries(attrs)) el.setAttribute(k, v);
@@ -953,17 +983,9 @@ function makeSVG(tag, attrs={}){
 }
 
 function buildGraph(){
-  clearGroup(edgesG);
-  clearGroup(flowsG);
-  clearGroup(particlesG);
-  clearGroup(nodesG);
+  clearGroup(edgesG); clearGroup(flowsG); clearGroup(particlesG); clearGroup(nodesG);
+  edgeEls = []; flowEls = []; particleEls = []; nodeEls = [];
 
-  edgeEls = [];
-  flowEls = [];
-  particleEls = [];
-  nodeEls = [];
-
-  // Edges + flow layer
   graph.edges.forEach((e, i)=>{
     const line = makeSVG("line", { class:"edge", "data-i": String(i) });
     const flow = makeSVG("line", { class:"edge flow", "data-i": String(i) });
@@ -972,7 +994,6 @@ function buildGraph(){
     edgeEls.push(line);
     flowEls.push(flow);
 
-    // Particles (3 per edge)
     for(let k=0;k<3;k++){
       const p = makeSVG("circle", { class:"particle", r:"2.6", "data-e":String(i) });
       particlesG.appendChild(p);
@@ -980,11 +1001,9 @@ function buildGraph(){
     }
   });
 
-  // Nodes
   graph.nodes.forEach((n)=>{
-    // jitter a bit for nice entrance
-    n.x = clamp(n.x + rand(-60,60), 80, VIEW_W-80);
-    n.y = clamp(n.y + rand(-50,50), 70, VIEW_H-70);
+    n.x = clamp(n.x + rand(-80,80), 80, VIEW_W-80);
+    n.y = clamp(n.y + rand(-70,70), 70, VIEW_H-70);
     n.vx = rand(-1,1);
     n.vy = rand(-1,1);
 
@@ -1002,28 +1021,47 @@ function buildGraph(){
 
     nodeEls.push({ n, g, c, t1, t2 });
 
-    // interactions
     g.addEventListener("mouseenter", (ev)=>showTip(n, ev));
     g.addEventListener("mousemove", (ev)=>moveTip(ev));
     g.addEventListener("mouseleave", hideTip);
-    g.addEventListener("click", ()=>jumpToProject(n.id));
+
+    g.addEventListener("click", ()=>{
+      if (n._drag) return;
+      selectNode(n.id);
+    });
+
+    g.addEventListener("dblclick", (e)=>{
+      e.preventDefault();
+      if (n._drag) return;
+      openProject(n.id);
+    });
+
     g.addEventListener("keydown", (e)=>{
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); jumpToProject(n.id); }
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectNode(n.id); }
+      if (e.key === "o" || e.key === "O") { e.preventDefault(); openProject(n.id); }
     });
   });
+
+  applySelectionStyles();
 }
 
 function showTip(n, ev){
   tipTitle.textContent = n.label;
   tipSub.textContent = `${n.status} · ${n.sub}`;
   tipChips.innerHTML = "";
-  n.tags.slice(0,5).forEach(tag=>{
+  n.tags.slice(0,6).forEach(tag=>{
     const d = document.createElement("div");
     d.className = "chip";
     d.textContent = tag;
     tipChips.appendChild(d);
   });
-  tipHint.textContent = "Click to open in Grid.";
+
+  const url = PROJECT_URLS[n.id];
+  const hasGrid = !!document.getElementById(n.id);
+  tipHint.textContent = url
+    ? (hasGrid ? "Click to select · Double-click opens GitHub + highlights card" : "Click to select · Double-click opens GitHub")
+    : "Click to select";
+
   tip.style.opacity = "1";
   tip.style.transform = "translateY(0px)";
   moveTip(ev);
@@ -1033,32 +1071,65 @@ function moveTip(ev){
   const rect = canvas.getBoundingClientRect();
   const x = ev.clientX - rect.left + 14;
   const y = ev.clientY - rect.top + 14;
-  // keep in bounds
-  const w = 320, h = 150;
+  const w = 360, h = 170;
   const nx = clamp(x, 12, rect.width - 12 - w);
   const ny = clamp(y, 12, rect.height - 12 - h);
   tip.style.left = nx + "px";
   tip.style.top = ny + "px";
 }
-
 function hideTip(){
   tip.style.opacity = "0";
   tip.style.transform = "translateY(6px)";
 }
 
-/* Force simulation */
-let freeze = false;
+/* selection highlighting */
+function selectNode(id){
+  selectedId = (selectedId === id) ? null : id;
+  applySelectionStyles();
+}
+function clearSelection(){
+  selectedId = null;
+  applySelectionStyles();
+}
+function isNeighbor(a,b){
+  return graph.edges.some(e => (e.a===a && e.b===b) || (e.a===b && e.b===a));
+}
+function applySelectionStyles(){
+  nodeEls.forEach(({n,g})=>{
+    const on = selectedId && (n.id===selectedId || isNeighbor(n.id, selectedId));
+    g.classList.toggle("on", !!on);
+  });
+  graph.edges.forEach((e,i)=>{
+    const on = selectedId && (e.a===selectedId || e.b===selectedId);
+    edgeEls[i].classList.toggle("on", !!on);
+    flowEls[i].classList.toggle("on", !!on);
+  });
+}
 
+/* open behavior: open URL, then (if grid card exists) jump + highlight */
+function openProject(id){
+  const url = PROJECT_URLS[id];
+  if (url){
+    window.open(url, "_blank", "noopener");
+  }
+  // if there's a grid card, also jump to it (doesn't break playability on single click)
+  const el = document.getElementById(id);
+  if (el){
+    jumpToProject(id);
+  }
+}
+
+/* Force sim */
+let freeze = false;
 const SIM = {
-  repulsion: 6200,   // node-node
-  spring: 0.0105,    // edge springs
+  repulsion: 7600,
+  spring: 0.0105,
   damping: 0.84,
-  centerPull: 0.0022,
-  maxV: 6.0
+  centerPull: 0.0021,
+  maxV: 6.2
 };
 
 function stepSim(){
-  // repulsion
   for (let i=0;i<graph.nodes.length;i++){
     const a = graph.nodes[i];
     for (let j=i+1;j<graph.nodes.length;j++){
@@ -1067,22 +1138,17 @@ function stepSim(){
       const dy = a.y - b.y;
       const d2 = dx*dx + dy*dy + 0.001;
       const d = Math.sqrt(d2);
-      const minD = (a.r + b.r) * 0.86;
+      const minD = (a.r + b.r) * 0.84;
       const push = SIM.repulsion / d2;
-
-      // soft collision
       const overlap = (minD - d);
       const col = overlap > 0 ? overlap * 0.10 : 0;
-
       const fx = (dx/d) * (push + col);
       const fy = (dy/d) * (push + col);
-
       a.vx += fx; a.vy += fy;
       b.vx -= fx; b.vy -= fy;
     }
   }
 
-  // springs along edges
   graph.edges.forEach(e=>{
     const a = nodeById.get(e.a);
     const b = nodeById.get(e.b);
@@ -1091,21 +1157,19 @@ function stepSim(){
     const d = Math.sqrt(dx*dx + dy*dy) + 0.001;
     const desired = edgeLen(e);
     const diff = (d - desired);
-    const k = SIM.spring * (0.6 + e.w); // stronger for higher weight
+    const k = SIM.spring * (0.60 + e.w);
     const fx = (dx/d) * diff * k;
     const fy = (dy/d) * diff * k;
     a.vx += fx; a.vy += fy;
     b.vx -= fx; b.vy -= fy;
   });
 
-  // center pull
   const cx = VIEW_W/2, cy = VIEW_H/2;
   graph.nodes.forEach(n=>{
     n.vx += (cx - n.x) * SIM.centerPull;
     n.vy += (cy - n.y) * SIM.centerPull;
   });
 
-  // integrate
   graph.nodes.forEach(n=>{
     if (n._drag) return;
     n.vx *= SIM.damping;
@@ -1118,50 +1182,48 @@ function stepSim(){
 }
 
 function renderGraph(t){
-  // edges
   graph.edges.forEach((e,i)=>{
     const a = nodeById.get(e.a);
     const b = nodeById.get(e.b);
-
     edgeEls[i].setAttribute("x1", a.x);
     edgeEls[i].setAttribute("y1", a.y);
     edgeEls[i].setAttribute("x2", b.x);
     edgeEls[i].setAttribute("y2", b.y);
-
     flowEls[i].setAttribute("x1", a.x);
     flowEls[i].setAttribute("y1", a.y);
     flowEls[i].setAttribute("x2", b.x);
     flowEls[i].setAttribute("y2", b.y);
   });
 
-  // animate flow dash offset
   const dash = -((t/18) % 200);
   flowsG.querySelectorAll(".flow").forEach(el=>{
     el.style.strokeDashoffset = String(dash);
   });
 
-  // particles along edges
   particleEls.forEach(p=>{
     const e = graph.edges[p.e];
     const a = nodeById.get(e.a);
     const b = nodeById.get(e.b);
 
-    // move t forward (speed depends on weight)
-    p.t += (0.004 + 0.006*e.w);
-    if (p.t > 1) p.t -= 1;
+    const active = selectedId && (e.a===selectedId || e.b===selectedId);
+    const spd = (0.004 + 0.006*e.w) * (active ? 1.55 : 1.0);
 
+    p.t += spd;
+    if (p.t > 1) p.t -= 1;
     const tt = p.t;
+
     const x = lerp(a.x, b.x, tt);
     const y = lerp(a.y, b.y, tt);
 
     p.el.setAttribute("cx", x);
     p.el.setAttribute("cy", y);
-    p.el.setAttribute("r", (2.2 + 1.6*Math.sin((tt*6.283)+p.e)) );
-    p.el.setAttribute("opacity", String(0.25 + 0.55*(0.5+0.5*Math.sin(tt*6.283))));
+
+    const baseR = 2.2 + 1.6*Math.sin((tt*6.283)+p.e);
+    p.el.setAttribute("r", String(active ? baseR*1.15 : baseR));
+    p.el.setAttribute("opacity", String(active ? 0.75 : 0.45));
   });
 
-  // nodes
-  nodeEls.forEach(({n, g, c, t1, t2})=>{
+  nodeEls.forEach(({n,c,t1,t2})=>{
     c.setAttribute("cx", n.x);
     c.setAttribute("cy", n.y);
     c.setAttribute("r", n.r);
@@ -1172,24 +1234,15 @@ function renderGraph(t){
   });
 }
 
-/* Drag nodes + pan/zoom */
-let zoom = 1.0;
-let panX = 0;
-let panY = 0;
-
-function applyTransform(){
-  root.setAttribute("transform", `translate(${panX} ${panY}) scale(${zoom})`);
-}
+/* pan/zoom + dragging */
+let zoom = 1.0, panX = 0, panY = 0;
+function applyTransform(){ root.setAttribute("transform", `translate(${panX} ${panY}) scale(${zoom})`); }
 
 function clientToSvgPoint(clientX, clientY){
   const rect = svg.getBoundingClientRect();
   const x = (clientX - rect.left);
   const y = (clientY - rect.top);
-  // inverse transform: (x - pan)/zoom
-  return {
-    x: (x - panX) / zoom,
-    y: (y - panY) / zoom
-  };
+  return { x: (x - panX)/zoom, y:(y - panY)/zoom };
 }
 
 let draggingNode = null;
@@ -1198,8 +1251,7 @@ let panning = false;
 let panStart = {x:0,y:0, px:0, py:0};
 
 function attachDrags(){
-  // node drag
-  nodeEls.forEach(({n, g})=>{
+  nodeEls.forEach(({n,g})=>{
     g.addEventListener("pointerdown", (e)=>{
       e.preventDefault();
       g.setPointerCapture(e.pointerId);
@@ -1208,6 +1260,7 @@ function attachDrags(){
       n._drag = true;
       dragOffset.x = n.x - pt.x;
       dragOffset.y = n.y - pt.y;
+      hideTip();
     });
     g.addEventListener("pointermove", (e)=>{
       if (!draggingNode || draggingNode !== n) return;
@@ -1230,15 +1283,12 @@ function attachDrags(){
     });
   });
 
-  // pan background
   bg.addEventListener("pointerdown", (e)=>{
     e.preventDefault();
     panning = true;
     bg.setPointerCapture(e.pointerId);
-    panStart.x = e.clientX;
-    panStart.y = e.clientY;
-    panStart.px = panX;
-    panStart.py = panY;
+    panStart.x = e.clientX; panStart.y = e.clientY;
+    panStart.px = panX; panStart.py = panY;
     hideTip();
   });
   bg.addEventListener("pointermove", (e)=>{
@@ -1249,21 +1299,17 @@ function attachDrags(){
     panY = panStart.py + dy;
     applyTransform();
   });
-  bg.addEventListener("pointerup", ()=>{ panning = false; });
-  bg.addEventListener("pointercancel", ()=>{ panning = false; });
+  bg.addEventListener("pointerup", ()=>{ panning=false; });
+  bg.addEventListener("pointercancel", ()=>{ panning=false; });
 
-  // wheel zoom
   svg.addEventListener("wheel", (e)=>{
     e.preventDefault();
     const rect = svg.getBoundingClientRect();
     const mx = e.clientX - rect.left;
     const my = e.clientY - rect.top;
-
     const prev = zoom;
     const delta = -Math.sign(e.deltaY) * 0.08;
-    zoom = clamp(zoom * (1 + delta), 0.65, 1.85);
-
-    // zoom around mouse: adjust pan so point stays under cursor
+    zoom = clamp(zoom*(1+delta), 0.62, 1.92);
     panX = mx - (mx - panX) * (zoom/prev);
     panY = my - (my - panY) * (zoom/prev);
     applyTransform();
@@ -1272,36 +1318,25 @@ function attachDrags(){
 }
 
 function resetView(){
-  zoom = 1.0;
-  panX = 0;
-  panY = 0;
+  zoom=1.0; panX=0; panY=0;
   applyTransform();
 }
 
-/* FPS */
-let lastT = 0;
-let frames = 0;
-let lastFpsT = 0;
-
+/* FPS + loop */
+let frames=0, lastFpsT=0;
 function tick(t){
   if (!running) return;
-
-  if (!freeze){
-    stepSim();
-  }
+  if (!freeze) stepSim();
   renderGraph(t);
 
-  // fps
   frames++;
-  if (!lastFpsT) lastFpsT = t;
-  if (t - lastFpsT > 500){
-    const fps = Math.round(frames * 1000 / (t - lastFpsT));
+  if (!lastFpsT) lastFpsT=t;
+  if (t-lastFpsT>500){
+    const fps = Math.round(frames*1000/(t-lastFpsT));
     fpsEl.textContent = `${fps} fps`;
-    frames = 0;
-    lastFpsT = t;
+    frames=0;
+    lastFpsT=t;
   }
-
-  lastT = t;
   raf = requestAnimationFrame(tick);
 }
 
@@ -1327,18 +1362,17 @@ function stopMap(){
 
 /* map buttons */
 btnRun.addEventListener("click", ()=>{
-  freeze = false;
+  freeze=false;
   btnRun.classList.add("active");
   btnFreeze.classList.remove("active");
 });
 btnFreeze.addEventListener("click", ()=>{
-  freeze = true;
+  freeze=true;
   btnFreeze.classList.add("active");
   btnRun.classList.remove("active");
 });
 btnReset.addEventListener("click", resetView);
-
-/* Safety: start map only when map view is opened */
+btnClear.addEventListener("click", clearSelection);
 </script>
 
 </body>
