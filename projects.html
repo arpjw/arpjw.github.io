@@ -66,462 +66,594 @@ a{color:inherit}
 .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
 
 /* hero */
-.hero{
+.card{
   border:1px solid var(--ring);
-  border-radius:22px;
+  border-radius:18px;
   background:var(--card);
   box-shadow:var(--shadow);
-  padding:26px;
-  margin-bottom:16px;
+  backdrop-filter: blur(6px);
 }
-.hero h1{
+.hero{padding:22px 20px; margin-bottom:14px}
+h1{
   margin:0;
-  font-size:clamp(30px,4.5vw,48px);
-  letter-spacing:-.03em;
-  line-height:1.1;
+  font-size:clamp(28px, 4.3vw, 44px);
+  letter-spacing:-0.03em;
+  line-height:1.08;
 }
-.hero p{
+.sub{
   margin:10px 0 0;
   color:var(--muted);
-  max-width:78ch;
   line-height:1.55;
+  max-width:82ch;
   font-size:15px;
 }
-
-/* spotlight */
-.spotlight{
-  margin:14px 0 18px;
-  padding:18px;
-  border-radius:20px;
-  border:1px solid rgba(110,231,255,.42);
-  background:
-    radial-gradient(720px 320px at 14% 0%, rgba(110,231,255,.09), transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12)),
-    var(--card);
-  box-shadow:0 18px 65px rgba(0,0,0,.5);
-}
-.spotlight-top{
-  display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;
-}
-.spotlight h2{margin:0; font-size:16px; letter-spacing:-.01em}
-.kicker{color:var(--muted); font-size:12px; margin-top:6px; line-height:1.4}
-.spotlight-grid{
-  margin-top:14px;
-  display:grid;
-  grid-template-columns: 2.2fr 1fr;
-  gap:16px;
-}
-@media(max-width:900px){ .spotlight-grid{grid-template-columns:1fr} }
-.metric{
-  font-size:12px;
-  color:var(--muted);
-  border-left:2px solid var(--accent);
-  padding-left:10px;
-  margin:8px 0;
-}
-.spot-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:flex-start}
+.ctas{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
 .btn{
   display:inline-flex; align-items:center; gap:8px;
-  font-size:13px; text-decoration:none;
-  padding:9px 12px;
-  border:1px solid var(--ring);
+  padding:10px 12px;
   border-radius:14px;
-  background:rgba(0,0,0,0.14);
-  transition:transform .06s ease, border-color .2s ease;
-}
-.btn:hover{transform:translateY(-1px); border-color:var(--accent)}
-
-/* view controls */
-.viewbar{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:12px; flex-wrap:wrap;
-  margin:14px 0 14px;
-}
-.filters{
-  display:flex; gap:10px; flex-wrap:wrap;
-}
-.filter{
-  padding:7px 14px;
-  border-radius:999px;
   border:1px solid var(--ring);
-  background:rgba(0,0,0,0.10);
-  font-size:12px;
-  cursor:pointer;
-  color:var(--muted);
-  transition:border-color .2s ease, transform .06s ease, color .2s ease;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  text-decoration:none;
+  font-size:13px;
 }
-.filter:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.5); color:var(--fg)}
-.filter.active{border-color:var(--accent); color:var(--fg)}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{border-color:rgba(110,231,255,.55); box-shadow:0 0 0 3px rgba(110,231,255,.08)}
 
-.switch{
-  display:flex; gap:10px; flex-wrap:wrap;
-}
-.switchbtn{
-  padding:7px 14px;
-  border-radius:999px;
-  border:1px solid var(--ring);
-  background:rgba(0,0,0,0.10);
-  font-size:12px;
-  cursor:pointer;
-  color:var(--muted);
-  transition:border-color .2s ease, transform .06s ease, color .2s ease;
-}
-.switchbtn:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.5); color:var(--fg)}
-.switchbtn.active{border-color:var(--accent); color:var(--fg)}
-
-/* GRID */
-.projects{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
-  gap:16px;
-}
-@media(max-width:420px){ .projects{grid-template-columns:1fr} }
-
-.project{
+/* highlight strip */
+.spotlight{
+  margin:12px 0 14px;
+  padding:16px 16px 14px;
   border-radius:18px;
-  border:1px solid var(--ring);
-  background:var(--card);
-  padding:16px;
-  box-shadow:0 14px 44px rgba(0,0,0,.35);
-  transition:transform .06s ease, border-color .2s ease;
+  border:1px solid rgba(110,231,255,.22);
+  background:
+    radial-gradient(900px 280px at 10% 0%, rgba(110,231,255,.10), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12)),
+    var(--card);
+  box-shadow:0 18px 70px rgba(0,0,0,.40);
 }
-.project:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.55)}
-.project:target{
-  border-color:rgba(110,231,255,.85);
-  box-shadow:0 0 0 2px rgba(110,231,255,.22), 0 18px 70px rgba(0,0,0,0.55);
+.metrics{
+  display:grid;
+  gap:10px;
+  grid-template-columns:1fr;
 }
-.top{
-  display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+@media (min-width: 920px){
+  .metrics{grid-template-columns:1.1fr 0.9fr}
 }
-.title{
-  margin:0;
-  font-size:16px;
-  letter-spacing:-.01em;
-  line-height:1.25;
-  display:flex;
+.metricrow{
+  display:flex; flex-wrap:wrap;
   gap:10px;
   align-items:center;
+}
+.stat{
+  display:flex; gap:10px; align-items:center;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  background:rgba(0,0,0,0.10);
+  font-size:12px;
+  color:rgba(231,231,234,.88);
+}
+.dot{
+  width:8px; height:8px; border-radius:999px;
+  background:rgba(110,231,255,.75);
+  box-shadow:0 0 18px rgba(110,231,255,.25);
+}
+.kicker{
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.big{
+  margin-top:8px;
+  font-size:15px;
+  line-height:1.55;
+  color:rgba(231,231,234,.92);
+  max-width:82ch;
+}
+.grid2{
+  margin-top:10px;
+  display:grid;
+  gap:10px;
+  grid-template-columns:1fr;
+}
+@media (min-width: 920px){
+  .grid2{grid-template-columns:1fr 1fr}
+}
+.mini{
+  border:1px solid var(--ring);
+  border-radius:16px;
+  background:rgba(0,0,0,0.10);
+  padding:12px;
+}
+.mini .k{
+  font-size:12px;
+  letter-spacing:.06em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.mini .v{
+  margin-top:6px;
+  font-size:13px;
+  line-height:1.45;
+  color:rgba(231,231,234,.88);
+}
+
+/* filter + view switch */
+.viewbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:14px 0 14px;
+}
+.filters{display:flex; gap:8px; flex-wrap:wrap}
+.filter{
+  font-size:12px;
+  padding:7px 10px;
+  border:1px solid var(--ring);
+  border-radius:999px;
+  color:var(--muted);
+  background:rgba(0,0,0,0.10);
+  cursor:pointer;
+  user-select:none;
+  transition:transform .06s ease, border-color .2s ease, color .2s ease;
+}
+.filter:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.6); color:rgba(231,231,234,.92)}
+.filter.active{border-color:rgba(110,231,255,.6); color:rgba(231,231,234,.95)}
+.switch{display:flex; gap:8px; flex-wrap:wrap}
+.switchbtn{
+  font-size:12px;
+  padding:7px 10px;
+  border:1px solid var(--ring);
+  border-radius:999px;
+  color:var(--muted);
+  background:rgba(0,0,0,0.10);
+  cursor:pointer;
+  user-select:none;
+  transition:transform .06s ease, border-color .2s ease, color .2s ease;
+}
+.switchbtn:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.6); color:rgba(231,231,234,.92)}
+.switchbtn.active{border-color:rgba(110,231,255,.6); color:rgba(231,231,234,.95)}
+
+/* map */
+.mapwrap{
+  display:none;
+  border:1px solid rgba(110,231,255,.22);
+  border-radius:20px;
+  background:
+    radial-gradient(1200px 520px at 50% 0%, rgba(110,231,255,.08), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12)),
+    var(--card);
+  box-shadow:0 18px 70px rgba(0,0,0,.45);
+  overflow:hidden;
+}
+.maphead{
+  padding:14px 14px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:10px;
   flex-wrap:wrap;
 }
-.badges{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+.maphead .title{
+  margin:0;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.maphead .note{
+  color:rgba(231,231,234,.72);
+  font-size:12px;
+}
+.mapbar{
+  padding:10px 14px 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.mapcontrols{display:flex; gap:8px; flex-wrap:wrap}
+.mapbtn{
+  font-size:12px;
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  background:rgba(0,0,0,0.10);
+  color:rgba(231,231,234,.86);
+  cursor:pointer;
+  transition:transform .06s ease, border-color .2s ease;
+}
+.mapbtn:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.6)}
+.mapbtn.active{border-color:rgba(110,231,255,.6)}
+.mapstatus{display:flex; gap:10px; align-items:center; color:var(--muted); font-size:12px}
+.mapstatus .dot{
+  width:8px; height:8px; border-radius:999px;
+  background:rgba(110,231,255,.8);
+  box-shadow:0 0 16px rgba(110,231,255,.25);
+}
+.mapcanvas{
+  position:relative;
+  width:100%;
+  height:520px;
+  overflow:hidden;
+  border-top:1px solid rgba(43,43,51,0.75);
+  background:
+    radial-gradient(1000px 520px at 50% 0%, rgba(110,231,255,.07), transparent 60%),
+    radial-gradient(900px 520px at 10% 60%, rgba(110,231,255,.04), transparent 60%),
+    rgba(0,0,0,0.12);
+}
+@media(max-width:900px){
+  .mapcanvas{height:540px}
+}
+#mapsvg{width:100%; height:100%; display:block}
+.hud{
+  position:absolute;
+  bottom:12px;
+  left:12px;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(43,43,51,0.85);
+  background:rgba(10,10,11,0.84);
+  color:rgba(231,231,234,.80);
+  font-size:12px;
+  pointer-events:none;
+}
+.tip{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:min(360px, 92vw);
+  border-radius:16px;
+  border:1px solid rgba(43,43,51,0.85);
+  background:rgba(10,10,11,0.88);
+  padding:12px;
+  box-shadow:0 18px 60px rgba(0,0,0,0.55);
+  display:none;
+}
+.tip.show{display:block}
+.tip strong{font-size:13px}
+.tip .sub{font-size:12px; color:var(--muted); margin-top:4px}
+.tip .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.tip .chips span{
+  font-size:11px;
+  padding:5px 9px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  color:rgba(231,231,234,.86);
+  background:rgba(0,0,0,0.10);
+}
+.tip .hint{margin-top:10px; font-size:12px; color:rgba(231,231,234,.70)}
+
+/* grid */
+.projects{
+  display:grid;
+  gap:14px;
+  grid-template-columns:1fr;
+}
+@media (min-width: 920px){
+  .projects{grid-template-columns:1fr 1fr}
+}
+.project{
+  border:1px solid var(--ring);
+  border-radius:18px;
+  background:var(--card);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+  padding:16px 16px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  backdrop-filter: blur(6px);
+  transition:transform .06s ease, border-color .2s ease;
+}
+.project:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.75)}
+.pTop{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.pTitle{
+  margin:0;
+  font-size:16px;
+  font-weight:800;
+  letter-spacing:-0.01em;
+  line-height:1.25;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.badges{display:flex; gap:8px; flex-wrap:wrap}
 .badge{
   font-size:11px;
   padding:5px 10px;
-  border-radius:999px;
   border:1px solid var(--ring);
+  border-radius:999px;
   color:var(--muted);
-  background:rgba(0,0,0,0.10);
+  background: rgba(0,0,0,0.12);
   white-space:nowrap;
 }
-.maturity{
-  border-color:rgba(110,231,255,.35);
-  color:rgba(231,231,234,.95);
-}
-.desc{
-  margin:10px 0 0;
-  color:var(--muted);
+.badge.maturity{border-color:rgba(110,231,255,.35)}
+.pDesc{
+  margin:0;
   font-size:13px;
-  line-height:1.55;
+  line-height:1.6;
+  color:var(--muted);
 }
-
-/* action links */
-.actions{
+.metaRow{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
-  justify-content:flex-end;
+  align-items:center;
 }
-.link{
+.links{display:flex; gap:10px; flex-wrap:wrap}
+.links a{
   font-size:13px;
+  color:var(--fg);
   text-decoration:none;
-  padding:8px 10px;
-  border:1px solid var(--ring);
-  border-radius:12px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-  transition:transform .06s ease, border-color .2s ease;
+  border-bottom:1px solid rgba(163,163,173,0.25);
+  padding-bottom:2px;
 }
-.link:hover{transform:translateY(-1px); border-color:var(--accent)}
-
-/* expandable case study */
+.links a:hover{border-bottom-color: rgba(110,231,255,0.7)}
 .toggle{
-  margin-top:10px;
+  font-size:13px;
+  color:rgba(231,231,234,.92);
+  cursor:pointer;
+  user-select:none;
   display:inline-flex;
   align-items:center;
   gap:8px;
-  color:var(--accent);
-  font-size:12px;
-  cursor:pointer;
-  user-select:none;
+  text-decoration:none;
+  border-bottom:1px solid rgba(163,163,173,0.25);
+  padding-bottom:2px;
 }
+.toggle:hover{border-bottom-color: rgba(110,231,255,0.7)}
 .details{
-  margin-top:10px;
-  border-top:1px solid var(--ring);
-  padding-top:10px;
   display:none;
-}
-.details p{
-  margin:7px 0;
+  border-top:1px solid rgba(43,43,51,0.7);
+  padding-top:10px;
+  margin-top:4px;
+  color:rgba(231,231,234,.86);
   font-size:13px;
   line-height:1.55;
 }
-.details b{color:rgba(231,231,234,.95)}
-
-/* MAP */
-.mapwrap{
-  display:none;
-  border-radius:22px;
-  border:1px solid rgba(110,231,255,.22);
-  background:
-    radial-gradient(900px 520px at 20% 10%, rgba(110,231,255,.10), transparent 55%),
-    radial-gradient(900px 520px at 90% 70%, rgba(110,231,255,.07), transparent 55%),
-    var(--card);
-  box-shadow:0 18px 70px rgba(0,0,0,.55);
-  padding:14px;
-  overflow:hidden;
-  position:relative;
+.detailgrid{
+  display:grid;
+  gap:10px;
+  grid-template-columns:1fr;
 }
-.maphead{
-  display:flex; align-items:flex-end; justify-content:space-between;
-  gap:12px; flex-wrap:wrap; margin:4px 6px 10px;
+@media(min-width: 920px){
+  .detailgrid{grid-template-columns:1fr 1fr}
 }
-.maphead .title{
+.metric{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(43,43,51,0.85);
+  background:rgba(0,0,0,0.12);
+  color:rgba(231,231,234,.88);
   font-size:12px;
-  letter-spacing:0.08em;
+}
+.metric .mono{color:rgba(231,231,234,.92)}
+.tags{display:flex; flex-wrap:wrap; gap:8px}
+.tag{
+  font-size:12px;
+  padding:6px 10px;
+  border:1px solid var(--ring);
+  border-radius:999px;
+  color:var(--muted);
+  background: rgba(0,0,0,0.12);
+}
+
+/* footer */
+footer{
+  margin-top:22px;
+  color:var(--muted);
+  font-size:12px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* ===== Portfolio Impact Meter ===== */
+.impact{
+  border:1px solid rgba(110,231,255,.22);
+  border-radius:20px;
+  background:
+    radial-gradient(800px 260px at 20% 0%, rgba(110,231,255,.08), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.12)),
+    var(--card);
+  box-shadow:0 18px 70px rgba(0,0,0,.50);
+  padding:14px 14px 12px;
+  margin:10px 0 14px;
+  overflow:hidden;
+}
+.impactTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.impactTitle{
+  margin:0;
+  font-size:12px;
+  letter-spacing:.08em;
   text-transform:uppercase;
   color:var(--muted);
-  margin:0;
 }
-.maphead .note{
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.4;
-}
-.mapbar{
+.impactMeta{
   display:flex;
   gap:10px;
   flex-wrap:wrap;
   align-items:center;
-  justify-content:space-between;
-  margin:0 6px 10px;
-}
-.mapcontrols{
-  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-}
-.mapbtn{
-  padding:7px 12px;
-  border-radius:999px;
-  border:1px solid var(--ring);
-  background:rgba(0,0,0,0.10);
+  justify-content:flex-end;
+  color:var(--muted);
   font-size:12px;
-  cursor:pointer;
-  color:var(--muted);
-  transition:transform .06s ease, border-color .2s ease, color .2s ease;
 }
-.mapbtn:hover{transform:translateY(-1px); border-color:rgba(110,231,255,.55); color:var(--fg)}
-.mapbtn.active{border-color:var(--accent); color:var(--fg)}
-.mapstatus{
-  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-  color:var(--muted); font-size:12px;
-}
-.dot{
-  width:7px; height:7px; border-radius:999px;
-  background:rgba(110,231,255,.55);
-  box-shadow:0 0 16px rgba(110,231,255,.25);
-  display:inline-block;
-}
+.impactMeta b{ color:rgba(231,231,234,.95); font-weight:700; }
+.impactHint{ color:rgba(231,231,234,.72); font-size:12px; line-height:1.35; margin-top:6px; }
 
-.mapcanvas{
-  width:100%;
-  border-radius:18px;
-  border:1px solid rgba(43,43,51,0.85);
-  background:
-    radial-gradient(1000px 540px at 50% 50%, rgba(255,255,255,0.02), rgba(0,0,0,0.14));
-  overflow:hidden;
-  position:relative;
-}
-
-.tip{
-  position:absolute;
-  min-width:240px;
-  max-width:360px;
-  pointer-events:none;
-  opacity:0;
-  transform:translateY(6px);
-  transition:opacity .12s ease, transform .12s ease;
-  border-radius:16px;
-  border:1px solid rgba(110,231,255,.25);
-  background:rgba(18,18,20,0.92);
-  box-shadow:0 18px 70px rgba(0,0,0,0.55);
-  padding:12px;
-  z-index:4;
-}
-.tip strong{display:block; font-size:13px; letter-spacing:-0.01em; color:var(--fg)}
-.tip .sub{margin-top:4px; font-size:12px; color:var(--muted); line-height:1.4}
-.tip .chips{display:flex; gap:7px; flex-wrap:wrap; margin-top:10px}
-.tip .chip{
-  font-size:11px;
-  padding:5px 10px;
-  border-radius:999px;
-  border:1px solid var(--ring);
-  background:rgba(0,0,0,0.10);
-  color:var(--muted);
-}
-.tip .hint{
+.impactBar{
   margin-top:10px;
-  font-size:11px;
-  color:rgba(231,231,234,0.75);
-}
-
-svg{width:100%; height:520px; display:block;}
-
-.edge{
-  stroke:rgba(163,163,173,0.28);
-  stroke-width:1.1;
-  vector-effect:non-scaling-stroke;
-}
-.edge.flow{
-  stroke:rgba(110,231,255,0.20);
-  stroke-width:2.6;
-  filter:url(#glow);
-  stroke-dasharray:7 10;
-  vector-effect:non-scaling-stroke;
-}
-.edge.on{
-  stroke:rgba(110,231,255,0.72);
-  stroke-width:1.8;
-}
-.edge.flow.on{
-  stroke:rgba(110,231,255,0.40);
-  stroke-width:3.2;
-}
-
-.particle{
-  fill:rgba(110,231,255,0.55);
-  filter:url(#glowSoft);
-}
-
-.node{
-  cursor:grab;
-  outline:none;
-}
-.node:active{cursor:grabbing}
-.node circle{
-  fill:rgba(0,0,0,0.22);
-  stroke:rgba(110,231,255,0.52);
-  stroke-width:1.3;
-  vector-effect:non-scaling-stroke;
-}
-.node:hover circle{stroke:rgba(110,231,255,0.95)}
-.node.on circle{
-  stroke:rgba(110,231,255,0.98);
-  filter:url(#glow);
-}
-.node text{
-  fill:rgba(231,231,234,0.95);
-  font-size:12px;
-  letter-spacing:-0.01em;
-  user-select:none;
-  pointer-events:none;
-}
-.node .meta{
-  fill:rgba(163,163,173,0.92);
-  font-size:11px;
-}
-
-.hud{
-  position:absolute;
-  right:12px;
-  bottom:12px;
   border-radius:16px;
   border:1px solid rgba(43,43,51,0.85);
-  background:rgba(0,0,0,0.22);
-  padding:10px 12px;
-  color:rgba(231,231,234,0.86);
-  font-size:12px;
-  line-height:1.35;
-  backdrop-filter: blur(6px);
-  z-index:3;
+  background:rgba(0,0,0,0.18);
+  overflow:hidden;
 }
-kbd{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size:11px;
-  padding:2px 6px;
-  border-radius:8px;
-  border:1px solid var(--ring);
-  background:rgba(0,0,0,0.12);
-  color:var(--fg);
+.impactFill{
+  height:14px;
+  width:0%;
+  display:flex;
+  transition:width .7s cubic-bezier(.2,.8,.2,1);
 }
+.seg{
+  height:14px;
+  width:0%;
+  transition:width .7s cubic-bezier(.2,.8,.2,1);
+}
+.seg.cpp{ background:rgba(110,231,255,.34); }
+.seg.rl{ background:rgba(110,231,255,.26); }
+.seg.research{ background:rgba(110,231,255,.20); }
+.seg.micro{ background:rgba(110,231,255,.14); }
 
-footer{
-  margin-top:26px;
-  color:var(--muted);
-  font-size:12px;
-  display:flex; justify-content:space-between;
-  gap:12px; flex-wrap:wrap;
+.impactLegend{
+  margin-top:10px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
 }
+.leg{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  background:rgba(0,0,0,0.10);
+  color:rgba(231,231,234,.86);
+  font-size:12px;
+}
+.sw{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  box-shadow:0 0 18px rgba(110,231,255,.20);
+}
+.sw.cpp{ background:rgba(110,231,255,.34); }
+.sw.rl{ background:rgba(110,231,255,.26); }
+.sw.research{ background:rgba(110,231,255,.20); }
+.sw.micro{ background:rgba(110,231,255,.14); }
+
 </style>
 </head>
 
 <body>
-<div class="container">
-
-  <div class="topbar">
-    <a class="home" href="./">← Home</a>
-    <div class="pillrow">
-      <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
-      <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
-      <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
-    </div>
-  </div>
-
-  <section class="hero">
-    <h1>Projects</h1>
-    <p>
-      Selected builds, research, and experiments. More on GitHub.
-    </p>
-
-    <section class="spotlight" aria-label="spotlight project">
-      <div class="spotlight-top">
-        <div>
-          <h2>Spotlight · executionrl</h2>
-          <div class="kicker">Reinforcement-learning execution simulator modeling slippage + constraints.</div>
-        </div>
-        <div class="spot-actions">
-          <a class="btn" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
-          <a class="btn" href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
-        </div>
+  <div class="container">
+    <div class="topbar">
+      <a class="home" href="./">← Home</a>
+      <div class="pillrow">
+        <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
+        <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
+        <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
       </div>
+    </div>
 
-      <div class="spotlight-grid">
+    <section class="card hero" aria-label="projects header">
+      <h1>Projects</h1>
+      <p class="sub">
+        Quant systems, market microstructure tooling, and research. Explore the grid, or drag around the Projects Map.
+      </p>
+      <div class="ctas">
+        <a class="btn primary" href="https://github.com/arpjw" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">QuantProjects monorepo</a>
+        <a class="btn" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">Paper: Xor Shifting</a>
+      </div>
+    </section>
+
+    <section class="spotlight" aria-label="portfolio snapshot">
+      <div class="metrics">
         <div>
-          <div class="metric"><span class="mono">State</span>: depth / inventory / time remaining</div>
-          <div class="metric"><span class="mono">Action</span>: trade size vs wait decision</div>
-          <div class="metric"><span class="mono">Reward</span>: execution cost + impact penalty</div>
-          <div class="metric"><span class="mono">Goal</span>: learn policy under varying liquidity regimes</div>
+          <div class="kicker">Portfolio snapshot</div>
+          <div class="big">
+            My work clusters around execution + microstructure simulation, market data signals, and “systems-first” research artifacts.
+            The map view shows how each build feeds into the next.
+          </div>
+
+          <div class="metricrow" style="margin-top:10px;">
+            <div class="stat"><span class="dot"></span><span class="mono">Focus</span>: microstructure + simulation</div>
+            <div class="stat"><span class="dot"></span><span class="mono">Stack</span>: C++ / Python</div>
+            <div class="stat"><span class="dot"></span><span class="mono">Mode</span>: research → tooling → iteration</div>
+          </div>
         </div>
-        <div>
-          <div class="metric"><span class="mono">Signal</span>: market microstructure first</div>
-          <div class="metric"><span class="mono">Risk</span>: reward shaping</div>
-          <div class="metric"><span class="mono">Output</span>: policy + diagnostics</div>
+
+        <div class="grid2" aria-label="spotlight cards">
+          <div class="mini">
+            <div class="k">Current arc</div>
+            <div class="v">
+              Building an execution + order-book research suite: simulators, indicators, and reinforcement learning for execution quality.
+            </div>
+          </div>
+          <div class="mini">
+            <div class="k">How to use</div>
+            <div class="v">
+              Use filters to isolate a domain, then jump into the Projects Map to see relationships and open items on double-click.
+            </div>
+          </div>
         </div>
       </div>
     </section>
+
+    <div class="viewbar" aria-label="view controls">
+      <div class="filters" aria-label="filters">
+        <span class="filter active" data-filter="all">All</span>
+        <span class="filter" data-filter="cpp">C++</span>
+        <span class="filter" data-filter="rl">RL</span>
+        <span class="filter" data-filter="research">Research</span>
+        <span class="filter" data-filter="micro">Microstructure</span>
+      </div>
+
+      <div class="switch" aria-label="view switch">
+        <span class="switchbtn active" data-view="grid">Grid</span>
+        <span class="switchbtn" data-view="map">Projects Map</span>
+      </div>
+    </div>
+
+  <section class="impact" aria-label="portfolio impact meter">
+    <div class="impactTop">
+      <p class="impactTitle">Portfolio impact meter</p>
+      <div class="impactMeta">
+        <span><b id="impactScore">—</b> / 100</span>
+        <span class="mono" id="impactCount">— projects</span>
+      </div>
+    </div>
+
+    <div class="impactHint">
+      Weighted by maturity (Core &gt; Growing &gt; Prototype/Paper &gt; Coming soon). Updates with filters.
+    </div>
+
+    <div class="impactBar">
+      <div class="impactFill" id="impactFill" aria-hidden="true">
+        <div class="seg cpp" id="segCpp"></div>
+        <div class="seg rl" id="segRl"></div>
+        <div class="seg research" id="segResearch"></div>
+        <div class="seg micro" id="segMicro"></div>
+      </div>
+    </div>
+
+    <div class="impactLegend" aria-label="impact legend">
+      <span class="leg"><span class="sw cpp"></span> C++</span>
+      <span class="leg"><span class="sw rl"></span> RL</span>
+      <span class="leg"><span class="sw research"></span> Research</span>
+      <span class="leg"><span class="sw micro"></span> Microstructure</span>
+    </div>
   </section>
-
-  <div class="viewbar" aria-label="view controls">
-    <div class="filters" aria-label="filters">
-      <span class="filter active" data-filter="all">All</span>
-      <span class="filter" data-filter="cpp">C++</span>
-      <span class="filter" data-filter="rl">RL</span>
-      <span class="filter" data-filter="research">Research</span>
-      <span class="filter" data-filter="micro">Microstructure</span>
-    </div>
-
-    <div class="switch" aria-label="view switch">
-      <span class="switchbtn active" data-view="grid">Grid</span>
-      <span class="switchbtn" data-view="map">Projects Map</span>
-    </div>
-  </div>
 
   <!-- MAP VIEW -->
   <section class="mapwrap" id="mapwrap" aria-label="projects map">
@@ -593,215 +725,449 @@ footer{
   <!-- GRID VIEW -->
   <section class="projects" id="grid" aria-label="projects grid">
 
-    <article class="project" id="executionrl" data-tags="rl cpp">
-      <div class="top">
-        <div>
-          <p class="title">executionrl <span class="badge maturity">Growing</span></p>
-          <div class="badges">
+    <section class="project" id="executionrl" data-tags="rl cpp micro">
+      <div class="pTop">
+        <p class="pTitle">
+          ExecutionRL
+          <span class="badges">
+            <span class="badge">RL</span>
+            <span class="badge maturity">Growing</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <p class="pDesc">
+        Reinforcement learning for trade execution: agent learns when to trade under liquidity constraints to reduce slippage + impact.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Q-learning</span>
+        <span class="tag">Execution</span>
+        <span class="tag">Microstructure</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">State</span>: order-book + position + time features</div>
+            <div class="metric"><span class="mono">Action</span>: trade size vs wait decision</div>
+            <div class="metric"><span class="mono">Reward</span>: execution cost + impact penalty</div>
+            <div class="metric"><span class="mono">Goal</span>: learn policy under varying liquidity regimes</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Signal</span>: market microstructure first</div>
+            <div class="metric"><span class="mono">Risk</span>: reward shaping</div>
+            <div class="metric"><span class="mono">Output</span>: policy + diagnostics</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project" id="executionalgosim" data-tags="cpp micro">
+      <div class="pTop">
+        <p class="pTitle">
+          ExecutionAlgoSim
+          <span class="badges">
             <span class="badge">C++</span>
-            <span class="badge">Reinforcement learning</span>
-            <span class="badge">Q-learning</span>
-            <span class="badge">Simulation</span>
+            <span class="badge maturity">Core</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <p class="pDesc">
+        A simulator for execution algorithms (TWAP / VWAP / POV) under order book constraints. Foundation for RL-based execution.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Simulation</span>
+        <span class="tag">TWAP</span>
+        <span class="tag">VWAP</span>
+        <span class="tag">POV</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Core idea</span>: constrain fills by depth + spread</div>
+            <div class="metric"><span class="mono">Inputs</span>: schedule / POV curve / target volume</div>
+            <div class="metric"><span class="mono">Outputs</span>: slippage, impact, fill curve</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Why it matters</span>: execution cost dominates signals</div>
+            <div class="metric"><span class="mono">Next</span>: hook into RL environment + replay</div>
           </div>
         </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
-        </div>
       </div>
-      <p class="desc">Reinforcement learning–based trade execution simulator under liquidity constraints.</p>
-      <div class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</div>
-      <div class="details">
-        <p><b>Problem:</b> Fixed schedules ignore state-dependent liquidity.</p>
-        <p><b>Approach:</b> Discrete-time environment; Q-learning learns a policy across regimes.</p>
-      </div>
-    </article>
+    </section>
 
-    <article class="project" id="executionalgosim" data-tags="cpp">
-      <div class="top">
-        <div>
-          <p class="title">ExecutionAlgoSim <span class="badge maturity">Prototype</span></p>
-          <div class="badges">
+    <section class="project" id="miniquantlib" data-tags="cpp research">
+      <div class="pTop">
+        <p class="pTitle">
+          MiniQuantLib
+          <span class="badges">
             <span class="badge">C++</span>
-            <span class="badge">TWAP</span>
-            <span class="badge">VWAP</span>
-            <span class="badge">POV</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">GitHub</a>
+            <span class="badge maturity">Growing</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <p class="desc">Baselines for execution: TWAP / VWAP / POV under constraints.</p>
-    </article>
 
-    <article class="project" id="quantprojects" data-tags="research">
-      <div class="top">
-        <div>
-          <p class="title">quant-projects <span class="badge maturity">Core</span></p>
-          <div class="badges">
-            <span class="badge">Python</span>
-            <span class="badge">Backtesting</span>
-            <span class="badge">Research</span>
+      <p class="pDesc">
+        A from-scratch quantitative library for vectors/matrices and core primitives (templating, memory layout, performance).
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Linear algebra</span>
+        <span class="tag">Performance</span>
+        <span class="tag">Templates</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Goal</span>: implement essentials of Eigen/Boost style APIs</div>
+            <div class="metric"><span class="mono">Focus</span>: cache friendliness + correctness</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Why</span>: stronger systems intuition for quant infra</div>
+            <div class="metric"><span class="mono">Next</span>: add solvers + numeric tests</div>
           </div>
         </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/quant-projects/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
-        </div>
       </div>
-      <p class="desc">A research library + portfolio of market systems experiments and notes.</p>
-    </article>
+    </section>
 
-    <article class="project" id="miniquantlib" data-tags="cpp">
-      <div class="top">
-        <div>
-          <p class="title">miniquantlib <span class="badge maturity">Prototype</span></p>
-          <div class="badges">
-            <span class="badge">C++</span>
-            <span class="badge">Linear algebra</span>
-            <span class="badge">Performance</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
-        </div>
-      </div>
-      <p class="desc">Minimal vector/matrix primitives built from scratch for numerical computing practice.</p>
-    </article>
-
-    <article class="project" id="prngpaper" data-tags="research">
-      <div class="top">
-        <div>
-          <p class="title">xor-shift PRNG paper <span class="badge maturity">Paper</span></p>
-          <div class="badges">
-            <span class="badge">Research</span>
-            <span class="badge">PRNG</span>
-            <span class="badge">Simulation</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">PDF</a>
-        </div>
-      </div>
-      <p class="desc">Investigative paper on xor-shift PRNG design, simulation quality, and implications.</p>
-    </article>
-
-    <!-- NEW: quant-projects subprojects (Coming soon) -->
-    <article class="project" id="ofi" data-tags="micro research">
-      <div class="top">
-        <div>
-          <p class="title">OFIAnalyzer <span class="badge maturity">Coming soon</span></p>
-          <div class="badges">
+    <section class="project" id="ofi" data-tags="micro cpp">
+      <div class="pTop">
+        <p class="pTitle">
+          OFI Analyzer
+          <span class="badges">
             <span class="badge">Microstructure</span>
-            <span class="badge">Order book</span>
-            <span class="badge">Signals</span>
-            <span class="badge">Visualization</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/OFIAnalyzer" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/OFIAnalyzer" target="_blank" rel="noopener">Folder</a>
+            <span class="badge maturity">Coming soon</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/quant-projects/tree/main/OFIAnalyzer" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <p class="desc">Order Flow Imbalance computation + pressure visualization against price movement.</p>
-    </article>
 
-    <article class="project" id="tickrule" data-tags="micro research">
-      <div class="top">
-        <div>
-          <p class="title">TickRuleClassifier <span class="badge maturity">Coming soon</span></p>
-          <div class="badges">
+      <p class="pDesc">
+        Order Flow Imbalance (OFI) indicator + visualizer: parse L2 updates, compute pressure, and compare against price moves.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Market data</span>
+        <span class="tag">Order book</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Signal</span>: OFI from bid/ask depth changes</div>
+            <div class="metric"><span class="mono">Goal</span>: visualize pressure vs returns</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Output</span>: dashboards + reproducible metrics</div>
+            <div class="metric"><span class="mono">Status</span>: tagged as coming soon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project" id="tickrule" data-tags="micro cpp">
+      <div class="pTop">
+        <p class="pTitle">
+          Tick Rule Classifier
+          <span class="badges">
             <span class="badge">Microstructure</span>
-            <span class="badge">Trade classification</span>
-            <span class="badge">Tape</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/TickRuleClassifier" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/TickRuleClassifier" target="_blank" rel="noopener">Folder</a>
+            <span class="badge maturity">Coming soon</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/quant-projects/tree/main/TickRuleClassifier" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <p class="desc">Labels buy vs sell initiated trades using tick rule variants and edge cases.</p>
-    </article>
 
-    <article class="project" id="liqheat" data-tags="micro research">
-      <div class="top">
-        <div>
-          <p class="title">LiquidityHeatmapGenerator <span class="badge maturity">Coming soon</span></p>
-          <div class="badges">
-            <span class="badge">Order book</span>
-            <span class="badge">Visualization</span>
-            <span class="badge">Liquidity</span>
+      <p class="pDesc">
+        Trade direction labeling (buy vs sell initiated) using tick rule logic and short-term price movements.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Trades</span>
+        <span class="tag">Classification</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Logic</span>: compare prints to prior prints</div>
+            <div class="metric"><span class="mono">Goal</span>: stable trade sign labeling</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Use</span>: input for OFI/impact studies</div>
+            <div class="metric"><span class="mono">Status</span>: tagged as coming soon</div>
           </div>
         </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/LiquidityHeatmapGenerator" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/LiquidityHeatmapGenerator" target="_blank" rel="noopener">Folder</a>
+      </div>
+    </section>
+
+    <section class="project" id="liqheat" data-tags="micro cpp">
+      <div class="pTop">
+        <p class="pTitle">
+          Liquidity Heatmap Generator
+          <span class="badges">
+            <span class="badge">Microstructure</span>
+            <span class="badge maturity">Coming soon</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/quant-projects/tree/main/LiquidityHeatmapGenerator" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <p class="desc">Depth heatmaps + structure metrics to study liquidity regimes and price response.</p>
-    </article>
 
-    <article class="project" id="exchangesim" data-tags="cpp micro">
-      <div class="top">
-        <div>
-          <p class="title">ExchangeSimulator <span class="badge maturity">Coming soon</span></p>
-          <div class="badges">
+      <p class="pDesc">
+        Heatmap of depth across price levels over time, to study liquidity regimes and how they correlate with price movement.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Order book</span>
+        <span class="tag">Visualization</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Output</span>: depth heatmaps + regime stats</div>
+            <div class="metric"><span class="mono">Goal</span>: explain slippage via liquidity</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Use</span>: execution sim calibration</div>
+            <div class="metric"><span class="mono">Status</span>: tagged as coming soon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project" id="exchangesim" data-tags="cpp micro">
+      <div class="pTop">
+        <p class="pTitle">
+          Exchange Simulator
+          <span class="badges">
             <span class="badge">C++</span>
-            <span class="badge">Matching engine</span>
-            <span class="badge">Market design</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/ExchangeSimulator" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/ExchangeSimulator" target="_blank" rel="noopener">Folder</a>
+            <span class="badge maturity">Coming soon</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/quant-projects/tree/main/ExchangeSimulator" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <p class="desc">A from-scratch exchange simulator to generate events, fills, and microstructure artifacts.</p>
-    </article>
 
-    <article class="project" id="mm" data-tags="cpp micro">
-      <div class="top">
-        <div>
-          <p class="title">MarketMakerSim <span class="badge maturity">Coming soon</span></p>
-          <div class="badges">
+      <p class="pDesc">
+        Matching engine + order book simulator foundation for market making and execution research.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Matching engine</span>
+        <span class="tag">Order book</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Core</span>: limit order book + matching rules</div>
+            <div class="metric"><span class="mono">Goal</span>: realistic fills + latency hooks</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Use</span>: base for MarketMakerSim</div>
+            <div class="metric"><span class="mono">Status</span>: tagged as coming soon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project" id="mm" data-tags="cpp micro">
+      <div class="pTop">
+        <p class="pTitle">
+          Market Maker Simulator
+          <span class="badges">
             <span class="badge">C++</span>
-            <span class="badge">Quoting</span>
-            <span class="badge">PnL</span>
-            <span class="badge">Risk</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/MarketMakerSim" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/MarketMakerSim" target="_blank" rel="noopener">Folder</a>
-        </div>
-      </div>
-      <p class="desc">Market making simulator: quoting logic, inventory risk, and PnL diagnostics.</p>
-    </article>
+            <span class="badge maturity">Coming soon</span>
+          </span>
+        </p>
 
-    <article class="project" id="heston" data-tags="research">
-      <div class="top">
-        <div>
-          <p class="title">HestonOptionSim <span class="badge maturity">Coming soon</span></p>
-          <div class="badges">
-            <span class="badge">Derivatives</span>
-            <span class="badge">Stochastic volatility</span>
-            <span class="badge">Simulation</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/HestonOptionSim" target="_blank" rel="noopener">GitHub</a>
-          <a class="link" href="https://github.com/arpjw/quant-projects/tree/main/HestonOptionSim" target="_blank" rel="noopener">Folder</a>
+        <div class="links">
+          <a href="https://github.com/arpjw/quant-projects/tree/main/MarketMakerSim" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <p class="desc">Stochastic volatility option simulator based on the Heston model with correlated Brownian motion.</p>
-    </article>
+
+      <p class="pDesc">
+        Market making bot simulator built on top of the exchange simulator with PnL tracking and microstructure signals.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Market making</span>
+        <span class="tag">PnL</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Core</span>: quote placement + inventory control</div>
+            <div class="metric"><span class="mono">Goal</span>: robust sim for strategies</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Use</span>: feed into execution + RL</div>
+            <div class="metric"><span class="mono">Status</span>: tagged as coming soon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project" id="heston" data-tags="cpp research">
+      <div class="pTop">
+        <p class="pTitle">
+          Heston Option Simulator
+          <span class="badges">
+            <span class="badge">Research</span>
+            <span class="badge maturity">Coming soon</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="https://github.com/arpjw/quant-projects/tree/main/HestonOptionSim" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <p class="pDesc">
+        Stochastic volatility option simulator (Heston) with correlated Brownian motion for asset + variance dynamics.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">C++</span>
+        <span class="tag">Stochastic calculus</span>
+        <span class="tag">Options</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Model</span>: dS and dv with correlation ρ</div>
+            <div class="metric"><span class="mono">Goal</span>: surfaces, greeks, skew experiments</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Use</span>: pricing intuition for execution/vol regimes</div>
+            <div class="metric"><span class="mono">Status</span>: tagged as coming soon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project" id="prngpaper" data-tags="research">
+      <div class="pTop">
+        <p class="pTitle">
+          Paper: Xor Shifting
+          <span class="badges">
+            <span class="badge">Research</span>
+            <span class="badge maturity">Paper</span>
+          </span>
+        </p>
+
+        <div class="links">
+          <a href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">Open PDF</a>
+        </div>
+      </div>
+
+      <p class="pDesc">
+        A short research write-up on pseudorandom number generation via xorshift-style transforms and practical considerations.
+      </p>
+
+      <div class="tags" aria-label="tags">
+        <span class="tag">Paper</span>
+        <span class="tag">Randomness</span>
+        <span class="tag">Systems</span>
+      </div>
+
+      <div class="metaRow">
+        <span class="toggle" role="button" tabindex="0" aria-expanded="false">View case study →</span>
+      </div>
+
+      <div class="details" aria-label="case study details">
+        <div class="detailgrid">
+          <div>
+            <div class="metric"><span class="mono">Topic</span>: xorshift transforms + properties</div>
+            <div class="metric"><span class="mono">Goal</span>: clear, reproducible explanation</div>
+          </div>
+          <div>
+            <div class="metric"><span class="mono">Use</span>: sim tooling + reproducible experiments</div>
+            <div class="metric"><span class="mono">Output</span>: PDF artifact</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </section>
 
   <footer>
     <span class="mono">© <span id="y"></span> Arya Somu</span>
+    <span class="mono">Grid <span class="mono">↔</span> Map: <kbd>Esc</kbd> exits map</span>
   </footer>
 
 </div>
@@ -835,10 +1201,88 @@ function setFilter(tag){
     const tags = p.dataset.tags || "";
     p.style.display = (tag === "all" || tags.includes(tag)) ? "block" : "none";
   });
+  computeImpact();
 }
 document.querySelectorAll('.filter').forEach(f=>{
   f.addEventListener('click', ()=>setFilter(f.dataset.filter));
 });
+
+/* =======================
+   Portfolio Impact Meter
+======================= */
+const impactScoreEl = document.getElementById("impactScore");
+const impactCountEl = document.getElementById("impactCount");
+const impactFill = document.getElementById("impactFill");
+const segCpp = document.getElementById("segCpp");
+const segRl = document.getElementById("segRl");
+const segResearch = document.getElementById("segResearch");
+const segMicro = document.getElementById("segMicro");
+
+const clampVal = (v,a,b)=>Math.max(a,Math.min(b,v));
+
+function maturityWeight(m){
+  const s = String(m || "").toLowerCase();
+  if (s.includes("core")) return 5;
+  if (s.includes("growing")) return 4;
+  if (s.includes("prototype")) return 3;
+  if (s.includes("paper")) return 3;
+  if (s.includes("coming")) return 1;
+  return 2;
+}
+
+function getVisibleProjects(){
+  return Array.from(document.querySelectorAll('.project'))
+    .filter(p => p.style.display !== "none");
+}
+
+function computeImpact(){
+  if (!impactScoreEl) return;
+
+  const visible = getVisibleProjects();
+
+  let sum = 0;
+  const max = Math.max(1, visible.length * 5);
+
+  const buckets = { cpp:0, rl:0, research:0, micro:0 };
+
+  visible.forEach(p=>{
+    const maturity = p.querySelector('.badge.maturity')?.textContent || "";
+    const w = maturityWeight(maturity);
+    sum += w;
+
+    const tags = (p.dataset.tags || "").split(/\s+/).filter(Boolean);
+    const has = (t)=>tags.includes(t);
+
+    const hits = [
+      has("cpp") ? "cpp" : null,
+      has("rl") ? "rl" : null,
+      has("research") ? "research" : null,
+      has("micro") ? "micro" : null,
+    ].filter(Boolean);
+
+    if (hits.length === 0){
+      buckets.research += w;
+    } else {
+      const share = w / hits.length;
+      hits.forEach(k => buckets[k] += share);
+    }
+  });
+
+  const score = Math.round((sum / max) * 100);
+
+  const totalBucket = Math.max(1e-6, buckets.cpp + buckets.rl + buckets.research + buckets.micro);
+  const fillPct = clampVal((sum / max) * 100, 0, 100);
+
+  impactFill.style.width = fillPct.toFixed(1) + "%";
+  segCpp.style.width = ((buckets.cpp / totalBucket) * 100).toFixed(1) + "%";
+  segRl.style.width = ((buckets.rl / totalBucket) * 100).toFixed(1) + "%";
+  segResearch.style.width = ((buckets.research / totalBucket) * 100).toFixed(1) + "%";
+  segMicro.style.width = ((buckets.micro / totalBucket) * 100).toFixed(1) + "%";
+
+  impactScoreEl.textContent = String(score);
+  impactCountEl.textContent = `${visible.length} projects`;
+}
+computeImpact();
 
 /* =======================
    View switching
@@ -933,446 +1377,414 @@ const PROJECT_URLS = {
 
 const graph = {
   nodes: [
-    { id:"executionrl", label:"executionrl", sub:"RL execution", tags:["C++","RL","Q-learning"], status:"Growing", r:58, x:260, y:210, vx:0, vy:0 },
-    { id:"executionalgosim", label:"ExecutionAlgoSim", sub:"TWAP/VWAP/POV", tags:["C++","Simulation","Baselines"], status:"Prototype", r:54, x:520, y:130, vx:0, vy:0 },
-    { id:"miniquantlib", label:"miniquantlib", sub:"numerics core", tags:["C++","Linear algebra","Perf"], status:"Prototype", r:54, x:520, y:310, vx:0, vy:0 },
-    { id:"quantprojects", label:"quant-projects", sub:"research library", tags:["Python","Backtesting","Docs"], status:"Core", r:56, x:860, y:230, vx:0, vy:0 },
-    { id:"prngpaper", label:"xor-shift PRNG", sub:"paper", tags:["Research","PRNG","Simulation"], status:"Paper", r:54, x:860, y:390, vx:0, vy:0 },
+    { id:"executionrl", label:"ExecutionRL", sub:"RL execution agent", tags:["RL","micro"], r:34, x:300, y:170 },
+    { id:"executionalgosim", label:"ExecutionAlgoSim", sub:"TWAP/VWAP/POV simulator", tags:["C++","micro"], r:36, x:455, y:210 },
+    { id:"miniquantlib", label:"MiniQuantLib", sub:"core C++ primitives", tags:["C++","research"], r:32, x:540, y:95 },
 
-    { id:"ofi", label:"OFIAnalyzer", sub:"order flow imbalance", tags:["Microstructure","Order book","Signals"], status:"Coming soon", r:52, x:210, y:390, vx:0, vy:0 },
-    { id:"tickrule", label:"TickRuleClassifier", sub:"trade classifier", tags:["Microstructure","Tape","Labels"], status:"Coming soon", r:52, x:320, y:80, vx:0, vy:0 },
-    { id:"liqheat", label:"LiquidityHeatmapGenerator", sub:"depth heatmaps", tags:["Order book","Viz","Liquidity"], status:"Coming soon", r:52, x:680, y:420, vx:0, vy:0 },
-    { id:"exchangesim", label:"ExchangeSimulator", sub:"matching engine", tags:["C++","Microstructure","Sim"], status:"Coming soon", r:52, x:720, y:70, vx:0, vy:0 },
-    { id:"mm", label:"MarketMakerSim", sub:"quoting sandbox", tags:["C++","PnL","Risk"], status:"Coming soon", r:52, x:990, y:120, vx:0, vy:0 },
-    { id:"heston", label:"HestonOptionSim", sub:"stoch vol sim", tags:["Derivatives","SDEs","Calibration"], status:"Coming soon", r:52, x:980, y:470, vx:0, vy:0 }
+    { id:"exchangesim", label:"ExchangeSim", sub:"matching engine base", tags:["C++","micro"], r:30, x:710, y:265 },
+    { id:"mm", label:"MarketMakerSim", sub:"PnL + quoting sim", tags:["C++","micro"], r:30, x:835, y:210 },
+
+    { id:"ofi", label:"OFI Analyzer", sub:"order flow imbalance", tags:["micro"], r:28, x:255, y:330 },
+    { id:"tickrule", label:"Tick Rule", sub:"trade sign labeling", tags:["micro"], r:26, x:410, y:350 },
+    { id:"liqheat", label:"Liquidity Heatmap", sub:"depth regimes", tags:["micro"], r:28, x:570, y:335 },
+
+    { id:"heston", label:"Heston OptionSim", sub:"stoch vol simulator", tags:["research"], r:28, x:875, y:95 },
+    { id:"prngpaper", label:"Paper: Xor Shifting", sub:"PRNG writeup", tags:["paper"], r:26, x:680, y:105 },
+
+    { id:"quantprojects", label:"QuantProjects", sub:"monorepo hub", tags:["hub"], r:24, x:650, y:415 }
   ],
   edges: [
-    { a:"executionrl", b:"executionalgosim", w:1.00, label:"baselines" },
-    { a:"executionrl", b:"miniquantlib", w:0.90, label:"core numerics" },
-    { a:"executionrl", b:"quantprojects", w:0.55, label:"docs" },
+    ["executionalgosim","executionrl"],
+    ["executionalgosim","ofi"],
+    ["executionalgosim","tickrule"],
+    ["executionalgosim","liqheat"],
 
-    { a:"executionalgosim", b:"exchangesim", w:0.75, label:"market plumbing" },
-    { a:"exchangesim", b:"mm", w:0.70, label:"quoting sandbox" },
+    ["exchangesim","mm"],
+    ["miniquantlib","executionalgosim"],
+    ["miniquantlib","exchangesim"],
+    ["heston","miniquantlib"],
 
-    { a:"miniquantlib", b:"quantprojects", w:0.65, label:"shared utils" },
-    { a:"executionalgosim", b:"prngpaper", w:0.45, label:"sim rigor" },
-
-    { a:"ofi", b:"liqheat", w:0.70, label:"book structure" },
-    { a:"ofi", b:"exchangesim", w:0.60, label:"feeds" },
-    { a:"tickrule", b:"ofi", w:0.62, label:"tape signals" },
-
-    { a:"heston", b:"miniquantlib", w:0.62, label:"numerics" },
-    { a:"heston", b:"quantprojects", w:0.55, label:"writeups" }
+    ["quantprojects","ofi"],
+    ["quantprojects","tickrule"],
+    ["quantprojects","liqheat"],
+    ["quantprojects","exchangesim"],
+    ["quantprojects","mm"],
+    ["quantprojects","heston"]
   ]
 };
 
-const nodeById = new Map(graph.nodes.map(n=>[n.id,n]));
-function edgeLen(e){ return 260 - 90*e.w; }
-
-let edgeEls = [];
-let flowEls = [];
-let nodeEls = [];
-let particleEls = [];
-
-function clearGroup(g){ while(g.firstChild) g.removeChild(g.firstChild); }
-function makeSVG(tag, attrs={}){
-  const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
-  for (const [k,v] of Object.entries(attrs)) el.setAttribute(k, v);
-  return el;
-}
-
-function buildGraph(){
-  clearGroup(edgesG); clearGroup(flowsG); clearGroup(particlesG); clearGroup(nodesG);
-  edgeEls = []; flowEls = []; particleEls = []; nodeEls = [];
-
-  graph.edges.forEach((e, i)=>{
-    const line = makeSVG("line", { class:"edge", "data-i": String(i) });
-    const flow = makeSVG("line", { class:"edge flow", "data-i": String(i) });
-    edgesG.appendChild(line);
-    flowsG.appendChild(flow);
-    edgeEls.push(line);
-    flowEls.push(flow);
-
-    for(let k=0;k<3;k++){
-      const p = makeSVG("circle", { class:"particle", r:"2.6", "data-e":String(i) });
-      particlesG.appendChild(p);
-      particleEls.push({ el:p, e:i, t:Math.random() });
-    }
-  });
-
-  graph.nodes.forEach((n)=>{
-    n.x = clamp(n.x + rand(-80,80), 80, VIEW_W-80);
-    n.y = clamp(n.y + rand(-70,70), 70, VIEW_H-70);
-    n.vx = rand(-1,1);
-    n.vy = rand(-1,1);
-
-    const g = makeSVG("g", { class:"node", tabindex:"0", role:"button", "data-id": n.id });
-    const c = makeSVG("circle", { cx:n.x, cy:n.y, r:n.r });
-    const t1 = makeSVG("text", { x:n.x, y:n.y-4, "text-anchor":"middle" });
-    t1.textContent = n.label;
-    const t2 = makeSVG("text", { x:n.x, y:n.y+18, "text-anchor":"middle", class:"meta" });
-    t2.textContent = n.sub;
-
-    nodesG.appendChild(g);
-    g.appendChild(c);
-    g.appendChild(t1);
-    g.appendChild(t2);
-
-    nodeEls.push({ n, g, c, t1, t2 });
-
-    g.addEventListener("mouseenter", (ev)=>showTip(n, ev));
-    g.addEventListener("mousemove", (ev)=>moveTip(ev));
-    g.addEventListener("mouseleave", hideTip);
-
-    g.addEventListener("click", ()=>{
-      if (n._drag) return;
-      selectNode(n.id);
-    });
-
-    g.addEventListener("dblclick", (e)=>{
-      e.preventDefault();
-      if (n._drag) return;
-      openProject(n.id);
-    });
-
-    g.addEventListener("keydown", (e)=>{
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); selectNode(n.id); }
-      if (e.key === "o" || e.key === "O") { e.preventDefault(); openProject(n.id); }
-    });
-  });
-
-  applySelectionStyles();
-}
-
-function showTip(n, ev){
-  tipTitle.textContent = n.label;
-  tipSub.textContent = `${n.status} · ${n.sub}`;
-  tipChips.innerHTML = "";
-  n.tags.slice(0,6).forEach(tag=>{
-    const d = document.createElement("div");
-    d.className = "chip";
-    d.textContent = tag;
-    tipChips.appendChild(d);
-  });
-
-  const url = PROJECT_URLS[n.id];
-  const hasGrid = !!document.getElementById(n.id);
-  tipHint.textContent = url
-    ? (hasGrid ? "Click to select · Double-click opens GitHub + highlights card" : "Click to select · Double-click opens GitHub")
-    : "Click to select";
-
-  tip.style.opacity = "1";
-  tip.style.transform = "translateY(0px)";
-  moveTip(ev);
-}
-
-function moveTip(ev){
-  const rect = canvas.getBoundingClientRect();
-  const x = ev.clientX - rect.left + 14;
-  const y = ev.clientY - rect.top + 14;
-  const w = 360, h = 170;
-  const nx = clamp(x, 12, rect.width - 12 - w);
-  const ny = clamp(y, 12, rect.height - 12 - h);
-  tip.style.left = nx + "px";
-  tip.style.top = ny + "px";
-}
-function hideTip(){
-  tip.style.opacity = "0";
-  tip.style.transform = "translateY(6px)";
-}
-
-/* selection highlighting */
-function selectNode(id){
-  selectedId = (selectedId === id) ? null : id;
-  applySelectionStyles();
-}
-function clearSelection(){
-  selectedId = null;
-  applySelectionStyles();
-}
-function isNeighbor(a,b){
-  return graph.edges.some(e => (e.a===a && e.b===b) || (e.a===b && e.b===a));
-}
-function applySelectionStyles(){
-  nodeEls.forEach(({n,g})=>{
-    const on = selectedId && (n.id===selectedId || isNeighbor(n.id, selectedId));
-    g.classList.toggle("on", !!on);
-  });
-  graph.edges.forEach((e,i)=>{
-    const on = selectedId && (e.a===selectedId || e.b===selectedId);
-    edgeEls[i].classList.toggle("on", !!on);
-    flowEls[i].classList.toggle("on", !!on);
-  });
-}
-
-/* open behavior: open URL, then (if grid card exists) jump + highlight */
-function openProject(id){
-  const url = PROJECT_URLS[id];
-  if (url){
-    window.open(url, "_blank", "noopener");
-  }
-  // if there's a grid card, also jump to it (doesn't break playability on single click)
-  const el = document.getElementById(id);
-  if (el){
-    jumpToProject(id);
-  }
-}
-
-/* Force sim */
-let freeze = false;
-const SIM = {
-  repulsion: 7600,
-  spring: 0.0105,
-  damping: 0.84,
-  centerPull: 0.0021,
-  maxV: 6.2
-};
-
-function stepSim(){
-  for (let i=0;i<graph.nodes.length;i++){
-    const a = graph.nodes[i];
-    for (let j=i+1;j<graph.nodes.length;j++){
-      const b = graph.nodes[j];
-      const dx = a.x - b.x;
-      const dy = a.y - b.y;
-      const d2 = dx*dx + dy*dy + 0.001;
-      const d = Math.sqrt(d2);
-      const minD = (a.r + b.r) * 0.84;
-      const push = SIM.repulsion / d2;
-      const overlap = (minD - d);
-      const col = overlap > 0 ? overlap * 0.10 : 0;
-      const fx = (dx/d) * (push + col);
-      const fy = (dy/d) * (push + col);
-      a.vx += fx; a.vy += fy;
-      b.vx -= fx; b.vy -= fy;
-    }
-  }
-
-  graph.edges.forEach(e=>{
-    const a = nodeById.get(e.a);
-    const b = nodeById.get(e.b);
-    const dx = b.x - a.x;
-    const dy = b.y - a.y;
-    const d = Math.sqrt(dx*dx + dy*dy) + 0.001;
-    const desired = edgeLen(e);
-    const diff = (d - desired);
-    const k = SIM.spring * (0.60 + e.w);
-    const fx = (dx/d) * diff * k;
-    const fy = (dy/d) * diff * k;
-    a.vx += fx; a.vy += fy;
-    b.vx -= fx; b.vy -= fy;
-  });
-
-  const cx = VIEW_W/2, cy = VIEW_H/2;
-  graph.nodes.forEach(n=>{
-    n.vx += (cx - n.x) * SIM.centerPull;
-    n.vy += (cy - n.y) * SIM.centerPull;
-  });
-
-  graph.nodes.forEach(n=>{
-    if (n._drag) return;
-    n.vx *= SIM.damping;
-    n.vy *= SIM.damping;
-    n.vx = clamp(n.vx, -SIM.maxV, SIM.maxV);
-    n.vy = clamp(n.vy, -SIM.maxV, SIM.maxV);
-    n.x = clamp(n.x + n.vx, 80, VIEW_W-80);
-    n.y = clamp(n.y + n.vy, 70, VIEW_H-70);
-  });
-}
-
-function renderGraph(t){
-  graph.edges.forEach((e,i)=>{
-    const a = nodeById.get(e.a);
-    const b = nodeById.get(e.b);
-    edgeEls[i].setAttribute("x1", a.x);
-    edgeEls[i].setAttribute("y1", a.y);
-    edgeEls[i].setAttribute("x2", b.x);
-    edgeEls[i].setAttribute("y2", b.y);
-    flowEls[i].setAttribute("x1", a.x);
-    flowEls[i].setAttribute("y1", a.y);
-    flowEls[i].setAttribute("x2", b.x);
-    flowEls[i].setAttribute("y2", b.y);
-  });
-
-  const dash = -((t/18) % 200);
-  flowsG.querySelectorAll(".flow").forEach(el=>{
-    el.style.strokeDashoffset = String(dash);
-  });
-
-  particleEls.forEach(p=>{
-    const e = graph.edges[p.e];
-    const a = nodeById.get(e.a);
-    const b = nodeById.get(e.b);
-
-    const active = selectedId && (e.a===selectedId || e.b===selectedId);
-    const spd = (0.004 + 0.006*e.w) * (active ? 1.55 : 1.0);
-
-    p.t += spd;
-    if (p.t > 1) p.t -= 1;
-    const tt = p.t;
-
-    const x = lerp(a.x, b.x, tt);
-    const y = lerp(a.y, b.y, tt);
-
-    p.el.setAttribute("cx", x);
-    p.el.setAttribute("cy", y);
-
-    const baseR = 2.2 + 1.6*Math.sin((tt*6.283)+p.e);
-    p.el.setAttribute("r", String(active ? baseR*1.15 : baseR));
-    p.el.setAttribute("opacity", String(active ? 0.75 : 0.45));
-  });
-
-  nodeEls.forEach(({n,c,t1,t2})=>{
-    c.setAttribute("cx", n.x);
-    c.setAttribute("cy", n.y);
-    c.setAttribute("r", n.r);
-    t1.setAttribute("x", n.x);
-    t1.setAttribute("y", n.y-4);
-    t2.setAttribute("x", n.x);
-    t2.setAttribute("y", n.y+18);
-  });
-}
-
-/* pan/zoom + dragging */
-let zoom = 1.0, panX = 0, panY = 0;
-function applyTransform(){ root.setAttribute("transform", `translate(${panX} ${panY}) scale(${zoom})`); }
-
-function clientToSvgPoint(clientX, clientY){
-  const rect = svg.getBoundingClientRect();
-  const x = (clientX - rect.left);
-  const y = (clientY - rect.top);
-  return { x: (x - panX)/zoom, y:(y - panY)/zoom };
-}
+let nodes = [];
+let edges = [];
+let zoom = 1;
+let panX = 0;
+let panY = 0;
 
 let draggingNode = null;
-let dragOffset = {x:0,y:0};
+let dragDX = 0;
+let dragDY = 0;
 let panning = false;
-let panStart = {x:0,y:0, px:0, py:0};
+let panStartX = 0;
+let panStartY = 0;
 
-function attachDrags(){
-  nodeEls.forEach(({n,g})=>{
-    g.addEventListener("pointerdown", (e)=>{
-      e.preventDefault();
-      g.setPointerCapture(e.pointerId);
-      const pt = clientToSvgPoint(e.clientX, e.clientY);
-      draggingNode = n;
-      n._drag = true;
-      dragOffset.x = n.x - pt.x;
-      dragOffset.y = n.y - pt.y;
-      hideTip();
-    });
-    g.addEventListener("pointermove", (e)=>{
-      if (!draggingNode || draggingNode !== n) return;
-      const pt = clientToSvgPoint(e.clientX, e.clientY);
-      n.x = clamp(pt.x + dragOffset.x, 80, VIEW_W-80);
-      n.y = clamp(pt.y + dragOffset.y, 70, VIEW_H-70);
-      n.vx = 0; n.vy = 0;
-    });
-    g.addEventListener("pointerup", ()=>{
-      if (draggingNode === n){
-        n._drag = false;
-        draggingNode = null;
-      }
-    });
-    g.addEventListener("pointercancel", ()=>{
-      if (draggingNode === n){
-        n._drag = false;
-        draggingNode = null;
-      }
-    });
-  });
+let lastT = performance.now();
+let fpsSmooth = 60;
 
-  bg.addEventListener("pointerdown", (e)=>{
-    e.preventDefault();
-    panning = true;
-    bg.setPointerCapture(e.pointerId);
-    panStart.x = e.clientX; panStart.y = e.clientY;
-    panStart.px = panX; panStart.py = panY;
-    hideTip();
-  });
-  bg.addEventListener("pointermove", (e)=>{
-    if (!panning) return;
-    const dx = e.clientX - panStart.x;
-    const dy = e.clientY - panStart.y;
-    panX = panStart.px + dx;
-    panY = panStart.py + dy;
-    applyTransform();
-  });
-  bg.addEventListener("pointerup", ()=>{ panning=false; });
-  bg.addEventListener("pointercancel", ()=>{ panning=false; });
-
-  svg.addEventListener("wheel", (e)=>{
-    e.preventDefault();
-    const rect = svg.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
-    const prev = zoom;
-    const delta = -Math.sign(e.deltaY) * 0.08;
-    zoom = clamp(zoom*(1+delta), 0.62, 1.92);
-    panX = mx - (mx - panX) * (zoom/prev);
-    panY = my - (my - panY) * (zoom/prev);
-    applyTransform();
-    hideTip();
-  }, { passive:false });
+function worldToScreen(x,y){
+  return { x: x*zoom + panX, y: y*zoom + panY };
+}
+function screenToWorld(x,y){
+  return { x: (x - panX)/zoom, y: (y - panY)/zoom };
 }
 
-function resetView(){
-  zoom=1.0; panX=0; panY=0;
-  applyTransform();
+function clearG(g){ while(g.firstChild) g.removeChild(g.firstChild); }
+
+function makeEdge(a,b){
+  return { a, b, phase: Math.random()*Math.PI*2 };
 }
 
-/* FPS + loop */
-let frames=0, lastFpsT=0;
+function build(){
+  clearG(edgesG); clearG(flowsG); clearG(particlesG); clearG(nodesG);
+
+  nodes = graph.nodes.map(n=>({
+    ...n,
+    vx: rand(-0.2,0.2),
+    vy: rand(-0.2,0.2)
+  }));
+  edges = graph.edges.map(([a,b])=>makeEdge(a,b));
+
+  edges.forEach(e=>{
+    const path = document.createElementNS("http://www.w3.org/2000/svg","line");
+    path.setAttribute("stroke","rgba(110,231,255,0.20)");
+    path.setAttribute("stroke-width","1.4");
+    path.setAttribute("stroke-linecap","round");
+    edgesG.appendChild(path);
+    e.el = path;
+
+    const flow = document.createElementNS("http://www.w3.org/2000/svg","line");
+    flow.setAttribute("stroke","rgba(110,231,255,0.16)");
+    flow.setAttribute("stroke-width","5");
+    flow.setAttribute("stroke-linecap","round");
+    flow.setAttribute("opacity","0.0");
+    flowsG.appendChild(flow);
+    e.flowEl = flow;
+  });
+
+  nodes.forEach(n=>{
+    const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("cursor","grab");
+    g.dataset.id = n.id;
+
+    const circle = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    circle.setAttribute("r", n.r);
+    circle.setAttribute("fill","rgba(0,0,0,0.18)");
+    circle.setAttribute("stroke","rgba(110,231,255,0.45)");
+    circle.setAttribute("stroke-width","1.6");
+    circle.setAttribute("filter","url(#glowSoft)");
+
+    const inner = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    inner.setAttribute("r", Math.max(10, n.r-10));
+    inner.setAttribute("fill","rgba(110,231,255,0.06)");
+    inner.setAttribute("stroke","rgba(110,231,255,0.22)");
+    inner.setAttribute("stroke-width","1.0");
+
+    const label = document.createElementNS("http://www.w3.org/2000/svg","text");
+    label.textContent = n.label;
+    label.setAttribute("text-anchor","middle");
+    label.setAttribute("dominant-baseline","central");
+    label.setAttribute("y","-4");
+    label.setAttribute("fill","rgba(231,231,234,0.95)");
+    label.setAttribute("font-size","12");
+    label.setAttribute("font-weight","700");
+    label.setAttribute("filter","url(#glow)");
+
+    const sub = document.createElementNS("http://www.w3.org/2000/svg","text");
+    sub.textContent = n.sub;
+    sub.setAttribute("text-anchor","middle");
+    sub.setAttribute("dominant-baseline","central");
+    sub.setAttribute("y","12");
+    sub.setAttribute("fill","rgba(163,163,173,0.95)");
+    sub.setAttribute("font-size","10");
+
+    g.appendChild(circle);
+    g.appendChild(inner);
+    g.appendChild(label);
+    g.appendChild(sub);
+
+    nodesG.appendChild(g);
+
+    n.el = g;
+    n.circle = circle;
+  });
+
+  selectedId = null;
+  tip.classList.remove('show');
+}
+
+function showTip(n){
+  tipTitle.textContent = n.label;
+  tipSub.textContent = n.sub;
+  tipChips.innerHTML = "";
+  n.tags.forEach(t=>{
+    const s = document.createElement('span');
+    s.textContent = t;
+    tipChips.appendChild(s);
+  });
+  tipHint.textContent = "Click to select · Double-click to open";
+  tip.classList.add('show');
+}
+
+function setSelected(id){
+  selectedId = id;
+  nodes.forEach(n=>{
+    const on = (n.id === id);
+    n.circle.setAttribute("stroke", on ? "rgba(110,231,255,0.92)" : "rgba(110,231,255,0.45)");
+    n.circle.setAttribute("stroke-width", on ? "2.3" : "1.6");
+    n.circle.setAttribute("filter", on ? "url(#glow)" : "url(#glowSoft)");
+  });
+
+  const n = nodes.find(x=>x.id===id);
+  if (n) showTip(n);
+}
+
+function openProject(id){
+  const url = PROJECT_URLS[id];
+  if (url) window.open(url, "_blank", "noopener");
+  else jumpToProject(id);
+}
+
+function centerView(){
+  zoom = 1;
+  panX = 0;
+  panY = 0;
+  applyRootTransform();
+}
+
+function applyRootTransform(){
+  root.setAttribute("transform", `translate(${panX},${panY}) scale(${zoom})`);
+}
+
 function tick(t){
-  if (!running) return;
-  if (!freeze) stepSim();
-  renderGraph(t);
+  const dt = Math.min(32, t - lastT);
+  lastT = t;
+  const fps = 1000 / Math.max(1, dt);
+  fpsSmooth = lerp(fpsSmooth, fps, 0.08);
+  fpsEl.textContent = `${Math.round(fpsSmooth)} fps`;
 
-  frames++;
-  if (!lastFpsT) lastFpsT=t;
-  if (t-lastFpsT>500){
-    const fps = Math.round(frames*1000/(t-lastFpsT));
-    fpsEl.textContent = `${fps} fps`;
-    frames=0;
-    lastFpsT=t;
+  if (running){
+    // physics-ish: repulsion + edge springs
+    for (let i=0; i<nodes.length; i++){
+      const a = nodes[i];
+      for (let j=i+1; j<nodes.length; j++){
+        const b = nodes[j];
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const d2 = dx*dx + dy*dy + 0.01;
+        const force = 3800 / d2;
+        const fx = (dx/Math.sqrt(d2)) * force;
+        const fy = (dy/Math.sqrt(d2)) * force;
+        a.vx += fx*0.0007; a.vy += fy*0.0007;
+        b.vx -= fx*0.0007; b.vy -= fy*0.0007;
+      }
+    }
+
+    edges.forEach(e=>{
+      const a = nodes.find(n=>n.id===e.a);
+      const b = nodes.find(n=>n.id===e.b);
+      if(!a || !b) return;
+      const dx = b.x - a.x;
+      const dy = b.y - a.y;
+      const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      const target = 180;
+      const k = 0.0016;
+      const f = (dist - target) * k;
+      const fx = (dx/dist) * f;
+      const fy = (dy/dist) * f;
+      a.vx += fx; a.vy += fy;
+      b.vx -= fx; b.vy -= fy;
+    });
+
+    nodes.forEach(n=>{
+      if (draggingNode && draggingNode.id === n.id) return;
+      n.vx *= 0.94;
+      n.vy *= 0.94;
+      n.x += n.vx * dt;
+      n.y += n.vy * dt;
+
+      // bounds
+      n.x = clamp(n.x, 70, VIEW_W-70);
+      n.y = clamp(n.y, 70, VIEW_H-70);
+    });
   }
+
+  // draw edges
+  edges.forEach(e=>{
+    const a = nodes.find(n=>n.id===e.a);
+    const b = nodes.find(n=>n.id===e.b);
+    if(!a || !b) return;
+    e.el.setAttribute("x1", a.x);
+    e.el.setAttribute("y1", a.y);
+    e.el.setAttribute("x2", b.x);
+    e.el.setAttribute("y2", b.y);
+
+    const pulse = 0.5 + 0.5*Math.sin((t*0.002) + e.phase);
+    e.flowEl.setAttribute("x1", a.x);
+    e.flowEl.setAttribute("y1", a.y);
+    e.flowEl.setAttribute("x2", b.x);
+    e.flowEl.setAttribute("y2", b.y);
+    e.flowEl.setAttribute("opacity", (running ? (0.10 + 0.10*pulse) : "0.0"));
+  });
+
+  // draw nodes
+  nodes.forEach(n=>{
+    n.el.setAttribute("transform", `translate(${n.x},${n.y})`);
+  });
+
   raf = requestAnimationFrame(tick);
 }
 
 function startMap(){
-  if (running) return;
+  if (raf) return;
+  build();
   running = true;
-  freeze = false;
-  btnRun.classList.add("active");
-  btnFreeze.classList.remove("active");
-  buildGraph();
-  resetView();
-  applyTransform();
-  attachDrags();
-  raf = requestAnimationFrame(tick);
+  applyRootTransform();
+  raf = requestAnimationFrame((t0)=>{ lastT = t0; tick(t0); });
 }
-
 function stopMap(){
-  running = false;
-  if (raf) cancelAnimationFrame(raf);
+  if (!raf) return;
+  cancelAnimationFrame(raf);
   raf = null;
-  hideTip();
+  running = false;
 }
 
-/* map buttons */
-btnRun.addEventListener("click", ()=>{
-  freeze=false;
-  btnRun.classList.add("active");
-  btnFreeze.classList.remove("active");
-});
-btnFreeze.addEventListener("click", ()=>{
-  freeze=true;
-  btnFreeze.classList.add("active");
-  btnRun.classList.remove("active");
-});
-btnReset.addEventListener("click", resetView);
-btnClear.addEventListener("click", clearSelection);
-</script>
+function hitNode(ptWorld){
+  // reverse iterate for top-most
+  for (let i=nodes.length-1; i>=0; i--){
+    const n = nodes[i];
+    const dx = ptWorld.x - n.x;
+    const dy = ptWorld.y - n.y;
+    if (dx*dx + dy*dy <= (n.r*n.r)) return n;
+  }
+  return null;
+}
 
+canvas.addEventListener('pointerdown', (e)=>{
+  const rect = svg.getBoundingClientRect();
+  const sx = ((e.clientX - rect.left)/rect.width) * VIEW_W;
+  const sy = ((e.clientY - rect.top)/rect.height) * VIEW_H;
+  const w = screenToWorld(sx, sy);
+
+  const n = hitNode(w);
+  if (n){
+    draggingNode = n;
+    dragDX = w.x - n.x;
+    dragDY = w.y - n.y;
+    n.el.setAttribute("cursor","grabbing");
+    canvas.setPointerCapture(e.pointerId);
+  } else {
+    panning = true;
+    panStartX = sx - panX;
+    panStartY = sy - panY;
+    canvas.setPointerCapture(e.pointerId);
+  }
+});
+
+canvas.addEventListener('pointermove', (e)=>{
+  const rect = svg.getBoundingClientRect();
+  const sx = ((e.clientX - rect.left)/rect.width) * VIEW_W;
+  const sy = ((e.clientY - rect.top)/rect.height) * VIEW_H;
+  const w = screenToWorld(sx, sy);
+
+  if (draggingNode){
+    draggingNode.x = clamp(w.x - dragDX, 70, VIEW_W-70);
+    draggingNode.y = clamp(w.y - dragDY, 70, VIEW_H-70);
+    draggingNode.vx *= 0.2;
+    draggingNode.vy *= 0.2;
+  } else if (panning){
+    panX = sx - panStartX;
+    panY = sy - panStartY;
+    applyRootTransform();
+  }
+});
+
+canvas.addEventListener('pointerup', (e)=>{
+  if (draggingNode){
+    draggingNode.el.setAttribute("cursor","grab");
+  }
+  draggingNode = null;
+  panning = false;
+  try{ canvas.releasePointerCapture(e.pointerId); }catch(_){}
+});
+
+canvas.addEventListener('wheel', (e)=>{
+  e.preventDefault();
+  const rect = svg.getBoundingClientRect();
+  const sx = ((e.clientX - rect.left)/rect.width) * VIEW_W;
+  const sy = ((e.clientY - rect.top)/rect.height) * VIEW_H;
+
+  const before = screenToWorld(sx, sy);
+  const delta = -Math.sign(e.deltaY) * 0.12;
+  const next = clamp(zoom * (1 + delta), 0.65, 2.2);
+  zoom = next;
+
+  const after = screenToWorld(sx, sy);
+  panX += (after.x - before.x) * zoom;
+  panY += (after.y - before.y) * zoom;
+  applyRootTransform();
+},{passive:false});
+
+canvas.addEventListener('click', (e)=>{
+  const rect = svg.getBoundingClientRect();
+  const sx = ((e.clientX - rect.left)/rect.width) * VIEW_W;
+  const sy = ((e.clientY - rect.top)/rect.height) * VIEW_H;
+  const w = screenToWorld(sx, sy);
+
+  const n = hitNode(w);
+  if (n){
+    setSelected(n.id);
+  } else {
+    selectedId = null;
+    tip.classList.remove('show');
+    nodes.forEach(nn=>{
+      nn.circle.setAttribute("stroke","rgba(110,231,255,0.45)");
+      nn.circle.setAttribute("stroke-width","1.6");
+      nn.circle.setAttribute("filter","url(#glowSoft)");
+    });
+  }
+});
+
+canvas.addEventListener('dblclick', (e)=>{
+  const rect = svg.getBoundingClientRect();
+  const sx = ((e.clientX - rect.left)/rect.width) * VIEW_W;
+  const sy = ((e.clientY - rect.top)/rect.height) * VIEW_H;
+  const w = screenToWorld(sx, sy);
+
+  const n = hitNode(w);
+  if (n) openProject(n.id);
+});
+
+btnRun.addEventListener('click', ()=>{
+  running = true;
+  btnRun.classList.add('active');
+  btnFreeze.classList.remove('active');
+});
+btnFreeze.addEventListener('click', ()=>{
+  running = false;
+  btnFreeze.classList.add('active');
+  btnRun.classList.remove('active');
+});
+btnReset.addEventListener('click', centerView);
+btnClear.addEventListener('click', ()=>{
+  selectedId = null;
+  tip.classList.remove('show');
+  nodes.forEach(nn=>{
+    nn.circle.setAttribute("stroke","rgba(110,231,255,0.45)");
+    nn.circle.setAttribute("stroke-width","1.6");
+    nn.circle.setAttribute("filter","url(#glowSoft)");
+  });
+});
+
+// ensure initial filter
+setFilter('all');
+</script>
 </body>
 </html>
