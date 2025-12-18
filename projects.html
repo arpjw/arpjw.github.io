@@ -1,349 +1,315 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Arya Somu — Projects</title>
-    <meta name="description" content="Projects by Arya Somu: code, research, and experiments." />
-    <meta property="og:title" content="Arya Somu — Projects" />
-    <meta property="og:description" content="Projects by Arya Somu: code, research, and experiments." />
-    <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#0f0f10" />
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arya Somu — Projects</title>
 
-    <style>
-      :root{
-        --bg:#0a0a0b;
-        --fg:#e7e7ea;
-        --muted:#a3a3ad;
-        --card:rgba(18,18,20,0.9);
-        --accent:#6ee7ff;
-        --ring:#2b2b33;
-        --shadow:0 12px 40px rgba(0,0,0,0.35);
-      }
-      *{box-sizing:border-box}
-      html,body{height:100%}
-      body{
-        margin:0;
-        min-height:100%;
-        color:var(--fg);
-        background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      }
-      a{color:inherit}
-      .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+<meta name="description" content="Quantitative systems, research papers, and experiments by Arya Somu." />
+<meta property="og:title" content="Arya Somu — Projects" />
+<meta property="og:description" content="Quantitative systems, research papers, and experiments." />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0f0f10" />
 
-      .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
+<style>
+:root{
+  --bg:#0a0a0b;
+  --fg:#e7e7ea;
+  --muted:#a3a3ad;
+  --card:rgba(18,18,20,0.92);
+  --accent:#6ee7ff;
+  --ring:#2b2b33;
+  --shadow:0 16px 50px rgba(0,0,0,.45);
+}
 
-      /* top bar (matches other pages) */
-      .topbar{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:14px;
-        margin-bottom:18px;
-      }
-      .home{
-        display:inline-flex;
-        align-items:center;
-        gap:10px;
-        padding:10px 12px;
-        border:1px solid var(--ring);
-        border-radius:14px;
-        text-decoration:none;
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
-        font-size:14px;
-      }
-      .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 70%);
+  color:var(--fg);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
 
-      .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
-      .pill{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        padding:9px 12px;
-        border:1px solid var(--ring);
-        border-radius:999px;
-        text-decoration:none;
-        font-size:13px;
-        color:var(--fg);
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
-      }
-      .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+a{color:inherit}
+.mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;}
+.container{width:min(1080px,92vw); margin:0 auto; padding:36px 0 90px}
 
-      /* hero card */
-      .card{
-        border:1px solid var(--ring);
-        border-radius:18px;
-        background:var(--card);
-        box-shadow:var(--shadow);
-        backdrop-filter: blur(6px);
-      }
-      .hero{padding:22px 20px; margin-bottom:14px}
-      h1{
-        margin:0;
-        font-size:clamp(28px, 4.3vw, 44px);
-        letter-spacing:-0.03em;
-        line-height:1.08;
-      }
-      .sub{
-        margin:10px 0 0;
-        color:var(--muted);
-        line-height:1.55;
-        max-width:78ch;
-        font-size:15px;
-      }
+/* top nav */
+.topbar{
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:18px;
+}
+.home{
+  padding:10px 14px;
+  border-radius:14px;
+  border:1px solid var(--ring);
+  text-decoration:none;
+}
+.pillrow{display:flex; gap:10px}
+.pill{
+  padding:9px 14px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  text-decoration:none;
+  font-size:13px;
+}
 
-      /* toolbar */
-      .toolbar{
-        display:flex;
-        flex-wrap:wrap;
-        gap:10px;
-        align-items:center;
-        justify-content:space-between;
-        margin:12px 0 18px;
-      }
-      .hint{color:var(--muted); font-size:12px}
-      .chiprow{display:flex; gap:8px; flex-wrap:wrap}
-      .chip{
-        font-size:12px;
-        padding:6px 10px;
-        border:1px solid var(--ring);
-        border-radius:999px;
-        color:var(--muted);
-        background: rgba(0,0,0,0.12);
-      }
+/* hero */
+.hero{
+  border:1px solid var(--ring);
+  border-radius:22px;
+  background:var(--card);
+  box-shadow:var(--shadow);
+  padding:26px;
+  margin-bottom:20px;
+}
+.hero h1{
+  margin:0;
+  font-size:clamp(30px,4.5vw,48px);
+  letter-spacing:-.03em;
+}
+.hero p{
+  margin-top:10px;
+  color:var(--muted);
+  max-width:70ch;
+  line-height:1.55;
+}
 
-      /* project grid + cards */
-      .projects{
-        display:grid;
-        gap:14px;
-        grid-template-columns: 1fr;
-      }
-      @media (min-width: 920px){
-        .projects{grid-template-columns:1fr 1fr}
-      }
+/* spotlight */
+.spotlight{
+  margin:22px 0;
+  padding:22px;
+  border-radius:20px;
+  border:1px solid rgba(110,231,255,.4);
+  background:
+    radial-gradient(600px 260px at 20% 0%, rgba(110,231,255,.08), transparent),
+    var(--card);
+}
+.spotlight h2{
+  margin:0;
+  font-size:18px;
+}
+.spotlight .grid{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  gap:18px;
+}
+@media(max-width:900px){
+  .spotlight .grid{grid-template-columns:1fr}
+}
+.metric{
+  font-size:12px;
+  color:var(--muted);
+  border-left:2px solid var(--accent);
+  padding-left:10px;
+  margin-bottom:10px;
+}
 
-      .project-card{
-        border:1px solid var(--ring);
-        border-radius:18px;
-        background:var(--card);
-        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-        padding:16px 16px 14px;
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-        backdrop-filter: blur(6px);
-        transition:transform .06s ease, border-color .2s ease;
-      }
-      .project-card:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.75)}
+/* filters */
+.filters{
+  display:flex; gap:10px; flex-wrap:wrap;
+  margin:24px 0 14px;
+}
+.filter{
+  padding:7px 14px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  font-size:12px;
+  cursor:pointer;
+}
+.filter.active{
+  border-color:var(--accent);
+  color:var(--fg);
+}
 
-      .project-top{
-        display:flex;
-        align-items:flex-start;
-        justify-content:space-between;
-        gap:12px;
-      }
-      .project-title{
-        margin:0;
-        font-size:16px;
-        font-weight:700;
-        letter-spacing:-0.01em;
-        line-height:1.25;
-        display:flex;
-        align-items:center;
-        gap:10px;
-      }
-      .badge{
-        font-size:11px;
-        padding:5px 10px;
-        border:1px solid var(--ring);
-        border-radius:999px;
-        color:var(--muted);
-        background: rgba(0,0,0,0.12);
-        white-space:nowrap;
-      }
+/* projects */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:16px;
+}
+.project{
+  border-radius:18px;
+  border:1px solid var(--ring);
+  background:var(--card);
+  padding:16px;
+  box-shadow:var(--shadow);
+}
+.project h3{
+  margin:0;
+  font-size:16px;
+  letter-spacing:-.01em;
+}
+.badges{display:flex; gap:8px; margin-top:6px}
+.badge{
+  font-size:11px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid var(--ring);
+  color:var(--muted);
+}
+.desc{
+  margin:10px 0;
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.55;
+}
 
-      .project-actions{
-        display:flex;
-        gap:10px;
-        align-items:center;
-        white-space:nowrap;
-      }
-      .action{
-        font-size:13px;
-        text-decoration:none;
-        padding:8px 10px;
-        border:1px solid var(--ring);
-        border-radius:12px;
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
-      }
-      .action:hover{transform:translateY(-1px); border-color:var(--accent)}
+/* expandable */
+.details{
+  margin-top:10px;
+  border-top:1px solid var(--ring);
+  padding-top:10px;
+  display:none;
+}
+.details p{
+  margin:6px 0;
+  font-size:13px;
+  line-height:1.55;
+}
+.toggle{
+  font-size:12px;
+  cursor:pointer;
+  margin-top:6px;
+  display:inline-block;
+  color:var(--accent);
+}
 
-      .project-desc{
-        margin:0;
-        font-size:13px;
-        line-height:1.6;
-        color:var(--muted);
-      }
+/* footer */
+footer{
+  margin-top:28px;
+  color:var(--muted);
+  font-size:12px;
+  display:flex; justify-content:space-between;
+}
+</style>
+</head>
 
-      .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:2px}
-      .tag{
-        font-size:12px;
-        padding:6px 10px;
-        border:1px solid var(--ring);
-        border-radius:999px;
-        color:var(--muted);
-        background: rgba(0,0,0,0.12);
-      }
+<body>
+<div class="container">
 
-      .links{display:flex; gap:10px; flex-wrap:wrap; margin-top:2px}
-      .links a{
-        font-size:13px;
-        color:var(--fg);
-        text-decoration:none;
-        border-bottom:1px solid rgba(163,163,173,0.25);
-        padding-bottom:2px;
-      }
-      .links a:hover{border-bottom-color: rgba(110,231,255,0.7)}
+<div class="topbar">
+  <a class="home" href="./">← Home</a>
+  <div class="pillrow">
+    <a class="pill" href="experience.html">Experience</a>
+    <a class="pill" href="aboutme.html">About</a>
+  </div>
+</div>
 
-      footer{
-        margin-top:22px;
-        color:var(--muted);
-        font-size:12px;
-        display:flex;
-        justify-content:space-between;
-        gap:12px;
-        flex-wrap:wrap;
-      }
-    </style>
-  </head>
+<section class="hero">
+  <h1>Projects</h1>
+  <p>
+    Quantitative systems, research papers, and infrastructure experiments.
+    I focus on **mechanics, incentives, and failure modes** — not demos.
+  </p>
+</section>
 
-  <body>
-    <div class="container">
-      <div class="topbar">
-        <a class="home" href="./">← Home</a>
-        <div class="pillrow">
-          <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
-          <a class="pill" href="aboutme.html"><span class="mono">→</span> About</a>
-          <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
-        </div>
-      </div>
-
-      <section class="card hero" aria-label="projects header">
-        <h1>Projects</h1>
-        <p class="sub">Selected builds, research, and experiments. More on GitHub.</p>
-      </section>
-
-      <div class="toolbar" aria-label="projects toolbar">
-        <div class="chiprow" aria-label="tags">
-          <span class="chip">Quant systems</span>
-          <span class="chip">Research</span>
-          <span class="chip">C++</span>
-          <span class="chip">Python</span>
-        </div>
-      </div>
-
-      <section class="projects" aria-label="projects grid">
-
-        <div class="project-card">
-          <div class="project-top">
-            <p class="project-title">executionrl <span class="badge">RL</span></p>
-            <div class="project-actions">
-              <a class="action" href="https://github.com/arpjw/executionrl" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-          <p class="project-desc">Reinforcement learning–based trade execution simulator.</p>
-          <div class="tags">
-            <span class="tag">C++</span>
-            <span class="tag">Reinforcement learning</span>
-            <span class="tag">Q-learning</span>
-            <span class="tag">Simulation</span>
-            <span class="tag">Backtesting</span>
-          </div>
-          <div class="links">
-            <a href="https://github.com/arpjw/ExecutionAlgoSim" target="_blank" rel="noopener">Source</a>
-            <a href="https://github.com/arpjw/executionrl/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-top">
-            <p class="project-title">quant project library <span class="badge">core</span></p>
-            <div class="project-actions">
-              <a class="action" href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-          <p class="project-desc">Documentation of quantitative research and development projects.</p>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">Time series</span>
-            <span class="tag">Portfolio optimization</span>
-            <span class="tag">Risk</span>
-            <span class="tag">Backtesting</span>
-          </div>
-          <div class="links">
-            <a href="https://github.com/arpjw/quant-projects" target="_blank" rel="noopener">Source</a>
-            <a href="https://github.com/arpjw/quant-projects/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-top">
-            <p class="project-title">miniquantlib <span class="badge">C++</span></p>
-            <div class="project-actions">
-              <a class="action" href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">GitHub</a>
-            </div>
-          </div>
-          <p class="project-desc">
-            A minimal C++ library for vector and matrix operations, built from scratch to explore numerical computing and performance-oriented design.
-          </p>
-          <div class="tags">
-            <span class="tag">C++</span>
-            <span class="tag">Linear algebra</span>
-            <span class="tag">Numerical computing</span>
-            <span class="tag">Performance</span>
-            <span class="tag">Utilities</span>
-          </div>
-          <div class="links">
-            <a href="https://github.com/arpjw/miniquantlib" target="_blank" rel="noopener">Source</a>
-            <a href="https://github.com/arpjw/miniquantlib/blob/main/README.md" target="_blank" rel="noopener">Write-up</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-top">
-            <p class="project-title">Pseudorandom Number Generation with Xor Shifting <span class="badge">paper</span></p>
-            <div class="project-actions">
-              <a class="action" href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">PDF</a>
-            </div>
-          </div>
-          <p class="project-desc">
-            Investigative paper on xor-shift PRNG design and analysis, combining mathematical modeling and simulation with security implications.
-          </p>
-          <div class="tags">
-            <span class="tag">Research</span>
-            <span class="tag">PRNG</span>
-            <span class="tag">Xor shift</span>
-            <span class="tag">Cryptography</span>
-            <span class="tag">Simulation</span>
-          </div>
-          <div class="links">
-            <a href="assets/papers/Arya%20Somu%20-%20Xor%20Shifting.pdf" target="_blank" rel="noopener">Read paper</a>
-          </div>
-        </div>
-
-      </section>
-
-      <footer>
-        <span class="mono">© <span id="y"></span> Arya Somu</span>
-      </footer>
+<section class="spotlight">
+  <h2>Spotlight · ExecutionRL</h2>
+  <div class="grid">
+    <div>
+      <p class="desc">
+        Reinforcement-learning execution simulator modeling market impact,
+        slippage, and order-book constraints. Built to study *decision timing*.
+      </p>
+      <div class="metric">State: order book depth, remaining inventory</div>
+      <div class="metric">Action: trade size / wait decision</div>
+      <div class="metric">Reward: slippage-adjusted execution cost</div>
     </div>
+    <div>
+      <a href="https://github.com/arpjw/executionrl" class="pill">GitHub</a>
+    </div>
+  </div>
+</section>
 
-    <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
-    </script>
-  </body>
+<div class="filters">
+  <span class="filter active" data-filter="all">All</span>
+  <span class="filter" data-filter="cpp">C++</span>
+  <span class="filter" data-filter="rl">RL</span>
+  <span class="filter" data-filter="research">Research</span>
+</div>
+
+<section class="projects">
+
+<div class="project" data-tags="rl cpp">
+  <h3>ExecutionRL</h3>
+  <div class="badges">
+    <span class="badge">RL</span>
+    <span class="badge">C++</span>
+  </div>
+  <p class="desc">Trade execution environment for learning optimal execution policies.</p>
+  <span class="toggle">View case study →</span>
+  <div class="details">
+    <p><b>Problem:</b> Static execution schedules ignore state-dependent liquidity.</p>
+    <p><b>Approach:</b> Q-learning over discrete execution decisions.</p>
+    <p><b>Learning:</b> Reward shaping dominates policy stability.</p>
+  </div>
+</div>
+
+<div class="project" data-tags="cpp">
+  <h3>MiniQuantLib</h3>
+  <div class="badges">
+    <span class="badge">C++</span>
+    <span class="badge">Numerics</span>
+  </div>
+  <p class="desc">From-scratch vector & matrix primitives for numerical finance.</p>
+  <span class="toggle">View case study →</span>
+  <div class="details">
+    <p><b>Problem:</b> Black-box libraries hide performance tradeoffs.</p>
+    <p><b>Approach:</b> Explicit memory layouts, templates, no dependencies.</p>
+    <p><b>Learning:</b> Cache locality matters more than FLOPs.</p>
+  </div>
+</div>
+
+<div class="project" data-tags="research">
+  <h3>Xor-Shift PRNG Analysis</h3>
+  <div class="badges">
+    <span class="badge">Research</span>
+  </div>
+  <p class="desc">Paper analyzing xor-shift generators & statistical weaknesses.</p>
+  <span class="toggle">View case study →</span>
+  <div class="details">
+    <p><b>Problem:</b> Fast PRNGs are often misused in simulations.</p>
+    <p><b>Approach:</b> Spectral testing + empirical simulation.</p>
+    <p><b>Learning:</b> Speed ≠ randomness quality.</p>
+  </div>
+</div>
+
+</section>
+
+<footer>
+  <span class="mono">© <span id="y"></span> Arya Somu</span>
+</footer>
+
+</div>
+
+<script>
+document.getElementById('y').textContent = new Date().getFullYear();
+
+/* expand logic */
+document.querySelectorAll('.toggle').forEach(t=>{
+  t.onclick=()=>{
+    const d=t.nextElementSibling;
+    const open=d.style.display==="block";
+    d.style.display=open?"none":"block";
+    t.textContent=open?"View case study →":"Hide case study ←";
+  }
+});
+
+/* filtering */
+document.querySelectorAll('.filter').forEach(f=>{
+  f.onclick=()=>{
+    document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+    f.classList.add('active');
+    const tag=f.dataset.filter;
+    document.querySelectorAll('.project').forEach(p=>{
+      p.style.display=(tag==="all"||p.dataset.tags.includes(tag))?"block":"none";
+    });
+  };
+});
+</script>
+
+</body>
 </html>
