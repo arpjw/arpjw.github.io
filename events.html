@@ -19,6 +19,18 @@
       --accent:#6ee7ff;
       --ring:#2b2b33;
       --shadow:0 12px 40px rgba(0,0,0,0.35);
+
+      /* tri accent */
+      --cyan:#6ee7ff;
+      --violet:#8b5cf6;
+      --green:#34d399;
+      --amber:#fbbf24;
+
+      /* tint system */
+      --tint: rgba(110,231,255,0.06);
+      --tint-up: rgba(110,231,255,0.10);
+      --tint-archive: rgba(139,92,246,0.10);
+      --tint-neutral: rgba(110,231,255,0.06);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -28,19 +40,77 @@
       color:var(--fg);
       background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      overflow-x:hidden;
     }
     a{color:inherit}
     .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .container{
+      position:relative;
+      z-index:2;
+      width:min(980px,92vw);
+      margin:0 auto;
+      padding:110px 0 86px; /* space for sticky topbar */
+    }
 
-    .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
+    /* ===== signal motif (subtle) ===== */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:0.55;
+      background:
+        radial-gradient(900px 420px at 50% 0%,
+          rgba(139,92,246,0.08),
+          rgba(0,0,0,0) 70%),
+        repeating-linear-gradient(
+          90deg,
+          rgba(110,231,255,0.03) 0px,
+          rgba(110,231,255,0.03) 1px,
+          transparent 1px,
+          transparent 62px
+        ),
+        radial-gradient(700px 220px at 18% 18%, rgba(110,231,255,0.06), transparent 68%),
+        radial-gradient(700px 220px at 82% 30%, rgba(52,211,153,0.05), transparent 70%);
+      animation: motifDrift 22s linear infinite;
+    }
+    @keyframes motifDrift{
+      from{ background-position: 0 0, 0 0, 0 0, 0 0; }
+      to  { background-position: 220px 0, 220px 0, 0 0, 0 0; }
+    }
 
-    /* top bar */
+    /* ===== tint overlay ===== */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      background: radial-gradient(980px 680px at 50% 12%, var(--tint) 0%, rgba(0,0,0,0) 70%);
+      transition: background 520ms ease;
+    }
+
+    /* ===== sticky topbar ===== */
     .topbar{
+      position:fixed;
+      top:14px;
+      left:50%;
+      transform:translateX(-50%);
+      width:min(980px,92vw);
+      z-index:20;
+
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:14px;
-      margin-bottom:18px;
+      padding:12px 14px;
+
+      border:1px solid var(--ring);
+      border-radius:16px;
+      background:rgba(10,10,11,0.74);
+      backdrop-filter:blur(10px);
+      box-shadow:0 16px 52px rgba(0,0,0,0.35);
     }
     .home{
       display:inline-flex;
@@ -51,12 +121,12 @@
       border-radius:14px;
       text-decoration:none;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-      transition:transform .06s ease, border-color .2s ease;
+      transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
       font-size:14px;
+      white-space:nowrap;
     }
-    .home:hover{transform:translateY(-1px); border-color:var(--accent)}
-
-    .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .home:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center}
     .pill{
       display:inline-flex;
       align-items:center;
@@ -68,9 +138,23 @@
       font-size:13px;
       color:var(--fg);
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-      transition:transform .06s ease, border-color .2s ease;
+      transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
+      white-space:nowrap;
     }
-    .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+    .pill:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
+
+    .topclock{
+      font-size:12px;
+      color:var(--muted);
+      padding:9px 12px;
+      border:1px solid var(--ring);
+      border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-variant-numeric: tabular-nums;
+      white-space:nowrap;
+    }
+    @media (max-width: 760px){ .topclock{display:none;} }
 
     /* cards */
     .card{
@@ -82,7 +166,17 @@
     }
 
     /* hero */
-    .hero{padding:22px 20px; margin-bottom:14px}
+    .hero{padding:22px 20px; margin-bottom:14px; position:relative; overflow:hidden;}
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 420px at 20% 20%, rgba(110,231,255,0.10), rgba(0,0,0,0) 60%),
+        radial-gradient(900px 420px at 85% 30%, rgba(139,92,246,0.08), rgba(0,0,0,0) 62%);
+      pointer-events:none;
+      opacity:0.9;
+    }
+    .hero > *{position:relative; z-index:1;}
     h1{
       margin:0;
       font-size:clamp(28px, 4.3vw, 44px);
@@ -97,7 +191,7 @@
       font-size:15px;
     }
 
-    /* section headers */
+    /* section headings */
     .section-head{
       margin:18px 2px 10px;
       display:flex;
@@ -118,9 +212,35 @@
       font-size:12px;
     }
 
-    /* list */
-    .list{display:grid; gap:12px}
-    .event{padding:16px 16px}
+    /* event type color mapping */
+    .event[data-type="conference"]{ --type: var(--cyan); }
+    .event[data-type="hackathon"]{ --type: var(--violet); }
+    .event[data-type="program"]{ --type: var(--green); }
+    .event[data-type="hosted"]{ --type: var(--amber); }
+    .event{ --type: var(--accent); }
+
+    /* event card base */
+    .event{
+      position:relative;
+      overflow:hidden;
+      padding:16px 16px;
+      transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease;
+      cursor:pointer;
+    }
+    .event:hover{
+      transform: translateY(-2px);
+      box-shadow:0 18px 52px rgba(0,0,0,0.45);
+      border-color: rgba(110,231,255,0.28);
+    }
+    .event::before{
+      content:"";
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width:3px;
+      background: linear-gradient(180deg, var(--type), transparent 78%);
+      opacity:0.92;
+    }
+
     .event-top{
       display:flex;
       align-items:flex-start;
@@ -131,9 +251,17 @@
     .title{
       margin:0;
       font-size:16px;
-      font-weight:700;
+      font-weight:750;
       letter-spacing:-0.01em;
       line-height:1.25;
+    }
+
+    .rightmeta{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
     .badge{
       font-size:12px;
@@ -144,11 +272,350 @@
       background:rgba(0,0,0,0.12);
       white-space:nowrap;
     }
+    .chip{
+      font-size:12px;
+      padding:7px 10px;
+      border:1px solid rgba(43,43,51,0.95);
+      border-radius:999px;
+      background: rgba(0,0,0,0.12);
+      color: rgba(231,231,234,0.90);
+      white-space:nowrap;
+    }
+    .chip .dot{
+      display:inline-block;
+      width:7px; height:7px;
+      border-radius:99px;
+      background: var(--type);
+      box-shadow:0 0 18px rgba(110,231,255,0.35);
+      margin-right:8px;
+      vertical-align:middle;
+      opacity:0.95;
+    }
+
     .meta{
-      margin-top:8px;
+      margin-top:10px;
       color:var(--muted);
       font-size:13px;
       line-height:1.5;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .meta .loc::before{
+      content:"";
+      display:inline-block;
+      width:6px; height:6px;
+      border-radius:99px;
+      background: rgba(163,163,173,0.6);
+      margin-right:8px;
+    }
+    .meta .role{
+      color: rgba(231,231,234,0.86);
+      border:1px solid rgba(43,43,51,0.95);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:12px;
+      background: rgba(0,0,0,0.10);
+    }
+
+    /* runway layout */
+    .runway{
+      display:grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .runway{grid-template-columns:1fr;}
+    }
+
+    .nextup{
+      padding:18px 18px;
+      position:relative;
+      overflow:hidden;
+      min-height:180px;
+      cursor:default;
+    }
+    .nextup::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(820px 360px at 22% 20%, rgba(110,231,255,0.12), rgba(0,0,0,0) 62%),
+        radial-gradient(820px 360px at 85% 40%, rgba(52,211,153,0.08), rgba(0,0,0,0) 62%);
+      pointer-events:none;
+    }
+    .nextup > *{position:relative; z-index:1;}
+
+    .nextup-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .nextup-kicker{
+      font-size:12px;
+      letter-spacing:0.10em;
+      text-transform:uppercase;
+      color: rgba(231,231,234,0.70);
+      margin:0 0 8px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .nextup-kicker .pulse{
+      width:8px;height:8px;border-radius:99px;
+      background: rgba(110,231,255,0.70);
+      box-shadow:0 0 24px rgba(110,231,255,0.38);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform:scale(1); opacity:0.65;}
+      50%{ transform:scale(1.25); opacity:0.95;}
+    }
+
+    .nextup-title{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-0.02em;
+      line-height:1.15;
+      font-weight:850;
+    }
+    .nextup-sub{
+      margin:10px 0 0;
+      color: var(--muted);
+      font-size:14px;
+      line-height:1.55;
+      max-width:72ch;
+    }
+
+    .countbox{
+      border:1px solid var(--ring);
+      border-radius:16px;
+      background: rgba(0,0,0,0.18);
+      padding:12px 12px;
+      min-width: 190px;
+    }
+    .countlabel{
+      font-size:11px;
+      letter-spacing:0.10em;
+      text-transform:uppercase;
+      color: rgba(231,231,234,0.68);
+    }
+    .countvalue{
+      margin-top:6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-variant-numeric: tabular-nums;
+      font-size:26px;
+      font-weight:900;
+      letter-spacing:-0.02em;
+    }
+    .countnote{
+      margin-top:6px;
+      color: var(--muted);
+      font-size:12px;
+    }
+
+    .up-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 900px){ .up-grid{grid-template-columns:1fr;} }
+
+    /* archive controls */
+    .controls{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:6px 0 12px;
+    }
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .filter{
+      appearance:none;
+      border:1px solid var(--ring);
+      background:transparent;
+      color:var(--muted);
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+      transition:transform .06s ease, border-color .2s ease, color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .filter:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.55); color:var(--fg)}
+    .filter.active{
+      border-color: rgba(110,231,255,0.75);
+      color: var(--fg);
+      background: rgba(110,231,255,0.08);
+      box-shadow: 0 0 0 3px rgba(110,231,255,0.06);
+    }
+
+    .toggle{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .toggle button{
+      appearance:none;
+      border:1px solid var(--ring);
+      background: rgba(0,0,0,0.12);
+      color: var(--muted);
+      border-radius:12px;
+      padding:8px 10px;
+      font-size:13px;
+      cursor:pointer;
+      transition: transform .06s ease, border-color .2s ease, color .2s ease;
+    }
+    .toggle button:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.55); color:var(--fg)}
+    .toggle button.active{
+      border-color: rgba(110,231,255,0.75);
+      color: var(--fg);
+      background: rgba(110,231,255,0.08);
+    }
+
+    /* archive views */
+    .archive-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+    @media (max-width: 900px){ .archive-grid{grid-template-columns:1fr;} }
+
+    .timeline{
+      position:relative;
+      margin-top:2px;
+      padding-left:18px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:7px; top:0; bottom:0;
+      width:2px;
+      background: linear-gradient(rgba(139,92,246,0.8), transparent 70%);
+      opacity:0.85;
+    }
+    .titem{
+      position:relative;
+      margin:12px 0 16px;
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .45s ease, transform .45s ease;
+    }
+    .titem.reveal{opacity:1; transform: translateY(0);}
+    .titem::before{
+      content:"";
+      position:absolute;
+      left:-13px; top:14px;
+      width:10px; height:10px;
+      border-radius:50%;
+      background: var(--type, var(--violet));
+      box-shadow:0 0 0 3px rgba(139,92,246,0.12);
+    }
+
+    /* modal */
+    dialog{
+      border:none;
+      padding:0;
+      background:transparent;
+      max-width:min(760px, 92vw);
+    }
+    dialog::backdrop{
+      background:rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+    }
+    .modal{
+      border:1px solid var(--ring);
+      border-radius:18px;
+      background:rgba(18,18,20,0.95);
+      box-shadow:0 18px 60px rgba(0,0,0,0.55);
+      overflow:hidden;
+    }
+    .modal-head{
+      padding:14px 14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom:1px solid rgba(43,43,51,0.85);
+      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.10));
+    }
+    .modal-title{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+    }
+    .badgeBox{
+      width:38px; height:38px;
+      border-radius:12px;
+      border:1px solid var(--ring);
+      background:rgba(0,0,0,0.14);
+      display:grid;
+      place-items:center;
+      color:var(--muted);
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:0.02em;
+      flex:0 0 auto;
+    }
+    .modal-title h3{
+      margin:0;
+      font-size:15px;
+      letter-spacing:-0.01em;
+      line-height:1.25;
+    }
+    .modal-sub{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+    .closebtn{
+      appearance:none;
+      border:1px solid var(--ring);
+      background:rgba(0,0,0,0.18);
+      color:var(--fg);
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      transition:transform .06s ease, border-color .2s ease;
+      font-size:13px;
+    }
+    .closebtn:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.55)}
+    .closebtn:active{transform:translateY(0px)}
+    .modal-body{padding:14px 14px}
+    .modal-body p{
+      margin:0;
+      color:var(--fg);
+      font-size:13px;
+      line-height:1.6;
+    }
+    .modal-row{
+      margin-top:12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .empty{
+      color:var(--muted);
+      text-align:center;
+      padding:14px 0 0;
     }
 
     footer{
@@ -167,6 +634,9 @@
   <div class="container">
     <div class="topbar">
       <a class="home" href="./">← Home</a>
+
+      <div class="topclock" id="topClock">--:-- PT</div>
+
       <div class="pillrow">
         <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
         <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
@@ -175,98 +645,593 @@
       </div>
     </div>
 
-    <section class="card hero">
+    <section class="card hero" id="sec-hero" data-tint="neutral">
       <h1>Events</h1>
-      <p class="sub">Upcoming and previous events.</p>
+      <p class="sub">Upcoming and previous events — organized as a runway and an archive.</p>
     </section>
 
     <!-- UPCOMING -->
     <div class="section-head">
       <h2>Upcoming</h2>
-      <div class="note">Where I’ll be next.</div>
+      <div class="note">Next up + the runway.</div>
     </div>
 
-    <section class="list" aria-label="upcoming events">
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">FBLA State Leadership Conference</h3>
-          <span class="badge">Mar 27–29</span>
+    <section class="runway" id="sec-upcoming" data-tint="up">
+      <!-- next up -->
+      <article class="card nextup" id="nextUpCard" aria-label="Next up">
+        <div class="nextup-kicker"><span class="pulse" aria-hidden="true"></span> Next up</div>
+
+        <div class="nextup-head">
+          <div>
+            <h3 class="nextup-title" id="nextUpTitle">—</h3>
+            <p class="nextup-sub" id="nextUpSub">—</p>
+            <div class="meta" style="margin-top:12px;">
+              <span class="loc" id="nextUpLoc">—</span>
+              <span class="role" id="nextUpRole" hidden>—</span>
+              <span class="chip" id="nextUpType"><span class="dot" aria-hidden="true"></span><span id="nextUpTypeLabel">—</span></span>
+              <span class="badge" id="nextUpDates">—</span>
+            </div>
+          </div>
+
+          <div class="countbox" aria-label="Countdown">
+            <div class="countlabel">Countdown</div>
+            <div class="countvalue" id="countDays">—</div>
+            <div class="countnote" id="countNote">days to kickoff</div>
+          </div>
         </div>
-        <div class="meta">San Francisco, CA</div>
       </article>
 
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">FBLA National Leadership Conference</h3>
-          <span class="badge">Jun 7–9</span>
-        </div>
-        <div class="meta">Las Vegas, NV</div>
-      </article>
+      <!-- remaining upcoming -->
+      <div class="up-grid" id="upGrid" aria-label="Upcoming events list"></div>
     </section>
 
     <!-- PREVIOUS -->
     <div class="section-head">
-      <h2>Previous</h2>
-      <div class="note">Recent events, programs, and conferences.</div>
+      <h2>Archive</h2>
+      <div class="note">Filterable history.</div>
     </div>
 
-    <section class="list" aria-label="previous events">
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">De Anza Innovation Summit</h3>
-          <span class="badge">Oct 10–11</span>
-        </div>
-        <div class="meta">Cupertino, CA</div>
-      </article>
+    <div class="controls" id="sec-archive" data-tint="archive">
+      <div class="chips" aria-label="Year filters">
+        <button class="filter active" data-year="all" type="button">All years</button>
+        <button class="filter" data-year="2025" type="button">2025</button>
+        <button class="filter" data-year="2024" type="button">2024</button>
+      </div>
 
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">FBLA Fall State Leadership Conference</h3>
-          <span class="badge">Nov 7–9</span>
-        </div>
-        <div class="meta">San Diego, CA</div>
-      </article>
+      <div class="chips" aria-label="Type filters">
+        <button class="filter active" data-type="all" type="button">All types</button>
+        <button class="filter" data-type="conference" type="button">Conference</button>
+        <button class="filter" data-type="hackathon" type="button">Hackathon</button>
+        <button class="filter" data-type="program" type="button">Program</button>
+        <button class="filter" data-type="hosted" type="button">Hosted</button>
+      </div>
 
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">TEDx De Anza — Community College to Success</h3>
-          <span class="badge">Nov 10</span>
-        </div>
-        <div class="meta">Cupertino, CA</div>
-      </article>
+      <div class="toggle" aria-label="View toggle">
+        <button class="active" id="viewTimeline" type="button">Timeline</button>
+        <button id="viewGrid" type="button">Grid</button>
+      </div>
+    </div>
 
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">De Anza Hacks 4.0</h3>
-          <span class="badge">Nov 21–22</span>
-        </div>
-        <div class="meta">Cupertino, CA</div>
-      </article>
+    <section class="timeline" id="archiveTimeline" aria-label="Previous events timeline"></section>
+    <section class="archive-grid" id="archiveGrid" aria-label="Previous events grid" hidden></section>
 
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">Susquehanna International Group — Virtual Discovery Program</h3>
-          <span class="badge">Dec 4</span>
-        </div>
-        <div class="meta">Bala Cynwyd, PA (remote)</div>
-      </article>
-
-      <article class="card event">
-        <div class="event-top">
-          <h3 class="title">Bain Capital – Investors of Tomorrow</h3>
-          <span class="badge">Dec 10</span>
-        </div>
-        <div class="meta">Boston, MA (remote)</div>
-      </article>
-    </section>
+    <p class="empty" id="empty" hidden>No events match these filters.</p>
 
     <footer>
       <span class="mono">© <span id="y"></span> Arya Somu</span>
+      <span class="mono">Updated: <span id="updated"></span></span>
     </footer>
   </div>
 
+  <!-- modal -->
+  <dialog id="eventModal" aria-label="Event details">
+    <div class="modal" role="document">
+      <div class="modal-head">
+        <div class="modal-title">
+          <div class="badgeBox" id="mBadge" aria-hidden="true">EVT</div>
+          <div>
+            <h3 id="mTitle">—</h3>
+            <div class="modal-sub">
+              <span id="mMeta">—</span>
+            </div>
+          </div>
+        </div>
+        <button class="closebtn" id="mClose" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <p id="mDesc">No description added yet.</p>
+        <div class="modal-row">
+          <span class="mono" id="mFootLeft">—</span>
+          <span class="mono">Click outside to dismiss</span>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // ====== config: edit your events here ======
+    // Use ISO dates for start/end. The countdown uses startDate.
+    const EVENTS = [
+      // Upcoming
+      {
+        title: "FBLA State Leadership Conference",
+        startDate: "2026-03-27",
+        endDate: "2026-03-29",
+        location: "San Francisco, CA",
+        type: "conference",
+        role: "Attendee",
+        status: "upcoming",
+        desc: ""
+      },
+      {
+        title: "FBLA National Leadership Conference",
+        startDate: "2026-06-07",
+        endDate: "2026-06-09",
+        location: "Las Vegas, NV",
+        type: "conference",
+        role: "Attendee",
+        status: "upcoming",
+        desc: ""
+      },
+
+      // Previous (your list)
+      {
+        title: "De Anza Innovation Summit",
+        startDate: "2025-10-10",
+        endDate: "2025-10-11",
+        location: "Cupertino, CA",
+        type: "hosted",
+        role: "Organizer",
+        status: "past",
+        desc: ""
+      },
+      {
+        title: "FBLA Fall State Leadership Conference",
+        startDate: "2025-11-07",
+        endDate: "2025-11-09",
+        location: "San Diego, CA",
+        type: "conference",
+        role: "Attendee",
+        status: "past",
+        desc: ""
+      },
+      {
+        title: "TEDx De Anza — Community College to Success",
+        startDate: "2025-11-10",
+        endDate: "2025-11-10",
+        location: "Cupertino, CA",
+        type: "hosted",
+        role: "Team",
+        status: "past",
+        desc: ""
+      },
+      {
+        title: "De Anza Hacks 4.0",
+        startDate: "2025-11-21",
+        endDate: "2025-11-22",
+        location: "Cupertino, CA",
+        type: "hackathon",
+        role: "Organizer",
+        status: "past",
+        desc: ""
+      },
+      {
+        title: "Susquehanna International Group — Virtual Discovery Program",
+        startDate: "2025-12-04",
+        endDate: "2025-12-04",
+        location: "Bala Cynwyd, PA (remote)",
+        type: "program",
+        role: "Participant",
+        status: "past",
+        desc: ""
+      },
+      {
+        title: "Bain Capital — Investors of Tomorrow",
+        startDate: "2025-12-10",
+        endDate: "2025-12-10",
+        location: "Boston, MA (remote)",
+        type: "program",
+        role: "Participant",
+        status: "past",
+        desc: ""
+      }
+    ];
+
+    // ====== helpers ======
+    const root = document.documentElement;
+    const y = document.getElementById('y');
+    const updated = document.getElementById('updated');
+
+    y.textContent = new Date().getFullYear();
+    updated.textContent = new Date().toLocaleDateString('en-US', { year:'numeric', month:'short' });
+
+    function fmtRangeISO(startISO, endISO){
+      const start = new Date(startISO + "T00:00:00");
+      const end = new Date(endISO + "T00:00:00");
+      const same = startISO === endISO;
+
+      const opts = { month:'short', day:'numeric' };
+      const s = start.toLocaleDateString('en-US', opts);
+      const e = end.toLocaleDateString('en-US', opts);
+      return same ? s : `${s}–${e}`;
+    }
+
+    function fmtYear(iso){
+      return new Date(iso + "T00:00:00").getFullYear().toString();
+    }
+
+    function typeLabel(t){
+      if(t === "conference") return "Conference";
+      if(t === "hackathon") return "Hackathon";
+      if(t === "program") return "Program";
+      if(t === "hosted") return "Hosted";
+      return "Event";
+    }
+
+    // Days until start (ceil). If already started, 0.
+    function daysUntil(startISO){
+      const now = new Date();
+      const start = new Date(startISO + "T00:00:00");
+      const ms = start.getTime() - now.getTime();
+      const d = Math.ceil(ms / (1000*60*60*24));
+      return Math.max(0, d);
+    }
+
+    // ====== topbar clock (PT) ======
+    (function(){
+      const top = document.getElementById('topClock');
+      if(!top) return;
+
+      function renderTop(){
+        const now = new Date();
+        const time = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/Los_Angeles',
+          hour: 'numeric',
+          minute: '2-digit'
+        }).format(now);
+        const date = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'America/Los_Angeles',
+          month: 'short',
+          day: '2-digit'
+        }).format(now);
+
+        top.textContent = `${date} · ${time} PT`;
+      }
+
+      renderTop();
+      setInterval(renderTop, 15000);
+    })();
+
+    // ====== render upcoming runway ======
+    const upcoming = EVENTS
+      .filter(e => e.status === "upcoming")
+      .sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
+
+    const nextUp = upcoming[0];
+    const restUpcoming = upcoming.slice(1);
+
+    const nextUpTitle = document.getElementById('nextUpTitle');
+    const nextUpSub = document.getElementById('nextUpSub');
+    const nextUpLoc = document.getElementById('nextUpLoc');
+    const nextUpRole = document.getElementById('nextUpRole');
+    const nextUpType = document.getElementById('nextUpType');
+    const nextUpTypeLabel = document.getElementById('nextUpTypeLabel');
+    const nextUpDates = document.getElementById('nextUpDates');
+    const countDays = document.getElementById('countDays');
+    const countNote = document.getElementById('countNote');
+
+    function applyTypeColorToChip(chipEl, type){
+      // set dot color by setting CSS var on the element
+      chipEl.style.setProperty('--type', getComputedStyle(document.documentElement).getPropertyValue('--accent'));
+      chipEl.setAttribute('data-type', type);
+    }
+
+    if(nextUp){
+      nextUpTitle.textContent = nextUp.title;
+      nextUpLoc.textContent = nextUp.location;
+      nextUpDates.textContent = fmtRangeISO(nextUp.startDate, nextUp.endDate);
+
+      nextUpTypeLabel.textContent = typeLabel(nextUp.type);
+      nextUpType.parentElement?.querySelector?.('.dot');
+
+      // Role
+      if(nextUp.role){
+        nextUpRole.hidden = false;
+        nextUpRole.textContent = nextUp.role;
+      } else {
+        nextUpRole.hidden = true;
+      }
+
+      const d = daysUntil(nextUp.startDate);
+      countDays.textContent = `D-${d}`;
+      countNote.textContent = d === 0 ? "starts today" : "days to kickoff";
+
+      // Subtitle line
+      const year = fmtYear(nextUp.startDate);
+      nextUpSub.textContent = `Priority event · ${year} runway`;
+
+      // Color the chip dot via CSS variable by applying an attribute on the chip’s ancestor event style:
+      // easiest: just add an inline style for the dot using computed mapping.
+      // We'll do it by setting a CSS custom property on the chip itself:
+      const type = nextUp.type;
+      let color = getComputedStyle(root).getPropertyValue('--cyan').trim();
+      if(type === "hackathon") color = getComputedStyle(root).getPropertyValue('--violet').trim();
+      if(type === "program") color = getComputedStyle(root).getPropertyValue('--green').trim();
+      if(type === "hosted") color = getComputedStyle(root).getPropertyValue('--amber').trim();
+      nextUpType.style.setProperty('--type', color);
+    } else {
+      // No upcoming events
+      nextUpTitle.textContent = "No upcoming events listed";
+      nextUpSub.textContent = "Add new events to the EVENTS array.";
+      nextUpLoc.textContent = "";
+      nextUpDates.textContent = "";
+      nextUpTypeLabel.textContent = "—";
+      countDays.textContent = "—";
+      countNote.textContent = "days to kickoff";
+      nextUpType.style.setProperty('--type', getComputedStyle(root).getPropertyValue('--accent').trim());
+    }
+
+    const upGrid = document.getElementById('upGrid');
+
+    function makeEventCard(e){
+      const art = document.createElement('article');
+      art.className = "card event";
+      art.setAttribute("data-type", e.type);
+      art.setAttribute("data-year", fmtYear(e.startDate));
+      art.tabIndex = 0;
+
+      const title = document.createElement('h3');
+      title.className = "title";
+      title.textContent = e.title;
+
+      const badge = document.createElement('span');
+      badge.className = "badge";
+      badge.textContent = fmtRangeISO(e.startDate, e.endDate);
+
+      const chip = document.createElement('span');
+      chip.className = "chip";
+      chip.innerHTML = `<span class="dot" aria-hidden="true"></span>${typeLabel(e.type)}`;
+
+      // type dot color
+      let color = getComputedStyle(root).getPropertyValue('--cyan').trim();
+      if(e.type === "hackathon") color = getComputedStyle(root).getPropertyValue('--violet').trim();
+      if(e.type === "program") color = getComputedStyle(root).getPropertyValue('--green').trim();
+      if(e.type === "hosted") color = getComputedStyle(root).getPropertyValue('--amber').trim();
+      chip.style.setProperty('--type', color);
+
+      const right = document.createElement('div');
+      right.className = "rightmeta";
+      right.appendChild(chip);
+      right.appendChild(badge);
+
+      const top = document.createElement('div');
+      top.className = "event-top";
+      top.appendChild(title);
+      top.appendChild(right);
+
+      const meta = document.createElement('div');
+      meta.className = "meta";
+
+      const loc = document.createElement('span');
+      loc.className = "loc";
+      loc.textContent = e.location;
+
+      meta.appendChild(loc);
+
+      if(e.role){
+        const role = document.createElement('span');
+        role.className = "role";
+        role.textContent = e.role;
+        meta.appendChild(role);
+      }
+
+      art.appendChild(top);
+      art.appendChild(meta);
+
+      // modal open
+      art.addEventListener('click', ()=>openModal(e));
+      art.addEventListener('keydown', (ev)=>{
+        if(ev.key === 'Enter' || ev.key === ' '){
+          ev.preventDefault();
+          openModal(e);
+        }
+      });
+
+      return art;
+    }
+
+    restUpcoming.forEach(e => upGrid.appendChild(makeEventCard(e)));
+
+    // ====== archive render ======
+    const past = EVENTS
+      .filter(e => e.status === "past")
+      .sort((a,b) => new Date(b.startDate) - new Date(a.startDate));
+
+    const archiveTimeline = document.getElementById('archiveTimeline');
+    const archiveGrid = document.getElementById('archiveGrid');
+    const empty = document.getElementById('empty');
+
+    function clearArchive(){
+      archiveTimeline.innerHTML = "";
+      archiveGrid.innerHTML = "";
+    }
+
+    function renderArchive(list){
+      clearArchive();
+
+      list.forEach(e=>{
+        // Timeline item wrapper
+        const wrap = document.createElement('div');
+        wrap.className = "titem";
+        wrap.style.setProperty('--type', (()=>{
+          let c = getComputedStyle(root).getPropertyValue('--violet').trim();
+          if(e.type === "conference") c = getComputedStyle(root).getPropertyValue('--cyan').trim();
+          if(e.type === "program") c = getComputedStyle(root).getPropertyValue('--green').trim();
+          if(e.type === "hosted") c = getComputedStyle(root).getPropertyValue('--amber').trim();
+          return c;
+        })());
+
+        // Use the same card inside
+        const card = makeEventCard(e);
+        // makeEventCard already binds modal
+        wrap.appendChild(card);
+        archiveTimeline.appendChild(wrap);
+
+        // Grid view card
+        archiveGrid.appendChild(makeEventCard(e));
+      });
+
+      // reveal on scroll for timeline items
+      const items = Array.from(document.querySelectorAll('.titem'));
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(en=>{
+          if(en.isIntersecting) en.target.classList.add('reveal');
+        });
+      }, { threshold: 0.18 });
+      items.forEach(it=>obs.observe(it));
+    }
+
+    // ====== filters ======
+    let currentYear = "all";
+    let currentType = "all";
+    let viewMode = "timeline"; // "grid"
+
+    function filteredPast(){
+      return past.filter(e=>{
+        const y = fmtYear(e.startDate);
+        const yearOk = (currentYear === "all") ? true : (y === currentYear);
+        const typeOk = (currentType === "all") ? true : (e.type === currentType);
+        return yearOk && typeOk;
+      });
+    }
+
+    function applyFilters(){
+      const list = filteredPast();
+      empty.hidden = list.length !== 0;
+
+      renderArchive(list);
+
+      // toggle view
+      if(viewMode === "timeline"){
+        archiveTimeline.hidden = false;
+        archiveGrid.hidden = true;
+      } else {
+        archiveTimeline.hidden = true;
+        archiveGrid.hidden = false;
+      }
+    }
+
+    // year/type chip click
+    document.querySelectorAll('.filter[data-year]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.filter[data-year]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        currentYear = btn.dataset.year;
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll('.filter[data-type]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        document.querySelectorAll('.filter[data-type]').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        currentType = btn.dataset.type;
+        applyFilters();
+      });
+    });
+
+    // view toggle
+    const viewTimeline = document.getElementById('viewTimeline');
+    const viewGridBtn = document.getElementById('viewGrid');
+
+    viewTimeline.addEventListener('click', ()=>{
+      viewMode = "timeline";
+      viewTimeline.classList.add('active');
+      viewGridBtn.classList.remove('active');
+      applyFilters();
+    });
+
+    viewGridBtn.addEventListener('click', ()=>{
+      viewMode = "grid";
+      viewGridBtn.classList.add('active');
+      viewTimeline.classList.remove('active');
+      applyFilters();
+    });
+
+    // initial
+    applyFilters();
+
+    // ====== tint follow (Upcoming vs Archive) ======
+    (function(){
+      const map = {
+        up: '--tint-up',
+        archive: '--tint-archive',
+        neutral: '--tint-neutral'
+      };
+      function cssVar(name){ return getComputedStyle(root).getPropertyValue(name); }
+
+      const secs = Array.from(document.querySelectorAll('[data-tint]'));
+      if(!secs.length) return;
+
+      const obs = new IntersectionObserver((entries)=>{
+        let best = null;
+        for(const e of entries){
+          if(!e.isIntersecting) continue;
+          if(!best || e.intersectionRatio > best.intersectionRatio) best = e;
+        }
+        if(!best) return;
+
+        const key = best.target.getAttribute('data-tint');
+        const varName = map[key];
+        if(!varName) return;
+
+        root.style.setProperty('--tint', cssVar(varName));
+      }, { threshold: [0.18, 0.28, 0.4, 0.55] });
+
+      secs.forEach(s=>obs.observe(s));
+    })();
+
+    // ====== modal ======
+    const modal = document.getElementById('eventModal');
+    const mBadge = document.getElementById('mBadge');
+    const mTitle = document.getElementById('mTitle');
+    const mMeta = document.getElementById('mMeta');
+    const mDesc = document.getElementById('mDesc');
+    const mClose = document.getElementById('mClose');
+    const mFootLeft = document.getElementById('mFootLeft');
+
+    function badgeTextForType(t){
+      if(t === "conference") return "CONF";
+      if(t === "hackathon") return "HACK";
+      if(t === "program") return "PROG";
+      if(t === "hosted") return "HOST";
+      return "EVT";
+    }
+
+    function openModal(e){
+      mBadge.textContent = badgeTextForType(e.type);
+      mTitle.textContent = e.title;
+      mMeta.textContent = `${fmtRangeISO(e.startDate, e.endDate)} · ${e.location} · ${typeLabel(e.type)}${e.role ? " · " + e.role : ""}`;
+      mDesc.textContent = (e.desc && e.desc.trim().length) ? e.desc : "No description added yet. (You can add one in the EVENTS array.)";
+      mFootLeft.textContent = `${fmtYear(e.startDate)} · ${typeLabel(e.type)}`;
+
+      if(typeof modal.showModal === 'function') modal.showModal();
+      else alert(e.title + "\n" + mMeta.textContent);
+    }
+
+    mClose.addEventListener('click', ()=>modal.close());
+
+    modal.addEventListener('click', (ev)=>{
+      const rect = modal.getBoundingClientRect();
+      const inDialog =
+        rect.top <= ev.clientY && ev.clientY <= rect.top + rect.height &&
+        rect.left <= ev.clientX && ev.clientX <= rect.left + rect.width;
+      if(!inDialog) modal.close();
+    });
+
+    document.addEventListener('keydown', (ev)=>{
+      if(ev.key === 'Escape' && modal.open) modal.close();
+    });
   </script>
 </body>
 </html>
