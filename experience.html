@@ -41,16 +41,47 @@
         color:var(--fg);
         background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        overflow-x:hidden;
       }
       a{color:inherit}
 
-      /* subtle tint overlay */
+      /* ===== NEW: signal waveform motif (C) under everything ===== */
       body::before{
         content:"";
         position:fixed;
         inset:0;
         pointer-events:none;
         z-index:0;
+        opacity:0.55;
+        background:
+          radial-gradient(900px 420px at 50% 0%,
+            rgba(139,92,246,0.08),
+            rgba(0,0,0,0) 70%),
+          /* faint vertical quant grid */
+          repeating-linear-gradient(
+            90deg,
+            rgba(110,231,255,0.03) 0px,
+            rgba(110,231,255,0.03) 1px,
+            transparent 1px,
+            transparent 62px
+          ),
+          /* waveform-ish linework */
+          radial-gradient(700px 220px at 18% 18%, rgba(110,231,255,0.06), transparent 68%),
+          radial-gradient(700px 220px at 82% 30%, rgba(52,211,153,0.05), transparent 70%);
+        animation: motifDrift 22s linear infinite;
+      }
+      @keyframes motifDrift{
+        from{ background-position: 0 0, 0 0, 0 0, 0 0; }
+        to  { background-position: 220px 0, 220px 0, 0 0, 0 0; }
+      }
+
+      /* subtle tint overlay (keep your system) */
+      body::after{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:1;
         background:
           radial-gradient(900px 600px at 50% 12%,
             var(--tint) 0%,
@@ -60,21 +91,35 @@
 
       .container{
         position:relative;
-        z-index:1;
+        z-index:2;
         width:min(980px,92vw);
         margin:0 auto;
-        padding:34px 0 86px;
+        padding:110px 0 86px; /* NEW: space for sticky topbar */
       }
       .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
-      /* top nav */
+      /* ===== NEW: sticky top nav aligned to container width ===== */
       .topbar{
+        position:fixed;
+        top:14px;
+        left:50%;
+        transform:translateX(-50%);
+        width:min(980px,92vw);
+        z-index:20;
+
         display:flex;
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        margin-bottom:18px;
+
+        padding:12px 14px;
+        border:1px solid var(--ring);
+        border-radius:16px;
+        background:rgba(10,10,11,0.74);
+        backdrop-filter:blur(10px);
+        box-shadow:0 16px 52px rgba(0,0,0,0.35);
       }
+
       .home{
         display:inline-flex;
         align-items:center;
@@ -84,16 +129,20 @@
         border-radius:14px;
         text-decoration:none;
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
+        transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
         font-size:14px;
+        white-space:nowrap;
       }
-      .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+      .home:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
+
       .quicklinks{
         display:flex;
         gap:10px;
         flex-wrap:wrap;
         justify-content:flex-end;
+        align-items:center;
       }
+
       .pill{
         display:inline-flex;
         align-items:center;
@@ -105,9 +154,26 @@
         font-size:13px;
         color:var(--fg);
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
+        transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
+        white-space:nowrap;
       }
-      .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+      .pill:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
+
+      /* NEW: topbar clock pill */
+      .topclock{
+        font-size:12px;
+        color:var(--muted);
+        padding:9px 12px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-variant-numeric: tabular-nums;
+        white-space:nowrap;
+      }
+      @media (max-width: 760px){
+        .topclock{display:none;}
+      }
 
       /* hero */
       .hero{
@@ -376,6 +442,10 @@
     <div class="container">
       <div class="topbar">
         <a class="home" href="./">← Home</a>
+
+        <!-- NEW: consistent site clock -->
+        <div class="topclock" id="topClock">--:-- PT</div>
+
         <div class="quicklinks">
           <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
           <a class="pill" href="mailto:aryasomu18@gmail.com"><span class="mono">@</span> Contact</a>
@@ -731,6 +801,31 @@
           const d = new Date();
           el.textContent = d.toLocaleDateString('en-US', { year:'numeric', month:'short' });
         }
+      })();
+
+      // NEW: topbar clock (PT)
+      (function(){
+        const top = document.getElementById('topClock');
+        if(!top) return;
+
+        function renderTop(){
+          const now = new Date();
+          const time = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            hour: 'numeric',
+            minute: '2-digit'
+          }).format(now);
+          const date = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            month: 'short',
+            day: '2-digit'
+          }).format(now);
+
+          top.textContent = `${date} · ${time} PT`;
+        }
+
+        renderTop();
+        setInterval(renderTop, 15000);
       })();
 
       const root = document.documentElement;
