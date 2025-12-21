@@ -24,31 +24,87 @@
         --accent:#6ee7ff;
         --ring:#2b2b33;
         --shadow:0 12px 40px rgba(0,0,0,0.35);
+
+        /* tri-accent (new) */
+        --cyan:#6ee7ff;
+        --violet:#8b5cf6;
+        --green:#34d399;
       }
+
       *{box-sizing:border-box}
       html,body{height:100%}
+
       body{
         margin:0;
         min-height:100%;
-        display:grid;
-        place-items:center;
         background:radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
         color:var(--fg);
         font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        overflow-x:hidden;
       }
 
-      .wrap{width:min(920px,92vw); padding:56px 20px 48px}
+      /* ===== Signal waveform motif (C) — subtle background layer ===== */
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:0;
+        opacity:0.55;
+        background:
+          radial-gradient(900px 420px at 50% 0%,
+            rgba(139,92,246,0.08),
+            rgba(0,0,0,0) 70%),
+          /* faint vertical quant grid */
+          repeating-linear-gradient(
+            90deg,
+            rgba(110,231,255,0.03) 0px,
+            rgba(110,231,255,0.03) 1px,
+            transparent 1px,
+            transparent 62px
+          ),
+          /* waveform-ish linework using layered gradients */
+          radial-gradient(700px 220px at 18% 18%, rgba(110,231,255,0.06), transparent 68%),
+          radial-gradient(700px 220px at 82% 30%, rgba(52,211,153,0.05), transparent 70%);
+        animation: motifDrift 22s linear infinite;
+      }
 
-      /* Top bar */
+      @keyframes motifDrift{
+        from{ background-position: 0 0, 0 0, 0 0, 0 0; }
+        to  { background-position: 220px 0, 220px 0, 0 0, 0 0; }
+      }
+
+      /* keep content above motif */
+      main.wrap, .map-pop{ position:relative; z-index:1; }
+
+      .wrap{width:min(920px,92vw); padding:110px 20px 48px; margin:0 auto;} /* top padding for sticky topbar */
+
+      /* Top bar (now sticky) */
       .topbar{
+        position:fixed;
+        top:14px;
+        left:50%;
+        transform:translateX(-50%);
+        width:min(920px,92vw);
+        z-index:20;
+
         display:flex;
         justify-content:space-between;
         align-items:center;
-        margin-bottom:22px;
+        gap:12px;
+
+        padding:12px 14px;
+        border:1px solid var(--ring);
+        border-radius:16px;
+        background:rgba(10,10,11,0.74);
+        backdrop-filter:blur(10px);
+        box-shadow:0 16px 52px rgba(0,0,0,0.35);
       }
       .brand{display:flex; flex-direction:column}
       .brand .name{font-weight:700; font-size:16px}
-      .pillrow{display:flex; gap:10px}
+
+      .pillrow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+
       .pill{
         display:inline-flex;
         gap:8px;
@@ -60,9 +116,29 @@
         color:var(--fg);
         text-decoration:none;
         font-size:13px;
-        transition:transform .06s ease, border-color .2s ease, background .2s ease, color .2s ease;
+        transition:transform .06s ease, border-color .2s ease, background .2s ease, color .2s ease, box-shadow .2s ease;
       }
-      .pill:hover{border-color:var(--accent); transform:translateY(-1px)}
+      .pill:hover{
+        border-color:var(--accent);
+        transform:translateY(-1px);
+        box-shadow:0 0 0 3px rgba(110,231,255,0.06);
+      }
+
+      /* NEW: topbar clock pill (does not remove your Seattle/Cupertino clocks) */
+      .topclock{
+        font-size:12px;
+        color:var(--muted);
+        padding:8px 12px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
+        font-variant-numeric:tabular-nums;
+        white-space:nowrap;
+      }
+      @media(max-width:720px){
+        .topclock{display:none;}
+      }
 
       /* Cards */
       .card{
@@ -71,6 +147,11 @@
         background:var(--card);
         box-shadow:var(--shadow);
         backdrop-filter:blur(6px);
+        transition:transform .12s ease, border-color .2s ease, box-shadow .2s ease;
+      }
+      .card:hover{
+        transform:translateY(-2px);
+        box-shadow:0 18px 52px rgba(0,0,0,0.45);
       }
 
       /* Hero */
@@ -153,10 +234,15 @@
         cursor:pointer;
         user-select:none;
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        transition: transform .06s ease, border-color .2s ease, box-shadow .2s ease;
       }
       .nowline .city{font-weight:700}
       .nowline .clock{margin-left:auto; font-variant-numeric:tabular-nums; white-space:nowrap}
-      .nowline:hover{border-color:rgba(110,231,255,0.65)}
+      .nowline:hover{
+        border-color:rgba(110,231,255,0.65);
+        transform: translateY(-1px);
+        box-shadow:0 0 0 3px rgba(110,231,255,0.06);
+      }
 
       /* Full-oval pulse outline (Seattle) */
       .nowline.here{
@@ -191,7 +277,25 @@
         padding:14px;
         border-radius:16px;
         text-align:left;
+        position:relative;
+        overflow:hidden;
       }
+
+      /* subtle tri-accent edge on hover (no structure change) */
+      .nav a::before{
+        content:"";
+        position:absolute;
+        left:0; top:0; bottom:0;
+        width:3px;
+        background:linear-gradient(180deg, rgba(110,231,255,0.0), rgba(110,231,255,0.0));
+        transition: background .2s ease, opacity .2s ease;
+        opacity:.0;
+      }
+      .nav a:hover::before{
+        opacity:1;
+        background:linear-gradient(180deg, rgba(110,231,255,0.85), rgba(139,92,246,0.55), rgba(52,211,153,0.45));
+      }
+
       .nav .title{font-weight:600}
       .nav .desc{font-size:13px; color:var(--muted); margin-top:6px}
 
@@ -308,6 +412,10 @@
         <div class="brand">
           <div class="name">Arya Somu</div>
         </div>
+
+        <!-- NEW: small topbar clock pill (keeps your existing clocks below) -->
+        <div class="topclock" id="topClock">--:-- PT</div>
+
         <div class="pillrow">
           <a class="pill" href="projects.html">→ Featured work</a>
           <a class="pill" href="mailto:aryasomu18@gmail.com">@ Contact</a>
@@ -444,6 +552,30 @@
     <script>
       // footer year
       document.getElementById('y').textContent = new Date().getFullYear();
+
+      // NEW: topbar clock (PT)
+      (function(){
+        const top = document.getElementById('topClock');
+        if(!top) return;
+
+        function renderTop(){
+          const now = new Date();
+          const time = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            hour: 'numeric',
+            minute: '2-digit'
+          }).format(now);
+          const date = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            month: 'short',
+            day: '2-digit'
+          }).format(now);
+          top.textContent = `${date} · ${time} PT`;
+        }
+
+        renderTop();
+        setInterval(renderTop, 15000);
+      })();
 
       // live clocks (same timezone for both)
       (function(){
