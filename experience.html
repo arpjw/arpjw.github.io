@@ -24,6 +24,13 @@
         --work:#6ee7ff;      /* cyan */
         --clubs:#8b5cf6;     /* violet */
         --research:#34d399;  /* green */
+
+        /* page tint system */
+        --tint: rgba(110,231,255,0.00);
+        --tint-work: rgba(110,231,255,0.10);
+        --tint-clubs: rgba(139,92,246,0.10);
+        --tint-research: rgba(52,211,153,0.10);
+        --tint-all: rgba(110,231,255,0.06);
       }
 
       html,body{height:100%}
@@ -36,7 +43,28 @@
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       }
       a{color:inherit}
-      .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
+
+      /* subtle tint overlay */
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:0;
+        background:
+          radial-gradient(900px 600px at 50% 12%,
+            var(--tint) 0%,
+            rgba(0,0,0,0) 70%);
+        transition: background 500ms ease;
+      }
+
+      .container{
+        position:relative;
+        z-index:1;
+        width:min(980px,92vw);
+        margin:0 auto;
+        padding:34px 0 86px;
+      }
       .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
       /* top nav */
@@ -309,10 +337,7 @@
         color:var(--muted);
       }
 
-      /* tinted tags by category (subtle, not loud) */
-      .item .tag{
-        border-color: rgba(43,43,51,0.9);
-      }
+      /* tinted tags by category (subtle) */
       .item[data-type~="work"] .tag{
         border-color: rgba(110,231,255,0.25);
         background: rgba(110,231,255,0.06);
@@ -426,7 +451,7 @@
               <div class="row">
                 <div class="titleline">
                   <div class="role">Campus Partner</div>
-                  <div class="org">@ <a href="https://www.perplexity.ai/grow/comet/students?wpsrc=dub_co&wpcn=arya-somu&wpcl=MuLvog2XJAObbvLZ&via=arya-somu&dub_id=MuLvog2XJAObbvLZ" target="_blank" rel="noopener">Perplexity</a></div>
+                  <div class="org">@ Perplexity</div>
                 </div>
                 <div class="meta">San Francisco, CA (Remote)<br/>Sep 2025 — Present</div>
               </div>
@@ -708,9 +733,21 @@
         }
       })();
 
+      const root = document.documentElement;
       const chips = document.querySelectorAll('.chip');
       const items = document.querySelectorAll('.item');
       const empty = document.getElementById('empty');
+
+      function getVar(name){
+        return getComputedStyle(root).getPropertyValue(name);
+      }
+
+      function setTintForFilter(filter){
+        if(filter === 'work') root.style.setProperty('--tint', getVar('--tint-work'));
+        else if(filter === 'clubs') root.style.setProperty('--tint', getVar('--tint-clubs'));
+        else if(filter === 'research') root.style.setProperty('--tint', getVar('--tint-research'));
+        else root.style.setProperty('--tint', getVar('--tint-all'));
+      }
 
       function updateYearGroupsVisibility(){
         const groups = document.querySelectorAll('.year-group');
@@ -744,25 +781,51 @@
         updateYearGroupsVisibility();
       }
 
+      function activeFilter(){
+        const a = document.querySelector('.chip.active');
+        return a ? a.dataset.filter : 'all';
+      }
+
+      // filter clicks
       chips.forEach(ch=>{
         ch.addEventListener('click', ()=>{
+          const f = ch.dataset.filter;
           setActive(ch);
-          applyFilter(ch.dataset.filter);
-          history.replaceState(null, '', '#'+ch.dataset.filter);
+          applyFilter(f);
+          setTintForFilter(f);
+          history.replaceState(null, '', '#'+f);
         });
       });
 
-      // scroll reveal
+      // reveal on scroll (and tint-follow when filter = all)
       (function(){
         const obs = new IntersectionObserver((entries)=>{
+          // reveal behavior
           entries.forEach(e=>{
             if(e.isIntersecting) e.target.classList.add('reveal');
           });
-        }, { threshold: 0.12 });
+
+          // tint-follow only when filter is "all"
+          if(activeFilter() !== 'all') return;
+
+          // choose the most visible intersecting item
+          let best = null;
+          for(const e of entries){
+            if(!e.isIntersecting) continue;
+            if(!best || e.intersectionRatio > best.intersectionRatio) best = e;
+          }
+          if(best){
+            const t = (best.target.getAttribute('data-type')||'').split(/\s+/)[0];
+            if(t === 'work') root.style.setProperty('--tint', getVar('--tint-work'));
+            else if(t === 'clubs') root.style.setProperty('--tint', getVar('--tint-clubs'));
+            else if(t === 'research') root.style.setProperty('--tint', getVar('--tint-research'));
+          }
+        }, { threshold: [0.12, 0.2, 0.35, 0.5, 0.65] });
 
         document.querySelectorAll('.item').forEach(it=>obs.observe(it));
       })();
 
+      // initial load
       window.addEventListener('load', ()=>{
         const hash = location.hash ? location.hash.slice(1) : '';
         const target = [...chips].find(c=>c.dataset.filter===hash);
@@ -770,7 +833,11 @@
           target.click();
         } else {
           const allChip = document.querySelector('.chip[data-filter="all"]');
-          if(allChip){ setActive(allChip); applyFilter('all'); }
+          if(allChip){
+            setActive(allChip);
+            applyFilter('all');
+            setTintForFilter('all');
+          }
         }
         updateYearGroupsVisibility();
       });
