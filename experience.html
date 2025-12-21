@@ -15,11 +15,17 @@
         --bg:#0a0a0b;
         --fg:#e7e7ea;
         --muted:#a3a3ad;
-        --card: rgba(18,18,20,0.9);
+        --card:rgba(18,18,20,0.9);
         --accent:#6ee7ff;
         --ring:#2b2b33;
-        --shadow: 0 12px 40px rgba(0,0,0,0.35);
+        --shadow:0 12px 40px rgba(0,0,0,0.35);
+
+        /* category palette */
+        --work:#6ee7ff;      /* cyan */
+        --clubs:#8b5cf6;     /* violet */
+        --research:#34d399;  /* green */
       }
+
       html,body{height:100%}
       *{box-sizing:border-box}
       body{
@@ -140,7 +146,7 @@
         font-size:13px;
         cursor:pointer;
         user-select:none;
-        transition:transform .06s ease, border-color .2s ease, color .2s ease, background .2s ease;
+        transition:transform .06s ease, border-color .2s ease, color .2s ease, background .2s ease, box-shadow .2s ease;
       }
       .chip:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.55); color:var(--fg)}
       .chip.active{
@@ -174,25 +180,66 @@
         letter-spacing:0.02em;
       }
 
+      /* category mapping */
+      .item[data-type~="work"]{ --type: var(--work); }
+      .item[data-type~="clubs"]{ --type: var(--clubs); }
+      .item[data-type~="research"]{ --type: var(--research); }
+
       .item{position:relative; margin:12px 0 16px}
+
+      /* scroll-reveal base state */
+      .item{
+        opacity:0;
+        transform: translateY(10px);
+        transition: opacity .45s ease, transform .45s ease;
+      }
+      .item.reveal{
+        opacity:1;
+        transform: translateY(0);
+      }
+
       .item::before{
         content:"";
         position:absolute;
         left:-13px; top:14px;
         width:10px; height:10px;
         border-radius:50%;
-        background:var(--accent);
+        background:var(--type, var(--accent));
         box-shadow:0 0 0 3px rgba(110,231,255,0.12);
       }
 
       .card{
+        position:relative;
+        overflow:hidden;
         border:1px solid var(--ring);
         border-radius:18px;
         background:var(--card);
         box-shadow: 0 10px 26px rgba(0,0,0,0.18);
         padding:16px 16px 14px;
         backdrop-filter: blur(6px);
+
+        transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease;
       }
+
+      /* left accent bar */
+      .card::before{
+        content:"";
+        position:absolute;
+        left:0; top:0; bottom:0;
+        width:3px;
+        background: linear-gradient(180deg, var(--type, var(--accent)), transparent 78%);
+        opacity:0.9;
+      }
+
+      /* hover lift + category glow */
+      .card:hover{
+        transform: translateY(-2px);
+        border-color: rgba(110,231,255,0.35);
+        box-shadow: 0 14px 46px rgba(0,0,0,0.35);
+      }
+      .item[data-type~="work"] .card:hover{ border-color: rgba(110,231,255,0.55); }
+      .item[data-type~="clubs"] .card:hover{ border-color: rgba(139,92,246,0.50); }
+      .item[data-type~="research"] .card:hover{ border-color: rgba(52,211,153,0.50); }
 
       .row{
         display:flex;
@@ -246,6 +293,7 @@
         line-height:1.55;
       }
       .bullets li{margin:6px 0}
+
       .tags{
         display:flex;
         flex-wrap:wrap;
@@ -257,8 +305,28 @@
         padding:6px 10px;
         border:1px solid var(--ring);
         border-radius:999px;
-        color:var(--muted);
         background: rgba(0,0,0,0.12);
+        color:var(--muted);
+      }
+
+      /* tinted tags by category (subtle, not loud) */
+      .item .tag{
+        border-color: rgba(43,43,51,0.9);
+      }
+      .item[data-type~="work"] .tag{
+        border-color: rgba(110,231,255,0.25);
+        background: rgba(110,231,255,0.06);
+        color: rgba(200,245,255,0.85);
+      }
+      .item[data-type~="clubs"] .tag{
+        border-color: rgba(139,92,246,0.22);
+        background: rgba(139,92,246,0.06);
+        color: rgba(224,205,255,0.85);
+      }
+      .item[data-type~="research"] .tag{
+        border-color: rgba(52,211,153,0.22);
+        background: rgba(52,211,153,0.06);
+        color: rgba(196,255,232,0.85);
       }
 
       .empty{
@@ -267,7 +335,6 @@
         padding:20px 0 0;
       }
 
-      /* small footer */
       .footer{
         margin-top:22px;
         color:var(--muted);
@@ -684,6 +751,17 @@
           history.replaceState(null, '', '#'+ch.dataset.filter);
         });
       });
+
+      // scroll reveal
+      (function(){
+        const obs = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{
+            if(e.isIntersecting) e.target.classList.add('reveal');
+          });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.item').forEach(it=>obs.observe(it));
+      })();
 
       window.addEventListener('load', ()=>{
         const hash = location.hash ? location.hash.slice(1) : '';
