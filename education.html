@@ -22,6 +22,16 @@
 
         /* De Anza maroon tint (very subtle) */
         --da-maroon: 139, 0, 43; /* close to De Anza maroon */
+
+        /* Complement colors (used only for global motif/tint) */
+        --violet: 139, 92, 246;
+        --green: 52, 211, 153;
+
+        /* Page tint system (keeps maroon primary) */
+        --tint: rgba(var(--da-maroon), 0.08);
+        --tint-da: rgba(var(--da-maroon), 0.10);
+        --tint-certs: rgba(110,231,255,0.07);
+        --tint-neutral: rgba(var(--da-maroon), 0.06);
       }
 
       *{box-sizing:border-box}
@@ -32,19 +42,82 @@
         color:var(--fg);
         background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        overflow-x:hidden;
       }
       a{color:inherit}
       .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
-      .container{width:min(980px,92vw); margin:0 auto; padding:34px 0 86px}
+      /* ===== NEW: signal motif (subtle, does NOT fight maroon) ===== */
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:0;
+        opacity:0.45;
+        background:
+          radial-gradient(900px 420px at 50% 0%,
+            rgba(var(--violet),0.07),
+            rgba(0,0,0,0) 70%),
+          repeating-linear-gradient(
+            90deg,
+            rgba(110,231,255,0.025) 0px,
+            rgba(110,231,255,0.025) 1px,
+            transparent 1px,
+            transparent 62px
+          ),
+          radial-gradient(700px 240px at 18% 18%, rgba(110,231,255,0.045), transparent 68%),
+          radial-gradient(700px 240px at 82% 30%, rgba(var(--green),0.040), transparent 70%);
+        animation: motifDrift 22s linear infinite;
+      }
+      @keyframes motifDrift{
+        from{ background-position: 0 0, 0 0, 0 0, 0 0; }
+        to  { background-position: 220px 0, 220px 0, 0 0, 0 0; }
+      }
 
-      /* top bar */
+      /* ===== NEW: global tint overlay (maroon-led) ===== */
+      body::after{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:1;
+        background:
+          radial-gradient(980px 680px at 50% 12%,
+            var(--tint) 0%,
+            rgba(0,0,0,0) 70%);
+        transition: background 520ms ease;
+      }
+
+      /* layout */
+      .container{
+        position:relative;
+        z-index:2;
+        width:min(980px,92vw);
+        margin:0 auto;
+        padding:110px 0 86px; /* NEW: space for sticky topbar */
+      }
+
+      /* ===== NEW: sticky topbar aligned to container width ===== */
       .topbar{
+        position:fixed;
+        top:14px;
+        left:50%;
+        transform:translateX(-50%);
+        width:min(980px,92vw);
+        z-index:20;
+
         display:flex;
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        margin-bottom:18px;
+        padding:12px 14px;
+
+        border:1px solid var(--ring);
+        border-radius:16px;
+        background:rgba(10,10,11,0.74);
+        backdrop-filter:blur(10px);
+        box-shadow:0 16px 52px rgba(0,0,0,0.35);
       }
       .home{
         display:inline-flex;
@@ -55,12 +128,13 @@
         border-radius:14px;
         text-decoration:none;
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
+        transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
         font-size:14px;
+        white-space:nowrap;
       }
-      .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+      .home:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
 
-      .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+      .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center}
       .pill{
         display:inline-flex;
         align-items:center;
@@ -72,9 +146,24 @@
         font-size:13px;
         color:var(--fg);
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
+        transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
+        white-space:nowrap;
       }
-      .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+      .pill:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
+
+      /* NEW: topbar clock */
+      .topclock{
+        font-size:12px;
+        color:var(--muted);
+        padding:9px 12px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-variant-numeric: tabular-nums;
+        white-space:nowrap;
+      }
+      @media (max-width: 760px){ .topclock{display:none;} }
 
       /* cards */
       .card{
@@ -83,6 +172,28 @@
         background:var(--card);
         box-shadow:var(--shadow);
         backdrop-filter: blur(6px);
+        transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease;
+      }
+      .card:hover{
+        transform: translateY(-2px);
+        box-shadow:0 18px 52px rgba(0,0,0,0.45);
+      }
+
+      /* NEW: subtle tri-edge accent on major sections (maroon-friendly) */
+      .edge{ position:relative; overflow:hidden; }
+      .edge::after{
+        content:"";
+        position:absolute;
+        left:0; top:0; bottom:0;
+        width:3px;
+        background: linear-gradient(
+          180deg,
+          rgba(var(--da-maroon),0.85),
+          rgba(110,231,255,0.35),
+          rgba(var(--green),0.28)
+        );
+        opacity:0.85;
+        pointer-events:none;
       }
 
       /* hero */
@@ -105,7 +216,7 @@
       .edu-card{padding:18px 18px; position:relative; overflow:hidden;}
       .cert-card{padding:18px 18px; margin-top:14px}
 
-      /* subtle De Anza tint */
+      /* your De Anza maroon tint stays (this is inside the card) */
       .edu-card::before{
         content:"";
         position:absolute;
@@ -113,7 +224,6 @@
         background: radial-gradient(900px 380px at 18% 15%, rgba(var(--da-maroon), 0.10), rgba(var(--da-maroon), 0.00) 55%),
                     linear-gradient(180deg, rgba(var(--da-maroon), 0.06), rgba(var(--da-maroon), 0.00));
         pointer-events:none;
-        /* high opacity feel = very subtle actual alpha values above */
       }
       .edu-card > *{position:relative; z-index:1;}
 
@@ -194,7 +304,9 @@
         border-radius:16px;
         padding:14px 14px;
         background:rgba(0,0,0,0.10);
+        transition: transform .12s ease, border-color .2s ease;
       }
+      .block:hover{ transform: translateY(-1px); border-color: rgba(110,231,255,0.25); }
       .block h2{
         margin:0;
         font-size:12px;
@@ -219,7 +331,9 @@
         border-radius:999px;
         color:var(--muted);
         background:rgba(0,0,0,0.12);
+        transition: transform .08s ease, border-color .2s ease, color .2s ease;
       }
+      .chip:hover{ transform: translateY(-1px); border-color: rgba(110,231,255,0.30); color: rgba(231,231,234,0.92); }
 
       /* Certifications header */
       .section-head{
@@ -243,7 +357,7 @@
         line-height:1.4;
       }
 
-      /* Certifications (cleaner tile typography) */
+      /* Certifications */
       .cert-grid{
         margin-top:10px;
         display:grid;
@@ -262,14 +376,17 @@
         border:1px solid var(--ring);
         border-radius:16px;
         padding:13px 13px;
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.035), rgba(0,0,0,0.14));
+        background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(0,0,0,0.14));
         cursor:pointer;
         text-align:left;
-        transition:transform .06s ease, border-color .2s ease, filter .2s ease;
+        transition:transform .06s ease, border-color .2s ease, filter .2s ease, box-shadow .2s ease;
         min-height:104px;
       }
-      .cert-tile:hover{transform:translateY(-1px); border-color:rgba(110,231,255,0.55)}
+      .cert-tile:hover{
+        transform:translateY(-1px);
+        border-color:rgba(110,231,255,0.55);
+        box-shadow:0 12px 38px rgba(0,0,0,0.28);
+      }
       .cert-tile:active{transform:translateY(0px)}
       .cert-tile:focus-visible{
         outline:2px solid rgba(110,231,255,0.5);
@@ -296,16 +413,14 @@
         flex:0 0 auto;
       }
 
-      /* FORCE HIGH-CONTRAST TITLE */
       .cert-name{
         margin:0;
         font-weight:850;
         font-size:13.5px;
         letter-spacing:-0.015em;
         line-height:1.25;
-        color: var(--fg); /* <-- white */
+        color: var(--fg);
       }
-
       .cert-org{
         margin-top:4px;
         color:rgba(163,163,173,0.95);
@@ -330,8 +445,8 @@
       }
       .issued .mini-dot{
         width:7px; height:7px; border-radius:99px;
-        background:rgba(110,231,255,0.45);
-        box-shadow:0 0 18px rgba(110,231,255,0.22);
+        background:rgba(var(--da-maroon), 0.55);
+        box-shadow:0 0 18px rgba(var(--da-maroon), 0.20);
       }
 
       .hint{
@@ -342,7 +457,7 @@
         border:1px solid var(--ring);
         border-radius:999px;
         background:rgba(0,0,0,0.10);
-        color:var(--fg); /* a bit brighter for visibility */
+        color:var(--fg);
         opacity:0.92;
         white-space:nowrap;
       }
@@ -445,6 +560,9 @@
     <div class="container">
       <div class="topbar">
         <a class="home" href="./">← Home</a>
+
+        <div class="topclock" id="topClock">--:-- PT</div>
+
         <div class="pillrow">
           <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
           <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
@@ -453,13 +571,13 @@
         </div>
       </div>
 
-      <section class="card hero">
+      <section class="card hero edge" data-tint="neutral">
         <h1>Education</h1>
         <p class="sub">Academics, awards, campus leadership, and certifications.</p>
       </section>
 
       <!-- De Anza (bubble 1) -->
-      <section class="card edu-card" aria-label="De Anza College">
+      <section class="card edu-card edge" aria-label="De Anza College" data-tint="da">
         <div class="row">
           <div class="school">
             <div class="logo" aria-hidden="true">DA</div>
@@ -516,7 +634,7 @@
       </section>
 
       <!-- Certifications (bubble 2) -->
-      <section class="card cert-card" aria-label="Certifications">
+      <section class="card cert-card edge" aria-label="Certifications" data-tint="certs">
         <div class="section-head">
           <h2>Certifications</h2>
           <div class="section-note">Click a card to view a short description.</div>
@@ -662,6 +780,66 @@
     <script>
       document.getElementById('y').textContent = new Date().getFullYear();
 
+      // NEW: topbar clock (PT)
+      (function(){
+        const top = document.getElementById('topClock');
+        if(!top) return;
+
+        function renderTop(){
+          const now = new Date();
+          const time = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            hour: 'numeric',
+            minute: '2-digit'
+          }).format(now);
+          const date = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            month: 'short',
+            day: '2-digit'
+          }).format(now);
+
+          top.textContent = `${date} · ${time} PT`;
+        }
+
+        renderTop();
+        setInterval(renderTop, 15000);
+      })();
+
+      // scroll tint follow (subtle) — stays maroon-led
+      (function(){
+        const root = document.documentElement;
+        const map = {
+          da: '--tint-da',
+          certs: '--tint-certs',
+          neutral: '--tint-neutral'
+        };
+
+        function cssVar(name){
+          return getComputedStyle(root).getPropertyValue(name);
+        }
+
+        const secs = Array.from(document.querySelectorAll('[data-tint]'));
+        if(!secs.length) return;
+
+        const obs = new IntersectionObserver((entries)=>{
+          let best = null;
+          for(const e of entries){
+            if(!e.isIntersecting) continue;
+            if(!best || e.intersectionRatio > best.intersectionRatio) best = e;
+          }
+          if(!best) return;
+
+          const key = best.target.getAttribute('data-tint');
+          const varName = map[key];
+          if(!varName) return;
+
+          root.style.setProperty('--tint', cssVar(varName));
+        }, { threshold: [0.18, 0.28, 0.4, 0.55] });
+
+        secs.forEach(s=>obs.observe(s));
+      })();
+
+      // ===== existing cert modal logic (kept) =====
       const modal = document.getElementById('certModal');
       const mBadge = document.getElementById('mBadge');
       const mTitle = document.getElementById('mTitle');
