@@ -19,7 +19,21 @@
         --accent:#6ee7ff;
         --ring:#2b2b33;
         --shadow:0 12px 40px rgba(0,0,0,0.35);
+
+        /* tri-accent (subtle use) */
+        --cyan:#6ee7ff;
+        --violet:#8b5cf6;
+        --green:#34d399;
+
+        /* tint system */
+        --tint: rgba(110,231,255,0.06);
+        --tint-hero: rgba(110,231,255,0.08);
+        --tint-bg: rgba(139,92,246,0.08);
+        --tint-values: rgba(110,231,255,0.07);
+        --tint-skills: rgba(52,211,153,0.07);
+        --tint-fun: rgba(139,92,246,0.07);
       }
+
       *{box-sizing:border-box}
       html,body{height:100%}
       body{
@@ -28,21 +42,80 @@
         color:var(--fg);
         background: radial-gradient(1200px 800px at 50% 10%, #141416 0%, var(--bg) 68%);
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        overflow-x:hidden;
       }
       a{color:inherit}
       .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
 
-      .wrap{width:min(920px,92vw); margin:0 auto; padding:38px 0 88px}
+      /* ===== Signal waveform motif (C) ===== */
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:0;
+        opacity:0.55;
+        background:
+          radial-gradient(900px 420px at 50% 0%,
+            rgba(139,92,246,0.08),
+            rgba(0,0,0,0) 70%),
+          repeating-linear-gradient(
+            90deg,
+            rgba(110,231,255,0.03) 0px,
+            rgba(110,231,255,0.03) 1px,
+            transparent 1px,
+            transparent 62px
+          ),
+          radial-gradient(700px 220px at 18% 18%, rgba(110,231,255,0.06), transparent 68%),
+          radial-gradient(700px 220px at 82% 30%, rgba(52,211,153,0.05), transparent 70%);
+        animation: motifDrift 22s linear infinite;
+      }
+      @keyframes motifDrift{
+        from{ background-position: 0 0, 0 0, 0 0, 0 0; }
+        to  { background-position: 220px 0, 220px 0, 0 0, 0 0; }
+      }
 
-      /* top bar */
+      /* ===== tint overlay ===== */
+      body::after{
+        content:"";
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:1;
+        background: radial-gradient(980px 680px at 50% 12%, var(--tint) 0%, rgba(0,0,0,0) 70%);
+        transition: background 520ms ease;
+      }
+
+      .wrap{
+        position:relative;
+        z-index:2;
+        width:min(920px,92vw);
+        margin:0 auto;
+        padding:110px 0 88px; /* space for sticky topbar */
+      }
+
+      /* ===== Sticky topbar aligned to card width ===== */
       .topbar{
+        position:fixed;
+        top:14px;
+        left:50%;
+        transform:translateX(-50%);
+        width:calc(min(920px,92vw) - 40px);
+        z-index:20;
+
         display:flex;
         align-items:center;
         justify-content:space-between;
         gap:14px;
-        padding:0 20px;
-        margin-bottom:16px;
+        padding:12px 14px;
+
+        border:1px solid var(--ring);
+        border-radius:16px;
+        background:rgba(10,10,11,0.74);
+        backdrop-filter:blur(10px);
+        box-shadow:0 16px 52px rgba(0,0,0,0.35);
       }
+
       .home{
         display:inline-flex;
         align-items:center;
@@ -52,12 +125,13 @@
         border-radius:14px;
         text-decoration:none;
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
+        transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
         font-size:14px;
+        white-space:nowrap;
       }
-      .home:hover{transform:translateY(-1px); border-color:var(--accent)}
+      .home:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
 
-      .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+      .pillrow{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; align-items:center}
       .pill{
         display:inline-flex;
         align-items:center;
@@ -69,9 +143,24 @@
         font-size:13px;
         color:var(--fg);
         background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition:transform .06s ease, border-color .2s ease;
+        transition:transform .06s ease, border-color .2s ease, box-shadow .2s ease;
+        white-space:nowrap;
       }
-      .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+      .pill:hover{transform:translateY(-1px); border-color:var(--accent); box-shadow:0 0 0 3px rgba(110,231,255,0.06);}
+
+      /* topbar clock pill */
+      .topclock{
+        font-size:12px;
+        color:var(--muted);
+        padding:9px 12px;
+        border:1px solid var(--ring);
+        border-radius:999px;
+        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-variant-numeric: tabular-nums;
+        white-space:nowrap;
+      }
+      @media (max-width: 760px){ .topclock{display:none;} }
 
       /* cards */
       .card{
@@ -80,6 +169,24 @@
         background:var(--card);
         box-shadow:var(--shadow);
         backdrop-filter: blur(6px);
+        position:relative;
+        overflow:hidden;
+        transition: transform .12s ease, border-color .2s ease, box-shadow .2s ease;
+      }
+      .card:hover{
+        transform: translateY(-2px);
+        box-shadow:0 18px 52px rgba(0,0,0,0.45);
+        border-color: rgba(110,231,255,0.30);
+      }
+
+      /* subtle tri-accent edge on sections */
+      .card.edge::before{
+        content:"";
+        position:absolute;
+        left:0; top:0; bottom:0;
+        width:3px;
+        background: linear-gradient(180deg, rgba(110,231,255,0.85), rgba(139,92,246,0.50), rgba(52,211,153,0.45));
+        opacity:0.85;
       }
 
       /* hero */
@@ -170,6 +277,12 @@
         font-size:12px;
         color:var(--muted);
         background: rgba(0,0,0,0.12);
+        transition: transform .08s ease, border-color .2s ease, color .2s ease;
+      }
+      .skill:hover{
+        transform: translateY(-1px);
+        border-color: rgba(110,231,255,0.35);
+        color: rgba(231,231,234,0.92);
       }
 
       /* fun */
@@ -198,6 +311,9 @@
     <main class="wrap">
       <div class="topbar">
         <a class="home" href="./">← Home</a>
+
+        <div class="topclock" id="topClock">--:-- PT</div>
+
         <div class="pillrow">
           <a class="pill" href="experience.html"><span class="mono">→</span> Experience</a>
           <a class="pill" href="projects.html"><span class="mono">→</span> Projects</a>
@@ -206,42 +322,42 @@
       </div>
 
       <!-- HERO -->
-      <section class="card hero">
+      <section class="card hero edge" id="sec-hero" data-tint="hero">
         <h1>About</h1>
         <p class="lead">
-          I am a student studying Applied Mathematics & Finance at De Anza College, focused on quantitative finance and 
-          market-driven research. I work at the intersection of mathematical theory, data, and systems, translating abstract 
-          ideas (stochastic models, optimization problems, probabilistic assumptions, etc.) into tools that hold up under real 
+          I am a student studying Applied Mathematics & Finance at De Anza College, focused on quantitative finance and
+          market-driven research. I work at the intersection of mathematical theory, data, and systems, translating abstract
+          ideas (stochastic models, optimization problems, probabilistic assumptions, etc.) into tools that hold up under real
           market constraints.
         </p>
         <p class="lead">
-          My interests center on derivatives, fixed income, prediction markets, and market microstructure, where small modeling 
-          assumptions can materially alter outcomes. I am particularly drawn to market making and execution problems, including 
-          liquidity provision, order-flow dynamics, and pricing under uncertainty. I care deeply about rigor, interpretability, 
+          My interests center on derivatives, fixed income, prediction markets, and market microstructure, where small modeling
+          assumptions can materially alter outcomes. I am particularly drawn to market making and execution problems, including
+          liquidity provision, order-flow dynamics, and pricing under uncertainty. I care deeply about rigor, interpretability,
           and building systems that scale beyond toy examples while remaining execution-aware.
         </p>
         <p class="lead">
-          I am currently part of the Life Sciences Investment Banking team at KCC Capital Partners, working on pharma and biotech 
-          M&A advisory with an emphasis on valuation, diligence, and strategic positioning. My responsibilities include building DCF 
-          and comparable analyses, evaluating clinical-stage and commercial drug assets, and integrating regulatory, pipeline, and 
-          scientific risk into transaction frameworks. I support sell-side and strategic processes by translating complex market 
+          I am currently part of the Life Sciences Investment Banking team at KCC Capital Partners, working on pharma and biotech
+          M&A advisory with an emphasis on valuation, diligence, and strategic positioning. My responsibilities include building DCF
+          and comparable analyses, evaluating clinical-stage and commercial drug assets, and integrating regulatory, pipeline, and
+          scientific risk into transaction frameworks. I support sell-side and strategic processes by translating complex market
           and clinical dynamics into financial narratives used in live deal execution.
         </p>
         <p class="lead">
-          Previously, I worked at a hedge fund in New York conducting structured credit research across CMOs and mortgage derivatives, 
-          with a focus on cash-flow waterfall modeling, option-adjusted spread analytics, and convexity-driven risk decomposition. 
-          My work emphasized rate–prepayment optionality, tranche-level relative value, and execution-aware modeling within fixed-income 
+          Previously, I worked at a hedge fund in New York conducting structured credit research across CMOs and mortgage derivatives,
+          with a focus on cash-flow waterfall modeling, option-adjusted spread analytics, and convexity-driven risk decomposition.
+          My work emphasized rate–prepayment optionality, tranche-level relative value, and execution-aware modeling within fixed-income
           portfolios.
         </p>
         <p class="lead">
-          Across roles and independent research, my goal is to design quantitative models and market systems that bridge theory and PnL, 
-          whether in derivatives pricing, market making, or prediction markets—delivering research and tools that are robust, scalable, 
+          Across roles and independent research, my goal is to design quantitative models and market systems that bridge theory and PnL,
+          whether in derivatives pricing, market making, or prediction markets—delivering research and tools that are robust, scalable,
           and built for real-world deployment.
         </p>
       </section>
 
       <!-- HIGHLIGHTS -->
-      <section class="grid">
+      <section class="grid" id="sec-highlights" data-tint="values">
         <div class="card mini">
           <div class="k">Focus</div>
           <div class="v">Derivatives · structured credit · fixed income · execution.</div>
@@ -257,35 +373,35 @@
       </section>
 
       <!-- BACKGROUND -->
-      <section class="card section">
+      <section class="card section edge" id="sec-bg" data-tint="bg">
         <h2>Background</h2>
         <p class="muted">
-          I grew up between Seattle and San Francisco, where I developed early interests in both business and physics, 
-          drawn to how complex systems behave and how incentives shape outcomes. After moving to the Bay Area, mathematics 
-          emerged as the unifying language that connected these interests, giving me a more precise way to reason about 
+          I grew up between Seattle and San Francisco, where I developed early interests in both business and physics,
+          drawn to how complex systems behave and how incentives shape outcomes. After moving to the Bay Area, mathematics
+          emerged as the unifying language that connected these interests, giving me a more precise way to reason about
           uncertainty, structure, and scale.
 
-          That progression led me from astrophysics research on solar flares, to running a small resale business, and 
-          ultimately to quantitative finance and financial modeling. Each step reinforced the same idea: well-designed 
+          That progression led me from astrophysics research on solar flares, to running a small resale business, and
+          ultimately to quantitative finance and financial modeling. Each step reinforced the same idea: well-designed
           systems matter, and small details compound over time.
         </p>
       </section>
 
       <!-- VALUES -->
-      <section class="card section">
+      <section class="card section edge" id="sec-values" data-tint="values">
         <h2>Mission and values</h2>
         <p class="muted">
-          I value intellectual curiosity, careful reasoning, and clarity under uncertainty. I try to ask why as often as 
+          I value intellectual curiosity, careful reasoning, and clarity under uncertainty. I try to ask why as often as
           possible, build from first principles, and pressure-test assumptions rather than narratives.
 
-          I care about designing models and systems that are interpretable, extensible, and useful to others—not just technically 
-          correct. This means writing clearly, exposing assumptions, and building work that can be understood, critiqued, and 
+          I care about designing models and systems that are interpretable, extensible, and useful to others—not just technically
+          correct. This means writing clearly, exposing assumptions, and building work that can be understood, critiqued, and
           improved upon over time.
         </p>
       </section>
 
       <!-- SKILLS -->
-      <section class="card section">
+      <section class="card section edge" id="sec-skills" data-tint="skills">
         <h2>Skills and tools</h2>
 
         <div class="skills-grid">
@@ -339,7 +455,7 @@
       </section>
 
       <!-- FUN -->
-      <section class="card section">
+      <section class="card section edge" id="sec-fun" data-tint="fun">
         <h2>Outside of work</h2>
         <ul class="fun">
           <li>I’m into sneaker culture and rare drops.</li>
@@ -354,11 +470,74 @@
     </main>
 
     <script>
+      // last updated (kept)
       (function(){
         const el = document.getElementById('updated');
         if(!el) return;
         const d = new Date();
         el.textContent = d.toLocaleDateString('en-US', { year:'numeric', month:'short' });
+      })();
+
+      // topbar clock (PT)
+      (function(){
+        const top = document.getElementById('topClock');
+        if(!top) return;
+
+        function renderTop(){
+          const now = new Date();
+          const time = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            hour: 'numeric',
+            minute: '2-digit'
+          }).format(now);
+          const date = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/Los_Angeles',
+            month: 'short',
+            day: '2-digit'
+          }).format(now);
+
+          top.textContent = `${date} · ${time} PT`;
+        }
+
+        renderTop();
+        setInterval(renderTop, 15000);
+      })();
+
+      // subtle tint follows scroll section in view
+      (function(){
+        const root = document.documentElement;
+        const map = {
+          hero: '--tint-hero',
+          bg: '--tint-bg',
+          values: '--tint-values',
+          skills: '--tint-skills',
+          fun: '--tint-fun'
+        };
+
+        function cssVar(name){
+          return getComputedStyle(root).getPropertyValue(name);
+        }
+
+        const secs = Array.from(document.querySelectorAll('[data-tint]'));
+        if(!secs.length) return;
+
+        const obs = new IntersectionObserver((entries)=>{
+          // choose most visible intersecting section
+          let best = null;
+          for(const e of entries){
+            if(!e.isIntersecting) continue;
+            if(!best || e.intersectionRatio > best.intersectionRatio) best = e;
+          }
+          if(!best) return;
+
+          const key = best.target.getAttribute('data-tint');
+          const varName = map[key];
+          if(!varName) return;
+
+          root.style.setProperty('--tint', cssVar(varName));
+        }, { threshold: [0.18, 0.28, 0.4, 0.55] });
+
+        secs.forEach(s=>obs.observe(s));
       })();
     </script>
   </body>
