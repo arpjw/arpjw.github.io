@@ -32,8 +32,13 @@
       --tint-archive: rgba(139,92,246,0.10);
       --tint-neutral: rgba(110,231,255,0.06);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    /* bulletproof hidden */
+    [hidden]{ display:none !important; }
+
     body{
       margin:0;
       min-height:100%;
@@ -318,6 +323,13 @@
       font-size:12px;
       background: rgba(0,0,0,0.10);
     }
+    .meta .desc{
+      flex-basis:100%;
+      color: rgba(163,163,173,0.95);
+      font-size:12.5px;
+      line-height:1.55;
+      margin-top:2px;
+    }
 
     /* runway layout */
     .runway{
@@ -408,8 +420,8 @@
       margin-top:6px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-variant-numeric: tabular-nums;
-      font-size:26px;
-      font-weight:900;
+      font-size:30px;
+      font-weight:950;
       letter-spacing:-0.02em;
     }
     .countnote{
@@ -670,6 +682,7 @@
               <span class="role" id="nextUpRole" hidden>—</span>
               <span class="chip" id="nextUpType"><span class="dot" aria-hidden="true"></span><span id="nextUpTypeLabel">—</span></span>
               <span class="badge" id="nextUpDates">—</span>
+              <div class="desc" id="nextUpDesc">—</div>
             </div>
           </div>
 
@@ -694,8 +707,8 @@
     <div class="controls" id="sec-archive" data-tint="archive">
       <div class="chips" aria-label="Year filters">
         <button class="filter active" data-year="all" type="button">All years</button>
+        <button class="filter" data-year="2026" type="button">2026</button>
         <button class="filter" data-year="2025" type="button">2025</button>
-        <button class="filter" data-year="2024" type="button">2024</button>
       </div>
 
       <div class="chips" aria-label="Type filters">
@@ -712,8 +725,8 @@
       </div>
     </div>
 
-    <section class="timeline" id="archiveTimeline" aria-label="Previous events timeline"></section>
-    <section class="archive-grid" id="archiveGrid" aria-label="Previous events grid" hidden></section>
+    <section class="timeline" id="archiveTimeline" aria-label="Events timeline"></section>
+    <section class="archive-grid" id="archiveGrid" aria-label="Events grid" style="display:none;"></section>
 
     <p class="empty" id="empty" hidden>No events match these filters.</p>
 
@@ -739,7 +752,7 @@
         <button class="closebtn" id="mClose" type="button">Close</button>
       </div>
       <div class="modal-body">
-        <p id="mDesc">No description added yet.</p>
+        <p id="mDesc">—</p>
         <div class="modal-row">
           <span class="mono" id="mFootLeft">—</span>
           <span class="mono">Click outside to dismiss</span>
@@ -750,31 +763,31 @@
 
   <script>
     // ====== config: edit your events here ======
-    // Use ISO dates for start/end. The countdown uses startDate.
+    // ISO dates. Countdown uses startDate.
     const EVENTS = [
       // Upcoming
       {
         title: "FBLA State Leadership Conference",
         startDate: "2026-03-27",
         endDate: "2026-03-29",
-        location: "San Francisco, CA",
+        location: "San Francisco Bay Area, CA",
         type: "conference",
         role: "Attendee",
         status: "upcoming",
-        desc: ""
+        desc: "A competitive leadership conference featuring workshops, networking, and events that benchmark business skills against peers across the state."
       },
       {
-        title: "FBLA National Leadership Conference",
-        startDate: "2026-06-07",
-        endDate: "2026-06-09",
+        title: "FBLA Collegiate National Leadership Conference",
+        startDate: "2026-06-06",
+        endDate: "2026-06-08",
         location: "Las Vegas, NV",
         type: "conference",
         role: "Attendee",
         status: "upcoming",
-        desc: ""
+        desc: "National-scale collegiate business leadership conference with competitive events, programming, and high-density networking across schools and chapters."
       },
 
-      // Previous (your list)
+      // Previous
       {
         title: "De Anza Innovation Summit",
         startDate: "2025-10-10",
@@ -783,7 +796,7 @@
         type: "hosted",
         role: "Organizer",
         status: "past",
-        desc: ""
+        desc: "A two-day campus innovation summit focused on building, showcasing, and learning—bringing students together around entrepreneurship, product thinking, and execution."
       },
       {
         title: "FBLA Fall State Leadership Conference",
@@ -793,7 +806,7 @@
         type: "conference",
         role: "Attendee",
         status: "past",
-        desc: ""
+        desc: "Fall leadership conference centered on training sessions, chapter development, and community-building across the state network."
       },
       {
         title: "TEDx De Anza — Community College to Success",
@@ -801,9 +814,9 @@
         endDate: "2025-11-10",
         location: "Cupertino, CA",
         type: "hosted",
-        role: "Team",
+        role: "Organizer",
         status: "past",
-        desc: ""
+        desc: "TEDx event produced on campus featuring speakers and ideas rooted in momentum, identity, and upward mobility—built to spotlight community college narratives."
       },
       {
         title: "De Anza Hacks 4.0",
@@ -813,7 +826,7 @@
         type: "hackathon",
         role: "Organizer",
         status: "past",
-        desc: ""
+        desc: "A student hackathon designed for rapid building: teams, mentors, and demos in a tight window—optimized for learning velocity and shipping under constraints."
       },
       {
         title: "Susquehanna International Group — Virtual Discovery Program",
@@ -823,7 +836,7 @@
         type: "program",
         role: "Participant",
         status: "past",
-        desc: ""
+        desc: "Selective virtual program focused on trading mindset, probability-driven decision-making, and practical intuition for markets and microstructure."
       },
       {
         title: "Bain Capital — Investors of Tomorrow",
@@ -833,7 +846,7 @@
         type: "program",
         role: "Participant",
         status: "past",
-        desc: ""
+        desc: "Investment-focused program emphasizing how investors evaluate businesses, structure diligence, and reason about risks, moats, and value creation."
       }
     ];
 
@@ -849,7 +862,6 @@
       const start = new Date(startISO + "T00:00:00");
       const end = new Date(endISO + "T00:00:00");
       const same = startISO === endISO;
-
       const opts = { month:'short', day:'numeric' };
       const s = start.toLocaleDateString('en-US', opts);
       const e = end.toLocaleDateString('en-US', opts);
@@ -917,24 +929,26 @@
     const nextUpType = document.getElementById('nextUpType');
     const nextUpTypeLabel = document.getElementById('nextUpTypeLabel');
     const nextUpDates = document.getElementById('nextUpDates');
+    const nextUpDesc = document.getElementById('nextUpDesc');
     const countDays = document.getElementById('countDays');
     const countNote = document.getElementById('countNote');
 
-    function applyTypeColorToChip(chipEl, type){
-      // set dot color by setting CSS var on the element
-      chipEl.style.setProperty('--type', getComputedStyle(document.documentElement).getPropertyValue('--accent'));
-      chipEl.setAttribute('data-type', type);
+    function typeColor(t){
+      let color = getComputedStyle(root).getPropertyValue('--cyan').trim();
+      if(t === "hackathon") color = getComputedStyle(root).getPropertyValue('--violet').trim();
+      if(t === "program") color = getComputedStyle(root).getPropertyValue('--green').trim();
+      if(t === "hosted") color = getComputedStyle(root).getPropertyValue('--amber').trim();
+      return color;
     }
 
     if(nextUp){
       nextUpTitle.textContent = nextUp.title;
       nextUpLoc.textContent = nextUp.location;
       nextUpDates.textContent = fmtRangeISO(nextUp.startDate, nextUp.endDate);
+      nextUpDesc.textContent = nextUp.desc || "";
 
       nextUpTypeLabel.textContent = typeLabel(nextUp.type);
-      nextUpType.parentElement?.querySelector?.('.dot');
 
-      // Role
       if(nextUp.role){
         nextUpRole.hidden = false;
         nextUpRole.textContent = nextUp.role;
@@ -943,28 +957,21 @@
       }
 
       const d = daysUntil(nextUp.startDate);
-      countDays.textContent = `D-${d}`;
+      countDays.textContent = `${d}`;   // ✅ no "D-"
       countNote.textContent = d === 0 ? "starts today" : "days to kickoff";
 
       // Subtitle line
       const year = fmtYear(nextUp.startDate);
       nextUpSub.textContent = `Priority event · ${year} runway`;
 
-      // Color the chip dot via CSS variable by applying an attribute on the chip’s ancestor event style:
-      // easiest: just add an inline style for the dot using computed mapping.
-      // We'll do it by setting a CSS custom property on the chip itself:
-      const type = nextUp.type;
-      let color = getComputedStyle(root).getPropertyValue('--cyan').trim();
-      if(type === "hackathon") color = getComputedStyle(root).getPropertyValue('--violet').trim();
-      if(type === "program") color = getComputedStyle(root).getPropertyValue('--green').trim();
-      if(type === "hosted") color = getComputedStyle(root).getPropertyValue('--amber').trim();
-      nextUpType.style.setProperty('--type', color);
+      // Color the type chip dot
+      nextUpType.style.setProperty('--type', typeColor(nextUp.type));
     } else {
-      // No upcoming events
       nextUpTitle.textContent = "No upcoming events listed";
       nextUpSub.textContent = "Add new events to the EVENTS array.";
       nextUpLoc.textContent = "";
       nextUpDates.textContent = "";
+      nextUpDesc.textContent = "";
       nextUpTypeLabel.textContent = "—";
       countDays.textContent = "—";
       countNote.textContent = "days to kickoff";
@@ -991,13 +998,7 @@
       const chip = document.createElement('span');
       chip.className = "chip";
       chip.innerHTML = `<span class="dot" aria-hidden="true"></span>${typeLabel(e.type)}`;
-
-      // type dot color
-      let color = getComputedStyle(root).getPropertyValue('--cyan').trim();
-      if(e.type === "hackathon") color = getComputedStyle(root).getPropertyValue('--violet').trim();
-      if(e.type === "program") color = getComputedStyle(root).getPropertyValue('--green').trim();
-      if(e.type === "hosted") color = getComputedStyle(root).getPropertyValue('--amber').trim();
-      chip.style.setProperty('--type', color);
+      chip.style.setProperty('--type', typeColor(e.type));
 
       const right = document.createElement('div');
       right.className = "rightmeta";
@@ -1015,7 +1016,6 @@
       const loc = document.createElement('span');
       loc.className = "loc";
       loc.textContent = e.location;
-
       meta.appendChild(loc);
 
       if(e.role){
@@ -1025,10 +1025,16 @@
         meta.appendChild(role);
       }
 
+      if(e.desc){
+        const desc = document.createElement('div');
+        desc.className = "desc";
+        desc.textContent = e.desc;
+        meta.appendChild(desc);
+      }
+
       art.appendChild(top);
       art.appendChild(meta);
 
-      // modal open
       art.addEventListener('click', ()=>openModal(e));
       art.addEventListener('keydown', (ev)=>{
         if(ev.key === 'Enter' || ev.key === ' '){
@@ -1042,7 +1048,7 @@
 
     restUpcoming.forEach(e => upGrid.appendChild(makeEventCard(e)));
 
-    // ====== archive render ======
+    // ====== archive data ======
     const past = EVENTS
       .filter(e => e.status === "past")
       .sort((a,b) => new Date(b.startDate) - new Date(a.startDate));
@@ -1056,29 +1062,32 @@
       archiveGrid.innerHTML = "";
     }
 
-    function renderArchive(list){
-      clearArchive();
+    // ====== filters ======
+    let currentYear = "all";
+    let currentType = "all";
+    let viewMode = "timeline"; // "grid"
+
+    function filteredEvents(){
+      // We filter all non-upcoming (past only) for archive.
+      return past.filter(e=>{
+        const y = fmtYear(e.startDate);
+        const yearOk = (currentYear === "all") ? true : (y === currentYear);
+        const typeOk = (currentType === "all") ? true : (e.type === currentType);
+        return yearOk && typeOk;
+      });
+    }
+
+    function renderTimeline(list){
+      archiveTimeline.style.display = "block";
+      archiveGrid.style.display = "none";
 
       list.forEach(e=>{
-        // Timeline item wrapper
         const wrap = document.createElement('div');
         wrap.className = "titem";
-        wrap.style.setProperty('--type', (()=>{
-          let c = getComputedStyle(root).getPropertyValue('--violet').trim();
-          if(e.type === "conference") c = getComputedStyle(root).getPropertyValue('--cyan').trim();
-          if(e.type === "program") c = getComputedStyle(root).getPropertyValue('--green').trim();
-          if(e.type === "hosted") c = getComputedStyle(root).getPropertyValue('--amber').trim();
-          return c;
-        })());
+        wrap.style.setProperty('--type', typeColor(e.type));
 
-        // Use the same card inside
-        const card = makeEventCard(e);
-        // makeEventCard already binds modal
-        wrap.appendChild(card);
+        wrap.appendChild(makeEventCard(e));
         archiveTimeline.appendChild(wrap);
-
-        // Grid view card
-        archiveGrid.appendChild(makeEventCard(e));
       });
 
       // reveal on scroll for timeline items
@@ -1091,34 +1100,22 @@
       items.forEach(it=>obs.observe(it));
     }
 
-    // ====== filters ======
-    let currentYear = "all";
-    let currentType = "all";
-    let viewMode = "timeline"; // "grid"
+    function renderGrid(list){
+      archiveTimeline.style.display = "none";
+      archiveGrid.style.display = "grid";
 
-    function filteredPast(){
-      return past.filter(e=>{
-        const y = fmtYear(e.startDate);
-        const yearOk = (currentYear === "all") ? true : (y === currentYear);
-        const typeOk = (currentType === "all") ? true : (e.type === currentType);
-        return yearOk && typeOk;
+      list.forEach(e=>{
+        archiveGrid.appendChild(makeEventCard(e));
       });
     }
 
     function applyFilters(){
-      const list = filteredPast();
+      const list = filteredEvents();
       empty.hidden = list.length !== 0;
 
-      renderArchive(list);
-
-      // toggle view
-      if(viewMode === "timeline"){
-        archiveTimeline.hidden = false;
-        archiveGrid.hidden = true;
-      } else {
-        archiveTimeline.hidden = true;
-        archiveGrid.hidden = false;
-      }
+      clearArchive();
+      if(viewMode === "timeline") renderTimeline(list);
+      else renderGrid(list);
     }
 
     // year/type chip click
@@ -1212,7 +1209,7 @@
       mBadge.textContent = badgeTextForType(e.type);
       mTitle.textContent = e.title;
       mMeta.textContent = `${fmtRangeISO(e.startDate, e.endDate)} · ${e.location} · ${typeLabel(e.type)}${e.role ? " · " + e.role : ""}`;
-      mDesc.textContent = (e.desc && e.desc.trim().length) ? e.desc : "No description added yet. (You can add one in the EVENTS array.)";
+      mDesc.textContent = (e.desc && e.desc.trim().length) ? e.desc : "No description added yet.";
       mFootLeft.textContent = `${fmtYear(e.startDate)} · ${typeLabel(e.type)}`;
 
       if(typeof modal.showModal === 'function') modal.showModal();
