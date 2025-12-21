@@ -25,7 +25,7 @@
         --ring:#2b2b33;
         --shadow:0 12px 40px rgba(0,0,0,0.35);
 
-        /* tri-accent (new) */
+        /* tri-accent */
         --cyan:#6ee7ff;
         --violet:#8b5cf6;
         --green:#34d399;
@@ -63,7 +63,7 @@
             transparent 1px,
             transparent 62px
           ),
-          /* waveform-ish linework using layered gradients */
+          /* waveform-ish linework */
           radial-gradient(700px 220px at 18% 18%, rgba(110,231,255,0.06), transparent 68%),
           radial-gradient(700px 220px at 82% 30%, rgba(52,211,153,0.05), transparent 70%);
         animation: motifDrift 22s linear infinite;
@@ -75,17 +75,17 @@
       }
 
       /* keep content above motif */
-      main.wrap, .map-pop{ position:relative; z-index:1; }
+      main.wrap{ position:relative; z-index:1; }
 
       .wrap{width:min(920px,92vw); padding:110px 20px 48px; margin:0 auto;} /* top padding for sticky topbar */
 
-      /* Top bar (now sticky) */
+      /* Top bar (sticky) — width matches hero/card content width */
       .topbar{
         position:fixed;
         top:14px;
         left:50%;
         transform:translateX(-50%);
-        width:min(920px,92vw);
+        width:calc(min(920px,92vw) - 40px);
         z-index:20;
 
         display:flex;
@@ -124,7 +124,7 @@
         box-shadow:0 0 0 3px rgba(110,231,255,0.06);
       }
 
-      /* NEW: topbar clock pill (does not remove your Seattle/Cupertino clocks) */
+      /* topbar clock pill */
       .topclock{
         font-size:12px;
         color:var(--muted);
@@ -172,27 +172,10 @@
         max-width:72ch;
       }
 
-      /* CTAs */
-      .ctas{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-      .btn{
-        padding:12px 14px;
-        border-radius:14px;
-        border:1px solid var(--ring);
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        color:var(--fg);
-        text-decoration:none;
-        font-size:14px;
-      }
-      .btn.primary{
-        border-color:rgba(110,231,255,0.55);
-        box-shadow:0 0 0 3px rgba(110,231,255,0.08);
-      }
-      .btn:hover{border-color:var(--accent)}
-
-      /* Highlights */
+      /* Highlights — now 2-wide */
       .grid{
         display:grid;
-        grid-template-columns:repeat(3,minmax(0,1fr));
+        grid-template-columns:repeat(2,minmax(0,1fr));
         gap:12px;
         margin-top:14px;
         align-items:stretch;
@@ -217,52 +200,19 @@
         overflow-wrap:anywhere;
       }
 
-      /* Based pills */
-      .basedstack{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
-
-      .nowline{
+      /* Based line (replaces the two live clocks entirely) */
+      .basedline{
+        margin:12px 0 0;
+        color:var(--muted);
+        font-size:13px;
+        line-height:1.4;
         display:flex;
         gap:10px;
-        align-items:center;
-        padding:8px 12px;
-        border-radius:999px;
-        border:1px solid var(--ring);
-        font-size:12px;
-        font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas;
-        max-width:100%;
-        overflow:hidden;
-        cursor:pointer;
-        user-select:none;
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        transition: transform .06s ease, border-color .2s ease, box-shadow .2s ease;
+        align-items:baseline;
+        flex-wrap:wrap;
       }
-      .nowline .city{font-weight:700}
-      .nowline .clock{margin-left:auto; font-variant-numeric:tabular-nums; white-space:nowrap}
-      .nowline:hover{
-        border-color:rgba(110,231,255,0.65);
-        transform: translateY(-1px);
-        box-shadow:0 0 0 3px rgba(110,231,255,0.06);
-      }
-
-      /* Full-oval pulse outline (Seattle) */
-      .nowline.here{
-        border-color:rgba(110,231,255,0.95);
-        position:relative;
-      }
-      .nowline.here::after{
-        content:"";
-        position:absolute;
-        inset:-2px;
-        border-radius:999px;
-        box-shadow:0 0 0 0 rgba(110,231,255,0.26);
-        animation:ovalPulse 1.7s ease-out infinite;
-        pointer-events:none;
-      }
-      @keyframes ovalPulse{
-        0%   { box-shadow:0 0 0 0 rgba(110,231,255,0.24); opacity:1; }
-        70%  { box-shadow:0 0 0 10px rgba(110,231,255,0.0); opacity:0; }
-        100% { box-shadow:0 0 0 10px rgba(110,231,255,0.0); opacity:0; }
-      }
+      .basedline .k{margin:0}
+      .basedcities{color:var(--fg); opacity:.9}
 
       /* Nav cards */
       .nav{
@@ -281,7 +231,7 @@
         overflow:hidden;
       }
 
-      /* subtle tri-accent edge on hover (no structure change) */
+      /* subtle tri-accent edge on hover */
       .nav a::before{
         content:"";
         position:absolute;
@@ -363,46 +313,6 @@
         overflow:hidden;clip:rect(0,0,0,0);
         white-space:nowrap;border:0;
       }
-
-      /* ===== Global fixed popover that cannot be clipped ===== */
-      .map-pop{
-        position:fixed;
-        z-index:99999;
-        width:min(360px, 92vw);
-        background:rgba(10,10,11,0.96);
-        border:1px solid var(--ring);
-        border-radius:16px;
-        box-shadow:0 16px 52px rgba(0,0,0,0.60);
-        padding:12px;
-        display:none;
-      }
-      .map-pop.show{display:block}
-      .map-pop .title{font-weight:700; font-size:13px}
-      .map-pop .sub{color:var(--muted); font-size:12px; margin-top:4px}
-      .map-pop .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-      .map-pop .actions a{
-        text-decoration:none;
-        font-size:12px;
-        padding:8px 10px;
-        border-radius:999px;
-        border:1px solid var(--ring);
-        background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
-        color:var(--fg);
-      }
-      .map-pop .actions a:hover{border-color:var(--accent)}
-      .map-pop .close{
-        position:absolute;
-        top:8px;
-        right:8px;
-        width:28px;
-        height:28px;
-        border-radius:10px;
-        border:1px solid var(--ring);
-        background:rgba(255,255,255,0.03);
-        color:var(--fg);
-        cursor:pointer;
-      }
-      .map-pop .close:hover{border-color:var(--accent)}
     </style>
   </head>
 
@@ -413,7 +323,6 @@
           <div class="name">Arya Somu</div>
         </div>
 
-        <!-- NEW: small topbar clock pill (keeps your existing clocks below) -->
         <div class="topclock" id="topClock">--:-- PT</div>
 
         <div class="pillrow">
@@ -425,11 +334,10 @@
       <section class="card hero">
         <h1>Hi! I'm Arya, here's my portfolio.</h1>
         <p class="sub">
-          I am an aspiring macro trader, studying Applied Math &amp; Finance at De Anza College. 
-          I currently work in pharma/biotech investment banking with a focus on metabolic therapeutics. 
-          I have previous experience in quantitative research, with a focus on mortgage derivatives,
-          fixed income, and market microstructure. I also have experience in startups, specifically
-          with GTM strategy and fundraising.
+          I am an aspiring macro trader, studying Applied Math &amp; Finance at De Anza College.
+          I currently work in pharma/biotech investment banking with a focus on metabolic therapeutics.
+          I have previous experience in quantitative research, with a focus on mortgage derivatives, fixed income,
+          and market microstructure. I also have experience in startups, specifically with GTM strategy and fundraising.
         </p>
 
         <div class="grid">
@@ -444,36 +352,9 @@
             <div class="k">Experience</div>
             <div class="v">Pharma/Biotech IB, Collateralized Mortgage Obligations/Structured Credit QR, GTM &amp; Fundraising.</div>
           </div>
-
-          <div class="card mini">
-            <div class="k">Based</div>
-            <div class="v">
-              <div class="basedstack">
-                <span
-                  id="locSeattle"
-                  class="nowline here"
-                  data-loc
-                  data-place="Seattle, WA"
-                  data-query="Seattle, WA"
-                >
-                  <span class="city">Seattle, WA</span>
-                  <span class="clock">--:--:--</span>
-                </span>
-
-                <span
-                  id="locSF"
-                  class="nowline"
-                  data-loc
-                  data-place="San Francisco, CA"
-                  data-query="San Francisco, CA"
-                >
-                  <span class="city">Cupertino, CA</span>
-                  <span class="clock">--:--:--</span>
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
+
+        <p class="basedline"><span class="k">Based</span> <span class="basedcities">Seattle, WA · Cupertino, CA</span></p>
       </section>
 
       <nav class="nav">
@@ -538,22 +419,11 @@
       </div>
     </main>
 
-    <!-- Global popover (fixed, cannot be clipped) -->
-    <div id="mapPop" class="map-pop" role="dialog" aria-label="Map popover">
-      <button class="close" type="button" aria-label="Close">✕</button>
-      <div class="title" id="mapPopTitle">Place</div>
-      <div class="sub">Open maps for details</div>
-      <div class="actions">
-        <a id="mapOpen" href="#" target="_blank" rel="noopener">Open in Maps</a>
-        <a id="mapDir" href="#" target="_blank" rel="noopener">Directions</a>
-      </div>
-    </div>
-
     <script>
       // footer year
       document.getElementById('y').textContent = new Date().getFullYear();
 
-      // NEW: topbar clock (PT)
+      // topbar clock (PT)
       (function(){
         const top = document.getElementById('topClock');
         if(!top) return;
@@ -570,138 +440,12 @@
             month: 'short',
             day: '2-digit'
           }).format(now);
+
           top.textContent = `${date} · ${time} PT`;
         }
 
         renderTop();
         setInterval(renderTop, 15000);
-      })();
-
-      // live clocks (same timezone for both)
-      (function(){
-        const els = Array.from(document.querySelectorAll('[data-loc]'));
-        function tick(el){
-          const clock = el.querySelector('.clock');
-          if(!clock) return;
-          clock.textContent = new Date().toLocaleTimeString('en-US',{
-            hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:true
-          });
-        }
-        els.forEach(tick);
-        setInterval(()=>els.forEach(tick), 1000);
-      })();
-
-      // global fixed popover logic (hover opens, click pins)
-      (function(){
-        const pop = document.getElementById('mapPop');
-        const popTitle = document.getElementById('mapPopTitle');
-        const openA = document.getElementById('mapOpen');
-        const dirA = document.getElementById('mapDir');
-        const closeBtn = pop.querySelector('.close');
-
-        const locs = Array.from(document.querySelectorAll('[data-loc]'));
-        let pinned = false;
-        let currentEl = null;
-
-        function setLinks(query){
-          const q = encodeURIComponent(query);
-          openA.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
-          dirA.href  = `https://www.google.com/maps/dir/?api=1&destination=${q}`;
-        }
-
-        function positionPopover(el){
-          const r = el.getBoundingClientRect();
-          const pad = 10;
-
-          // default below-left
-          let left = r.left;
-          let top = r.bottom + pad;
-
-          // keep on-screen horizontally
-          const popW = Math.min(360, Math.floor(window.innerWidth * 0.92));
-          const maxLeft = window.innerWidth - popW - pad;
-          left = Math.max(pad, Math.min(left, maxLeft));
-
-          // if not enough space below, place above
-          const estimatedH = 150;
-          if(top + estimatedH > window.innerHeight - pad){
-            top = r.top - estimatedH - pad;
-            top = Math.max(pad, top);
-          }
-
-          pop.style.left = left + "px";
-          pop.style.top = top + "px";
-        }
-
-        function show(el){
-          currentEl = el;
-          popTitle.textContent = el.dataset.place || "Location";
-          setLinks(el.dataset.query || el.dataset.place || "");
-          positionPopover(el);
-          pop.classList.add('show');
-        }
-
-        function hide(){
-          if(pinned) return;
-          pop.classList.remove('show');
-          currentEl = null;
-        }
-
-        function closeAll(){
-          pinned = false;
-          pop.classList.remove('show');
-          currentEl = null;
-        }
-
-        // hover to preview (desktop)
-        locs.forEach(el=>{
-          el.addEventListener('mouseenter', ()=>{
-            if(pinned) return;
-            show(el);
-          });
-          el.addEventListener('mouseleave', ()=>{
-            if(pinned) return;
-            setTimeout(()=>{
-              if(!pinned) hide();
-            }, 120);
-          });
-
-          // click to pin
-          el.addEventListener('click', (e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-            if(currentEl === el && pinned){
-              closeAll();
-              return;
-            }
-            pinned = true;
-            show(el);
-          });
-        });
-
-        // keep pop open when hovering over it (when not pinned)
-        pop.addEventListener('mouseenter', ()=>{
-          if(!pinned && currentEl) pop.classList.add('show');
-        });
-        pop.addEventListener('mouseleave', ()=>{
-          if(!pinned) hide();
-        });
-
-        // close controls
-        closeBtn.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          closeAll();
-        });
-        document.addEventListener('click', ()=> closeAll());
-        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeAll(); });
-
-        // reposition on resize/scroll so it doesn't drift
-        window.addEventListener('resize', ()=>{
-          if(pop.classList.contains('show') && currentEl) positionPopover(currentEl);
-        });
-        window.addEventListener('scroll', ()=>{
-          if(pop.classList.contains('show') && currentEl) positionPopover(currentEl);
-        }, { passive:true });
       })();
     </script>
   </body>
