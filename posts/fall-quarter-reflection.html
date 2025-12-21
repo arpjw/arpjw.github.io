@@ -19,9 +19,19 @@
       --accent:#6ee7ff;
       --ring:#2b2b33;
       --shadow:0 12px 40px rgba(0,0,0,0.35);
+
+      /* notebook palette */
+      --paper:#101012;
+      --paperEdge: rgba(255,255,255,0.06);
+      --ink: rgba(231,231,234,0.92);
+      --line: rgba(255,255,255,0.060);
+      --line2: rgba(110,231,255,0.060);
+      --margin: rgba(255, 110, 110, 0.28);
+      --hole: rgba(0,0,0,0.32);
+
       --warm: rgba(255, 214, 170, 0.14);
-      --paper: rgba(255,255,255,0.035);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -37,6 +47,8 @@
     a{color:inherit}
     .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
     .container{width:min(920px,92vw); margin:0 auto; padding:34px 0 86px}
+
+    /* top bar */
     .topbar{
       display:flex;
       align-items:center;
@@ -73,6 +85,8 @@
       transition:transform .06s ease, border-color .2s ease;
     }
     .pill:hover{transform:translateY(-1px); border-color:var(--accent)}
+
+    /* cards */
     .card{
       border:1px solid var(--ring);
       border-radius:18px;
@@ -82,17 +96,8 @@
       position:relative;
       overflow:hidden;
     }
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.035), rgba(0,0,0,0)),
-        repeating-linear-gradient(0deg, transparent, transparent 6px, rgba(255,255,255,0.010) 7px);
-      pointer-events:none;
-      opacity:.85;
-      mix-blend-mode:screen;
-    }
+
+    /* post head */
     .post-head{padding:22px 20px; margin-bottom:14px}
     h1{
       margin:0;
@@ -133,29 +138,187 @@
       color:var(--muted);
       background:rgba(0,0,0,0.12);
     }
-    .content{padding:20px 20px 18px}
+
+    /* ===== NOTEBOOK ARTICLE ===== */
+    .content{
+      padding:0;              /* notebook handles its own padding */
+      background:transparent; /* avoid double backgrounds */
+      border:0;
+      box-shadow:none;
+      backdrop-filter:none;
+    }
+
+    .notebook{
+      position:relative;
+      border:1px solid var(--ring);
+      border-radius:18px;
+      background:
+        /* paper vignette */
+        radial-gradient(1200px 800px at 50% 0%, rgba(255,255,255,0.06), rgba(0,0,0,0.18) 70%),
+        /* faint paper texture */
+        linear-gradient(180deg, rgba(255,255,255,0.030), rgba(0,0,0,0.10)),
+        /* ruled lines */
+        repeating-linear-gradient(180deg, transparent 0px, transparent 25px, var(--line) 26px),
+        /* subtle second-tone lines */
+        repeating-linear-gradient(180deg, transparent 0px, transparent 52px, var(--line2) 53px),
+        /* base */
+        var(--paper);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    /* subtle “page edge” */
+    .notebook::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:18px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 -1px 0 rgba(0,0,0,0.35);
+      pointer-events:none;
+    }
+
+    /* left red margin rule */
+    .notebook::after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      left:72px;                 /* margin column */
+      width:2px;
+      background: linear-gradient(180deg, rgba(255,110,110,0.10), var(--margin), rgba(255,110,110,0.10));
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    /* binder holes */
+    .holes{
+      position:absolute;
+      left:22px;
+      top:74px;
+      bottom:24px;
+      width:34px;
+      pointer-events:none;
+      opacity:.9;
+    }
+    .hole{
+      width:16px;
+      height:16px;
+      border-radius:999px;
+      margin:0 0 26px 0;
+      background:
+        radial-gradient(circle at 40% 40%, rgba(0,0,0,0.50), rgba(0,0,0,0.10) 60%, rgba(255,255,255,0.05) 75%),
+        rgba(0,0,0,0.18);
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .page{
+      padding:22px 22px 18px;
+      position:relative;
+    }
+
+    /* keep text inside the notebook margin */
     .prose{
       position:relative;
       z-index:1;
       font-size:15px;
-      line-height:1.8;
-      color:rgba(231,231,234,0.92);
+      line-height:1.9;
+      color:var(--ink);
+      padding-left:86px; /* creates the margin column */
+      padding-right:10px;
     }
-    .prose p{margin:14px 0}
-    .prose h2{
-      margin:22px 0 8px;
-      font-size:16px;
-      letter-spacing:-0.01em;
-      color:var(--fg);
-    }
-    .prose blockquote{
-      margin:16px 0;
-      padding:12px 14px;
-      border-left:3px solid rgba(110,231,255,0.55);
-      background:rgba(0,0,0,0.12);
+
+    /* small “notebook label” at top */
+    .labelstrip{
+      position:sticky;
+      top:10px;
+      z-index:2;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin:0 0 14px 0;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.22);
       border-radius:14px;
-      color:rgba(231,231,234,0.88);
+      backdrop-filter: blur(8px);
     }
+    .labelstrip .l{
+      display:flex; gap:10px; align-items:baseline; flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .labelstrip .l strong{
+      color:rgba(231,231,234,0.95);
+      font-weight:800;
+      letter-spacing:-0.01em;
+    }
+    .labelstrip .r{
+      display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .chip{
+      font-size:12px;
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:999px;
+      background: rgba(255,255,255,0.03);
+      color: rgba(231,231,234,0.86);
+      white-space:nowrap;
+    }
+
+    .prose p{margin:14px 0}
+
+    /* section headers as notebook “tabs” */
+    .prose h2{
+      margin:26px 0 10px;
+      font-size:14px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      color:rgba(231,231,234,0.92);
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 10px;
+      border:1px solid rgba(110,231,255,0.22);
+      background: linear-gradient(180deg, rgba(110,231,255,0.10), rgba(0,0,0,0.16));
+      border-radius:12px;
+    }
+    .prose h2::before{
+      content:"";
+      width:10px; height:10px; border-radius:999px;
+      background: rgba(110,231,255,0.75);
+      box-shadow: 0 0 0 6px rgba(110,231,255,0.10);
+      opacity:.9;
+    }
+
+    .prose blockquote{
+      margin:18px 0;
+      padding:14px 16px;
+      border-left:3px solid rgba(110,231,255,0.55);
+      background:rgba(0,0,0,0.18);
+      border-radius:14px;
+      color:rgba(231,231,234,0.90);
+    }
+
+    /* subtle emphasis styles */
+    .prose em{
+      color: rgba(231,231,234,0.96);
+    }
+    .prose strong{
+      color: rgba(231,231,234,0.98);
+    }
+
+    /* keep it readable on small screens */
+    @media (max-width: 720px){
+      .notebook::after{ left:56px; }
+      .prose{ padding-left:66px; }
+      .holes{ left:14px; width:30px; }
+      .labelstrip{ position:relative; top:auto; }
+    }
+
+    /* post nav */
     .post-nav{
       margin-top:14px;
       display:flex;
@@ -177,6 +340,7 @@
       color:var(--fg);
     }
     .navbtn:hover{transform:translateY(-1px); border-color:var(--accent)}
+
     footer{
       margin-top:22px;
       color:var(--muted);
@@ -185,6 +349,10 @@
       justify-content:space-between;
       gap:12px;
       flex-wrap:wrap;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .home,.pill,.navbtn{transition:none !important}
     }
   </style>
 </head>
@@ -216,114 +384,141 @@
       </div>
     </section>
 
-    <article class="card content">
-      <div class="prose">
-        <p><em>This quarter was busy — but the kind of busy that teaches you things.</em></p>
+    <!-- NOTEBOOK ARTICLE -->
+    <article class="content" aria-label="blog post">
+      <section class="notebook">
+        <div class="holes" aria-hidden="true">
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+        </div>
 
-        <p>
-          Going into fall quarter, I expected intensity. Seven classes, leadership roles across multiple student
-          organizations, and uncertainty around my professional path meant I knew I would be stretched.
-          What I didn’t expect was how much I would grow to enjoy that pace.
-        </p>
+        <div class="page">
+          <div class="labelstrip" aria-label="notebook label">
+            <div class="l">
+              <strong>Notebook</strong>
+              <span class="mono">/ reflections</span>
+              <span>•</span>
+              <span class="mono">Entry #2</span>
+            </div>
+            <div class="r">
+              <span class="chip mono">2025-12-16</span>
+              <span class="chip">4 min read</span>
+            </div>
+          </div>
 
-        <p>
-          Somewhere between deadlines, late nights, and new conversations, the chaos started to feel grounding.
-          Submitting the bulk of my transfer applications lifted a weight I had been carrying quietly for months.
-          For the first time in a while, I could focus less on what was looming ahead and more on what was directly in front of me.
-        </p>
+          <div class="prose">
+            <p><em>This quarter was busy — but the kind of busy that teaches you things.</em></p>
 
-        <h2>Expectations vs. reality</h2>
+            <p>
+              Going into fall quarter, I expected intensity. Seven classes, leadership roles across multiple student
+              organizations, and uncertainty around my professional path meant I knew I would be stretched.
+              What I didn’t expect was how much I would grow to enjoy that pace.
+            </p>
 
-        <p>
-          At the start of the quarter, I wasn’t sure what my professional situation would look like.
-          Academically, I expected to be overloaded. Personally, I was excited to reconnect with friends
-          and meet new people through clubs.
-        </p>
+            <p>
+              Somewhere between deadlines, late nights, and new conversations, the chaos started to feel grounding.
+              Submitting the bulk of my transfer applications lifted a weight I had been carrying quietly for months.
+              For the first time in a while, I could focus less on what was looming ahead and more on what was directly in front of me.
+            </p>
 
-        <p>
-          Reality exceeded those expectations. I joined KCC Capital Partners as a Pharma/Biotech Investment Banking Analyst,
-          managed my coursework more effectively than I anticipated, and met a lot of new people who quickly became friends.
-          The busyness didn’t feel draining — it felt purposeful.
-        </p>
+            <h2>Expectations vs. reality</h2>
 
-        <h2>Learning how I think</h2>
+            <p>
+              At the start of the quarter, I wasn’t sure what my professional situation would look like.
+              Academically, I expected to be overloaded. Personally, I was excited to reconnect with friends
+              and meet new people through clubs.
+            </p>
 
-        <p>
-          Chemistry was the hardest class for me. I’ve never been good at it, and that didn’t change.
-          But other classes challenged me in more constructive ways.
-        </p>
+            <p>
+              Reality exceeded those expectations. I joined KCC Capital Partners as a Pharma/Biotech Investment Banking Analyst,
+              managed my coursework more effectively than I anticipated, and met a lot of new people who quickly became friends.
+              The busyness didn’t feel draining — it felt purposeful.
+            </p>
 
-        <p>
-          As I went deeper into quantitative finance and research, I began internalizing a more systematic,
-          probabilistic way of thinking — optimizing for expected value rather than certainty.
-          That framework has quietly reshaped how I approach decisions far beyond markets or math.
-        </p>
+            <h2>Learning how I think</h2>
 
-        <p>
-          In African American Studies, I was struck by how differently people could write about the same ideas.
-          Navigating subjectivity — especially when there isn’t a single correct answer —
-          forced me to engage with perspectives outside my usual way of thinking.
-        </p>
+            <p>
+              Chemistry was the hardest class for me. I’ve never been good at it, and that didn’t change.
+              But other classes challenged me in more constructive ways.
+            </p>
 
-        <h2>Responsibility at scale</h2>
+            <p>
+              As I went deeper into quantitative finance and research, I began internalizing a more systematic,
+              probabilistic way of thinking — optimizing for expected value rather than certainty.
+              That framework has quietly reshaped how I approach decisions far beyond markets or math.
+            </p>
 
-        <p>
-          Outside the classroom, the quarter was defined by responsibility.
-          Alongside my role at KCC Capital Partners, I served on the executive board of De Anza Phi Beta Lambda,
-          worked with TEDx De Anza, helped grow Polaris Research Group, and contributed to De Anza Hacks.
-        </p>
+            <p>
+              In African American Studies, I was struck by how differently people could write about the same ideas.
+              Navigating subjectivity — especially when there isn’t a single correct answer —
+              forced me to engage with perspectives outside my usual way of thinking.
+            </p>
 
-        <p>
-          Phi Beta Lambda demanded the most. We ran a full recruiting cycle,
-          took 60 members to San Diego for FBLA States, hosted our own Innovation Summit,
-          and balanced consulting projects at the same time.
-        </p>
+            <h2>Responsibility at scale</h2>
 
-        <p>
-          During midterms, everything converged — work deadlines, Polaris recruiting,
-          and exams. I didn’t find a clever workaround.
-          I just powered through and became more intentional about where my effort actually mattered.
-        </p>
+            <p>
+              Outside the classroom, the quarter was defined by responsibility.
+              Alongside my role at KCC Capital Partners, I served on the executive board of De Anza Phi Beta Lambda,
+              worked with TEDx De Anza, helped grow Polaris Research Group, and contributed to De Anza Hacks.
+            </p>
 
-        <h2>Tradeoffs and clarity</h2>
+            <p>
+              Phi Beta Lambda demanded the most. We ran a full recruiting cycle,
+              took 60 members to San Diego for FBLA States, hosted our own Innovation Summit,
+              and balanced consulting projects at the same time.
+            </p>
 
-        <p>
-          This quarter clarified my direction. Another finance role, strong performance in math,
-          and an invitation to the SIG Virtual Discovery Program reinforced that I’m moving in the right direction.
-        </p>
+            <p>
+              During midterms, everything converged — work deadlines, Polaris recruiting,
+              and exams. I didn’t find a clever workaround.
+              I just powered through and became more intentional about where my effort actually mattered.
+            </p>
 
-        <p>
-          The tradeoff was sleep. Most nights ended after 1 a.m.
-          I also stopped actively initiating hangouts and learned to say no more often.
-          Opportunities would come — I didn’t need to chase all of them.
-        </p>
+            <h2>Tradeoffs and clarity</h2>
 
-        <h2>Wins, misses, and honesty</h2>
+            <p>
+              This quarter clarified my direction. Another finance role, strong performance in math,
+              and an invitation to the SIG Virtual Discovery Program reinforced that I’m moving in the right direction.
+            </p>
 
-        <p>
-          Hosting the De Anza Innovation Summit, organizing TEDx De Anza’s CC to Success panel,
-          running DA Hacks 4.0, and leading FBLA States showed me something important:
-          I can manage large teams and execute under pressure.
-        </p>
+            <p>
+              The tradeoff was sleep. Most nights ended after 1 a.m.
+              I also stopped actively initiating hangouts and learned to say no more often.
+              Opportunities would come — I didn’t need to chase all of them.
+            </p>
 
-        <p>
-          At the same time, this quarter surfaced a pattern I can’t ignore.
-          I overcommit and sometimes sacrifice my own well-being.
-          That’s something I need to change.
-        </p>
+            <h2>Wins, misses, and honesty</h2>
 
-        <h2>Looking ahead</h2>
+            <p>
+              Hosting the De Anza Innovation Summit, organizing TEDx De Anza’s CC to Success panel,
+              running DA Hacks 4.0, and leading FBLA States showed me something important:
+              I can manage large teams and execute under pressure.
+            </p>
 
-        <p>
-          Next quarter, I’m narrowing my focus. I’m not adding anything new.
-          With a lighter academic load, I want to reclaim time for myself —
-          sleeping properly, working out, and building habits that are sustainable.
-        </p>
+            <p>
+              At the same time, this quarter surfaced a pattern I can’t ignore.
+              I overcommit and sometimes sacrifice my own well-being.
+              That’s something I need to change.
+            </p>
 
-        <blockquote>
-          You don’t need to say yes to everything. Put yourself first and build something you can sustain.
-        </blockquote>
-      </div>
+            <h2>Looking ahead</h2>
+
+            <p>
+              Next quarter, I’m narrowing my focus. I’m not adding anything new.
+              With a lighter academic load, I want to reclaim time for myself —
+              sleeping properly, working out, and building habits that are sustainable.
+            </p>
+
+            <blockquote>
+              You don’t need to say yes to everything. Put yourself first and build something you can sustain.
+            </blockquote>
+          </div>
+        </div>
+      </section>
     </article>
 
     <div class="post-nav">
