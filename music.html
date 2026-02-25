@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Music</title>
+    <meta name="description" content="Album ratings across genres." />
+    <style>
+      :root{
+        --bg:#ffffff;
+        --fg:#0b0b0b;
+        --muted:#6b6b6b;
+        --line:#e9e9e9;
+        --chip:#f4f4f4;
+        --chip2:#efefef;
+        --shadow:0 10px 30px rgba(0,0,0,.06);
+        --r:16px;
+        --w:980px;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      }
+      *{box-sizing:border-box}
+      body{
+        margin:0;
+        background:var(--bg);
+        color:var(--fg);
+        font-family:var(--sans);
+        -webkit-font-smoothing:antialiased;
+        text-rendering:optimizeLegibility;
+      }
+      a{color:inherit;text-decoration:none}
+      a:hover{text-decoration:underline}
+      .wrap{max-width:var(--w);margin:0 auto;padding:28px 18px 60px}
+      .top{
+        display:flex;align-items:center;justify-content:space-between;gap:16px;
+        padding:6px 0 18px;border-bottom:1px solid var(--line);
+      }
+      .nav{
+        display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+        color:var(--muted);font-size:14px;
+      }
+      .nav a{color:var(--muted)}
+      .nav .sep{opacity:.45}
+      .brand{font-weight:600;font-size:14px;color:var(--fg)}
+      h1{margin:26px 0 10px;font-size:34px;letter-spacing:-.02em}
+      .sub{margin:0 0 22px;color:var(--muted);line-height:1.55;max-width:70ch}
+      .bar{
+        display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+        padding:14px;border:1px solid var(--line);border-radius:var(--r);
+        background:#fff;box-shadow:var(--shadow);
+      }
+      .bar .group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+      .bar .spacer{flex:1}
+      .inp, .sel{
+        border:1px solid var(--line);
+        border-radius:12px;
+        padding:10px 12px;
+        font-size:14px;
+        background:#fff;
+        color:var(--fg);
+        outline:none;
+      }
+      .inp{min-width:240px}
+      .sel{min-width:190px}
+      .btn{
+        border:1px solid var(--line);
+        background:#fff;
+        padding:10px 12px;
+        border-radius:12px;
+        font-size:14px;
+        cursor:pointer;
+      }
+      .btn:hover{background:#fafafa}
+      .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+      .chip{
+        border:1px solid var(--line);
+        background:var(--chip);
+        padding:7px 10px;
+        border-radius:999px;
+        font-size:13px;
+        color:var(--fg);
+        cursor:pointer;
+        user-select:none;
+      }
+      .chip[data-active="1"]{background:var(--chip2);border-color:#d8d8d8}
+      .meta{
+        display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+        margin:16px 0 10px;color:var(--muted);font-size:13px;
+      }
+      .grid{
+        margin-top:12px;
+        display:grid;
+        grid-template-columns:repeat(12,1fr);
+        gap:14px;
+      }
+      .card{
+        grid-column:span 6;
+        border:1px solid var(--line);
+        border-radius:var(--r);
+        background:#fff;
+        box-shadow:var(--shadow);
+        padding:14px;
+        display:flex;
+        gap:14px;
+        min-height:124px;
+      }
+      @media (max-width: 860px){ .card{grid-column:span 12} .inp{min-width: 180px} }
+      .cover{
+        width:86px;height:86px;border-radius:14px;
+        border:1px solid var(--line);
+        background:linear-gradient(180deg,#fbfbfb,#f2f2f2);
+        display:flex;align-items:center;justify-content:center;
+        overflow:hidden;
+        flex:0 0 auto;
+      }
+      .cover img{width:100%;height:100%;object-fit:cover}
+      .covtxt{
+        font-family:var(--mono);
+        font-size:12px;
+        color:#9b9b9b;
+        padding:8px;
+        text-align:center;
+        line-height:1.2;
+      }
+      .cmain{flex:1;min-width:0}
+      .ctop{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+      .title{
+        font-size:15px;font-weight:650;letter-spacing:-.01em;
+        margin:0 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      }
+      .artist{
+        font-size:13px;color:var(--muted);
+        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      }
+      .rating{
+        font-family:var(--mono);
+        font-size:14px;
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid var(--line);
+        background:#fff;
+        flex:0 0 auto;
+      }
+      .row{
+        margin-top:10px;
+        display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+      }
+      .tag{
+        font-size:12px;
+        padding:6px 10px;border-radius:999px;
+        border:1px solid var(--line);
+        background:#fff;
+        color:var(--muted);
+      }
+      .note{
+        margin-top:10px;
+        color:var(--fg);
+        font-size:13px;
+        line-height:1.5;
+        display:-webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
+      }
+      .foot{
+        margin-top:28px;
+        padding-top:16px;
+        border-top:1px solid var(--line);
+        color:var(--muted);
+        font-size:13px;
+        display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+      }
+      .mono{font-family:var(--mono)}
+      .small{font-size:12px;color:var(--muted)}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div class="brand"><a href="./index.html">← Home</a></div>
+        <div class="nav">
+          <a href="./projects.html">→ Projects</a>
+          <span class="sep">·</span>
+          <a href="./experience.html">→ Experience</a>
+          <span class="sep">·</span>
+          <a href="./writing.html">→ Writing</a>
+          <span class="sep">·</span>
+          <a href="./about.html">→ About</a>
+          <span class="sep">·</span>
+          <span>@</span>
+          <a href="./index.html#contact">Contact</a>
+        </div>
+      </div>
+
+      <h1>Music</h1>
+      <p class="sub">
+        Album ratings across genres. I optimize for cohesion, production, innovation, replay value, and emotional weight.
+        Scale: <span class="mono">1–10</span>.
+      </p>
+
+      <div class="bar">
+        <div class="group">
+          <input id="q" class="inp" type="search" placeholder="Search album / artist / notes…" autocomplete="off" />
+          <select id="sort" class="sel">
+            <option value="rating_desc">Sort: rating ↓</option>
+            <option value="rating_asc">Sort: rating ↑</option>
+            <option value="year_desc">Sort: year ↓</option>
+            <option value="year_asc">Sort: year ↑</option>
+            <option value="added_desc">Sort: added ↓</option>
+            <option value="added_asc">Sort: added ↑</option>
+            <option value="title_asc">Sort: title A→Z</option>
+            <option value="artist_asc">Sort: artist A→Z</option>
+          </select>
+        </div>
+        <div class="spacer"></div>
+        <div class="group">
+          <button id="clear" class="btn">Clear</button>
+        </div>
+      </div>
+
+      <div id="chips" class="chips"></div>
+
+      <div class="meta">
+        <div><span id="count">0</span> shown</div>
+        <div class="sep">·</div>
+        <div class="small">Tip: click a genre chip to filter</div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+
+      <div class="foot">
+        <div>© <span id="yr"></span> Arya Somu</div>
+        <div class="small mono">Edit the <span class="mono">albums</span> array inside this file to add entries.</div>
+      </div>
+    </div>
+
+    <script>
+      const albums = [
+        {
+          title: "ca$ino",
+          artist: "baby keem",
+          year: 2026,
+          genre: ["rap"],
+          rating: 9.7,
+          note: "this album made me realize you just gotta listen to some things by yourself. i initially listened to this with my roommate, bruce, and we were distracted looking at Howard investment groups IB placements for whatever reason, and I didn't appreciat the technical depth of this album. however, on second listen, songs like no blame damn near brought me to tears, and some of the standout tracks were ca$ino, dramatic girl, and $ex appeal. overall, incredible project, everyone should go listen.",
+          added: "2026-02-25",
+          cover: ""
+        },
+        {
+          title: "octane",
+          artist: "don toliver",
+          year: 2026,
+          genre: ["melodic hip-hop"],
+          rating: 8.7,
+          note: "the highs were super high and some of the lows were forgettable. e85, body, rendezvous, and secondhand to open the album was INSANE. overall, great project, but there is some filler fs.",
+          added: "2026-02-25",
+          cover: ""
+        },
+        {
+          title: "icon",
+          artist: "brent faiyaz",
+          year: 2026,
+          genre: ["rnb"],
+          rating: 7.2,
+          note: "some really good songs on here, but overall i felt that a lot of the music on here sounded a little too similar to his past cuts.",
+          added: "2026-02-25",
+          cover: ""
+        },
+      ];
+
+      const elQ = document.getElementById("q");
+      const elSort = document.getElementById("sort");
+      const elClear = document.getElementById("clear");
+      const elGrid = document.getElementById("grid");
+      const elChips = document.getElementById("chips");
+      const elCount = document.getElementById("count");
+      const elYr = document.getElementById("yr");
+
+      elYr.textContent = new Date().getFullYear();
+
+      let activeGenre = "All";
+
+      const norm = (s) => (s ?? "").toString().toLowerCase().trim();
+
+      const uniqueGenres = () => {
+        const s = new Set();
+        albums.forEach(a => (a.genre || []).forEach(g => s.add(g)));
+        return ["All", ...Array.from(s).sort((a,b)=>a.localeCompare(b))];
+      };
+
+      const renderChips = () => {
+        const gs = uniqueGenres();
+        elChips.innerHTML = gs.map(g => {
+          const on = (g === activeGenre) ? "1" : "0";
+          return `<div class="chip" data-g="${escapeHtml(g)}" data-active="${on}">${escapeHtml(g)}</div>`;
+        }).join("");
+        [...elChips.querySelectorAll(".chip")].forEach(c => {
+          c.addEventListener("click", () => {
+            activeGenre = c.getAttribute("data-g");
+            renderChips();
+            render();
+          });
+        });
+      };
+
+      const escapeHtml = (s) =>
+        (s ?? "").toString()
+          .replaceAll("&","&amp;")
+          .replaceAll("<","&lt;")
+          .replaceAll(">","&gt;")
+          .replaceAll('"',"&quot;")
+          .replaceAll("'","&#039;");
+
+      const sortFn = (key) => {
+        switch(key){
+          case "rating_desc": return (a,b)=> (b.rating??-1) - (a.rating??-1);
+          case "rating_asc": return (a,b)=> (a.rating??1e9) - (b.rating??1e9);
+          case "year_desc": return (a,b)=> (b.year??-1) - (a.year??-1);
+          case "year_asc": return (a,b)=> (a.year??1e9) - (b.year??1e9);
+          case "added_desc": return (a,b)=> norm(b.added).localeCompare(norm(a.added));
+          case "added_asc": return (a,b)=> norm(a.added).localeCompare(norm(b.added));
+          case "title_asc": return (a,b)=> norm(a.title).localeCompare(norm(b.title));
+          case "artist_asc": return (a,b)=> norm(a.artist).localeCompare(norm(b.artist));
+          default: return (a,b)=> (b.rating??-1) - (a.rating??-1);
+        }
+      };
+
+      const matches = (a, q) => {
+        if (!q) return true;
+        const bag = [
+          a.title, a.artist, a.year, (a.genre||[]).join(" "), a.note
+        ].map(norm).join(" | ");
+        return bag.includes(q);
+      };
+
+      const genreOk = (a) => {
+        if (activeGenre === "All") return true;
+        return (a.genre || []).some(g => g === activeGenre);
+      };
+
+      const cardHtml = (a) => {
+        const cover = a.cover ? `<img src="${escapeHtml(a.cover)}" alt="${escapeHtml(a.title)} cover" loading="lazy" />`
+                              : `<div class="covtxt">${escapeHtml(a.title)}<br/>${escapeHtml(a.artist)}</div>`;
+        const tags = [
+          ...(a.genre || []).map(g => `<span class="tag">${escapeHtml(g)}</span>`),
+          (a.year ? `<span class="tag">${escapeHtml(a.year)}</span>` : "")
+        ].filter(Boolean).join("");
+        const r = (typeof a.rating === "number") ? a.rating.toFixed(1) : (a.rating ?? "—");
+        return `
+          <div class="card">
+            <div class="cover">${cover}</div>
+            <div class="cmain">
+              <div class="ctop">
+                <div style="min-width:0">
+                  <div class="title">${escapeHtml(a.title || "Untitled")}</div>
+                  <div class="artist">${escapeHtml(a.artist || "Unknown artist")}</div>
+                </div>
+                <div class="rating">${escapeHtml(r)} / 10</div>
+              </div>
+              <div class="row">${tags}</div>
+              <div class="note">${escapeHtml(a.note || "")}</div>
+            </div>
+          </div>
+        `;
+      };
+
+      const render = () => {
+        const q = norm(elQ.value);
+        const s = elSort.value;
+
+        const items = albums
+          .filter(a => genreOk(a))
+          .filter(a => matches(a, q))
+          .slice()
+          .sort(sortFn(s));
+
+        elCount.textContent = items.length.toString();
+        elGrid.innerHTML = items.map(cardHtml).join("") || `<div class="small" style="grid-column:span 12;color:var(--muted);padding:10px 2px">No results.</div>`;
+      };
+
+      elQ.addEventListener("input", render);
+      elSort.addEventListener("change", render);
+      elClear.addEventListener("click", () => {
+        elQ.value = "";
+        elSort.value = "rating_desc";
+        activeGenre = "All";
+        renderChips();
+        render();
+      });
+
+      renderChips();
+      render();
+    </script>
+  </body>
+</html>
