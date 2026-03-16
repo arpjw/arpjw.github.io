@@ -1,125 +1,275 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arya Somu</title>
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --text: #0f172a;
-      --muted: #475569;
-      --border: #cbd5e1;
-      --bg: #ffffff;
+      --linen:     #edeae3;
+      --linen-mid: #e5e1d8;
+      --rule:      #d0cdc5;
+      --ink:       #121313;
+      --ink-mid:   #4a4a48;
+      --ink-muted: #8a8a87;
+      --ink-ghost: #c8c5bf;
+
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
     }
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      font-size: 16px;
-      line-height: 1.7;
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: var(--linen);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
       -webkit-font-smoothing: antialiased;
     }
 
-    .wrap {
+    /* ── Outer shell: narrow centered column, generous vertical space */
+    .page {
       max-width: 680px;
-      margin: 96px auto;
-      padding: 0 22px;
+      margin: 0 auto;
+      padding: 96px 32px 120px;
     }
 
-    h1 {
-      font-size: 42px;
-      font-weight: 600;
+    /* ── Name */
+    .name {
+      font-family: var(--serif);
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 400;
+      font-style: italic;
       letter-spacing: -0.03em;
-      margin: 0 0 6px;
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 36px;
     }
 
+    /* ── Thin rule under name */
+    .name-rule {
+      width: 100%;
+      height: 1px;
+      background: var(--rule);
+      margin-bottom: 32px;
+    }
+
+    /* ── Email */
     .email {
-      font-family: "IBM Plex Mono", monospace;
+      font-family: var(--sans);
       font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 22px;
+      font-weight: 400;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+      display: block;
+      letter-spacing: 0.01em;
     }
 
-    p {
-      margin: 16px 0;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1px;
-    }
-
-    a:hover {
-      border-bottom-color: var(--text);
-    }
-
+    /* ── Links row */
     .links {
       display: flex;
-      gap: 18px;
-      margin: 0 0 36px;
-      font-size: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 72px;
     }
 
     .links a {
-      font-family: "IBM Plex Mono", monospace;
-      color: var(--muted);
-      border-bottom: 1px solid transparent;
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      background: var(--linen-mid);
+      border: 1px solid var(--rule);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      transition: background 0.18s, border-color 0.18s;
     }
 
     .links a:hover {
-      color: var(--text);
-      border-bottom-color: var(--text);
+      background: var(--rule);
+      border-color: var(--ink-ghost);
+    }
+
+    /* ── Bio section label */
+    .section-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    /* ── Bio paragraphs */
+    .bio {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 64px;
+    }
+
+    .bio p {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--ink-mid);
+    }
+
+    /* Highlight the Stanford line slightly */
+    .bio p.current {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    /* ── Work / affiliations block */
+    .affiliations {
+      border-top: 1px solid var(--rule);
+      padding-top: 40px;
+      margin-bottom: 64px;
+    }
+
+    .affiliation-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .affiliation-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 24px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .affiliation-item:first-child {
+      border-top: 1px solid var(--rule);
+    }
+
+    .affiliation-name {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .affiliation-role {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--ink-muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ── Interests / footer note */
+    .footer-note {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--ink-ghost);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Page entry animation */
+    .page > * {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: rise 0.55s ease forwards;
+    }
+
+    .page > *:nth-child(1)  { animation-delay: 0.04s; }
+    .page > *:nth-child(2)  { animation-delay: 0.10s; }
+    .page > *:nth-child(3)  { animation-delay: 0.15s; }
+    .page > *:nth-child(4)  { animation-delay: 0.20s; }
+    .page > *:nth-child(5)  { animation-delay: 0.26s; }
+    .page > *:nth-child(6)  { animation-delay: 0.32s; }
+    .page > *:nth-child(7)  { animation-delay: 0.38s; }
+    .page > *:nth-child(8)  { animation-delay: 0.44s; }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 64px 24px 96px; }
+      .name { font-size: 48px; }
+      .affiliation-item { grid-template-columns: 1fr; gap: 2px; }
+      .affiliation-role { text-align: left; }
     }
   </style>
 </head>
-
 <body>
-  <main class="wrap">
-    <h1>Arya Somu</h1>
-    <div class="email">aryasomu18 [at] gmail [dot] com</div>
+  <main class="page">
+
+    <h1 class="name">Arya Somu</h1>
+
+    <div class="name-rule"></div>
+
+    <span class="email">aryasomu18 [at] gmail [dot] com</span>
 
     <nav class="links">
-      <a href="https://monolithsystematic.com/">monolith</a>
-      <a href="https://www.linkedin.com/in/aryasomu/">linkedin</a>
-      <a href="https://github.com/arpjw">github</a>
-      <a href="https://substack.com/@aryasomu">substack</a>
-      <a href="./music.html">album ratings</a>
+      <a href="https://monolithsystematic.com/" target="_blank">Monolith Systematic</a>
+      <a href="https://www.linkedin.com/in/aryasomu/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/arpjw" target="_blank">GitHub</a>
+      <a href="https://substack.com/@aryasomu" target="_blank">Substack</a>
+      <a href="music.html">Album Ratings</a>
     </nav>
 
-    <p>
-      I work on quantitative and research-driven problems across finance and markets.
-      My experience spans macro research, fixed income/structured credit, and investment banking. 
-      I also really enjoy researching neurobiology, and have a huge interest in the 
-      intersection between the brain and our computers.   
-    </p>
+    <span class="section-label">About</span>
 
-    <p>
-      Across roles, I focus on translating economic intuition into data-driven,
-      testable systems—combining applied math, statistics, and code to study how
-      markets behave under real-world constraints.
-    </p>
-    
-    <p>
-      When I'm not working, I really enjoy playing badminton with my friends, listening to all 
-      the latest music releases, and giving them a rating. I've also more recently been getting 
-      into pickleball and table tennis (I really like racket sports).
-    </p>
+    <div class="bio">
+      <p class="current">This summer I will be researching at Stanford University's AFT Lab, working on microstructure and volatility.</p>
+      <p>I work on quantitative and research-driven problems across finance and markets. My experience spans macro research, fixed income and structured credit, and systematic strategy. I focus on translating economic intuition into data-driven, testable systems — combining applied mathematics, statistics, and code to study how markets behave under real-world constraints.</p>
+      <p>I also have a deep interest in neurobiology and the intersection between the brain and computation, and I founded Monolith Systematic, a systematic global macro CTA operating the Onyx Fund across FX, rates, equity indices, and commodities.</p>
+    </div>
 
-     <p>
-      I will be researching at Stanford University's AFT Lab this summer, working on microstructure and volatility. 
-      I was previously involved with Esplanade Partners, KCC Capital Partners, AfterQuery Experts, Limex, and the 
-      Arizona State University Dept. of Physics.
-    </p>
+    <div class="affiliations">
+      <span class="section-label">Work &amp; Research</span>
+      <ul class="affiliation-list">
+        <li class="affiliation-item">
+          <span class="affiliation-name">Stanford University — AFT Lab</span>
+          <span class="affiliation-role">Researcher, Summer 2026</span>
+        </li>
+        <li class="affiliation-item">
+          <span class="affiliation-name">Monolith Systematic</span>
+          <span class="affiliation-role">Founder &amp; CIO</span>
+        </li>
+        <li class="affiliation-item">
+          <span class="affiliation-name">Esplanade Partners</span>
+          <span class="affiliation-role">Previously</span>
+        </li>
+        <li class="affiliation-item">
+          <span class="affiliation-name">KCC Capital Partners</span>
+          <span class="affiliation-role">Previously</span>
+        </li>
+        <li class="affiliation-item">
+          <span class="affiliation-name">AfterQuery Experts</span>
+          <span class="affiliation-role">Previously</span>
+        </li>
+        <li class="affiliation-item">
+          <span class="affiliation-name">Arizona State University — Physics</span>
+          <span class="affiliation-role">Previously</span>
+        </li>
+      </ul>
+    </div>
+
+    <p class="footer-note">When not working — badminton, pickleball, table tennis, and rating every album I can get my ears on.</p>
+
   </main>
 </body>
 </html>
