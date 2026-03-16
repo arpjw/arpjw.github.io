@@ -1,461 +1,874 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Music</title>
-    <meta name="description" content="Album ratings." />
-    <style>
-      :root{
-        --bg:#ffffff;
-        --fg:#0b0b0b;
-        --muted:#6b6b6b;
-        --line:#e9e9e9;
-        --shadow:0 12px 30px rgba(0,0,0,.08);
-        --r:16px;
-        --w:860px;
-        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      }
-      *{box-sizing:border-box}
-      body{
-        margin:0;
-        background:var(--bg);
-        color:var(--fg);
-        font-family:var(--sans);
-        -webkit-font-smoothing:antialiased;
-        text-rendering:optimizeLegibility;
-      }
-      a{color:inherit;text-decoration:none}
-      a:hover{text-decoration:underline}
-      .wrap{max-width:var(--w);margin:0 auto;padding:64px 18px 72px}
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Music — Arya Somu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+    }
 
-      .back{
-        display:inline-flex;
-        align-items:center;
-        gap:8px;
-        color:var(--muted);
-        font-size:14px;
-        margin-bottom:18px;
-      }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-      h1{margin:0 0 10px;font-size:40px;letter-spacing:-.03em}
-      .sub{margin:0 0 18px;color:var(--muted);line-height:1.6;max-width:70ch}
-      .mono{font-family:var(--mono)}
+    html { scroll-snap-type: y mandatory; overflow-y: scroll; }
 
-      .controls{
-        display:flex;
-        gap:10px;
-        align-items:center;
-        flex-wrap:wrap;
-        margin:18px 0 18px;
-      }
-      .inp, .sel{
-        border:1px solid var(--line);
-        border-radius:14px;
-        padding:10px 12px;
-        font-size:14px;
-        background:#fff;
-        color:var(--fg);
-        outline:none;
-      }
-      .inp{flex:1;min-width:240px}
-      .sel{min-width:170px}
+    body {
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      background: #0d0d0d;
+      color: #fff;
+    }
 
-      .grid{
-        margin-top:10px;
-        display:grid;
-        grid-template-columns:repeat(12,1fr);
-        gap:14px;
-      }
-      .card{
-        grid-column:span 6;
-        border:1px solid var(--line);
-        border-radius:var(--r);
-        background:#fff;
-        box-shadow:var(--shadow);
-        padding:14px;
-        display:flex;
-        gap:14px;
-        min-height:124px;
-        cursor:pointer;
-        transition:transform .08s ease;
-      }
-      .card:hover{transform:translateY(-1px)}
-      .card:active{transform:translateY(0px)}
-      @media (max-width: 860px){ .card{grid-column:span 12} .inp{min-width: 180px} }
+    /* ─── Fixed HUD ─── */
+    .hud {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 28px;
+      pointer-events: none;
+    }
 
-      .cover{
-        width:86px;height:86px;border-radius:14px;
-        border:1px solid var(--line);
-        background:linear-gradient(180deg,#fbfbfb,#f2f2f2);
-        display:flex;align-items:center;justify-content:center;
-        overflow:hidden;
-        flex:0 0 auto;
-      }
-      .cover img{width:100%;height:100%;object-fit:cover}
-      .covtxt{
-        font-family:var(--mono);
-        font-size:12px;
-        color:#9b9b9b;
-        padding:8px;
-        text-align:center;
-        line-height:1.2;
-      }
-      .cmain{flex:1;min-width:0}
-      .ctop{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
-      .title{
-        font-size:15px;font-weight:650;letter-spacing:-.01em;
-        margin:0 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      }
-      .artist{
-        font-size:13px;color:var(--muted);
-        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      }
-      .rating{
-        font-family:var(--mono);
-        font-size:14px;
-        padding:6px 10px;
-        border-radius:999px;
-        border:1px solid var(--line);
-        background:#fff;
-        flex:0 0 auto;
-        white-space:nowrap;
-      }
-      .row{
-        margin-top:10px;
-        display:flex;gap:8px;flex-wrap:wrap;align-items:center;
-      }
-      .tag{
-        font-size:12px;
-        padding:6px 10px;border-radius:999px;
-        border:1px solid var(--line);
-        background:#fff;
-        color:var(--muted);
-      }
-      .note{
-        margin-top:10px;
-        color:var(--fg);
-        font-size:13px;
-        line-height:1.5;
-        display:-webkit-box;
-        -webkit-line-clamp:2;
-        -webkit-box-orient:vertical;
-        overflow:hidden;
-      }
-      .foot{
-        margin-top:32px;
-        padding-top:16px;
-        border-top:1px solid var(--line);
-        color:var(--muted);
-        font-size:13px;
-        display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
-      }
+    .hud-back {
+      pointer-events: all;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 9999px;
+      padding: 8px 18px;
+      backdrop-filter: blur(12px);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .hud-back:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
 
-      .overlay{
-        position:fixed;inset:0;
-        background:rgba(0,0,0,.40);
-        display:none;
-        align-items:center;
-        justify-content:center;
-        padding:18px;
-        z-index:50;
-      }
-      .overlay[data-open="1"]{display:flex}
-      .modal{
-        width:min(720px, 100%);
-        background:#fff;
-        border:1px solid var(--line);
-        border-radius:20px;
-        box-shadow:0 30px 80px rgba(0,0,0,.25);
-        overflow:hidden;
-      }
-      .mhead{
-        padding:16px 16px 14px;
-        border-bottom:1px solid var(--line);
-        display:flex;
-        gap:12px;
-        align-items:flex-start;
-        justify-content:space-between;
-      }
-      .mleft{min-width:0}
-      .mtitle{
-        font-size:16px;
-        font-weight:700;
-        margin:0 0 2px;
-        letter-spacing:-.01em;
-        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      }
-      .martist{
-        font-size:13px;
-        color:var(--muted);
-        margin:0;
-        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      }
-      .mmeta{
-        margin-top:10px;
-        display:flex;
-        gap:8px;
-        flex-wrap:wrap;
-        align-items:center;
-      }
-      .close{
-        border:1px solid var(--line);
-        background:#fff;
-        border-radius:12px;
-        padding:8px 10px;
-        cursor:pointer;
-        font-size:14px;
-        color:var(--muted);
-        line-height:1;
-      }
-      .close:hover{color:var(--fg)}
-      .mbody{
-        padding:16px;
-        max-height:min(62vh, 560px);
-        overflow:auto;
-      }
-      .mnote{
-        font-size:14px;
-        line-height:1.7;
-        margin:0;
-        white-space:pre-wrap;
-      }
-    </style>
-  </head>
+    .hud-counter {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9999px;
+      padding: 6px 14px;
+      backdrop-filter: blur(12px);
+      letter-spacing: 0.05em;
+    }
 
-  <body>
-    <div class="wrap">
-      <a class="back" href="./index.html">← Home</a>
+    /* ─── Search bar (fixed) ─── */
+    .search-bar {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 300;
+      display: flex;
+      gap: 8px;
+      pointer-events: all;
+    }
 
-      <h1>Music</h1>
-      <p class="sub">
-        Album ratings. Scale: <span class="mono">1–10</span>. Click an album to read the full note.
-      </p>
+    .inp {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 400;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 9999px;
+      padding: 10px 20px;
+      color: #fff;
+      outline: none;
+      backdrop-filter: blur(16px);
+      width: 240px;
+      transition: border-color 0.2s, width 0.3s;
+    }
+    .inp:focus { border-color: rgba(255,255,255,0.4); width: 300px; }
+    .inp::placeholder { color: rgba(255,255,255,0.3); }
 
-      <div class="controls">
-        <input id="q" class="inp" type="search" placeholder="Search album / artist / notes…" autocomplete="off" />
-        <select id="genre" class="sel"></select>
+    .sel {
+      font-family: var(--sans);
+      font-size: 13px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 9999px;
+      padding: 10px 16px;
+      color: rgba(255,255,255,0.7);
+      outline: none;
+      backdrop-filter: blur(16px);
+      cursor: pointer;
+      appearance: none;
+      min-width: 110px;
+      text-align: center;
+    }
+    .sel option { background: #1a1a1a; }
+
+    /* ─── Scroll container ─── */
+    #stack {
+      position: relative;
+    }
+
+    /* ─── Each cover slide ─── */
+    .cover-slide {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    /* Full-bleed background: art image or gradient fallback */
+    .cover-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+
+    .cover-slide:hover .cover-bg {
+      transform: scale(1.03);
+    }
+
+    /* Dark vignette so text is always readable */
+    .cover-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.05) 100%),
+        linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 60%);
+    }
+
+    /* Content layer */
+    .cover-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 40px 48px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .cover-left { flex: 1; min-width: 0; }
+
+    /* Issue-style label */
+    .cover-issue {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cover-issue::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: rgba(255,255,255,0.35);
+    }
+
+    /* Artist name — big and bold */
+    .cover-artist {
+      font-family: var(--sans);
+      font-size: clamp(14px, 2.5vw, 20px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* Album title — the headline */
+    .cover-title {
+      font-family: var(--serif);
+      font-size: clamp(40px, 7vw, 88px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    /* Tags row */
+    .cover-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ctag {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 9999px;
+      padding: 5px 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Score — right side, massive */
+    .cover-right {
+      flex-shrink: 0;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .cover-score {
+      font-family: var(--serif);
+      font-size: clamp(64px, 11vw, 140px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      /* Score gets a color tint based on the accent */
+      color: #fff;
+      text-shadow: 0 0 60px rgba(255,255,255,0.15);
+    }
+
+    .cover-score-denom {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.04em;
+    }
+
+    /* Read note hint */
+    .cover-hint {
+      position: absolute;
+      bottom: 50%;
+      right: 40px;
+      transform: translateY(50%);
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      z-index: 2;
+      transition: color 0.2s;
+    }
+
+    .cover-slide:hover .cover-hint { color: rgba(255,255,255,0.5); }
+
+    /* Scroll indicator — bottom center */
+    .scroll-hint {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: bob 2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Only show on first slide */
+    .cover-slide:not(:first-child) .scroll-hint { display: none; }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    .scroll-hint-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0));
+    }
+
+    .scroll-hint-label {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ─── Note drawer ─── */
+    .note-drawer {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .note-drawer.open {
+      pointer-events: all;
+      opacity: 1;
+    }
+
+    .note-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      cursor: pointer;
+    }
+
+    .note-panel {
+      position: relative;
+      z-index: 1;
+      background: #111;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px 20px 0 0;
+      padding: 0 0 48px;
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .note-drawer.open .note-panel {
+      transform: translateY(0);
+    }
+
+    /* Drag handle */
+    .note-handle {
+      display: flex;
+      justify-content: center;
+      padding: 16px 0 20px;
+      cursor: pointer;
+    }
+
+    .note-handle-bar {
+      width: 36px;
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 9999px;
+    }
+
+    .note-header {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 0 28px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 28px;
+    }
+
+    .note-cover-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      display: block;
+      background: #222;
+    }
+
+    .note-cover-thumb-ph {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 10px;
+      font-style: italic;
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      padding: 8px;
+    }
+
+    .note-title-block {}
+
+    .note-album-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 900;
+      font-style: italic;
+      color: #fff;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .note-album-artist {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .note-score-block {
+      text-align: right;
+    }
+
+    .note-score-big {
+      font-family: var(--serif);
+      font-size: 44px;
+      font-weight: 900;
+      font-style: italic;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .note-score-sub {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .note-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      padding: 0 28px;
+      margin-bottom: 20px;
+    }
+
+    .ntag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 9999px;
+      padding: 4px 12px;
+    }
+
+    .note-text {
+      font-family: var(--sans);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      padding: 0 28px;
+      white-space: pre-wrap;
+    }
+
+    /* ─── Empty state ─── */
+    .empty-slide {
+      width: 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d0d0d;
+    }
+
+    .empty-text {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-style: italic;
+      color: rgba(255,255,255,0.15);
+    }
+
+    /* ─── Mobile ─── */
+    @media (max-width: 600px) {
+      .cover-content { padding: 0 20px 100px; flex-direction: column; align-items: flex-start; gap: 16px; }
+      .cover-right { align-items: flex-start; }
+      .cover-score { font-size: 72px; }
+      .cover-title { font-size: 48px; }
+      .cover-hint { display: none; }
+      .note-header { grid-template-columns: 64px 1fr auto; gap: 14px; }
+      .note-cover-thumb, .note-cover-thumb-ph { width: 64px; height: 64px; }
+      .note-score-big { font-size: 36px; }
+      .search-bar { bottom: 16px; }
+      .inp { width: 160px; }
+      .inp:focus { width: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed HUD -->
+  <div class="hud">
+    <a class="hud-back" href="./index.html">← Arya Somu</a>
+    <div class="hud-counter" id="hud-counter">— / —</div>
+  </div>
+
+  <!-- Search bar -->
+  <div class="search-bar">
+    <input id="q" class="inp" type="search" placeholder="Search…" autocomplete="off"/>
+    <select id="genre" class="sel"></select>
+  </div>
+
+  <!-- Slides -->
+  <div id="stack"></div>
+
+  <!-- Note drawer -->
+  <div id="note-drawer" class="note-drawer">
+    <div class="note-backdrop" id="note-backdrop"></div>
+    <div class="note-panel" id="note-panel">
+      <div class="note-handle" id="note-handle">
+        <div class="note-handle-bar"></div>
       </div>
-
-      <div id="grid" class="grid"></div>
-
-      <div class="foot">
-        <div>© <span id="yr"></span> Arya Somu</div>
-        <div class="mono">Click any card to expand.</div>
-      </div>
-    </div>
-
-    <div id="overlay" class="overlay" data-open="0" aria-hidden="true">
-      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
-        <div class="mhead">
-          <div class="mleft">
-            <div id="mtitle" class="mtitle"></div>
-            <div id="martist" class="martist"></div>
-            <div class="mmeta" id="mmeta"></div>
-          </div>
-          <button id="close" class="close" type="button">Close</button>
+      <div class="note-header">
+        <div id="drawer-thumb"></div>
+        <div class="note-title-block">
+          <div id="drawer-title" class="note-album-title"></div>
+          <div id="drawer-artist" class="note-album-artist"></div>
         </div>
-        <div class="mbody">
-          <p id="mnote" class="mnote"></p>
+        <div class="note-score-block">
+          <div id="drawer-score" class="note-score-big"></div>
+          <div class="note-score-sub">out of 10</div>
         </div>
       </div>
+      <div id="drawer-tags" class="note-tags"></div>
+      <div id="drawer-note" class="note-text"></div>
     </div>
+  </div>
 
-    <script>
-      const albums = [
-        {
-          title: "ca$ino",
-          artist: "baby keem",
-          year: 2026,
-          genre: ["rap"],
-          rating: 9.7,
-          note: "this album made me realize you just gotta listen to some things by yourself. i initially listened to this with my roommate, bruce, and we were distracted looking at Howard investment groups IB placements for whatever reason, and I didn't appreciat the technical depth of this album. however, on second listen, songs like no blame damn near brought me to tears, and some of the standout tracks were ca$ino, dramatic girl, and $ex appeal. overall, incredible project, everyone should go listen.",
-          added: "2026-02-25",
-          cover: "./assets/papers/casino.jpg"
-        },
-        {
-          title: "octane",
-          artist: "don toliver",
-          year: 2026,
-          genre: ["melodic hip-hop"],
-          rating: 8.7,
-          note: "the highs were super high and some of the lows were forgettable. e85, body, rendezvous, and secondhand to open the album was INSANE. overall, great project, but there is some filler fs.",
-          added: "2026-02-25",
-          cover: "./assets/papers/octane.jpg"
-        },
-        {
-          title: "icon",
-          artist: "brent faiyaz",
-          year: 2026,
-          genre: ["rnb"],
-          rating: 7.2,
-          note: "some really good songs on here, but overall i felt that a lot of the music on here sounded a little too similar to his past cuts.",
-          added: "2026-02-25",
-          cover: "./assets/papers/icon.jpg"
-        },
-        {
-          title: "jackboys 2",
-          artist: "jackboys + travis scott",
-          year: 2025,
-          genre: ["trap"],
-          rating: 7.0,
-          note: "i liked this one a lot idgaf about what the media says, travis got it, don got it, sheck got it, somehow even sofaygo got it.",
-          added: "2026-02-25",
-          cover: "./assets/papers/jb2.jpg"
-        }, 
-        {
-          title: "too much music",
-          artist: "plaqueboymax",
-          year: 2025,
-          genre: ["trap"],
-          rating: 4.2,
-          note: "realspill and malibu tides got it, but idk how i feel about the rest of it.",
-          added: "2026-02-25",
-          cover: "./assets/tmm.jpg"
+  <script>
+    /* ─────────────────────────────────────
+       ALBUM DATA
+    ───────────────────────────────────── */
+    const albums = [
+      {
+        title: "ca$ino",
+        artist: "baby keem",
+        year: 2026,
+        genre: ["rap"],
+        rating: 9.7,
+        note: "this album made me realize you just gotta listen to some things by yourself. i initially listened to this with my roommate, bruce, and we were distracted looking at Howard investment groups IB placements for whatever reason, and I didn't appreciate the technical depth of this album. however, on second listen, songs like no blame damn near brought me to tears, and some of the standout tracks were ca$ino, dramatic girl, and $ex appeal. overall, incredible project, everyone should go listen.",
+        cover: "./assets/papers/casino.jpg",
+        accent: "#c0392b",
+        bg: "linear-gradient(135deg,#2a0a00,#1a0a00)"
+      },
+      {
+        title: "octane",
+        artist: "don toliver",
+        year: 2026,
+        genre: ["melodic hip-hop"],
+        rating: 8.7,
+        note: "the highs were super high and some of the lows were forgettable. e85, body, rendezvous, and secondhand to open the album was INSANE. overall, great project, but there is some filler fs.",
+        cover: "./assets/papers/octane.jpg",
+        accent: "#3498db",
+        bg: "linear-gradient(135deg,#050a1a,#0a0f2a)"
+      },
+      {
+        title: "icon",
+        artist: "brent faiyaz",
+        year: 2026,
+        genre: ["rnb"],
+        rating: 7.2,
+        note: "some really good songs on here, but overall i felt that a lot of the music on here sounded a little too similar to his past cuts.",
+        cover: "./assets/papers/icon.jpg",
+        accent: "#e67e22",
+        bg: "linear-gradient(135deg,#1a0f00,#1a1200)"
+      },
+      {
+        title: "jackboys 2",
+        artist: "jackboys + travis scott",
+        year: 2025,
+        genre: ["trap"],
+        rating: 7.0,
+        note: "i liked this one a lot idgaf about what the media says, travis got it, don got it, sheck got it, somehow even sofaygo got it.",
+        cover: "./assets/papers/jb2.jpg",
+        accent: "#27ae60",
+        bg: "linear-gradient(135deg,#011a08,#021208)"
+      },
+      {
+        title: "too much music",
+        artist: "plaqueboymax",
+        year: 2025,
+        genre: ["trap"],
+        rating: 4.2,
+        note: "realspill and malibu tides got it, but idk how i feel about the rest of it.",
+        cover: "./assets/tmm.jpg",
+        accent: "#9b59b6",
+        bg: "linear-gradient(135deg,#0e0018,#130020)"
+      }
+    ];
+
+    /* ─────────────────────────────────────
+       UTILS
+    ───────────────────────────────────── */
+    const norm = s => (s ?? "").toString().toLowerCase();
+    const fmt  = n => typeof n === "number" ? n.toFixed(1) : "—";
+    const esc  = s => (s ?? "").toString()
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;");
+
+    /* ─────────────────────────────────────
+       STATE
+    ───────────────────────────────────── */
+    let filtered  = [];
+    let currentSlideIdx = 0;
+    let drawerOpen = false;
+    let drawerAlbum = null;
+
+    /* ─────────────────────────────────────
+       DOM REFS
+    ───────────────────────────────────── */
+    const stack       = document.getElementById("stack");
+    const elQ         = document.getElementById("q");
+    const elGenre     = document.getElementById("genre");
+    const hudCounter  = document.getElementById("hud-counter");
+    const noteDrawer  = document.getElementById("note-drawer");
+    const noteBackdrop= document.getElementById("note-backdrop");
+    const notePanel   = document.getElementById("note-panel");
+    const noteHandle  = document.getElementById("note-handle");
+    const drawerThumb = document.getElementById("drawer-thumb");
+    const drawerTitle = document.getElementById("drawer-title");
+    const drawerArtist= document.getElementById("drawer-artist");
+    const drawerScore = document.getElementById("drawer-score");
+    const drawerTags  = document.getElementById("drawer-tags");
+    const drawerNote  = document.getElementById("drawer-note");
+
+    /* ─────────────────────────────────────
+       GENRE SELECT
+    ───────────────────────────────────── */
+    const uniqueGenres = () => {
+      const s = new Set();
+      albums.forEach(a => (a.genre || []).forEach(g => s.add(g)));
+      return ["All", ...Array.from(s).sort()];
+    };
+
+    elGenre.innerHTML = uniqueGenres()
+      .map(g => `<option value="${esc(g)}">${esc(g)}</option>`)
+      .join("");
+
+    /* ─────────────────────────────────────
+       DRAWER
+    ───────────────────────────────────── */
+    const openDrawer = (a) => {
+      drawerAlbum = a;
+      drawerTitle.textContent  = a.title || "";
+      drawerArtist.textContent = a.artist || "";
+      drawerScore.textContent  = fmt(a.rating);
+      drawerNote.textContent   = a.note || "";
+
+      // Score color
+      drawerScore.style.color = a.accent || "#fff";
+
+      // Thumb
+      if (a.cover) {
+        drawerThumb.innerHTML = `<img class="note-cover-thumb" src="${esc(a.cover)}" alt="${esc(a.title)}"/>`;
+      } else {
+        drawerThumb.innerHTML = `<div class="note-cover-thumb-ph">${esc(a.title)}</div>`;
+      }
+
+      // Tags
+      const tags = [...(a.genre || []), a.year ? String(a.year) : ""].filter(Boolean);
+      drawerTags.innerHTML = tags.map(t => `<span class="ntag">${esc(t)}</span>`).join("");
+
+      // Open
+      noteDrawer.classList.add("open");
+      drawerOpen = true;
+      notePanel.scrollTop = 0;
+    };
+
+    const closeDrawer = () => {
+      noteDrawer.classList.remove("open");
+      drawerOpen = false;
+    };
+
+    noteBackdrop.addEventListener("click", closeDrawer);
+    noteHandle.addEventListener("click", closeDrawer);
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
+
+    /* ─────────────────────────────────────
+       BUILD SLIDES
+    ───────────────────────────────────── */
+    const buildSlide = (a, globalIdx, isFirst) => {
+      const slide = document.createElement("div");
+      slide.className = "cover-slide";
+      slide.dataset.idx = globalIdx;
+
+      // Background
+      const bg = document.createElement("div");
+      bg.className = "cover-bg";
+      if (a.cover) {
+        bg.style.backgroundImage = `url(${esc(a.cover)})`;
+      } else {
+        bg.style.background = a.bg || "#1a1a1a";
+      }
+      slide.appendChild(bg);
+
+      // Vignette
+      const vig = document.createElement("div");
+      vig.className = "cover-vignette";
+      slide.appendChild(vig);
+
+      // Hint (vertical text)
+      const hint = document.createElement("div");
+      hint.className = "cover-hint";
+      hint.textContent = "Read note";
+      slide.appendChild(hint);
+
+      // Scroll indicator (first slide only)
+      if (isFirst) {
+        const scrollHint = document.createElement("div");
+        scrollHint.className = "scroll-hint";
+        scrollHint.innerHTML = `<div class="scroll-hint-line"></div><div class="scroll-hint-label">Scroll</div>`;
+        slide.appendChild(scrollHint);
+      }
+
+      // Content
+      const content = document.createElement("div");
+      content.className = "cover-content";
+
+      // Left
+      const left = document.createElement("div");
+      left.className = "cover-left";
+
+      const issue = document.createElement("div");
+      issue.className = "cover-issue";
+      issue.textContent = (a.genre || ["music"])[0];
+
+      const artist = document.createElement("div");
+      artist.className = "cover-artist";
+      artist.textContent = a.artist || "";
+
+      const title = document.createElement("div");
+      title.className = "cover-title";
+      title.textContent = a.title || "";
+
+      const tags = document.createElement("div");
+      tags.className = "cover-tags";
+      const tagList = [...(a.genre || []), a.year ? String(a.year) : ""].filter(Boolean);
+      tags.innerHTML = tagList.map(t => `<span class="ctag">${esc(t)}</span>`).join("");
+
+      left.appendChild(issue);
+      left.appendChild(artist);
+      left.appendChild(title);
+      left.appendChild(tags);
+
+      // Right — score
+      const right = document.createElement("div");
+      right.className = "cover-right";
+
+      const score = document.createElement("div");
+      score.className = "cover-score";
+      score.textContent = fmt(a.rating);
+      score.style.color = a.accent || "#fff";
+
+      const denom = document.createElement("div");
+      denom.className = "cover-score-denom";
+      denom.textContent = "/ 10";
+
+      right.appendChild(score);
+      right.appendChild(denom);
+
+      content.appendChild(left);
+      content.appendChild(right);
+      slide.appendChild(content);
+
+      // Click to open drawer
+      slide.addEventListener("click", () => openDrawer(a));
+
+      return slide;
+    };
+
+    /* ─────────────────────────────────────
+       RENDER
+    ───────────────────────────────────── */
+    const render = () => {
+      closeDrawer();
+      stack.innerHTML = "";
+      currentSlideIdx = 0;
+
+      const q = norm(elQ.value);
+      const g = elGenre.value || "All";
+
+      filtered = albums
+        .filter(a => {
+          if (g !== "All" && !(a.genre || []).includes(g)) return false;
+          if (!q) return true;
+          const bag = [a.title, a.artist, String(a.year || ""),
+            (a.genre || []).join(" "), a.note].map(norm).join(" ");
+          return bag.includes(q);
+        })
+        .sort((x, y) => (y.rating ?? -1) - (x.rating ?? -1));
+
+      if (!filtered.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-slide";
+        empty.innerHTML = `<div class="empty-text">Nothing found.</div>`;
+        stack.appendChild(empty);
+        hudCounter.textContent = "0 albums";
+        return;
+      }
+
+      filtered.forEach((a, i) => {
+        const globalIdx = albums.indexOf(a);
+        stack.appendChild(buildSlide(a, globalIdx, i === 0));
+      });
+
+      updateCounter();
+    };
+
+    /* ─────────────────────────────────────
+       SCROLL / COUNTER
+    ───────────────────────────────────── */
+    const updateCounter = () => {
+      if (!filtered.length) return;
+      hudCounter.textContent = `${currentSlideIdx + 1} / ${filtered.length}`;
+    };
+
+    // IntersectionObserver to track which slide is in view
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+          const slides = [...stack.querySelectorAll(".cover-slide")];
+          currentSlideIdx = slides.indexOf(e.target);
+          updateCounter();
         }
-      ];
-
-      const elQ = document.getElementById("q");
-      const elGenre = document.getElementById("genre");
-      const elGrid = document.getElementById("grid");
-      const elYr = document.getElementById("yr");
-
-      const elOverlay = document.getElementById("overlay");
-      const elClose = document.getElementById("close");
-      const elMTitle = document.getElementById("mtitle");
-      const elMArtist = document.getElementById("martist");
-      const elMMeta = document.getElementById("mmeta");
-      const elMNote = document.getElementById("mnote");
-
-      elYr.textContent = new Date().getFullYear();
-
-      const norm = (s) => (s ?? "").toString().toLowerCase().trim();
-
-      const escapeHtml = (s) =>
-        (s ?? "").toString()
-          .replaceAll("&","&amp;")
-          .replaceAll("<","&lt;")
-          .replaceAll(">","&gt;")
-          .replaceAll('"',"&quot;")
-          .replaceAll("'","&#039;");
-
-      const uniqueGenres = () => {
-        const s = new Set();
-        albums.forEach(a => (a.genre || []).forEach(g => s.add(g)));
-        return ["All", ...Array.from(s).sort((a,b)=>a.localeCompare(b))];
-      };
-
-      const setGenreOptions = () => {
-        const gs = uniqueGenres();
-        elGenre.innerHTML = gs.map(g => `<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join("");
-      };
-
-      const ratingText = (x) => (typeof x === "number") ? x.toFixed(1) : (x ?? "—");
-
-      const tagPill = (t) => `<span class="tag">${escapeHtml(t)}</span>`;
-
-      const cardHtml = (a, idx) => {
-        const cover = a.cover
-          ? `<img src="${escapeHtml(a.cover)}" alt="${escapeHtml(a.title)} cover" loading="lazy" />`
-          : `<div class="covtxt">${escapeHtml(a.title)}<br/>${escapeHtml(a.artist)}</div>`;
-
-        const tags = [
-          ...(a.genre || []),
-          (a.year ? String(a.year) : "")
-        ].filter(Boolean).map(tagPill).join("");
-
-        return `
-          <div class="card" data-idx="${idx}" role="button" tabindex="0" aria-label="Open ${escapeHtml(a.title)} by ${escapeHtml(a.artist)}">
-            <div class="cover">${cover}</div>
-            <div class="cmain">
-              <div class="ctop">
-                <div style="min-width:0">
-                  <div class="title">${escapeHtml(a.title || "Untitled")}</div>
-                  <div class="artist">${escapeHtml(a.artist || "Unknown artist")}</div>
-                </div>
-                <div class="rating">${escapeHtml(ratingText(a.rating))} / 10</div>
-              </div>
-              <div class="row">${tags}</div>
-              <div class="note">${escapeHtml(a.note || "")}</div>
-            </div>
-          </div>
-        `;
-      };
-
-      const matches = (a, q) => {
-        if (!q) return true;
-        const bag = [a.title, a.artist, a.year, (a.genre||[]).join(" "), a.note].map(norm).join(" | ");
-        return bag.includes(q);
-      };
-
-      const genreOk = (a, g) => {
-        if (!g || g === "All") return true;
-        return (a.genre || []).some(x => x === g);
-      };
-
-      const openModal = (a) => {
-        elMTitle.textContent = a.title || "Untitled";
-        elMArtist.textContent = a.artist || "Unknown artist";
-
-        const pills = [
-          ...(a.genre || []),
-          (a.year ? String(a.year) : ""),
-          (`${ratingText(a.rating)} / 10`)
-        ].filter(Boolean);
-
-        elMMeta.innerHTML = pills.map(tagPill).join("");
-        elMNote.textContent = a.note || "";
-
-        elOverlay.setAttribute("data-open","1");
-        elOverlay.setAttribute("aria-hidden","false");
-      };
-
-      const closeModal = () => {
-        elOverlay.setAttribute("data-open","0");
-        elOverlay.setAttribute("aria-hidden","true");
-      };
-
-      const render = () => {
-        const q = norm(elQ.value);
-        const g = elGenre.value || "All";
-
-        const items = albums
-          .map((a, idx) => ({a, idx}))
-          .filter(x => genreOk(x.a, g))
-          .filter(x => matches(x.a, q))
-          .slice()
-          .sort((x,y) => (y.a.rating ?? -1) - (x.a.rating ?? -1));
-
-        elGrid.innerHTML = items.map(x => cardHtml(x.a, x.idx)).join("") ||
-          `<div style="grid-column:span 12;color:var(--muted);padding:10px 2px">No results.</div>`;
-
-        [...elGrid.querySelectorAll(".card")].forEach(card => {
-          const idx = Number(card.getAttribute("data-idx"));
-          card.addEventListener("click", () => openModal(albums[idx]));
-          card.addEventListener("keydown", (e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              openModal(albums[idx]);
-            }
-          });
-        });
-      };
-
-      elQ.addEventListener("input", render);
-      elGenre.addEventListener("change", render);
-
-      elClose.addEventListener("click", closeModal);
-      elOverlay.addEventListener("click", (e) => {
-        if (e.target === elOverlay) closeModal();
       });
+    }, { threshold: 0.5 });
 
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
-      });
+    // Re-observe whenever we re-render
+    const observeSlides = () => {
+      stack.querySelectorAll(".cover-slide").forEach(s => io.observe(s));
+    };
 
-      setGenreOptions();
-      render();
-    </script>
-  </body>
+    const _origRender = render;
+    const render2 = () => {
+      _origRender();
+      observeSlides();
+    };
+
+    elQ.addEventListener("input", render2);
+    elGenre.addEventListener("change", render2);
+    render2();
+  </script>
+</body>
 </html>
