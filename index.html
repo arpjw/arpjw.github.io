@@ -20,6 +20,10 @@
 
       --serif: 'Playfair Display', Georgia, serif;
       --sans:  'DM Sans', system-ui, sans-serif;
+
+      /* Status colors — warm and tonal, fits the linen palette */
+      --dot-present: #5a6e5c;   /* muted sage green */
+      --dot-past:    #a89880;   /* warm taupe */
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,14 +36,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Outer shell: narrow centered column, generous vertical space */
     .page {
       max-width: 680px;
       margin: 0 auto;
       padding: 96px 32px 120px;
     }
 
-    /* ── Name */
     .name {
       font-family: var(--serif);
       font-size: clamp(48px, 8vw, 80px);
@@ -51,7 +53,6 @@
       margin-bottom: 36px;
     }
 
-    /* ── Thin rule under name */
     .name-rule {
       width: 100%;
       height: 1px;
@@ -59,7 +60,6 @@
       margin-bottom: 32px;
     }
 
-    /* ── Email */
     .email {
       font-family: var(--sans);
       font-size: 13px;
@@ -68,9 +68,14 @@
       margin-bottom: 24px;
       display: block;
       letter-spacing: 0.01em;
+      text-decoration: none;
+      transition: color 0.18s;
     }
 
-    /* ── Links row */
+    .email:hover {
+      color: var(--ink);
+    }
+
     .links {
       display: flex;
       flex-wrap: wrap;
@@ -96,7 +101,14 @@
       border-color: var(--ink-ghost);
     }
 
-    /* ── Bio section label */
+    /* ── Section label row: label + legend side by side */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
     .section-label {
       font-family: var(--sans);
       font-size: 10px;
@@ -104,11 +116,42 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-ghost);
-      margin-bottom: 20px;
       display: block;
     }
 
-    /* ── Bio paragraphs */
+    /* ── Legend */
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .legend-dot.present { background: var(--dot-present); }
+    .legend-dot.past    { background: var(--dot-past); }
+
+    .legend-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-ghost);
+    }
+
+    /* ── Bio */
     .bio {
       display: flex;
       flex-direction: column;
@@ -124,13 +167,12 @@
       color: var(--ink-mid);
     }
 
-    /* Highlight the Stanford line slightly */
     .bio p.current {
       color: var(--ink);
       font-weight: 400;
     }
 
-    /* ── Work / affiliations block */
+    /* ── Affiliations */
     .affiliations {
       border-top: 1px solid var(--rule);
       padding-top: 40px;
@@ -146,9 +188,9 @@
 
     .affiliation-item {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: auto 1fr auto;
       align-items: baseline;
-      gap: 24px;
+      gap: 14px;
       padding: 14px 0;
       border-bottom: 1px solid var(--rule);
     }
@@ -157,12 +199,30 @@
       border-top: 1px solid var(--rule);
     }
 
+    /* Status dot on each row */
+    .affiliation-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      position: relative;
+      top: 1px; /* optical alignment with baseline */
+    }
+
+    .affiliation-dot.present { background: var(--dot-present); }
+    .affiliation-dot.past    { background: var(--dot-past); }
+
     .affiliation-name {
       font-family: var(--serif);
       font-size: 18px;
       font-weight: 400;
       color: var(--ink);
       letter-spacing: -0.01em;
+    }
+
+    /* Past entries: slightly muted name */
+    .affiliation-item.is-past .affiliation-name {
+      color: var(--ink-mid);
     }
 
     .affiliation-role {
@@ -174,7 +234,7 @@
       white-space: nowrap;
     }
 
-    /* ── Interests / footer note */
+    /* ── Footer note */
     .footer-note {
       font-family: var(--serif);
       font-size: 17px;
@@ -185,7 +245,7 @@
       letter-spacing: -0.01em;
     }
 
-    /* ── Page entry animation */
+    /* ── Entry animation */
     .page > * {
       opacity: 0;
       transform: translateY(10px);
@@ -208,8 +268,8 @@
     @media (max-width: 600px) {
       .page { padding: 64px 24px 96px; }
       .name { font-size: 48px; }
-      .affiliation-item { grid-template-columns: 1fr; gap: 2px; }
-      .affiliation-role { text-align: left; }
+      .affiliation-item { grid-template-columns: auto 1fr; gap: 10px; }
+      .affiliation-role { grid-column: 2; text-align: left; }
     }
   </style>
 </head>
@@ -220,7 +280,7 @@
 
     <div class="name-rule"></div>
 
-    <span class="email">aryasomu18 [at] gmail [dot] com</span>
+    <a class="email" href="mailto:aryasomu18@gmail.com">aryasomu18 [at] gmail [dot] com</a>
 
     <nav class="links">
       <a href="https://monolithsystematic.com/" target="_blank">Monolith Systematic</a>
@@ -239,38 +299,59 @@
     </div>
 
     <div class="affiliations">
-      <span class="section-label">Work &amp; Research</span>
+      <div class="section-header">
+        <span class="section-label">Work &amp; Research</span>
+        <div class="legend">
+          <div class="legend-item">
+            <span class="legend-dot present"></span>
+            <span class="legend-label">Present</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot past"></span>
+            <span class="legend-label">Past</span>
+          </div>
+        </div>
+      </div>
+
       <ul class="affiliation-list">
-        <li class="affiliation-item">
-          <span class="affiliation-name">Stanford University AFT Lab (Incoming)</span>
+        <li class="affiliation-item is-present">
+          <span class="affiliation-dot present"></span>
+          <span class="affiliation-name">Stanford University AFT Lab</span>
           <span class="affiliation-role">Microstructure Researcher</span>
         </li>
-        <li class="affiliation-item">
+        <li class="affiliation-item is-present">
+          <span class="affiliation-dot present"></span>
           <span class="affiliation-name">Monolith Systematic</span>
           <span class="affiliation-role">Founder &amp; CIO</span>
         </li>
-        <li class="affiliation-item">
-          <span class="affiliation-name">Esplanade (Previously)</span>
+        <li class="affiliation-item is-past">
+          <span class="affiliation-dot past"></span>
+          <span class="affiliation-name">Esplanade</span>
           <span class="affiliation-role">Quantitative Researcher</span>
         </li>
-        <li class="affiliation-item">
-          <span class="affiliation-name">KCC Capital Partners (Previously)</span>
+        <li class="affiliation-item is-past">
+          <span class="affiliation-dot past"></span>
+          <span class="affiliation-name">KCC Capital Partners</span>
           <span class="affiliation-role">Investment Banking Analyst</span>
         </li>
-        <li class="affiliation-item">
-          <span class="affiliation-name">AfterQuery Experts (Previously)</span>
+        <li class="affiliation-item is-past">
+          <span class="affiliation-dot past"></span>
+          <span class="affiliation-name">AfterQuery Experts</span>
           <span class="affiliation-role">Macro Researcher</span>
         </li>
-        <li class="affiliation-item">
-          <span class="affiliation-name">Limex (Previously)</span>
+        <li class="affiliation-item is-past">
+          <span class="affiliation-dot past"></span>
+          <span class="affiliation-name">Limex</span>
           <span class="affiliation-role">Macro Researcher</span>
         </li>
-        <li class="affiliation-item">
-          <span class="affiliation-name">Idori (Previously)</span>
+        <li class="affiliation-item is-past">
+          <span class="affiliation-dot past"></span>
+          <span class="affiliation-name">Idori</span>
           <span class="affiliation-role">Startup GTM</span>
         </li>
-        <li class="affiliation-item">
-          <span class="affiliation-name">Arizona State University Dept. of Physics (Previously)</span>
+        <li class="affiliation-item is-past">
+          <span class="affiliation-dot past"></span>
+          <span class="affiliation-name">Arizona State University Dept. of Physics</span>
           <span class="affiliation-role">Astrophysics Researcher</span>
         </li>
       </ul>
