@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arya Somu</title>
+  <meta name="description" content="Founder & CIO of Monolith Systematic. Incoming researcher at Stanford AFT Lab.">
+  <meta property="og:title" content="Arya Somu">
+  <meta property="og:description" content="Founder & CIO of Monolith Systematic. Incoming researcher at Stanford AFT Lab.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -17,15 +20,16 @@
       --ink-mid:   #4a4a48;
       --ink-muted: #8a8a87;
       --ink-ghost: #c8c5bf;
-
+      --dot-present: #5a6e5c;
       --serif: 'Playfair Display', Georgia, serif;
       --sans:  'DM Sans', system-ui, sans-serif;
-
-      --dot-present: #5a6e5c;   /* muted sage green */
-      --dot-past:    #a89880;   /* warm taupe */
     }
 
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     html, body {
       background: var(--linen);
@@ -33,78 +37,100 @@
       font-family: var(--sans);
       font-size: 15px;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .page {
-      max-width: 680px;
+      max-width: 600px;
       margin: 0 auto;
-      padding: 96px 32px 120px;
+      padding: 72px 32px 80px;
     }
 
-    .name {
-      font-family: var(--serif);
-      font-size: clamp(48px, 8vw, 80px);
-      font-weight: 400;
-      font-style: italic;
-      letter-spacing: -0.03em;
-      line-height: 1.0;
-      color: var(--ink);
-      margin-bottom: 36px;
-    }
-
-    .name-rule {
-      width: 100%;
-      height: 1px;
-      background: var(--rule);
-      margin-bottom: 32px;
-    }
-
-    .email {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--ink-muted);
-      margin-bottom: 24px;
-      display: block;
-      letter-spacing: 0.01em;
-      text-decoration: none;
-      transition: color 0.18s;
-    }
-
-    .email:hover {
-      color: var(--ink);
-    }
-
-    .links {
+    /* ── Nav ── */
+    nav {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 72px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: rise 0.5s ease 0.05s forwards;
     }
 
-    .links a {
+    nav a {
       font-family: var(--sans);
       font-size: 13px;
       font-weight: 500;
       color: var(--ink);
       text-decoration: none;
-      background: var(--linen-mid);
-      border: 1px solid var(--rule);
-      border-radius: 9999px;
-      padding: 6px 16px;
-      transition: background 0.18s, border-color 0.18s;
+      transition: color 0.15s;
     }
 
-    .links a:hover {
-      background: var(--rule);
-      border-color: var(--ink-ghost);
+    nav a:hover {
+      color: var(--ink-muted);
     }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
+    nav .sep {
+      color: var(--rule);
+      font-size: 13px;
+      user-select: none;
+    }
+
+    /* ── Name ── */
+    .name {
+      font-family: var(--serif);
+      font-size: clamp(34px, 6vw, 42px);
+      font-weight: 400;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      color: var(--ink);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: rise 0.5s ease 0.12s forwards;
+    }
+
+    /* ── Bio ── */
+    .bio {
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: rise 0.5s ease 0.2s forwards;
+    }
+
+    .bio p {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.85;
+      color: var(--ink-mid);
+      margin-bottom: 14px;
+    }
+
+    .bio p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bio p.current {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .bio a {
+      color: var(--ink);
+      font-weight: 400;
+      text-decoration: underline;
+      text-decoration-color: var(--rule);
+      text-underline-offset: 2px;
+      transition: text-decoration-color 0.15s;
+    }
+
+    .bio a:hover {
+      text-decoration-color: var(--ink-muted);
+    }
+
+    /* ── Projects ── */
+    .projects-section {
+      opacity: 0;
+      animation: rise 0.5s ease 0.28s forwards;
     }
 
     .section-label {
@@ -114,258 +140,245 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-ghost);
+      margin-bottom: 14px;
       display: block;
     }
 
-    /* ── Legend */
-    .legend {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .legend-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    .legend-dot.present { background: var(--dot-present); }
-    .legend-dot.past    { background: var(--dot-past); }
-
-    .legend-label {
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink-ghost);
-    }
-
-    /* ── Bio */
-    .bio {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .bio p {
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 300;
-      line-height: 1.8;
-      color: var(--ink-mid);
-    }
-
-    .bio p.current {
-      color: var(--ink);
-      font-weight: 400;
-    }
-
-    /* ── About section */
-    .about-section {
-      border-top: 1px solid var(--rule);
-      padding-top: 40px;
-      margin-bottom: 64px;
-    }
-
-    .about-section .bio {
-      margin-bottom: 0;
-    }
-
-    /* ── Affiliations */
-    .affiliations {
-      border-top: 1px solid var(--rule);
-      padding-top: 40px;
-      margin-bottom: 64px;
-    }
-
-    .affiliation-list {
+    .projects {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
     }
 
-    .affiliation-item {
+    .project {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: 1fr auto;
       align-items: baseline;
-      gap: 14px;
-      padding: 14px 0;
+      gap: 16px;
+      padding: 11px 0;
       border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      transition: opacity 0.15s;
     }
 
-    .affiliation-item:first-child {
+    .project:first-child {
       border-top: 1px solid var(--rule);
     }
 
-    /* Status dot on each row */
-    .affiliation-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 2px;
-      flex-shrink: 0;
-      position: relative;
-      top: 1px; /* optical alignment with baseline */
+    .project:hover {
+      opacity: 0.65;
     }
 
-    .affiliation-dot.present { background: var(--dot-present); }
-    .affiliation-dot.past    { background: var(--dot-past); }
-
-    .affiliation-name {
+    .project-name {
       font-family: var(--serif);
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       color: var(--ink);
       letter-spacing: -0.01em;
+      display: block;
     }
 
-    /* Past entries: slightly muted name */
-    .affiliation-item.is-past .affiliation-name {
-      color: var(--ink-mid);
+    .project-desc {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--ink-muted);
+      display: block;
+      margin-top: 2px;
     }
 
-    .affiliation-role {
+    .project-year {
       font-family: var(--sans);
       font-size: 11px;
       font-weight: 400;
-      color: var(--ink-muted);
-      text-align: right;
+      color: var(--ink-ghost);
       white-space: nowrap;
     }
 
-    /* ── Footer note */
-    .footer-note {
-      font-family: var(--serif);
-      font-size: 17px;
-      font-weight: 400;
-      font-style: italic;
-      line-height: 1.6;
-      color: var(--ink-ghost);
-      letter-spacing: -0.01em;
-    }
-
-    /* ── Entry animation */
-    .page > * {
+    /* ── Footer ── */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 48px;
       opacity: 0;
-      transform: translateY(10px);
-      animation: rise 0.55s ease forwards;
+      animation: rise 0.5s ease 0.36s forwards;
     }
 
-    .page > *:nth-child(1)  { animation-delay: 0.04s; }
-    .page > *:nth-child(2)  { animation-delay: 0.10s; }
-    .page > *:nth-child(3)  { animation-delay: 0.15s; }
-    .page > *:nth-child(4)  { animation-delay: 0.20s; }
-    .page > *:nth-child(5)  { animation-delay: 0.26s; }
-    .page > *:nth-child(6)  { animation-delay: 0.32s; }
-    .page > *:nth-child(7)  { animation-delay: 0.38s; }
-    .page > *:nth-child(8)  { animation-delay: 0.44s; }
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
 
+    .loc-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--dot-present);
+      flex-shrink: 0;
+    }
+
+    .loc-sep {
+      color: var(--rule);
+    }
+
+    #sf-time {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .socials {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .socials a {
+      display: flex;
+      align-items: center;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .socials a:hover {
+      color: var(--ink);
+    }
+
+    /* ── Animation ── */
     @keyframes rise {
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 600px) {
-      .page { padding: 64px 24px 96px; }
-      .name { font-size: 48px; }
-      .affiliation-item { grid-template-columns: auto 1fr; gap: 10px; }
-      .affiliation-role { grid-column: 2; text-align: left; }
+    /* ── Mobile ── */
+    @media (max-width: 520px) {
+      .page { padding: 56px 24px 64px; }
+      .name { font-size: 32px; }
+      footer { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .socials { order: -1; }
     }
   </style>
 </head>
 <body>
   <main class="page">
 
-    <h1 class="name">Arya Somu</h1>
-
-    <div class="name-rule"></div>
-
-    <a class="email" href="/cdn-cgi/l/email-protection#bfdecdc6deccd0d2ca8e87ffd8d2ded6d391dcd0d2">aryasomu18 [at] gmail [dot] com</a>
-
-    <nav class="links">
-      <a href="https://monolithsystematic.com/" target="_blank">Monolith Systematic</a>
-      <a href="https://www.linkedin.com/in/aryasomu/" target="_blank">LinkedIn</a>
-      <a href="https://github.com/arpjw" target="_blank">GitHub</a>
-      <a href="https://substack.com/@aryasomu" target="_blank">Substack</a>
-      <a href="music.html">Album Ratings</a>
+    <nav>
+      <a href="/">index</a>
+      <span class="sep">•</span>
+      <a href="music.html">music</a>
     </nav>
 
-    <div class="about-section">
-      <div class="section-header">
-        <span class="section-label">About</span>
-      </div>
-      <div class="bio">
-        <p class="current">This summer I will be researching at Stanford University's AFT Lab, working on microstructure and volatility.</p>
-        <p>I work on quantitative and research-driven problems across finance and markets. My experience spans macro research, fixed income and structured credit, and systematic strategy. I focus on translating economic intuition into data-driven, testable systems — combining applied mathematics, statistics, and code to study how markets behave under real-world constraints.</p>
-        <p>I also have a deep interest in neurobiology and the intersection between the brain and computation, and I founded Monolith Systematic, a systematic global macro CTA operating the Onyx Fund across FX, rates, equity indices, and commodities.</p>
-      </div>
+    <h1 class="name">Arya Somu</h1>
+
+    <div class="bio">
+      <p class="current">
+        i'm the founder &amp; CIO of <a href="https://monolithsystematic.com/" target="_blank" rel="noopener">Monolith Systematic</a>, a systematic global macro CTA running the Onyx Fund across FX, rates, equity indices, and commodities. this summer, i'll be a researcher at Stanford's AFT Lab working on microstructure and volatility.
+      </p>
+      <p>
+        previously: quant researcher at Esplanade, IB analyst at KCC Capital Partners, macro researcher at <a href="https://www.afterquery.com/" target="_blank" rel="noopener">AfterQuery</a> and <a href="https://limex.com/" target="_blank" rel="noopener">Limex</a>, and astrophysics researcher at Arizona State. i study applied mathematics at De Anza College.
+      </p>
+      <p>
+        i write about economics, markets, and AI on <a href="https://substack.com/@aryasomu" target="_blank" rel="noopener">Substack</a>. reach me at aryasomu18 [at] gmail [dot] com.
+      </p>
     </div>
 
-    <div class="affiliations">
-      <div class="section-header">
-        <span class="section-label">Work &amp; Research</span>
-        <div class="legend">
-          <div class="legend-item">
-            <span class="legend-dot present"></span>
-            <span class="legend-label">Present</span>
-          </div>
-          <div class="legend-item">
-            <span class="legend-dot past"></span>
-            <span class="legend-label">Past</span>
-          </div>
-        </div>
-      </div>
-
-      <ul class="affiliation-list">
-        <li class="affiliation-item is-present">
-          <span class="affiliation-dot present"></span>
-          <span class="affiliation-name">Stanford University AFT Lab</span>
-          <span class="affiliation-role">Microstructure Researcher</span>
+    <div class="projects-section">
+      <span class="section-label">Projects &amp; Research</span>
+      <ul class="projects">
+        <li>
+          <a class="project" href="https://monolithsystematic.com/" target="_blank" rel="noopener">
+            <div>
+              <span class="project-name">Monolith Systematic</span>
+              <span class="project-desc">systematic global macro CTA — Onyx Fund</span>
+            </div>
+            <span class="project-year">'26</span>
+          </a>
         </li>
-        <li class="affiliation-item is-present">
-          <span class="affiliation-dot present"></span>
-          <span class="affiliation-name">Monolith Systematic</span>
-          <span class="affiliation-role">Founder &amp; CIO</span>
+        <li>
+          <a class="project" href="https://github.com/arpjw/lumina" target="_blank" rel="noopener">
+            <div>
+              <span class="project-name">Lumina</span>
+              <span class="project-desc">alternative data platform for macro regime detection</span>
+            </div>
+            <span class="project-year">'26</span>
+          </a>
         </li>
-        <li class="affiliation-item is-past">
-          <span class="affiliation-dot past"></span>
-          <span class="affiliation-name">Esplanade</span>
-          <span class="affiliation-role">Quantitative Researcher</span>
+        <li>
+          <a class="project" href="https://github.com/arpjw/adverse-selection-engine" target="_blank" rel="noopener">
+            <div>
+              <span class="project-name">Adverse Selection Engine</span>
+              <span class="project-desc">real-time bid-ask spread decomposition — Roll, Huang-Stoll, Kyle</span>
+            </div>
+            <span class="project-year">'26</span>
+          </a>
         </li>
-        <li class="affiliation-item is-past">
-          <span class="affiliation-dot past"></span>
-          <span class="affiliation-name">KCC Capital Partners</span>
-          <span class="affiliation-role">Investment Banking Analyst</span>
+        <li>
+          <a class="project" href="https://github.com/arpjw/donna" target="_blank" rel="noopener">
+            <div>
+              <span class="project-name">Donna</span>
+              <span class="project-desc">regulatory horizon scanner for in-house compliance teams</span>
+            </div>
+            <span class="project-year">'25</span>
+          </a>
         </li>
-        <li class="affiliation-item is-past">
-          <span class="affiliation-dot past"></span>
-          <span class="affiliation-name">AfterQuery Experts</span>
-          <span class="affiliation-role">Macro Researcher</span>
-        </li>
-        <li class="affiliation-item is-past">
-          <span class="affiliation-dot past"></span>
-          <span class="affiliation-name">Limex</span>
-          <span class="affiliation-role">Macro Researcher</span>
-        </li>
-        <li class="affiliation-item is-past">
-          <span class="affiliation-dot past"></span>
-          <span class="affiliation-name">Idori</span>
-          <span class="affiliation-role">Startup GTM</span>
-        </li>
-        <li class="affiliation-item is-past">
-          <span class="affiliation-dot past"></span>
-          <span class="affiliation-name">Arizona State University Dept. of Physics</span>
-          <span class="affiliation-role">Astrophysics Researcher</span>
+        <li>
+          <a class="project" href="https://github.com/arpjw/pbl-markets" target="_blank" rel="noopener">
+            <div>
+              <span class="project-name">PBL Markets</span>
+              <span class="project-desc">prediction market platform for De Anza Phi Beta Lambda</span>
+            </div>
+            <span class="project-year">'26</span>
+          </a>
         </li>
       </ul>
     </div>
 
-    <p class="footer-note">When not working — badminton, pickleball, table tennis, and rating every album I can get
+    <footer>
+      <div class="location">
+        <span class="loc-dot"></span>
+        <span>san francisco</span>
+        <span class="loc-sep">•</span>
+        <span id="sf-time"></span>
+      </div>
+      <div class="socials">
+        <a href="https://github.com/arpjw" target="_blank" rel="noopener" title="GitHub">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener" title="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://substack.com/@aryasomu" target="_blank" rel="noopener" title="Substack">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+          </svg>
+        </a>
+        <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener" title="X">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    function tick() {
+      const sf = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+      let h = sf.getHours(), m = sf.getMinutes(), s = sf.getSeconds();
+      const ampm = h >= 12 ? 'pm' : 'am';
+      h = h % 12 || 12;
+      const pad = n => String(n).padStart(2, '0');
+      document.getElementById('sf-time').textContent = `${pad(h)}:${pad(m)}:${pad(s)} ${ampm}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
