@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cities — arya somu</title>
+  <meta name="description" content="bay area and seattle.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: #0e0e0e;
+      color: #e8e8e8;
+      font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 24px 80px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #e8e8e8;
+      text-decoration: none;
+    }
+
+    nav { display: flex; align-items: center; font-size: 14px; }
+    nav a { color: #e8e8e8; text-decoration: none; transition: color 0.12s; }
+    nav a:hover { color: #fff; }
+    nav .sep { color: #444; margin: 0 6px; user-select: none; }
+
+    .greeting {
+      font-family: 'Satisfy', cursive;
+      font-size: clamp(30px, 6vw, 44px);
+      font-weight: 400;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .subhead {
+      text-align: center;
+      color: #555;
+      font-size: 13px;
+      margin-bottom: 40px;
+    }
+
+    .body-text {
+      font-size: 14px;
+      color: #888;
+      line-height: 1.8;
+    }
+
+    .body-text p {
+      margin-bottom: 18px;
+    }
+
+    .body-text p:last-child { margin-bottom: 0; }
+
+    .body-text a {
+      color: #c8c8c8;
+      text-decoration: underline;
+      text-decoration-color: #333;
+      text-underline-offset: 2px;
+      transition: text-decoration-color 0.12s;
+    }
+
+    .body-text a:hover { text-decoration-color: #888; }
+
+    .section-label {
+      font-size: 13px;
+      color: #555;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      margin-top: 36px;
+    }
+
+    .place-list { list-style: none; }
+
+    .place-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #161616;
+      gap: 16px;
+    }
+
+    .place-row:last-child { border-bottom: none; }
+
+    .place-name {
+      font-size: 14px;
+      color: #e8e8e8;
+    }
+
+    .place-detail {
+      font-size: 13px;
+      color: #555;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 480px) {
+      .page { padding: 24px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <div class="topbar">
+      <a class="logo" href="/">a</a>
+      <nav>
+        <a href="/">index</a>
+        <span class="sep">•</span>
+        <a href="music.html">music</a>
+      </nav>
+    </div>
+
+    <h1 class="greeting">bay area + seattle</h1>
+    <p class="subhead">📍 split between two places</p>
+
+    <div class="body-text">
+      <p>
+        i'm based in cupertino, which puts me squarely in the heart of the bay. most of my work happens here or up in SF — i'm in the city often enough that it functions as a second home even if it isn't technically where i sleep. the bay has a particular energy that's hard to describe to people who haven't lived in it: ambition is the ambient baseline, not the exception. you absorb that without trying.
+      </p>
+      <p>
+        SF specifically is one of the strangest and most interesting cities i know. dense enough to feel inexhaustible, small enough to feel walkable, with a fog that rolls in every evening like it's on a timer. it has more contradictions per square mile than anywhere else — wealth against poverty, technology optimism against civic dysfunction. the narrative that it's "over" is mostly written by people who don't actually spend time there.
+      </p>
+      <p>
+        seattle is home in the original sense — where i grew up, where my family is, where i go during breaks. it's a completely different pace. greener, quieter, wetter. the mountains are right there. it makes the bay feel loud in comparison, which is sometimes exactly what you need to remember.
+      </p>
+      <p>
+        i think being between two places keeps you from becoming too anchored to either one's particular way of seeing things, which is useful.
+      </p>
+    </div>
+
+    <p class="section-label">bay area</p>
+
+    <ul class="place-list">
+      <li class="place-row">
+        <span class="place-name">voyager coffee</span>
+        <span class="place-detail">cupertino</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">philz coffee</span>
+        <span class="place-detail">main street cupertino</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">sue's gallery cafe</span>
+        <span class="place-detail">saratoga</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">el farolito</span>
+        <span class="place-detail">sf — burritos</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">the presidio</span>
+        <span class="place-detail">sf — good for a long walk</span>
+      </li>
+    </ul>
+
+    <p class="section-label">seattle</p>
+
+    <ul class="place-list">
+      <li class="place-row">
+        <span class="place-name">discovery park</span>
+        <span class="place-detail">best walk in the city — views of the sound</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">pike place market</span>
+        <span class="place-detail">only worth it early, before it gets crowded</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">the cascades</span>
+        <span class="place-detail">close enough to actually go to</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">volunteer park</span>
+        <span class="place-detail">capitol hill — good thinking spot</span>
+      </li>
+      <li class="place-row">
+        <span class="place-name">hood famous cafe</span>
+        <span class="place-detail">seattle</span>
+      </li>
+    </ul>
+
+  </main>
+</body>
+</html>
