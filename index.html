@@ -7,6 +7,8 @@
   <meta name="description" content="Founder & CIO of Monolith Systematic. Incoming researcher at Stanford AFT Lab.">
   <meta property="og:title" content="Arya Somu">
   <meta property="og:description" content="Founder & CIO of Monolith Systematic. Incoming researcher at Stanford AFT Lab.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aryasomu.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -33,7 +35,6 @@
       padding: 28px 24px 80px;
     }
 
-    /* ── Top bar ── */
     .topbar {
       display: flex;
       align-items: center;
@@ -68,9 +69,7 @@
       transition: color 0.12s;
     }
 
-    nav a:hover {
-      color: #fff;
-    }
+    nav a:hover { color: #fff; }
 
     nav .sep {
       color: #444;
@@ -78,7 +77,6 @@
       user-select: none;
     }
 
-    /* ── Heading ── */
     .greeting {
       font-family: 'Satisfy', cursive;
       font-size: clamp(36px, 7vw, 52px);
@@ -89,7 +87,6 @@
       letter-spacing: 0.01em;
     }
 
-    /* ── Bio ── */
     .bio {
       font-size: 14px;
       color: #aaa;
@@ -97,13 +94,8 @@
       margin-bottom: 32px;
     }
 
-    .bio p {
-      margin-bottom: 14px;
-    }
-
-    .bio p:last-child {
-      margin-bottom: 0;
-    }
+    .bio p { margin-bottom: 14px; }
+    .bio p:last-child { margin-bottom: 0; }
 
     .bio a {
       color: #e8e8e8;
@@ -113,20 +105,15 @@
       transition: text-decoration-color 0.12s;
     }
 
-    .bio a:hover {
-      text-decoration-color: #aaa;
-    }
+    .bio a:hover { text-decoration-color: #aaa; }
 
-    /* ── Projects ── */
     .projects-label {
       font-size: 14px;
       color: #aaa;
       margin-bottom: 6px;
     }
 
-    .projects {
-      list-style: none;
-    }
+    .projects { list-style: none; }
 
     .project {
       display: flex;
@@ -173,15 +160,9 @@
       flex-shrink: 0;
     }
 
-    .project:hover .project-name {
-      color: #fff;
-    }
+    .project:hover .project-name { color: #fff; }
+    .project:hover .project-desc { color: #aaa; }
 
-    .project:hover .project-desc {
-      color: #aaa;
-    }
-
-    /* ── Footer ── */
     footer {
       display: flex;
       align-items: center;
@@ -197,13 +178,9 @@
       gap: 5px;
     }
 
-    .location .sep {
-      color: #333;
-    }
+    .location .sep { color: #333; }
 
-    #sf-time {
-      font-variant-numeric: tabular-nums;
-    }
+    #sf-time { font-variant-numeric: tabular-nums; }
 
     .socials {
       display: flex;
@@ -219,11 +196,8 @@
       transition: color 0.12s;
     }
 
-    .socials a:hover {
-      color: #e8e8e8;
-    }
+    .socials a:hover { color: #e8e8e8; }
 
-    /* ── Mobile ── */
     @media (max-width: 480px) {
       .page { padding: 24px 20px 60px; }
       .greeting { font-size: 36px; }
@@ -248,7 +222,7 @@
 
     <div class="bio">
       <p>
-        i'm 19 studying math, physics, and eecs at <a href="https://math.berkeley.edu/home" target="_blank" rel="noopener">uc berkeley</a>. i'm the founder &amp; cio of <a href="https://monolithsystematic.com/" target="_blank" rel="noopener">monolith systematic</a>, a systematic global macro investor. this summer, i'm researching at <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener">stanford's aft lab</a> working on prediction market microstructure. right now, im shipping software, writing, and focusing on my health.
+        i'm 19 studying math, physics, and eecs at <a href="https://math.berkeley.edu/home" target="_blank" rel="noopener">uc berkeley</a>. i'm the founder &amp; cio of <a href="https://monolithsystematic.com/" target="_blank" rel="noopener">monolith systematic</a>, a systematic global macro investor. this summer, i'm researching at <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener">stanford's aft lab</a> working on prediction market microstructure. right now, i'm <a href="stack.html">shipping software</a>, writing, and <a href="health.html">focusing on my health</a>.
       </p>
       <p>
         in the past, i've worked as a mortgage quant at <a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener">esplanade capital</a>, banked in pharma at <a href="https://kcccapitalpartners.com/" target="_blank" rel="noopener">kcc capital partners</a>, helped llms understand the economy with <a href="https://www.afterquery.com/" target="_blank" rel="noopener">afterquery</a>, supported <a href="https://limex.com/" target="_blank" rel="noopener">limex</a>'s vision of democratizing quantitative trading, and worked with the <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener">arizona state university beus center for cosmic foundations</a> to train cnns for solar flare prediction.
@@ -271,7 +245,7 @@
           <span class="project-year">'26</span>
         </a>
       </li>
-        <li>
+      <li>
         <a class="project" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener">
           <div class="project-left">
             <span class="project-name">vela</span>
@@ -337,10 +311,10 @@
         </a>
       </li>
       <li>
-        <a class="project" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6015387" target="_blank" rel="noopener">
+        <a class="project" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6534258" target="_blank" rel="noopener">
           <div class="project-left">
             <span class="project-name">lumina: alternative data for macro regimes</span>
-            <span class="project-desc">ssrn id 6015387</span>
+            <span class="project-desc">ssrn id 6534258</span>
           </div>
           <span class="project-line"></span>
           <span class="project-year">'26</span>
@@ -350,7 +324,7 @@
 
     <footer>
       <div class="location">
-        <span>📍 san francisco</span>
+        <span><a href="city.html" style="color:#555;text-decoration:none;">📍 san francisco</a></span>
         <span class="sep">•</span>
         <span id="sf-time"></span>
       </div>
