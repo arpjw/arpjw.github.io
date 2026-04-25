@@ -1,874 +1,249 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Music — Arya Somu</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>music — arya somu</title>
+  <meta name="description" content="what i'm listening to.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,400;1,900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --serif: 'Playfair Display', Georgia, serif;
-      --sans:  'DM Sans', system-ui, sans-serif;
-    }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-snap-type: y mandatory; overflow-y: scroll; }
-
-    body {
-      font-family: var(--sans);
+    html, body {
+      background: #0e0e0e;
+      color: #e8e8e8;
+      font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-      background: #0d0d0d;
-      color: #fff;
     }
 
-    /* ─── Fixed HUD ─── */
-    .hud {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 300;
+    .page {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 28px 24px 80px;
+    }
+
+    .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 28px;
-      pointer-events: none;
+      margin-bottom: 48px;
     }
 
-    .hud-back {
-      pointer-events: all;
-      font-family: var(--sans);
-      font-size: 12px;
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      font-size: 13px;
       font-weight: 500;
-      color: rgba(255,255,255,0.7);
+      color: #e8e8e8;
       text-decoration: none;
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 9999px;
-      padding: 8px 18px;
-      backdrop-filter: blur(12px);
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .hud-back:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
-
-    .hud-counter {
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.45);
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 9999px;
-      padding: 6px 14px;
-      backdrop-filter: blur(12px);
-      letter-spacing: 0.05em;
     }
 
-    /* ─── Search bar (fixed) ─── */
-    .search-bar {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 300;
-      display: flex;
-      gap: 8px;
-      pointer-events: all;
-    }
+    nav { display: flex; align-items: center; font-size: 14px; }
+    nav a { color: #e8e8e8; text-decoration: none; transition: color 0.12s; }
+    nav a:hover { color: #fff; }
+    nav .sep { color: #444; margin: 0 6px; user-select: none; }
 
-    .inp {
-      font-family: var(--sans);
-      font-size: 13px;
+    .greeting {
+      font-family: 'Satisfy', cursive;
+      font-size: clamp(32px, 6vw, 46px);
       font-weight: 400;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 9999px;
-      padding: 10px 20px;
       color: #fff;
-      outline: none;
-      backdrop-filter: blur(16px);
-      width: 240px;
-      transition: border-color 0.2s, width 0.3s;
-    }
-    .inp:focus { border-color: rgba(255,255,255,0.4); width: 300px; }
-    .inp::placeholder { color: rgba(255,255,255,0.3); }
-
-    .sel {
-      font-family: var(--sans);
-      font-size: 13px;
-      background: rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 9999px;
-      padding: 10px 16px;
-      color: rgba(255,255,255,0.7);
-      outline: none;
-      backdrop-filter: blur(16px);
-      cursor: pointer;
-      appearance: none;
-      min-width: 110px;
       text-align: center;
-    }
-    .sel option { background: #1a1a1a; }
-
-    /* ─── Scroll container ─── */
-    #stack {
-      position: relative;
+      margin-bottom: 10px;
     }
 
-    /* ─── Each cover slide ─── */
-    .cover-slide {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      scroll-snap-align: start;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      overflow: hidden;
-      cursor: pointer;
+    .subhead {
+      text-align: center;
+      color: #555;
+      font-size: 13px;
+      margin-bottom: 40px;
     }
 
-    /* Full-bleed background: art image or gradient fallback */
-    .cover-bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      transition: transform 0.6s ease;
-    }
-
-    .cover-slide:hover .cover-bg {
-      transform: scale(1.03);
-    }
-
-    /* Dark vignette so text is always readable */
-    .cover-vignette {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.05) 100%),
-        linear-gradient(to right, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 60%);
-    }
-
-    /* Content layer */
-    .cover-content {
-      position: relative;
-      z-index: 2;
-      padding: 0 40px 48px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .cover-left { flex: 1; min-width: 0; }
-
-    /* Issue-style label */
-    .cover-issue {
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .cover-issue::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: rgba(255,255,255,0.35);
-    }
-
-    /* Artist name — big and bold */
-    .cover-artist {
-      font-family: var(--sans);
-      font-size: clamp(14px, 2.5vw, 20px);
-      font-weight: 300;
-      color: rgba(255,255,255,0.7);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    /* Album title — the headline */
-    .cover-title {
-      font-family: var(--serif);
-      font-size: clamp(40px, 7vw, 88px);
-      font-weight: 900;
-      font-style: italic;
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      color: #fff;
-      margin-bottom: 20px;
-    }
-
-    /* Tags row */
-    .cover-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .ctag {
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 500;
+    .section-label {
+      font-size: 13px;
+      color: #555;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 9999px;
-      padding: 5px 12px;
-      backdrop-filter: blur(4px);
+      margin-bottom: 14px;
+      margin-top: 36px;
     }
 
-    /* Score — right side, massive */
-    .cover-right {
+    .track-list { list-style: none; }
+
+    .track-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid #161616;
+      gap: 16px;
+    }
+
+    .track-row:last-child { border-bottom: none; }
+
+    .track-left { flex: 1; min-width: 0; }
+
+    .track-name {
+      font-size: 14px;
+      color: #e8e8e8;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-artist {
+      font-size: 13px;
+      color: #555;
+      font-weight: 300;
+    }
+
+    .track-context {
+      font-size: 12px;
+      color: #444;
+      text-align: right;
       flex-shrink: 0;
-      text-align: right;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-    }
-
-    .cover-score {
-      font-family: var(--serif);
-      font-size: clamp(64px, 11vw, 140px);
-      font-weight: 900;
       font-style: italic;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      /* Score gets a color tint based on the accent */
-      color: #fff;
-      text-shadow: 0 0 60px rgba(255,255,255,0.15);
     }
 
-    .cover-score-denom {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.35);
-      letter-spacing: 0.04em;
-    }
-
-    /* Read note hint */
-    .cover-hint {
-      position: absolute;
-      bottom: 50%;
-      right: 40px;
-      transform: translateY(50%);
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      z-index: 2;
-      transition: color 0.2s;
-    }
-
-    .cover-slide:hover .cover-hint { color: rgba(255,255,255,0.5); }
-
-    /* Scroll indicator — bottom center */
-    .scroll-hint {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      animation: bob 2s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    /* Only show on first slide */
-    .cover-slide:not(:first-child) .scroll-hint { display: none; }
-
-    @keyframes bob {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(6px); }
-    }
-
-    .scroll-hint-line {
-      width: 1px;
-      height: 32px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0));
-    }
-
-    .scroll-hint-label {
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.3);
-    }
-
-    /* ─── Note drawer ─── */
-    .note-drawer {
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .note-drawer.open {
-      pointer-events: all;
-      opacity: 1;
-    }
-
-    .note-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(6px);
-      cursor: pointer;
-    }
-
-    .note-panel {
-      position: relative;
-      z-index: 1;
-      background: #111;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      border-radius: 20px 20px 0 0;
-      padding: 0 0 48px;
-      transform: translateY(100%);
-      transition: transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
-      max-height: 70vh;
-      overflow-y: auto;
-    }
-
-    .note-drawer.open .note-panel {
-      transform: translateY(0);
-    }
-
-    /* Drag handle */
-    .note-handle {
-      display: flex;
-      justify-content: center;
-      padding: 16px 0 20px;
-      cursor: pointer;
-    }
-
-    .note-handle-bar {
-      width: 36px;
-      height: 4px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 9999px;
-    }
-
-    .note-header {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 20px;
-      align-items: center;
-      padding: 0 28px 24px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      margin-bottom: 28px;
-    }
-
-    .note-cover-thumb {
-      width: 80px;
-      height: 80px;
-      border-radius: 8px;
-      object-fit: cover;
-      display: block;
-      background: #222;
-    }
-
-    .note-cover-thumb-ph {
-      width: 80px;
-      height: 80px;
-      border-radius: 8px;
-      background: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--serif);
-      font-size: 10px;
-      font-style: italic;
-      color: rgba(255,255,255,0.3);
-      text-align: center;
-      padding: 8px;
-    }
-
-    .note-title-block {}
-
-    .note-album-title {
-      font-family: var(--serif);
-      font-size: 22px;
-      font-weight: 900;
-      font-style: italic;
-      color: #fff;
-      letter-spacing: -0.01em;
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-
-    .note-album-artist {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.45);
-    }
-
-    .note-score-block {
-      text-align: right;
-    }
-
-    .note-score-big {
-      font-family: var(--serif);
-      font-size: 44px;
-      font-weight: 900;
-      font-style: italic;
-      color: #fff;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .note-score-sub {
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.3);
-    }
-
-    .note-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      padding: 0 28px;
-      margin-bottom: 20px;
-    }
-
-    .ntag {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 9999px;
-      padding: 4px 12px;
-    }
-
-    .note-text {
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 300;
+    .body-text {
+      font-size: 14px;
+      color: #777;
       line-height: 1.8;
-      color: rgba(255,255,255,0.65);
-      padding: 0 28px;
-      white-space: pre-wrap;
+      font-weight: 300;
     }
 
-    /* ─── Empty state ─── */
-    .empty-slide {
-      width: 100vw;
-      height: 100vh;
-      scroll-snap-align: start;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #0d0d0d;
-    }
+    .body-text p { margin-bottom: 16px; }
+    .body-text p:last-child { margin-bottom: 0; }
 
-    .empty-text {
-      font-family: var(--serif);
-      font-size: 28px;
-      font-style: italic;
-      color: rgba(255,255,255,0.15);
-    }
-
-    /* ─── Mobile ─── */
-    @media (max-width: 600px) {
-      .cover-content { padding: 0 20px 100px; flex-direction: column; align-items: flex-start; gap: 16px; }
-      .cover-right { align-items: flex-start; }
-      .cover-score { font-size: 72px; }
-      .cover-title { font-size: 48px; }
-      .cover-hint { display: none; }
-      .note-header { grid-template-columns: 64px 1fr auto; gap: 14px; }
-      .note-cover-thumb, .note-cover-thumb-ph { width: 64px; height: 64px; }
-      .note-score-big { font-size: 36px; }
-      .search-bar { bottom: 16px; }
-      .inp { width: 160px; }
-      .inp:focus { width: 200px; }
+    @media (max-width: 480px) {
+      .page { padding: 24px 20px 60px; }
+      .track-context { display: none; }
     }
   </style>
 </head>
 <body>
+  <main class="page">
 
-  <!-- Fixed HUD -->
-  <div class="hud">
-    <a class="hud-back" href="./index.html">← Arya Somu</a>
-    <div class="hud-counter" id="hud-counter">— / —</div>
-  </div>
-
-  <!-- Search bar -->
-  <div class="search-bar">
-    <input id="q" class="inp" type="search" placeholder="Search…" autocomplete="off"/>
-    <select id="genre" class="sel"></select>
-  </div>
-
-  <!-- Slides -->
-  <div id="stack"></div>
-
-  <!-- Note drawer -->
-  <div id="note-drawer" class="note-drawer">
-    <div class="note-backdrop" id="note-backdrop"></div>
-    <div class="note-panel" id="note-panel">
-      <div class="note-handle" id="note-handle">
-        <div class="note-handle-bar"></div>
-      </div>
-      <div class="note-header">
-        <div id="drawer-thumb"></div>
-        <div class="note-title-block">
-          <div id="drawer-title" class="note-album-title"></div>
-          <div id="drawer-artist" class="note-album-artist"></div>
-        </div>
-        <div class="note-score-block">
-          <div id="drawer-score" class="note-score-big"></div>
-          <div class="note-score-sub">out of 10</div>
-        </div>
-      </div>
-      <div id="drawer-tags" class="note-tags"></div>
-      <div id="drawer-note" class="note-text"></div>
+    <div class="topbar">
+      <a class="logo" href="/">a</a>
+      <nav>
+        <a href="/">index</a>
+        <span class="sep">•</span>
+        <a href="music.html">music</a>
+      </nav>
     </div>
-  </div>
 
-  <script>
-    /* ─────────────────────────────────────
-       ALBUM DATA
-    ───────────────────────────────────── */
-    const albums = [
-      {
-        title: "ca$ino",
-        artist: "baby keem",
-        year: 2026,
-        genre: ["rap"],
-        rating: 9.7,
-        note: "this album made me realize you just gotta listen to some things by yourself. i initially listened to this with my roommate, bruce, and we were distracted looking at Howard investment groups IB placements for whatever reason, and I didn't appreciate the technical depth of this album. however, on second listen, songs like no blame damn near brought me to tears, and some of the standout tracks were ca$ino, dramatic girl, and $ex appeal. overall, incredible project, everyone should go listen.",
-        cover: "./assets/papers/casino.jpg",
-        accent: "#c0392b",
-        bg: "linear-gradient(135deg,#2a0a00,#1a0a00)"
-      },
-      {
-        title: "octane",
-        artist: "don toliver",
-        year: 2026,
-        genre: ["melodic hip-hop"],
-        rating: 8.7,
-        note: "the highs were super high and some of the lows were forgettable. e85, body, rendezvous, and secondhand to open the album was INSANE. overall, great project, but there is some filler fs.",
-        cover: "./assets/papers/octane.jpg",
-        accent: "#3498db",
-        bg: "linear-gradient(135deg,#050a1a,#0a0f2a)"
-      },
-      {
-        title: "icon",
-        artist: "brent faiyaz",
-        year: 2026,
-        genre: ["rnb"],
-        rating: 7.2,
-        note: "some really good songs on here, but overall i felt that a lot of the music on here sounded a little too similar to his past cuts.",
-        cover: "./assets/papers/icon.jpg",
-        accent: "#e67e22",
-        bg: "linear-gradient(135deg,#1a0f00,#1a1200)"
-      },
-      {
-        title: "jackboys 2",
-        artist: "jackboys + travis scott",
-        year: 2025,
-        genre: ["trap"],
-        rating: 7.0,
-        note: "i liked this one a lot idgaf about what the media says, travis got it, don got it, sheck got it, somehow even sofaygo got it.",
-        cover: "./assets/papers/jb2.jpg",
-        accent: "#27ae60",
-        bg: "linear-gradient(135deg,#011a08,#021208)"
-      },
-      {
-        title: "too much music",
-        artist: "plaqueboymax",
-        year: 2025,
-        genre: ["trap"],
-        rating: 4.2,
-        note: "realspill and malibu tides got it, but idk how i feel about the rest of it.",
-        cover: "./assets/tmm.jpg",
-        accent: "#9b59b6",
-        bg: "linear-gradient(135deg,#0e0018,#130020)"
-      }
-    ];
+    <h1 class="greeting">music</h1>
+    <p class="subhead">what's actually playing — updated when it changes</p>
 
-    /* ─────────────────────────────────────
-       UTILS
-    ───────────────────────────────────── */
-    const norm = s => (s ?? "").toString().toLowerCase();
-    const fmt  = n => typeof n === "number" ? n.toFixed(1) : "—";
-    const esc  = s => (s ?? "").toString()
-      .replaceAll("&","&amp;").replaceAll("<","&lt;")
-      .replaceAll(">","&gt;").replaceAll('"',"&quot;");
+    <p class="section-label">heavy rotation right now</p>
 
-    /* ─────────────────────────────────────
-       STATE
-    ───────────────────────────────────── */
-    let filtered  = [];
-    let currentSlideIdx = 0;
-    let drawerOpen = false;
-    let drawerAlbum = null;
+    <ul class="track-list">
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">walking away</p>
+          <p class="track-artist">justin bieber</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">sweet spot</p>
+          <p class="track-artist">justin bieber ft. sexyy redd</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">talk</p>
+          <p class="track-artist">khalid & disclosure</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">digital dash</p>
+          <p class="track-artist">drake & future</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">rich spirit</p>
+          <p class="track-artist">kendrick lamar</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">ayo</p>
+          <p class="track-artist">chris brown & tyga</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">workaholic</p>
+          <p class="track-artist">bryson tiller</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">dive</p>
+          <p class="track-artist">olivia dean</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+    </ul>
 
-    /* ─────────────────────────────────────
-       DOM REFS
-    ───────────────────────────────────── */
-    const stack       = document.getElementById("stack");
-    const elQ         = document.getElementById("q");
-    const elGenre     = document.getElementById("genre");
-    const hudCounter  = document.getElementById("hud-counter");
-    const noteDrawer  = document.getElementById("note-drawer");
-    const noteBackdrop= document.getElementById("note-backdrop");
-    const notePanel   = document.getElementById("note-panel");
-    const noteHandle  = document.getElementById("note-handle");
-    const drawerThumb = document.getElementById("drawer-thumb");
-    const drawerTitle = document.getElementById("drawer-title");
-    const drawerArtist= document.getElementById("drawer-artist");
-    const drawerScore = document.getElementById("drawer-score");
-    const drawerTags  = document.getElementById("drawer-tags");
-    const drawerNote  = document.getElementById("drawer-note");
+    <p class="section-label">for coding</p>
 
-    /* ─────────────────────────────────────
-       GENRE SELECT
-    ───────────────────────────────────── */
-    const uniqueGenres = () => {
-      const s = new Set();
-      albums.forEach(a => (a.genre || []).forEach(g => s.add(g)));
-      return ["All", ...Array.from(s).sort()];
-    };
+    <ul class="track-list">
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">blonde</p>
+          <p class="track-artist">frank ocean</p>
+        </div>
+        <span class="track-context">front to back</span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">drive me crazy</p>
+          <p class="track-artist">lil yachty</p>
+        </div>
+        <span class="track-context"></span>
+      </li>
+      <li class="track-row">
+        <div class="track-left">
+          <p class="track-name">sometimes nothing</p>
+          <p class="track-artist">headphones on, silence</p>
+        </div>
+        <span class="track-context">the move</span>
+      </li>
+    </ul>
 
-    elGenre.innerHTML = uniqueGenres()
-      .map(g => `<option value="${esc(g)}">${esc(g)}</option>`)
-      .join("");
+    <p class="section-label">a note on music</p>
 
-    /* ─────────────────────────────────────
-       DRAWER
-    ───────────────────────────────────── */
-    const openDrawer = (a) => {
-      drawerAlbum = a;
-      drawerTitle.textContent  = a.title || "";
-      drawerArtist.textContent = a.artist || "";
-      drawerScore.textContent  = fmt(a.rating);
-      drawerNote.textContent   = a.note || "";
+    <div class="body-text">
+      <p>
+        i listen to music differently depending on what i'm doing. coding and research need something that fades into the background — rhythm without too much lyrical pull. writing needs silence or near-silence. the gym needs actual energy.
+      </p>
+      <p>
+        frank ocean is the constant across all of it. i've probably listened to blonde more times than any album in my life. it's the kind of thing that sounds different depending on what you're carrying when you put it on.
+      </p>
+    </div>
 
-      // Score color
-      drawerScore.style.color = a.accent || "#fff";
-
-      // Thumb
-      if (a.cover) {
-        drawerThumb.innerHTML = `<img class="note-cover-thumb" src="${esc(a.cover)}" alt="${esc(a.title)}"/>`;
-      } else {
-        drawerThumb.innerHTML = `<div class="note-cover-thumb-ph">${esc(a.title)}</div>`;
-      }
-
-      // Tags
-      const tags = [...(a.genre || []), a.year ? String(a.year) : ""].filter(Boolean);
-      drawerTags.innerHTML = tags.map(t => `<span class="ntag">${esc(t)}</span>`).join("");
-
-      // Open
-      noteDrawer.classList.add("open");
-      drawerOpen = true;
-      notePanel.scrollTop = 0;
-    };
-
-    const closeDrawer = () => {
-      noteDrawer.classList.remove("open");
-      drawerOpen = false;
-    };
-
-    noteBackdrop.addEventListener("click", closeDrawer);
-    noteHandle.addEventListener("click", closeDrawer);
-    document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
-
-    /* ─────────────────────────────────────
-       BUILD SLIDES
-    ───────────────────────────────────── */
-    const buildSlide = (a, globalIdx, isFirst) => {
-      const slide = document.createElement("div");
-      slide.className = "cover-slide";
-      slide.dataset.idx = globalIdx;
-
-      // Background
-      const bg = document.createElement("div");
-      bg.className = "cover-bg";
-      if (a.cover) {
-        bg.style.backgroundImage = `url(${esc(a.cover)})`;
-      } else {
-        bg.style.background = a.bg || "#1a1a1a";
-      }
-      slide.appendChild(bg);
-
-      // Vignette
-      const vig = document.createElement("div");
-      vig.className = "cover-vignette";
-      slide.appendChild(vig);
-
-      // Hint (vertical text)
-      const hint = document.createElement("div");
-      hint.className = "cover-hint";
-      hint.textContent = "Read note";
-      slide.appendChild(hint);
-
-      // Scroll indicator (first slide only)
-      if (isFirst) {
-        const scrollHint = document.createElement("div");
-        scrollHint.className = "scroll-hint";
-        scrollHint.innerHTML = `<div class="scroll-hint-line"></div><div class="scroll-hint-label">Scroll</div>`;
-        slide.appendChild(scrollHint);
-      }
-
-      // Content
-      const content = document.createElement("div");
-      content.className = "cover-content";
-
-      // Left
-      const left = document.createElement("div");
-      left.className = "cover-left";
-
-      const issue = document.createElement("div");
-      issue.className = "cover-issue";
-      issue.textContent = (a.genre || ["music"])[0];
-
-      const artist = document.createElement("div");
-      artist.className = "cover-artist";
-      artist.textContent = a.artist || "";
-
-      const title = document.createElement("div");
-      title.className = "cover-title";
-      title.textContent = a.title || "";
-
-      const tags = document.createElement("div");
-      tags.className = "cover-tags";
-      const tagList = [...(a.genre || []), a.year ? String(a.year) : ""].filter(Boolean);
-      tags.innerHTML = tagList.map(t => `<span class="ctag">${esc(t)}</span>`).join("");
-
-      left.appendChild(issue);
-      left.appendChild(artist);
-      left.appendChild(title);
-      left.appendChild(tags);
-
-      // Right — score
-      const right = document.createElement("div");
-      right.className = "cover-right";
-
-      const score = document.createElement("div");
-      score.className = "cover-score";
-      score.textContent = fmt(a.rating);
-      score.style.color = a.accent || "#fff";
-
-      const denom = document.createElement("div");
-      denom.className = "cover-score-denom";
-      denom.textContent = "/ 10";
-
-      right.appendChild(score);
-      right.appendChild(denom);
-
-      content.appendChild(left);
-      content.appendChild(right);
-      slide.appendChild(content);
-
-      // Click to open drawer
-      slide.addEventListener("click", () => openDrawer(a));
-
-      return slide;
-    };
-
-    /* ─────────────────────────────────────
-       RENDER
-    ───────────────────────────────────── */
-    const render = () => {
-      closeDrawer();
-      stack.innerHTML = "";
-      currentSlideIdx = 0;
-
-      const q = norm(elQ.value);
-      const g = elGenre.value || "All";
-
-      filtered = albums
-        .filter(a => {
-          if (g !== "All" && !(a.genre || []).includes(g)) return false;
-          if (!q) return true;
-          const bag = [a.title, a.artist, String(a.year || ""),
-            (a.genre || []).join(" "), a.note].map(norm).join(" ");
-          return bag.includes(q);
-        })
-        .sort((x, y) => (y.rating ?? -1) - (x.rating ?? -1));
-
-      if (!filtered.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty-slide";
-        empty.innerHTML = `<div class="empty-text">Nothing found.</div>`;
-        stack.appendChild(empty);
-        hudCounter.textContent = "0 albums";
-        return;
-      }
-
-      filtered.forEach((a, i) => {
-        const globalIdx = albums.indexOf(a);
-        stack.appendChild(buildSlide(a, globalIdx, i === 0));
-      });
-
-      updateCounter();
-    };
-
-    /* ─────────────────────────────────────
-       SCROLL / COUNTER
-    ───────────────────────────────────── */
-    const updateCounter = () => {
-      if (!filtered.length) return;
-      hudCounter.textContent = `${currentSlideIdx + 1} / ${filtered.length}`;
-    };
-
-    // IntersectionObserver to track which slide is in view
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting && e.intersectionRatio >= 0.5) {
-          const slides = [...stack.querySelectorAll(".cover-slide")];
-          currentSlideIdx = slides.indexOf(e.target);
-          updateCounter();
-        }
-      });
-    }, { threshold: 0.5 });
-
-    // Re-observe whenever we re-render
-    const observeSlides = () => {
-      stack.querySelectorAll(".cover-slide").forEach(s => io.observe(s));
-    };
-
-    const _origRender = render;
-    const render2 = () => {
-      _origRender();
-      observeSlides();
-    };
-
-    elQ.addEventListener("input", render2);
-    elGenre.addEventListener("change", render2);
-    render2();
-  </script>
+  </main>
 </body>
 </html>
