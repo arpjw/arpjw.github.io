@@ -7,30 +7,31 @@
   <meta name="description" content="what i'm listening to.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
-      background: #0e0e0e;
+      background: #0b0b0b;
       color: #e8e8e8;
       font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-      font-size: 14px;
-      line-height: 1.7;
+      font-size: 17px;
+      line-height: 1.8;
       -webkit-font-smoothing: antialiased;
     }
 
     .page {
-      max-width: 560px;
+      max-width: 640px;
       margin: 0 auto;
-      padding: 28px 24px 80px;
+      padding: 40px 32px 100px;
     }
 
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 48px;
+      margin-bottom: 64px;
     }
 
     .logo {
@@ -39,63 +40,249 @@
       justify-content: center;
       width: 28px;
       height: 28px;
-      border: 1px solid #333;
-      border-radius: 4px;
-      font-size: 13px;
+      border: 1px solid #2e2e2e;
+      border-radius: 3px;
+      font-size: 12px;
       font-weight: 500;
-      color: #e8e8e8;
+      color: #aaa;
       text-decoration: none;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.02em;
+      transition: color 0.12s, border-color 0.12s;
     }
 
-    nav { display: flex; align-items: center; font-size: 14px; }
+    .logo:hover { color: #e8e8e8; border-color: #555; }
+
+    nav { display: flex; align-items: center; font-size: 17px; }
     nav a { color: #e8e8e8; text-decoration: none; transition: color 0.12s; }
     nav a:hover { color: #fff; }
-    nav .sep { color: #444; margin: 0 6px; user-select: none; }
+    nav a.active { color: #fff; }
+    nav .sep { color: #333; margin: 0 6px; user-select: none; }
 
-    .greeting {
-      font-family: 'Satisfy', cursive;
-      font-size: clamp(32px, 6vw, 46px);
-      font-weight: 400;
+    .heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(34px, 5vw, 44px);
       color: #fff;
-      text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 40px;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
     }
 
-    .subhead {
-      text-align: center;
-      color: #555;
-      font-size: 13px;
-      margin-bottom: 40px;
+    /* ── Now playing ── */
+
+    .now-playing {
+      border: 1px solid #1e1e1e;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 48px;
+      background: #0f0f0f;
     }
+
+    .np-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 14px;
+    }
+
+    .np-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #444;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+
+    .np-dot.live {
+      background: #4caf7d;
+      box-shadow: 0 0 6px #4caf7d88;
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .np-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #444;
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+
+    .np-label.live { color: #4caf7d; }
+
+    .np-track {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .np-art {
+      width: 44px;
+      height: 44px;
+      border-radius: 3px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #1a1a1a;
+    }
+
+    .np-art.hidden { display: none; }
+
+    .np-art-placeholder {
+      width: 44px;
+      height: 44px;
+      border-radius: 3px;
+      background: #1a1a1a;
+      flex-shrink: 0;
+    }
+
+    .np-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .np-name {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #e8e8e8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .np-artist {
+      display: block;
+      font-size: 13px;
+      font-weight: 300;
+      color: #555;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .np-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .np-bars.live { opacity: 1; }
+
+    .np-bars span {
+      display: block;
+      width: 3px;
+      border-radius: 2px;
+      background: #4caf7d;
+      transform-origin: bottom;
+    }
+
+    .np-bars span:nth-child(1) { height: 8px;  animation: bar 0.9s ease-in-out infinite alternate; animation-delay: 0s; }
+    .np-bars span:nth-child(2) { height: 14px; animation: bar 0.9s ease-in-out infinite alternate; animation-delay: 0.2s; }
+    .np-bars span:nth-child(3) { height: 10px; animation: bar 0.9s ease-in-out infinite alternate; animation-delay: 0.1s; }
+    .np-bars span:nth-child(4) { height: 6px;  animation: bar 0.9s ease-in-out infinite alternate; animation-delay: 0.3s; }
+
+    @keyframes bar {
+      from { transform: scaleY(0.25); }
+      to   { transform: scaleY(1); }
+    }
+
+    .np-bars:not(.live) span { animation: none; }
+
+    /* ── Track lists ── */
 
     .section-label {
-      font-size: 13px;
-      color: #555;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      margin-top: 36px;
+      font-size: 17px;
+      color: #aaa;
+      margin-bottom: 6px;
     }
 
-    .track-list { list-style: none; }
+    .track-list { list-style: none; margin-bottom: 48px; }
 
     .track-row {
       display: flex;
       align-items: baseline;
-      justify-content: space-between;
+      gap: 10px;
       padding: 11px 0;
       border-bottom: 1px solid #161616;
-      gap: 16px;
     }
 
-    .track-row:last-child { border-bottom: none; }
+    .track-row:first-child { border-top: 1px solid #161616; }
 
     .track-left { flex: 1; min-width: 0; }
 
     .track-name {
-      font-size: 14px;
+      font-size: 17px;
+      font-weight: 500;
       color: #e8e8e8;
-      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-artist {
+      font-size: 14px;
+      font-weight: 300;
+      color: #555;
+    }
+
+    .track-context {
+      font-size: 13px;
+      color: #3a3a3a;
+      text-align: right;
+      flex-shrink: 0;
+      font-style: italic;
+    }
+
+    /* ── Note ── */
+
+    .body-text {
+      font-size: 17px;
+      color: #c8c8c8;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .body-text p { margin-bottom: 14px; }
+    .body-text p:last-child { margin-bottom: 0; }
+
+    /* ── Setup note ── */
+
+    .section-label {
+      font-size: 17px;
+      color: #aaa;
+      margin-bottom: 6px;
+    }
+
+    .track-list { list-style: none; margin-bottom: 48px; }
+
+    .track-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 0;
+      border-bottom: 1px solid #161616;
+    }
+
+    .track-row:first-child { border-top: 1px solid #161616; }
+
+    .track-left { flex: 1; min-width: 0; }
+
+    .track-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: #e8e8e8;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -103,27 +290,38 @@
 
     .track-artist {
       font-size: 13px;
+      font-weight: 300;
       color: #555;
-      font-weight: 300;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .track-context {
+    .track-time {
       font-size: 12px;
-      color: #444;
-      text-align: right;
+      color: #333;
+      white-space: nowrap;
       flex-shrink: 0;
-      font-style: italic;
+      font-variant-numeric: tabular-nums;
     }
 
-    .body-text {
-      font-size: 14px;
-      color: #777;
-      line-height: 1.8;
-      font-weight: 300;
+    .setup-note {
+      margin-top: 48px;
+      padding: 14px 18px;
+      border: 1px dashed #222;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
     }
 
-    .body-text p { margin-bottom: 16px; }
-    .body-text p:last-child { margin-bottom: 0; }
+    .setup-note code {
+      font-family: monospace;
+      color: #666;
+      background: #161616;
+      padding: 1px 5px;
+      border-radius: 3px;
+    }
 
     @media (max-width: 480px) {
       .page { padding: 24px 20px 60px; }
@@ -139,111 +337,147 @@
       <nav>
         <a href="/">index</a>
         <span class="sep">•</span>
-        <a href="music.html">music</a>
+        <a href="research.html">research</a>
+        <span class="sep">•</span>
+        <a href="music.html" class="active">music</a>
       </nav>
     </div>
 
-    <h1 class="greeting">music</h1>
-    <p class="subhead">what's actually playing — updated when it changes</p>
+    <h1 class="heading">music</h1>
 
-    <p class="section-label">heavy rotation right now</p>
-
-    <ul class="track-list">
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">walking away</p>
-          <p class="track-artist">justin bieber</p>
+    <div class="now-playing">
+      <div class="np-status">
+        <span class="np-dot" id="np-dot"></span>
+        <span class="np-label" id="np-label">connecting...</span>
+      </div>
+      <div class="np-track">
+        <img class="np-art hidden" id="np-art" src="" alt="">
+        <div class="np-art-placeholder" id="np-placeholder"></div>
+        <div class="np-info">
+          <span class="np-name" id="np-name">—</span>
+          <span class="np-artist" id="np-artist">—</span>
         </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">sweet spot</p>
-          <p class="track-artist">justin bieber ft. sexyy redd</p>
+        <div class="np-bars" id="np-bars">
+          <span></span><span></span><span></span><span></span>
         </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">talk</p>
-          <p class="track-artist">khalid & disclosure</p>
-        </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">digital dash</p>
-          <p class="track-artist">drake & future</p>
-        </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">rich spirit</p>
-          <p class="track-artist">kendrick lamar</p>
-        </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">ayo</p>
-          <p class="track-artist">chris brown & tyga</p>
-        </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">workaholic</p>
-          <p class="track-artist">bryson tiller</p>
-        </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">dive</p>
-          <p class="track-artist">olivia dean</p>
-        </div>
-        <span class="track-context"></span>
-      </li>
-    </ul>
-
-    <p class="section-label">for coding</p>
-
-    <ul class="track-list">
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">blonde</p>
-          <p class="track-artist">frank ocean</p>
-        </div>
-        <span class="track-context">front to back</span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">drive me crazy</p>
-          <p class="track-artist">lil yachty</p>
-        </div>
-        <span class="track-context"></span>
-      </li>
-      <li class="track-row">
-        <div class="track-left">
-          <p class="track-name">sometimes nothing</p>
-          <p class="track-artist">headphones on, silence</p>
-        </div>
-        <span class="track-context">the move</span>
-      </li>
-    </ul>
-
-    <p class="section-label">a note on music</p>
-
-    <div class="body-text">
-      <p>
-        i listen to music differently depending on what i'm doing. coding and research need something that fades into the background — rhythm without too much lyrical pull. writing needs silence or near-silence. the gym needs actual energy.
-      </p>
-      <p>
-        frank ocean is the constant across all of it. i've probably listened to blonde more times than any album in my life. it's the kind of thing that sounds different depending on what you're carrying when you put it on.
-      </p>
+      </div>
     </div>
 
+    <div class="setup-note" id="setup-note" style="display:none;">
+      to enable live now playing: (1) create a free account at <code>last.fm</code> and connect it to spotify under settings, (2) get a free api key at <code>last.fm/api</code>, then replace <code>LASTFM_USER</code> and <code>LASTFM_KEY</code> at the top of this file's script tag.
+    </div>
+
+    <p class="section-label" id="recent-label" style="display:none;">recently played</p>
+    <ul class="track-list" id="recent-list"></ul>
+
   </main>
+
+  <script>
+    const LASTFM_USER = 'aiibet';
+    const LASTFM_KEY  = '34ff6d331e356e7da4c6d64f3019d977';
+
+    const dot         = document.getElementById('np-dot');
+    const label       = document.getElementById('np-label');
+    const art         = document.getElementById('np-art');
+    const placeholder = document.getElementById('np-placeholder');
+    const name        = document.getElementById('np-name');
+    const artist      = document.getElementById('np-artist');
+    const bars        = document.getElementById('np-bars');
+    const setupNote   = document.getElementById('setup-note');
+    const recentLabel = document.getElementById('recent-label');
+    const recentList  = document.getElementById('recent-list');
+
+    const isConfigured = LASTFM_USER !== 'LASTFM_USER' && LASTFM_KEY !== 'LASTFM_KEY';
+
+    function timeAgo(unixTimestamp) {
+      const diff = Math.floor(Date.now() / 1000) - parseInt(unixTimestamp);
+      if (diff < 60)             return 'just now';
+      if (diff < 3600)           return `${Math.floor(diff / 60)}m ago`;
+      if (diff < 86400)          return `${Math.floor(diff / 3600)}h ago`;
+      if (diff < 86400 * 7)      return `${Math.floor(diff / 86400)}d ago`;
+      return `${Math.floor(diff / 604800)}w ago`;
+    }
+
+    function setLive(track) {
+      dot.classList.add('live');
+      label.classList.add('live');
+      label.textContent = 'now playing';
+      bars.classList.add('live');
+      name.textContent   = track.name;
+      artist.textContent = track.artist['#text'];
+      const img = track.image?.find(i => i.size === 'medium')?.['#text'];
+      if (img) {
+        art.src = img;
+        art.classList.remove('hidden');
+        placeholder.style.display = 'none';
+      }
+    }
+
+    function setIdle(track) {
+      dot.classList.remove('live');
+      label.classList.remove('live');
+      label.textContent = 'last played';
+      bars.classList.remove('live');
+      name.textContent   = track ? track.name : '—';
+      artist.textContent = track ? track.artist['#text'] : '—';
+      const img = track?.image?.find(i => i.size === 'medium')?.['#text'];
+      if (img) {
+        art.src = img;
+        art.classList.remove('hidden');
+        placeholder.style.display = 'none';
+      }
+    }
+
+    function setError() {
+      label.textContent  = 'not available';
+      name.textContent   = '—';
+      artist.textContent = '—';
+    }
+
+    function renderRecent(tracks) {
+      recentList.innerHTML = '';
+      tracks.forEach(t => {
+        const li = document.createElement('li');
+        li.className = 'track-row';
+        li.innerHTML = `
+          <div class="track-left">
+            <p class="track-name">${t.name}</p>
+            <p class="track-artist">${t.artist['#text']}</p>
+          </div>
+          <span class="track-time">${t.date ? timeAgo(t.date.uts) : ''}</span>
+        `;
+        recentList.appendChild(li);
+      });
+      recentLabel.style.display = 'block';
+    }
+
+    async function fetchNowPlaying() {
+      if (!isConfigured) {
+        label.textContent = 'not connected';
+        setupNote.style.display = 'block';
+        return;
+      }
+      try {
+        const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_KEY}&format=json&limit=9`;
+        const res  = await fetch(url);
+        const data = await res.json();
+        const tracks = data?.recenttracks?.track;
+        if (!tracks) { setError(); return; }
+
+        const list      = Array.isArray(tracks) ? tracks : [tracks];
+        const isPlaying = list[0]?.['@attr']?.nowplaying === 'true';
+
+        isPlaying ? setLive(list[0]) : setIdle(list[0]);
+
+        const recent = isPlaying ? list.slice(1, 9) : list.slice(1, 9);
+        if (recent.length) renderRecent(recent);
+      } catch {
+        setError();
+      }
+    }
+
+    fetchNowPlaying();
+    setInterval(fetchNowPlaying, 30000);
+  </script>
 </body>
 </html>
