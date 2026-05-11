@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arya Somu</title>
-  <meta name="description" content="Founder & CIO of Monolith Systematic. Incoming researcher at Stanford AFT Lab.">
+  <meta name="description" content="Founder & CIO of Monolith Systematic. Incoming applied mathematics student at UC Berkeley.">
   <meta property="og:title" content="Arya Somu">
-  <meta property="og:description" content="Founder & CIO of Monolith Systematic. Incoming researcher at Stanford AFT Lab.">
+  <meta property="og:description" content="Founder & CIO of Monolith Systematic. Incoming applied mathematics student at UC Berkeley.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aryasomu.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,19 +27,68 @@
       font-size: 17px;
       line-height: 1.8;
       -webkit-font-smoothing: antialiased;
+      cursor: none;
     }
 
-    .page {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 40px 32px 100px;
+    /* ── Grain overlay ── */
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 200px 200px;
     }
+
+    /* ── Custom cursor ── */
+
+    .cursor-dot {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #e8e8e8;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    /* ── Page ── */
+
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 32px 120px;
+    }
+
+    /* ── Animations ── */
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .anim { opacity: 0; animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .anim-0 { animation-delay: 0.0s; }
+    .anim-1 { animation-delay: 0.08s; }
+    .anim-2 { animation-delay: 0.16s; }
+    .anim-3 { animation-delay: 0.24s; }
+    .anim-4 { animation-delay: 0.32s; }
+    .anim-5 { animation-delay: 0.40s; }
+    .anim-6 { animation-delay: 0.48s; }
+
+    /* ── Topbar ── */
 
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 64px;
+      margin-bottom: 72px;
     }
 
     .logo {
@@ -56,61 +105,61 @@
       text-decoration: none;
       font-family: 'DM Sans', sans-serif;
       letter-spacing: 0.02em;
-      transition: color 0.12s, border-color 0.12s;
+      transition: color 0.15s, border-color 0.15s;
     }
 
-    .logo:hover {
-      color: #e8e8e8;
-      border-color: #555;
-    }
+    .logo:hover { color: #e8e8e8; border-color: #555; }
 
-    nav {
+    .topbar-right {
       display: flex;
       align-items: center;
-      font-size: 17px;
+      gap: 20px;
     }
 
-    nav a {
-      color: #e8e8e8;
-      text-decoration: none;
-      transition: color 0.12s;
+    nav { display: flex; align-items: center; font-size: 17px; }
+    nav a { color: #888; text-decoration: none; transition: color 0.15s; }
+    nav a:hover { color: #e8e8e8; }
+    nav .sep { color: #2a2a2a; margin: 0 8px; user-select: none; }
+
+    .cmd-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: 1px solid #222;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: #444;
+      cursor: none;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.04em;
     }
 
-    nav a:hover { color: #fff; }
+    .cmd-btn:hover { color: #888; border-color: #444; }
 
-    nav .sep {
-      color: #333;
-      margin: 0 6px;
-      user-select: none;
-    }
+    /* ── Greeting ── */
 
     .greeting {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
       font-weight: 300;
-      font-size: clamp(34px, 5vw, 44px);
+      font-size: clamp(36px, 5vw, 48px);
       color: #fff;
-      text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       letter-spacing: 0.02em;
       line-height: 1.2;
     }
 
-    .meta {
-      text-align: center;
-      font-size: 10.5px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #3d3d3d;
-      margin-bottom: 32px;
-      font-weight: 400;
-    }
+    /* ── Bio ── */
 
     .bio {
       font-size: 17px;
-      color: #c8c8c8;
-      line-height: 1.8;
-      margin-bottom: 36px;
+      color: #c0c0c0;
+      line-height: 1.85;
+      margin-bottom: 64px;
+      max-width: 580px;
     }
 
     .bio p { margin-bottom: 14px; }
@@ -119,196 +168,447 @@
     .bio a {
       color: #7aabd6;
       text-decoration: none;
-      transition: color 0.12s;
+      transition: color 0.15s;
     }
 
-    .bio a:hover { color: #a0c2e6; }
+    .bio a:hover { color: #a0c8e8; }
 
-    .projects-label {
-      font-size: 17px;
-      color: #aaa;
-      margin-bottom: 6px;
+    /* ── Grid ── */
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 72px;
     }
 
-    .projects { list-style: none; }
+    .grid-col {}
 
-    .project {
-      display: flex;
+    .grid-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #3a3a3a;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .grid-list { list-style: none; }
+
+    .grid-item {
+      margin-bottom: 22px;
+    }
+
+    .grid-item:last-child { margin-bottom: 0; }
+
+    .grid-item-link {
+      display: inline-flex;
       align-items: baseline;
-      gap: 10px;
-      padding: 11px 0;
+      gap: 3px;
       text-decoration: none;
-      color: inherit;
-    }
-
-    .project-left {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .project-name {
-      font-size: 17px;
-      font-weight: 500;
-      color: #e8e8e8;
-    }
-
-    .project-desc {
+      color: #d8d8d8;
       font-size: 15px;
-      font-weight: 300;
-      color: #555;
-      letter-spacing: 0.01em;
-    }
-
-    .project-line {
-      flex: 1;
-      height: 1px;
-      border-top: 1px dashed #222;
-      min-width: 20px;
+      font-weight: 500;
       position: relative;
-      top: -4px;
+      transition: color 0.15s;
     }
 
-    .project-year {
-      font-size: 12px;
+    .grid-item-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: #d8d8d8;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s ease;
+    }
+
+    .grid-item-link:hover { color: #fff; }
+    .grid-item-link:hover::after { transform: scaleX(1); }
+
+    .grid-item-arrow {
+      font-size: 11px;
+      color: #3a3a3a;
+      transition: color 0.15s;
+      margin-left: 2px;
+    }
+
+    .grid-item-link:hover .grid-item-arrow { color: #888; }
+
+    .grid-item-desc {
+      display: block;
+      font-size: 13px;
+      font-weight: 300;
       color: #444;
-      white-space: nowrap;
-      flex-shrink: 0;
-      letter-spacing: 0.04em;
+      line-height: 1.6;
+      margin-top: 3px;
     }
 
-    .project:hover .project-name { color: #fff; }
-    .project:hover .project-desc { color: #888; }
+    /* ── Now ── */
+
+    .section {
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #3a3a3a;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .section-body {
+      font-size: 16px;
+      color: #999;
+      line-height: 1.85;
+      font-weight: 300;
+      max-width: 560px;
+    }
+
+    .section-body p { margin-bottom: 12px; }
+    .section-body p:last-child { margin-bottom: 0; }
+
+    .section-body a {
+      color: #7aabd6;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .section-body a:hover { color: #a0c8e8; }
+
+    /* ── Connect ── */
+
+    .connect-body {
+      font-size: 16px;
+      color: #999;
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    .connect-body a {
+      color: #c0c0c0;
+      text-decoration: none;
+      border-bottom: 1px solid #333;
+      transition: color 0.15s, border-color 0.15s;
+      padding-bottom: 1px;
+    }
+
+    .connect-body a:hover { color: #fff; border-color: #888; }
+
+    /* ── Footer ── */
 
     footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 48px;
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid #161616;
       font-size: 13px;
-      color: #444;
+      color: #333;
     }
 
-    .location {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .location .sep { color: #2a2a2a; }
-
+    .location { display: flex; align-items: center; gap: 5px; }
+    .location .sep { color: #1e1e1e; }
     #sf-time { font-variant-numeric: tabular-nums; }
 
-    .socials {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+    .socials { display: flex; align-items: center; gap: 16px; }
 
     .socials a {
       display: flex;
       align-items: center;
-      color: #444;
+      color: #333;
       text-decoration: none;
-      transition: color 0.12s;
+      transition: color 0.15s;
     }
 
     .socials a:hover { color: #e8e8e8; }
 
-    @media (max-width: 480px) {
-      .page { padding: 24px 20px 60px; }
+    /* ── Command palette ── */
+
+    .palette-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 18vh;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+    }
+
+    .palette-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .palette {
+      width: 100%;
+      max-width: 480px;
+      background: #111;
+      border: 1px solid #252525;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    }
+
+    .palette-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .palette-search-icon {
+      color: #444;
+      flex-shrink: 0;
+    }
+
+    .palette-input {
+      flex: 1;
+      background: none;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #e8e8e8;
+      font-weight: 400;
+    }
+
+    .palette-input::placeholder { color: #333; }
+
+    .palette-list {
+      list-style: none;
+      max-height: 320px;
+      overflow-y: auto;
+      padding: 6px 0;
+    }
+
+    .palette-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      cursor: none;
+      transition: background 0.1s;
+    }
+
+    .palette-item:hover,
+    .palette-item.selected {
+      background: #1a1a1a;
+    }
+
+    .palette-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .palette-item-icon {
+      font-size: 12px;
+      color: #3a3a3a;
+      width: 14px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .palette-item-label {
+      font-size: 14px;
+      color: #d8d8d8;
+      font-weight: 400;
+    }
+
+    .palette-item-hint {
+      font-size: 12px;
+      color: #3a3a3a;
+      font-weight: 300;
+    }
+
+    .palette-empty {
+      padding: 24px 18px;
+      font-size: 13px;
+      color: #333;
+      text-align: center;
+    }
+
+    /* ── Mobile ── */
+
+    @media (max-width: 600px) {
+      .page { padding: 24px 20px 80px; }
       .greeting { font-size: 36px; }
-      .project-desc { display: none; }
+      .grid { grid-template-columns: 1fr; gap: 36px; }
       footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .cmd-btn { display: none; }
+      html, body { cursor: auto; }
+      .cursor-dot { display: none; }
     }
   </style>
 </head>
 <body>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <!-- Command palette -->
+  <div class="palette-overlay" id="palette-overlay" aria-modal="true" role="dialog">
+    <div class="palette">
+      <div class="palette-input-wrap">
+        <svg class="palette-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input class="palette-input" id="palette-input" placeholder="search..." autocomplete="off" spellcheck="false">
+      </div>
+      <ul class="palette-list" id="palette-list"></ul>
+    </div>
+  </div>
+
   <main class="page">
 
-    <div class="topbar">
+    <div class="topbar anim anim-0">
       <a class="logo" href="/">a</a>
-      <nav>
-        <a href="/">index</a>
-        <span class="sep">•</span>
-        <a href="research.html">research</a>
-        <span class="sep">•</span>
-        <a href="music.html">music</a>
-      </nav>
+      <div class="topbar-right">
+        <nav>
+          <a href="/">index</a>
+          <span class="sep">·</span>
+          <a href="research.html">research</a>
+          <span class="sep">·</span>
+          <a href="music.html">music</a>
+        </nav>
+        <button class="cmd-btn" id="cmd-btn" aria-label="Open command palette">⌘K</button>
+      </div>
     </div>
 
-    <h1 class="greeting">i'm arya</h1>
+    <h1 class="greeting anim anim-1">i'm arya</h1>
 
-    <div class="bio">
+    <div class="bio anim anim-2">
       <p>
-        i'm an applied mathematics and physics undergraduate at <a href="https://math.berkeley.edu/" target="_blank" rel="noopener">uc berkeley</a>. i founded <a href="https://monolithsystematic.com/" target="_blank" rel="noopener">monolith systematic</a>, a quantitative macro hedge fund. this summer, i'll be joining monarch capital management as a quantitative researcher on the volatility arbitrage desk, focusing on vega exposure. i am also academically affiliated with the <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener">stanford aft lab</a>.
+        i'm an applied mathematics and physics undergraduate at <a href="https://math.berkeley.edu/" target="_blank" rel="noopener">uc berkeley</a>. i founded <a href="https://monolithsystematic.com/" target="_blank" rel="noopener">monolith systematic</a>, a systematic global macro fund. this summer, i'll be joining monarch capital management as a quantitative researcher on the volatility arbitrage desk, focusing on vega exposure. i am also affiliated with the <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener">stanford aft lab</a>.
       </p>
       <p>
-        previously, i co-founded <a href="https://www.aletheialaboratories.com/" target="_blank" rel="noopener">aletheia laboratories</a> where i was the head of applied science. additionally, i was a quant at <a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener">esplanade capital</a>, and an astrophysics researcher at <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener">asu's beus center for cosmic foundations</a>.
-      </p>
-      <p>
-        feel free to reach me at <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener">@arrrrrryaa</a> or <a href="mailto:aryasomu@berkeley.edu">aryasomu@berkeley.edu</a>.
+        previously, i co-founded <a href="https://www.aletheialaboratories.com/" target="_blank" rel="noopener">aletheia laboratories</a> as head of applied science, was a quant at <a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener">esplanade capital</a>, and an astrophysics researcher at <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener">asu's beus center</a>.
       </p>
     </div>
 
-    <p class="projects-label">selected projects:</p>
+    <!-- 3-column grid -->
+    <div class="grid anim anim-3">
 
-    <ul class="projects">
-      <li>
-        <a class="project" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener">
-          <div class="project-left">
-            <span class="project-name">vela</span>
-            <span class="project-desc">the most transparent dex ever built</span>
-          </div>
-          <span class="project-line"></span>
-          <span class="project-year">'26</span>
-        </a>
-      </li>
-      <li>
-        <a class="project" href="https://get-nimbus.com/" target="_blank" rel="noopener">
-          <div class="project-left">
-            <span class="project-name">nimbus</span>
-            <span class="project-desc">your codebase, on autopilot</span>
-          </div>
-          <span class="project-line"></span>
-          <span class="project-year">'26</span>
-        </a>
-      </li>
-      <li>
-        <a class="project" href="https://github.com/arpjw/crucible-cio-team" target="_blank" rel="noopener">
-          <div class="project-left">
-            <span class="project-name">crucible</span>
-            <span class="project-desc">an open-source hedge fund in a box</span>
-          </div>
-          <span class="project-line"></span>
-          <span class="project-year">'26</span>
-        </a>
-      </li>
-      <li>
-        <a class="project" href="https://replyguy.aryasomu.com/" target="_blank" rel="noopener">
-          <div class="project-left">
-            <span class="project-name">reply guy</span>
-            <span class="project-desc">automated twitter gossip</span>
-          </div>
-          <span class="project-line"></span>
-          <span class="project-year">'26</span>
-        </a>
-      </li>
-      <li>
-        <a class="project" href="https://www.getrita.app/" target="_blank" rel="noopener">
-          <div class="project-left">
-            <span class="project-name">rita</span>
-            <span class="project-desc">macro research assistant for discord</span>
-          </div>
-          <span class="project-line"></span>
-          <span class="project-year">'26</span>
-        </a>
-      </li>
-    </ul>
+      <div class="grid-col">
+        <span class="grid-label">building</span>
+        <ul class="grid-list">
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener">
+              vela<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">the most transparent dex ever built</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://get-nimbus.com/" target="_blank" rel="noopener">
+              nimbus<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">your codebase, on autopilot</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://github.com/arpjw/crucible-cio-team" target="_blank" rel="noopener">
+              crucible<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">open-source hedge fund in a box</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://replyguy.aryasomu.com/" target="_blank" rel="noopener">
+              reply guy<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">automated twitter gossip</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://www.getrita.app/" target="_blank" rel="noopener">
+              rita<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">macro research assistant for discord</span>
+          </li>
+        </ul>
+      </div>
 
-    <footer>
+      <div class="grid-col">
+        <span class="grid-label">research</span>
+        <ul class="grid-list">
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://ssrn.com/abstract=6534258" target="_blank" rel="noopener">
+              lumina<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">alternative data for macro regime detection</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://ssrn.com/abstract=6579199" target="_blank" rel="noopener">
+              vela exchange<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">high-performance verifiable spot dex</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook" target="_blank" rel="noopener">
+              fed hawkishness index<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">finbert nlp pipeline on fomc language</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="research.html">
+              all research<span class="grid-item-arrow">→</span>
+            </a>
+            <span class="grid-item-desc">papers, areas of interest</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="grid-col">
+        <span class="grid-label">writing</span>
+        <ul class="grid-list">
+          <li class="grid-item">
+            <a class="grid-item-link" href="https://aryasomu.substack.com/" target="_blank" rel="noopener">
+              substack<span class="grid-item-arrow">↗</span>
+            </a>
+            <span class="grid-item-desc">economics, ai, and institutional reasoning</span>
+          </li>
+          <li class="grid-item">
+            <a class="grid-item-link" href="music.html">
+              music<span class="grid-item-arrow">→</span>
+            </a>
+            <span class="grid-item-desc">what i'm listening to right now</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Now -->
+    <div class="section anim anim-4">
+      <span class="section-label">now</span>
+      <div class="section-body">
+        <p>this fall i'll be at uc berkeley studying applied mathematics and physics. this summer, i'm joining monarch capital management as a quantitative researcher on the volatility arbitrage desk. in parallel, i'm running monolith systematic and thinking about how prediction markets and order flow inform macro signal construction.</p>
+        <p>i write about economics, ai, and the structures that shape how institutions think — on <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener">substack</a>.</p>
+      </div>
+    </div>
+
+    <!-- Connect -->
+    <div class="section anim anim-5">
+      <span class="section-label">connect</span>
+      <div class="connect-body">
+        reach me at <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener">@arrrrrryaa</a> or <a href="mailto:aryasomu@berkeley.edu">aryasomu@berkeley.edu</a>.
+      </div>
+    </div>
+
+    <footer class="anim anim-6">
       <div class="location">
         <span>📍 san francisco</span>
         <span class="sep">•</span>
@@ -316,30 +616,32 @@
       </div>
       <div class="socials">
         <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener" title="X">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
           </svg>
         </a>
         <a href="https://github.com/arpjw" target="_blank" rel="noopener" title="GitHub">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
           </svg>
         </a>
         <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener" title="LinkedIn">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
           </svg>
         </a>
         <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener" title="Substack">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
           </svg>
         </a>
       </div>
     </footer>
+
   </main>
 
   <script>
+    /* ── Clock ── */
     function tick() {
       const sf = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
       let h = sf.getHours(), m = sf.getMinutes(), s = sf.getSeconds();
@@ -350,6 +652,98 @@
     }
     tick();
     setInterval(tick, 1000);
+
+    /* ── Custom cursor ── */
+    const dot = document.getElementById('cursor-dot');
+    let cursorVisible = false;
+    document.addEventListener('mousemove', e => {
+      dot.style.left = e.clientX + 'px';
+      dot.style.top  = e.clientY + 'px';
+      if (!cursorVisible) { dot.style.opacity = '1'; cursorVisible = true; }
+    });
+    document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; cursorVisible = false; });
+
+    /* ── Command palette ── */
+    const commands = [
+      { label: 'index',               hint: 'home',                              icon: '→', action: () => { window.location.href = '/'; } },
+      { label: 'research',            hint: 'papers & interests',                icon: '→', action: () => { window.location.href = 'research.html'; } },
+      { label: 'music',               hint: 'now playing',                       icon: '→', action: () => { window.location.href = 'music.html'; } },
+      { label: 'monolith systematic', hint: 'monolithsystematic.com',            icon: '↗', action: () => window.open('https://monolithsystematic.com/', '_blank') },
+      { label: 'vela',                hint: 'the most transparent dex ever built', icon: '↗', action: () => window.open('https://vela.monolithsystematic.com/', '_blank') },
+      { label: 'nimbus',              hint: 'your codebase, on autopilot',       icon: '↗', action: () => window.open('https://get-nimbus.com/', '_blank') },
+      { label: 'crucible',            hint: 'open-source hedge fund in a box',   icon: '↗', action: () => window.open('https://github.com/arpjw/crucible-cio-team', '_blank') },
+      { label: 'reply guy',           hint: 'automated twitter gossip',          icon: '↗', action: () => window.open('https://replyguy.aryasomu.com/', '_blank') },
+      { label: 'rita',                hint: 'macro research assistant',          icon: '↗', action: () => window.open('https://www.getrita.app/', '_blank') },
+      { label: 'substack',            hint: 'aryasomu.substack.com',             icon: '↗', action: () => window.open('https://aryasomu.substack.com/', '_blank') },
+      { label: 'github',              hint: '@arpjw',                            icon: '↗', action: () => window.open('https://github.com/arpjw', '_blank') },
+      { label: 'x / twitter',         hint: '@arrrrrryaa',                       icon: '↗', action: () => window.open('https://x.com/arrrrrryaa', '_blank') },
+      { label: 'linkedin',            hint: 'aryasomu',                          icon: '↗', action: () => window.open('https://www.linkedin.com/in/aryasomu/', '_blank') },
+      { label: 'email',               hint: 'aryasomu@berkeley.edu',             icon: '→', action: () => { window.location.href = 'mailto:aryasomu@berkeley.edu'; } },
+    ];
+
+    const overlay    = document.getElementById('palette-overlay');
+    const input      = document.getElementById('palette-input');
+    const list       = document.getElementById('palette-list');
+    const cmdBtn     = document.getElementById('cmd-btn');
+    let selectedIdx  = 0;
+    let filtered     = [...commands];
+
+    function renderList() {
+      list.innerHTML = '';
+      if (!filtered.length) {
+        list.innerHTML = '<li class="palette-empty">no results</li>';
+        return;
+      }
+      filtered.forEach((cmd, i) => {
+        const li = document.createElement('li');
+        li.className = 'palette-item' + (i === selectedIdx ? ' selected' : '');
+        li.innerHTML = `
+          <div class="palette-item-left">
+            <span class="palette-item-icon">${cmd.icon}</span>
+            <span class="palette-item-label">${cmd.label}</span>
+          </div>
+          <span class="palette-item-hint">${cmd.hint}</span>
+        `;
+        li.addEventListener('click', () => { cmd.action(); closePalette(); });
+        list.appendChild(li);
+      });
+    }
+
+    function openPalette() {
+      filtered = [...commands];
+      selectedIdx = 0;
+      input.value = '';
+      renderList();
+      overlay.classList.add('open');
+      setTimeout(() => input.focus(), 50);
+    }
+
+    function closePalette() {
+      overlay.classList.remove('open');
+      input.blur();
+    }
+
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      filtered = q ? commands.filter(c => c.label.includes(q) || c.hint.toLowerCase().includes(q)) : [...commands];
+      selectedIdx = 0;
+      renderList();
+    });
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); selectedIdx = Math.min(selectedIdx + 1, filtered.length - 1); renderList(); }
+      if (e.key === 'ArrowUp')   { e.preventDefault(); selectedIdx = Math.max(selectedIdx - 1, 0); renderList(); }
+      if (e.key === 'Enter' && filtered[selectedIdx]) { filtered[selectedIdx].action(); closePalette(); }
+      if (e.key === 'Escape') closePalette();
+    });
+
+    overlay.addEventListener('click', e => { if (e.target === overlay) closePalette(); });
+    cmdBtn.addEventListener('click', openPalette);
+
+    document.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); overlay.classList.contains('open') ? closePalette() : openPalette(); }
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closePalette();
+    });
   </script>
 </body>
 </html>
