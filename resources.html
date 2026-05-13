@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources — Arya Somu</title>
+  <meta name="description" content="books, sites, and resources for breaking into quant.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: #0b0b0b;
+      color: #e8e8e8;
+      font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat; background-size: 200px 200px;
+    }
+
+    .cursor-dot {
+      position: fixed; width: 5px; height: 5px; border-radius: 50%;
+      background: #e8e8e8; pointer-events: none; z-index: 9998;
+      transform: translate(-50%, -50%); transition: opacity 0.3s; opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .anim { opacity: 0; animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .anim-0 { animation-delay: 0.00s; }
+    .anim-1 { animation-delay: 0.08s; }
+    .anim-2 { animation-delay: 0.16s; }
+    .anim-3 { animation-delay: 0.24s; }
+    .anim-4 { animation-delay: 0.32s; }
+    .anim-5 { animation-delay: 0.40s; }
+    .anim-6 { animation-delay: 0.48s; }
+    .anim-7 { animation-delay: 0.56s; }
+    .anim-8 { animation-delay: 0.64s; }
+
+    .page { max-width: 640px; margin: 0 auto; padding: 40px 32px 120px; }
+
+    /* ── Topbar ── */
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 64px; }
+
+    .logo {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border: 1px solid #2e2e2e; border-radius: 3px;
+      font-size: 12px; font-weight: 500; color: #aaa; text-decoration: none;
+      font-family: 'DM Sans', sans-serif; letter-spacing: 0.02em;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .logo:hover { color: #e8e8e8; border-color: #555; }
+
+    nav { display: flex; align-items: center; font-size: 17px; }
+    nav a { color: #888; text-decoration: none; transition: color 0.15s; }
+    nav a:hover { color: #e8e8e8; }
+    nav a.active { color: #e8e8e8; }
+    nav .sep { color: #2a2a2a; margin: 0 8px; user-select: none; }
+
+    /* ── Heading ── */
+
+    .heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(34px, 5vw, 44px);
+      color: #fff; margin-bottom: 10px;
+      letter-spacing: 0.02em; line-height: 1.2;
+    }
+
+    .intro {
+      font-size: 15px; color: #999; line-height: 1.8;
+      font-weight: 300; margin-bottom: 52px; max-width: 520px;
+    }
+
+    /* ── Section ── */
+
+    .section { margin-bottom: 52px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #161616;
+    }
+
+    .section-label {
+      font-size: 10px; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #666;
+      font-weight: 400;
+    }
+
+    .section-count {
+      font-size: 10px; color: #444;
+      letter-spacing: 0.06em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── Resource rows ── */
+
+    .resource-list { list-style: none; }
+
+    .resource {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      column-gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid #0f0f0f;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      transition: padding-left 0.18s ease;
+    }
+
+    .resource:last-child { border-bottom: none; }
+
+    .resource-accent {
+      position: absolute;
+      left: 0; top: 16px; bottom: 16px;
+      width: 1.5px;
+      background: #7aabd6;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .resource:hover { padding-left: 10px; }
+    .resource:hover .resource-accent { transform: scaleY(1); }
+
+    .resource-main { grid-column: 1; grid-row: 1; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+
+    .resource-title {
+      font-size: 15px; font-weight: 500; color: #d8d8d8;
+      transition: color 0.15s; line-height: 1.4;
+    }
+
+    .resource:hover .resource-title { color: #fff; }
+
+    .resource-author {
+      font-size: 12px; font-weight: 300; color: #666;
+      white-space: nowrap;
+    }
+
+    .resource-tag {
+      grid-column: 2; grid-row: 1;
+      font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #444;
+      background: #141414;
+      border: 1px solid #222;
+      border-radius: 3px;
+      padding: 2px 7px;
+      white-space: nowrap;
+      align-self: start;
+      margin-top: 2px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .resource:hover .resource-tag { color: #777; border-color: #333; }
+
+    .resource-note {
+      grid-column: 1; grid-row: 2;
+      font-size: 13px; font-weight: 300;
+      color: #777; line-height: 1.65;
+      margin-top: 5px;
+      transition: color 0.15s;
+    }
+
+    .resource:hover .resource-note { color: #aaa; }
+
+    .resource-link-icon {
+      grid-column: 2; grid-row: 2;
+      font-size: 11px; color: #444;
+      align-self: end;
+      transition: color 0.15s;
+      text-align: right;
+    }
+
+    .resource:hover .resource-link-icon { color: #7aabd6; }
+
+    /* ── Creator rows ── */
+
+    .creator {
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      grid-template-rows: auto;
+      align-items: start;
+      gap: 0 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid #0f0f0f;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      transition: padding-left 0.18s ease;
+    }
+
+    .creator:last-child { border-bottom: none; }
+
+    .creator-accent {
+      position: absolute;
+      left: 0; top: 16px; bottom: 16px;
+      width: 1.5px;
+      background: #7aabd6;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .creator:hover { padding-left: 10px; }
+    .creator:hover .creator-accent { transform: scaleY(1); }
+
+    .creator-handle {
+      font-size: 14px; font-weight: 500;
+      color: #d8d8d8;
+      transition: color 0.15s;
+      padding-top: 1px;
+    }
+
+    .creator:hover .creator-handle { color: #fff; }
+
+    .creator-note {
+      font-size: 13px; font-weight: 300;
+      color: #777;
+      line-height: 1.65;
+      transition: color 0.15s;
+    }
+
+    .creator:hover .creator-note { color: #aaa; }
+
+    .creator-platform {
+      font-size: 9px; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #333;
+      background: #141414;
+      border: 1px solid #1e1e1e;
+      border-radius: 3px;
+      padding: 2px 7px;
+      flex-shrink: 0;
+      transition: color 0.15s, border-color 0.15s;
+      margin-top: 2px;
+    }
+
+    .creator:hover .creator-platform { color: #555; border-color: #2a2a2a; }
+
+    /* ── Footer ── */
+
+    footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 64px; padding-top: 24px; border-top: 1px solid #161616;
+      font-size: 13px; color: #333;
+    }
+    .location { display: flex; align-items: center; gap: 5px; }
+    .location .sep { color: #1e1e1e; }
+    #sf-time { font-variant-numeric: tabular-nums; }
+    .socials { display: flex; align-items: center; gap: 16px; }
+    .socials a { display: flex; align-items: center; color: #333; text-decoration: none; transition: color 0.15s; }
+    .socials a:hover { color: #e8e8e8; }
+
+    @media (max-width: 480px) {
+      .page { padding: 24px 20px 80px; }
+      footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+      html, body { cursor: auto; }
+      .cursor-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+
+  <main class="page">
+
+    <div class="topbar anim anim-0">
+      <a class="logo" href="/">a</a>
+      <nav>
+        <a href="/">index</a>
+        <span class="sep">·</span>
+        <a href="research.html">research</a>
+        <span class="sep">·</span>
+        <a href="music.html">music</a>
+        <span class="sep">·</span>
+        <a href="resources.html" class="active">resources</a>
+      </nav>
+    </div>
+
+    <h1 class="heading anim anim-1">resources</h1>
+    <p class="intro anim anim-2">things i've actually used to get into quant. no filler. if it's on here it either shaped how i think or i actively reference it. i get asked about this enough that it made sense to write it down.</p>
+
+    <!-- Interview Prep -->
+    <div class="section anim anim-3">
+      <div class="section-header">
+        <span class="section-label">interview prep</span>
+        <span class="section-count">1 book</span>
+      </div>
+      <ul class="resource-list">
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">A Practical Guide to Quantitative Finance Interviews</span>
+              <span class="resource-author">Xinfeng Zhou</span>
+            </div>
+            <span class="resource-tag">interview</span>
+            <span class="resource-note">the green book. covers probability, brain teasers, calculus, linear algebra, options pricing, basically the full sweep of what quant interviews actually test. start here before anything else if you have an interview coming up. work through every problem, don't just read.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Options & Volatility -->
+    <div class="section anim anim-3">
+      <div class="section-header">
+        <span class="section-label">options & volatility</span>
+        <span class="section-count">4 books</span>
+      </div>
+      <ul class="resource-list">
+        <li>
+          <a class="resource" href="https://www.amazon.com/Trading-Volatility-Correlation-Term-Structure/dp/1461108810" target="_blank" rel="noopener">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Trading Volatility</span>
+              <span class="resource-author">Colin Bennett</span>
+            </div>
+            <span class="resource-tag">vol trading</span>
+            <span class="resource-note">free PDF on his site. the most complete treatment of vol trading i've found: skew, term structure, dispersion, variance swaps. dense but worth it. i keep coming back to it. if you're going anywhere near a vol desk this is required reading.</span>
+            <span class="resource-link-icon">↗</span>
+          </a>
+        </li>
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Option Market Making</span>
+              <span class="resource-author">Allen Jan Baird</span>
+            </div>
+            <span class="resource-tag">market making</span>
+            <span class="resource-note">older book but one of the few that actually explains how market makers think about inventory, risk, and edge. less about formulas and more about the mental model. good complement to natenberg.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Option Volatility & Pricing</span>
+              <span class="resource-author">Sheldon Natenberg</span>
+            </div>
+            <span class="resource-tag">options</span>
+            <span class="resource-note">the standard. if you're going into options or vol this is the bible. natenberg builds intuition before throwing math at you, which is the right order. read it cover to cover once, then use it as a reference.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Options, Futures, and Other Derivatives</span>
+              <span class="resource-author">John C. Hull</span>
+            </div>
+            <span class="resource-tag">derivatives</span>
+            <span class="resource-note">hull's textbook. used in basically every derivatives course. not something you read cover to cover. it's a reference. strong on the mechanics of futures, swaps, and options pricing. useful to have around.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Mathematics -->
+    <div class="section anim anim-4">
+      <div class="section-header">
+        <span class="section-label">mathematics</span>
+        <span class="section-count">5 books</span>
+      </div>
+      <ul class="resource-list">
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Stochastic Calculus for Finance I</span>
+              <span class="resource-author">Steven E. Shreve</span>
+            </div>
+            <span class="resource-tag">stochastic calc</span>
+            <span class="resource-note">the standard intro to stochastic calculus for quant finance. covers discrete-time models, brownian motion, and the foundations you need for options pricing theory. volume I is the cleaner starting point. get comfortable here before jumping to volume II.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Understanding Analysis</span>
+              <span class="resource-author">Stephen Abbott</span>
+            </div>
+            <span class="resource-tag">real analysis</span>
+            <span class="resource-note">the best real analysis intro i've found. cleaner and more readable than rudin. abbott actually explains the motivation behind every definition instead of just stating it. if your analysis foundations are shaky, start here.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Linear Algebra Done Right</span>
+              <span class="resource-author">Sheldon Axler</span>
+            </div>
+            <span class="resource-tag">linear algebra</span>
+            <span class="resource-note">axler deliberately avoids determinants until the end and builds everything from first principles. builds real intuition for what linear maps actually are. better for theory than strang. if you want to actually understand what's happening underneath PCA, covariance matrices, etc., this is the book.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Bayesian Statistics the Fun Way</span>
+              <span class="resource-author">Will Kurt</span>
+            </div>
+            <span class="resource-tag">statistics</span>
+            <span class="resource-note">not rigorous but that's the point. good for building bayesian intuition if you've been thinking frequentist your whole life. read it fast, then move to something heavier if you need to go deeper. the mental model shift is worth the afternoon it takes.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">Fifty Challenging Problems in Probability</span>
+              <span class="resource-author">Frederick Mosteller</span>
+            </div>
+            <span class="resource-tag">probability</span>
+            <span class="resource-note">classic collection. short problems with elegant solutions, the kind you see in quant interviews. good for building the probabilistic intuition that textbooks don't actually give you. work through them without looking at the answers first.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- General -->
+    <div class="section anim anim-4">
+      <div class="section-header">
+        <span class="section-label">general</span>
+        <span class="section-count">1 book</span>
+      </div>
+      <ul class="resource-list">
+        <li>
+          <div class="resource">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">One Up on Wall Street</span>
+              <span class="resource-author">Peter Lynch</span>
+            </div>
+            <span class="resource-tag">investing</span>
+            <span class="resource-note">not quant at all, but lynch's framework for how to think about companies and markets is worth understanding even if you're building systematic strategies. it's a good reminder that markets are made of real businesses, not just data streams. easy read.</span>
+            <span class="resource-link-icon"></span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Practice sites -->
+    <div class="section anim anim-5">
+      <div class="section-header">
+        <span class="section-label">practice sites</span>
+        <span class="section-count">5 sites</span>
+      </div>
+      <ul class="resource-list">
+        <li>
+          <a class="resource" href="https://quantguide.io" target="_blank" rel="noopener">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">quantguide.io</span>
+            </div>
+            <span class="resource-tag">interview prep</span>
+            <span class="resource-note">the best structured resource for quant interview practice. covers probability, statistics, options, and mental math with difficulty ratings. i used this heavily before interviews. do it consistently, not in one panic session.</span>
+            <span class="resource-link-icon">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="resource" href="https://anazac.io" target="_blank" rel="noopener">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">anazac.io</span>
+            </div>
+            <span class="resource-tag">market making</span>
+            <span class="resource-note">focused on market making and trading puzzles. good for understanding edge, pricing under uncertainty, and the adversarial dynamics of quote-driven markets. less covered by other resources so worth checking out.</span>
+            <span class="resource-link-icon">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="resource" href="https://tradermath.org" target="_blank" rel="noopener">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">tradermath.org</span>
+            </div>
+            <span class="resource-tag">mental math</span>
+            <span class="resource-note">pure mental math speed practice. underrated. fast mental arithmetic matters more in interviews than people expect. do timed sessions. it's repetitive but that's the point.</span>
+            <span class="resource-link-icon">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="resource" href="https://gurmeet.net/puzzles" target="_blank" rel="noopener">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">gurmeet.net/puzzles</span>
+            </div>
+            <span class="resource-tag">puzzles</span>
+            <span class="resource-note">collection of classic math and logic puzzles. great for building the combinatorial and lateral thinking that shows up in brain teaser rounds. some of these are legitimately hard. don't look at the answers too fast.</span>
+            <span class="resource-link-icon">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="resource" href="https://puzzledquant.com" target="_blank" rel="noopener">
+            <div class="resource-accent"></div>
+            <div class="resource-main">
+              <span class="resource-title">puzzledquant.com</span>
+            </div>
+            <span class="resource-tag">puzzles</span>
+            <span class="resource-note">quant-specific puzzles with a focus on probability and statistics. good complement to gurmeet. the problems here are more finance-adjacent. useful for filling in gaps after quantguide.</span>
+            <span class="resource-link-icon">↗</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Creators -->
+    <div class="section anim anim-6">
+      <div class="section-header">
+        <span class="section-label">creators worth following</span>
+        <span class="section-count">3 accounts</span>
+      </div>
+      <ul class="resource-list">
+        <li>
+          <a class="creator" href="https://www.tiktok.com/@iamthunderthighs" target="_blank" rel="noopener">
+            <div class="creator-accent"></div>
+            <span class="creator-handle">@iamthunderthighs</span>
+            <span class="creator-note">quant finance content that's actually technically substantive. covers interview prep, trading concepts, and career navigation. good signal-to-noise ratio.</span>
+            <span class="creator-platform">tiktok</span>
+          </a>
+        </li>
+        <li>
+          <a class="creator" href="https://www.tiktok.com/@neelsalami" target="_blank" rel="noopener">
+            <div class="creator-accent"></div>
+            <span class="creator-handle">@neelsalami</span>
+            <span class="creator-note">quant / trading content from someone who's been through the process. useful perspective on recruiting and what actually matters once you're in the door.</span>
+            <span class="creator-platform">tiktok</span>
+          </a>
+        </li>
+        <li>
+          <a class="creator" href="https://www.tiktok.com/@deltatrendtrading" target="_blank" rel="noopener">
+            <div class="creator-accent"></div>
+            <span class="creator-handle">@deltatrendtrading</span>
+            <span class="creator-note">systematic and trend-following focused content. good for understanding the macro-systematic side of quant, which doesn't get covered as much as HFT/market making on these platforms.</span>
+            <span class="creator-platform">tiktok</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <footer class="anim anim-7">
+      <div class="location">
+        <span>📍 san francisco</span>
+        <span class="sep">•</span>
+        <span id="sf-time"></span>
+      </div>
+      <div class="socials">
+        <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener" title="X">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/arpjw" target="_blank" rel="noopener" title="GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener" title="LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener" title="Substack">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    function tick() {
+      const sf = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+      let h = sf.getHours(), m = sf.getMinutes(), s = sf.getSeconds();
+      const ampm = h >= 12 ? 'pm' : 'am';
+      h = h % 12 || 12;
+      const pad = n => String(n).padStart(2, '0');
+      document.getElementById('sf-time').textContent = `${pad(h)}:${pad(m)}:${pad(s)} ${ampm}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    const cdot = document.getElementById('cursor-dot');
+    let cursorVisible = false;
+    document.addEventListener('mousemove', e => {
+      cdot.style.left = e.clientX + 'px';
+      cdot.style.top  = e.clientY + 'px';
+      if (!cursorVisible) { cdot.style.opacity = '1'; cursorVisible = true; }
+    });
+    document.addEventListener('mouseleave', () => { cdot.style.opacity = '0'; cursorVisible = false; });
+  </script>
+</body>
+</html>
