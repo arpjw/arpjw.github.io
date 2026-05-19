@@ -121,24 +121,6 @@
     nav a:hover { color: #e8e8e8; }
     nav .sep { color: #2a2a2a; margin: 0 8px; user-select: none; }
 
-    .cmd-btn {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      background: none;
-      border: 1px solid #222;
-      border-radius: 4px;
-      padding: 3px 8px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      color: #444;
-      cursor: none;
-      transition: color 0.15s, border-color 0.15s;
-      letter-spacing: 0.04em;
-    }
-
-    .cmd-btn:hover { color: #888; border-color: #444; }
-
     /* ── Greeting ── */
 
     .greeting {
@@ -264,9 +246,9 @@
     .section-body a { color: #7aabd6; text-decoration: none; transition: color 0.15s; }
     .section-body a:hover { color: #a0c8e8; }
 
-    .connect-body { font-size: 16px; color: #999; line-height: 1.85; font-weight: 300; }
-    .connect-body a { color: #c0c0c0; text-decoration: none; border-bottom: 1px solid #333; transition: color 0.15s, border-color 0.15s; padding-bottom: 1px; }
-    .connect-body a:hover { color: #fff; border-color: #888; }
+    .connect-body { font-size: 17px; color: #c0c0c0; line-height: 1.85; }
+    .connect-body a { color: #7aabd6; text-decoration: none; transition: color 0.15s; }
+    .connect-body a:hover { color: #a0c8e8; }
 
     /* ── Footer ── */
 
@@ -448,7 +430,6 @@
       .greeting { font-size: 36px; }
       .grid { grid-template-columns: 1fr; gap: 36px; }
       footer { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .cmd-btn { display: none; }
       html, body { cursor: auto; }
       .cursor-dot { display: none; }
     }
@@ -494,7 +475,7 @@
           <span class="sep">·</span>
           <a href="music.html">music</a>
         </nav>
-        <button class="cmd-btn" id="cmd-btn" aria-label="Open command palette">⌘K</button>
+
       </div>
     </div>
 
@@ -508,7 +489,7 @@
         previously, i co-founded <a href="https://aletheialaboratories.com/" target="blank" rel="noopener">aletheia laboratories</a> as the head of applied science, was a quantitative researcher at <a href="https://www.esplanadecapital.com/" target="blank" rel="noopener">esplanade capital</a>, and an astrophysicist at <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="blank" rel="noopener">arizona state's beus center</a>. read more <a href="work.html" target="blank" rel="noopener">here</a>.
       </p>
     </div>
-    
+
     <!-- Connect -->
     <div class="section anim anim-5">
       <span class="section-label">connect</span>
@@ -595,15 +576,15 @@
             </a>
             <span class="grid-item-desc">i get asked about this a lot, here is everything</span>
           </li>
-           <li class="grid-item">
+          <li class="grid-item">
             <a class="grid-item-link" href="https://trvl.aryasomu.com/" target="_blank" rel="noopener">
-              trvl.<span class="grid-item-arrow">→</span>
+              trvl.<span class="grid-item-arrow">↗</span>
             </a>
             <span class="grid-item-desc">let me help you plan a trip</span>
           </li>
           <li class="grid-item">
             <a class="grid-item-link" href="https://bartender.aryasomu.com/" target="_blank" rel="noopener">
-              bartender<span class="grid-item-arrow">→</span>
+              bartender<span class="grid-item-arrow">↗</span>
             </a>
             <span class="grid-item-desc">let me make you a drink</span>
           </li>
@@ -611,7 +592,6 @@
       </div>
 
     </div>
-
 
     <footer class="anim anim-6">
       <div class="location">
@@ -670,26 +650,30 @@
 
     /* ── Command palette ── */
     const commands = [
-      { label: 'index',               hint: 'home',                                icon: '→', action: () => { window.location.href = '/'; } },
-      { label: 'research',            hint: 'papers & interests',                  icon: '→', action: () => { window.location.href = 'research.html'; } },
-      { label: 'music',               hint: 'now playing',                         icon: '→', action: () => { window.location.href = 'music.html'; } },
-      { label: 'monolith systematic', hint: 'monolithsystematic.com',              icon: '↗', action: () => window.open('https://monolithsystematic.com/', '_blank') },
-      { label: 'vela',                hint: 'the most transparent dex ever built', icon: '↗', action: () => window.open('https://vela.monolithsystematic.com/', '_blank') },
-      { label: 'nimbus',              hint: 'your codebase, on autopilot',         icon: '↗', action: () => window.open('https://get-nimbus.com/', '_blank') },
-      { label: 'crucible',            hint: 'open-source hedge fund in a box',     icon: '↗', action: () => window.open('https://github.com/arpjw/crucible-cio-team', '_blank') },
-      { label: 'reply guy',           hint: 'automated twitter gossip',            icon: '↗', action: () => window.open('https://replyguy.aryasomu.com/', '_blank') },
-      { label: 'rita',                hint: 'macro research assistant',            icon: '↗', action: () => window.open('https://www.getrita.app/', '_blank') },
-      { label: 'substack',            hint: 'aryasomu.substack.com',               icon: '↗', action: () => window.open('https://aryasomu.substack.com/', '_blank') },
-      { label: 'github',              hint: '@arpjw',                              icon: '↗', action: () => window.open('https://github.com/arpjw', '_blank') },
-      { label: 'x / twitter',         hint: '@arrrrrryaa',                         icon: '↗', action: () => window.open('https://x.com/arrrrrryaa', '_blank') },
-      { label: 'linkedin',            hint: 'aryasomu',                            icon: '↗', action: () => window.open('https://www.linkedin.com/in/aryasomu/', '_blank') },
-      { label: 'email',               hint: 'aryasomu@berkeley.edu',               icon: '→', action: () => { window.location.href = 'mailto:aryasomu@berkeley.edu'; } },
+      { label: 'index',                hint: 'home',                                    icon: '→', action: () => { window.location.href = '/'; } },
+      { label: 'research',             hint: 'papers & interests',                      icon: '→', action: () => { window.location.href = 'research.html'; } },
+      { label: 'music',                hint: 'now playing',                             icon: '→', action: () => { window.location.href = 'music.html'; } },
+      { label: 'quant resources',      hint: 'everything i get asked about',            icon: '→', action: () => { window.location.href = 'resources.html'; } },
+      { label: 'monolith systematic',  hint: 'monolithsystematic.com',                  icon: '↗', action: () => window.open('https://monolithsystematic.com/', '_blank') },
+      { label: 'vela',                 hint: 'the most transparent dex ever built',     icon: '↗', action: () => window.open('https://vela.monolithsystematic.com/', '_blank') },
+      { label: 'nimbus',               hint: 'your codebase, on autopilot',             icon: '↗', action: () => window.open('https://get-nimbus.com/', '_blank') },
+      { label: 'reply guy',            hint: 'automated twitter gossip',                icon: '↗', action: () => window.open('https://replyguy.aryasomu.com/', '_blank') },
+      { label: 'rita',                 hint: 'macro research assistant for discord',    icon: '↗', action: () => window.open('https://www.getrita.app/', '_blank') },
+      { label: 'trvl.',                hint: 'let me help you plan a trip',             icon: '↗', action: () => window.open('https://trvl.aryasomu.com/', '_blank') },
+      { label: 'bartender',            hint: 'let me make you a drink',                 icon: '↗', action: () => window.open('https://bartender.aryasomu.com/', '_blank') },
+      { label: 'lumina',               hint: 'alternative data for macro regime detection', icon: '↗', action: () => window.open('https://ssrn.com/abstract=6534258', '_blank') },
+      { label: 'vela exchange paper',  hint: 'high-performance verifiable spot dex',    icon: '↗', action: () => window.open('https://ssrn.com/abstract=6579199', '_blank') },
+      { label: 'fed hawkishness index',hint: 'finbert nlp pipeline on fomc language',   icon: '↗', action: () => window.open('https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook', '_blank') },
+      { label: 'substack',             hint: 'economics, ai, and institutional reasoning', icon: '↗', action: () => window.open('https://aryasomu.substack.com/', '_blank') },
+      { label: 'github',               hint: '@arpjw',                                  icon: '↗', action: () => window.open('https://github.com/arpjw', '_blank') },
+      { label: 'x / twitter',          hint: '@arrrrrryaa',                             icon: '↗', action: () => window.open('https://x.com/arrrrrryaa', '_blank') },
+      { label: 'linkedin',             hint: 'aryasomu',                                icon: '↗', action: () => window.open('https://www.linkedin.com/in/aryasomu/', '_blank') },
+      { label: 'email',                hint: 'aryasomu@berkeley.edu',                   icon: '→', action: () => { window.location.href = 'mailto:aryasomu@berkeley.edu'; } },
     ];
 
     const overlay   = document.getElementById('palette-overlay');
     const input     = document.getElementById('palette-input');
     const list      = document.getElementById('palette-list');
-    const cmdBtn    = document.getElementById('cmd-btn');
     let selectedIdx = 0;
     let filtered    = [...commands];
 
@@ -733,8 +717,6 @@
     });
 
     overlay.addEventListener('click', e => { if (e.target === overlay) closePalette(); });
-    cmdBtn.addEventListener('click', openPalette);
-
     document.addEventListener('keydown', e => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); overlay.classList.contains('open') ? closePalette() : openPalette(); }
       if (e.key === 'Escape' && overlay.classList.contains('open')) closePalette();
