@@ -14,255 +14,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { background: #0b0b0b; color: #e8e8e8; font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; font-size: 17px; line-height: 1.8; -webkit-font-smoothing: antialiased; cursor: none; }
 
-    html, body {
-      background: #0b0b0b;
-      color: #e8e8e8;
-      font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-      font-size: 17px;
-      line-height: 1.8;
-      -webkit-font-smoothing: antialiased;
-      cursor: none;
-    }
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 999; opacity: 0.038; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 200px 200px; }
 
-    /* ── Grain overlay ── */
+    .cursor-dot { position: fixed; width: 5px; height: 5px; border-radius: 50%; background: #e8e8e8; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: opacity 0.3s; opacity: 0; }
 
-    .grain {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.038;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 200px 200px;
-    }
+    .page { max-width: 680px; margin: 0 auto; padding: 40px 32px 120px; }
 
-    /* ── Custom cursor ── */
-
-    .cursor-dot {
-      position: fixed;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #e8e8e8;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: opacity 0.3s;
-      opacity: 0;
-    }
-
-    /* ── Page ── */
-
-    .page {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 40px 32px 120px;
-    }
-
-    /* ── Animations ── */
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
     .anim { opacity: 0; animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-    .anim-0 { animation-delay: 0.0s; }
-    .anim-1 { animation-delay: 0.08s; }
-    .anim-2 { animation-delay: 0.16s; }
-    .anim-3 { animation-delay: 0.24s; }
-    .anim-4 { animation-delay: 0.32s; }
-    .anim-5 { animation-delay: 0.40s; }
-    .anim-6 { animation-delay: 0.48s; }
+    .anim-0 { animation-delay: 0.0s; } .anim-1 { animation-delay: 0.08s; } .anim-2 { animation-delay: 0.16s; }
+    .anim-3 { animation-delay: 0.24s; } .anim-4 { animation-delay: 0.32s; } .anim-5 { animation-delay: 0.40s; } .anim-6 { animation-delay: 0.48s; }
 
-    /* ── Topbar ── */
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 72px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border: 1px solid #2e2e2e;
-      border-radius: 3px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #aaa;
-      text-decoration: none;
-      font-family: 'DM Sans', sans-serif;
-      letter-spacing: 0.02em;
-      transition: color 0.15s, border-color 0.15s;
-    }
-
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 72px; }
+    .logo { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border: 1px solid #2e2e2e; border-radius: 3px; font-size: 12px; font-weight: 500; color: #aaa; text-decoration: none; font-family: 'DM Sans', sans-serif; letter-spacing: 0.02em; transition: color 0.15s, border-color 0.15s; }
     .logo:hover { color: #e8e8e8; border-color: #555; }
-
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
+    .topbar-right { display: flex; align-items: center; gap: 20px; }
     nav { display: flex; align-items: center; font-size: 17px; }
     nav a { color: #888; text-decoration: none; transition: color 0.15s; }
     nav a:hover { color: #e8e8e8; }
     nav .sep { color: #2a2a2a; margin: 0 8px; user-select: none; }
 
-    /* ── Greeting ── */
+    .greeting { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(36px, 5vw, 48px); color: #fff; margin-bottom: 32px; letter-spacing: 0.02em; line-height: 1.2; }
 
-    .greeting {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-weight: 300;
-      font-size: clamp(36px, 5vw, 48px);
-      color: #fff;
-      margin-bottom: 32px;
-      letter-spacing: 0.02em;
-      line-height: 1.2;
-    }
-
-    /* ── Bio ── */
-
-    .bio {
-      font-size: 17px;
-      color: #c0c0c0;
-      line-height: 1.85;
-      margin-bottom: 64px;
-      max-width: 580px;
-    }
-
-    .bio p { margin-bottom: 14px; }
-    .bio p:last-child { margin-bottom: 0; }
-
+    .bio { font-size: 17px; color: #c0c0c0; line-height: 1.85; margin-bottom: 48px; max-width: 580px; }
+    .bio p { margin-bottom: 14px; } .bio p:last-child { margin-bottom: 0; }
     .bio a { color: #7aabd6; text-decoration: none; transition: color 0.15s; }
     .bio a:hover { color: #a0c8e8; }
 
-    /* ── Grid ── */
+    /* ALMANAC FEATURE */
+    .almanac-feature { margin-bottom: 52px; padding: 20px 22px; border: 1px solid #1e1e1e; border-radius: 2px; background: #0f0f0f; display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; transition: border-color 0.15s; }
+    .almanac-feature:hover { border-color: #2e2e2e; }
+    .almanac-left {}
+    .almanac-label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #3a3a3a; font-weight: 400; margin-bottom: 8px; }
+    .almanac-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 1.35rem; color: #e8e8e8; line-height: 1.2; margin-bottom: 6px; }
+    .almanac-desc { font-size: 13px; font-weight: 300; color: #555; line-height: 1.6; max-width: 440px; }
+    .almanac-link { flex-shrink: 0; display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 400; color: #7aabd6; text-decoration: none; white-space: nowrap; padding-top: 2px; transition: color 0.15s; }
+    .almanac-link:hover { color: #a0c8e8; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 72px;
-    }
-
-    .grid-label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #3a3a3a;
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
-
+    .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; margin-bottom: 72px; }
+    .grid-label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #3a3a3a; font-weight: 400; margin-bottom: 20px; }
     .grid-list { list-style: none; }
-    .grid-item { margin-bottom: 22px; }
-    .grid-item:last-child { margin-bottom: 0; }
-
-    .grid-item-link {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 3px;
-      text-decoration: none;
-      color: #d8d8d8;
-      font-size: 15px;
-      font-weight: 500;
-      position: relative;
-      transition: color 0.15s;
-    }
-
-    .grid-item-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: #d8d8d8;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.2s ease;
-    }
-
-    .grid-item-link:hover { color: #fff; }
-    .grid-item-link:hover::after { transform: scaleX(1); }
-
-    .grid-item-arrow {
-      font-size: 11px;
-      color: #3a3a3a;
-      transition: color 0.15s;
-      margin-left: 2px;
-    }
-
+    .grid-item { margin-bottom: 22px; } .grid-item:last-child { margin-bottom: 0; }
+    .grid-item-link { display: inline-flex; align-items: baseline; gap: 3px; text-decoration: none; color: #d8d8d8; font-size: 15px; font-weight: 500; position: relative; transition: color 0.15s; }
+    .grid-item-link::after { content: ''; position: absolute; bottom: 0px; left: 0; width: 100%; height: 1px; background: #d8d8d8; transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; }
+    .grid-item-link:hover { color: #fff; } .grid-item-link:hover::after { transform: scaleX(1); }
+    .grid-item-arrow { font-size: 11px; color: #3a3a3a; transition: color 0.15s; margin-left: 2px; }
     .grid-item-link:hover .grid-item-arrow { color: #888; }
-
-    .grid-item-desc {
-      display: block;
-      font-size: 13px;
-      font-weight: 300;
-      color: #444;
-      line-height: 1.6;
-      margin-top: 3px;
-    }
-
-    /* ── Now / Connect ── */
+    .grid-item-desc { display: block; font-size: 13px; font-weight: 300; color: #444; line-height: 1.6; margin-top: 3px; }
 
     .section { margin-bottom: 56px; }
-
-    .section-label {
-      display: block;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #3a3a3a;
-      font-weight: 400;
-      margin-bottom: 16px;
-    }
-
-    .section-body {
-      font-size: 16px;
-      color: #999;
-      line-height: 1.85;
-      font-weight: 300;
-      max-width: 560px;
-    }
-
-    .section-body p { margin-bottom: 12px; }
-    .section-body p:last-child { margin-bottom: 0; }
+    .section-label { display: block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #3a3a3a; font-weight: 400; margin-bottom: 16px; }
+    .section-body { font-size: 16px; color: #999; line-height: 1.85; font-weight: 300; max-width: 560px; }
+    .section-body p { margin-bottom: 12px; } .section-body p:last-child { margin-bottom: 0; }
     .section-body a { color: #7aabd6; text-decoration: none; transition: color 0.15s; }
     .section-body a:hover { color: #a0c8e8; }
-
     .connect-body { font-size: 17px; color: #c0c0c0; line-height: 1.85; }
     .connect-body a { color: #7aabd6; text-decoration: none; transition: color 0.15s; }
     .connect-body a:hover { color: #a0c8e8; }
 
-    /* ── Footer ── */
-
-    footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 64px;
-      padding-top: 24px;
-      border-top: 1px solid #161616;
-      font-size: 13px;
-      color: #333;
-    }
-
+    footer { display: flex; align-items: center; justify-content: space-between; margin-top: 64px; padding-top: 24px; border-top: 1px solid #161616; font-size: 13px; color: #333; }
     .location { display: flex; align-items: center; gap: 5px; }
     .location .sep { color: #1e1e1e; }
     #sf-time { font-variant-numeric: tabular-nums; }
@@ -270,160 +83,38 @@
     .socials a { display: flex; align-items: center; color: #333; text-decoration: none; transition: color 0.15s; }
     .socials a:hover { color: #e8e8e8; }
 
-    /* ── Command palette ── */
-
-    .palette-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      z-index: 10000;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 18vh;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.15s;
-    }
-
+    /* COMMAND PALETTE */
+    .palette-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 10000; display: flex; align-items: flex-start; justify-content: center; padding-top: 18vh; opacity: 0; pointer-events: none; transition: opacity 0.15s; }
     .palette-overlay.open { opacity: 1; pointer-events: all; }
-
-    .palette {
-      width: 100%;
-      max-width: 480px;
-      background: #111;
-      border: 1px solid #252525;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
-    }
-
-    .palette-input-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 18px;
-      border-bottom: 1px solid #1e1e1e;
-    }
-
+    .palette { width: 100%; max-width: 480px; background: #111; border: 1px solid #252525; border-radius: 8px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.6); }
+    .palette-input-wrap { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid #1e1e1e; }
     .palette-search-icon { color: #444; flex-shrink: 0; }
-
-    .palette-input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      color: #e8e8e8;
-      font-weight: 400;
-    }
-
+    .palette-input { flex: 1; background: none; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 15px; color: #e8e8e8; font-weight: 400; }
     .palette-input::placeholder { color: #333; }
-
     .palette-list { list-style: none; max-height: 320px; overflow-y: auto; padding: 6px 0; }
-
-    .palette-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 18px;
-      cursor: none;
-      transition: background 0.1s;
-    }
-
-    .palette-item:hover,
-    .palette-item.selected { background: #1a1a1a; }
-
+    .palette-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: none; transition: background 0.1s; }
+    .palette-item:hover, .palette-item.selected { background: #1a1a1a; }
     .palette-item-left { display: flex; align-items: center; gap: 10px; }
     .palette-item-icon { font-size: 12px; color: #3a3a3a; width: 14px; text-align: center; flex-shrink: 0; }
     .palette-item-label { font-size: 14px; color: #d8d8d8; font-weight: 400; }
     .palette-item-hint { font-size: 12px; color: #3a3a3a; font-weight: 300; }
     .palette-empty { padding: 24px 18px; font-size: 13px; color: #333; text-align: center; }
 
-    /* ── Rave mode ── */
-
-    .rave-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 99998;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 16px;
-    }
-
+    /* RAVE */
+    .rave-overlay { position: fixed; inset: 0; z-index: 99998; pointer-events: none; opacity: 0; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
     .rave-overlay.active { opacity: 1; }
-
-    .rave-title {
-      font-family: 'DM Sans', sans-serif;
-      font-size: clamp(52px, 12vw, 110px);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: #fff;
-      mix-blend-mode: difference;
-      text-align: center;
-      line-height: 1;
-      animation: ravePulse 0.18s steps(1) infinite;
-    }
-
-    .rave-sub {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #fff;
-      mix-blend-mode: difference;
-      animation: ravePulse 0.18s steps(1) infinite reverse;
-      opacity: 0.7;
-    }
-
-    @keyframes ravePulse {
-      0%   { transform: scale(1)    rotate(0deg);   }
-      25%  { transform: scale(1.04) rotate(-1deg);  }
-      50%  { transform: scale(0.97) rotate(0.5deg); }
-      75%  { transform: scale(1.02) rotate(1deg);   }
-      100% { transform: scale(1)    rotate(0deg);   }
-    }
-
-    .rave-strobe {
-      position: fixed;
-      inset: 0;
-      z-index: 99997;
-      pointer-events: none;
-      opacity: 0;
-      mix-blend-mode: overlay;
-    }
-
+    .rave-title { font-family: 'DM Sans', sans-serif; font-size: clamp(52px, 12vw, 110px); font-weight: 500; letter-spacing: -0.02em; color: #fff; mix-blend-mode: difference; text-align: center; line-height: 1; animation: ravePulse 0.18s steps(1) infinite; }
+    .rave-sub { font-family: 'DM Sans', sans-serif; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; mix-blend-mode: difference; animation: ravePulse 0.18s steps(1) infinite reverse; opacity: 0.7; }
+    @keyframes ravePulse { 0% { transform: scale(1) rotate(0deg); } 25% { transform: scale(1.04) rotate(-1deg); } 50% { transform: scale(0.97) rotate(0.5deg); } 75% { transform: scale(1.02) rotate(1deg); } 100% { transform: scale(1) rotate(0deg); } }
+    .rave-strobe { position: fixed; inset: 0; z-index: 99997; pointer-events: none; opacity: 0; mix-blend-mode: overlay; }
     body.raving .page { animation: raveShake 0.12s steps(2) infinite; }
-
-    @keyframes raveShake {
-      0%   { transform: translate(0, 0); }
-      25%  { transform: translate(-2px, 1px); }
-      50%  { transform: translate(2px, -1px); }
-      75%  { transform: translate(-1px, 2px); }
-      100% { transform: translate(0, 0); }
-    }
-
+    @keyframes raveShake { 0% { transform: translate(0, 0); } 25% { transform: translate(-2px, 1px); } 50% { transform: translate(2px, -1px); } 75% { transform: translate(-1px, 2px); } 100% { transform: translate(0, 0); } }
     body.raving .grid-col:nth-child(1) { animation: colBob 0.22s ease-in-out infinite alternate; }
     body.raving .grid-col:nth-child(2) { animation: colBob 0.22s ease-in-out infinite alternate-reverse; animation-delay: 0.07s; }
     body.raving .grid-col:nth-child(3) { animation: colBob 0.22s ease-in-out infinite alternate; animation-delay: 0.14s; }
-
-    @keyframes colBob {
-      from { transform: translateY(0px) scale(1); }
-      to   { transform: translateY(-6px) scale(1.02); }
-    }
-
+    @keyframes colBob { from { transform: translateY(0px) scale(1); } to { transform: translateY(-6px) scale(1.02); } }
     body.raving footer { animation: colBob 0.3s ease-in-out infinite alternate; animation-delay: 0.1s; }
-    body.raving .bio   { animation: colBob 0.28s ease-in-out infinite alternate-reverse; }
-
-    /* ── Mobile ── */
+    body.raving .bio { animation: colBob 0.28s ease-in-out infinite alternate-reverse; }
 
     @media (max-width: 600px) {
       .page { padding: 24px 20px 80px; }
@@ -432,6 +123,7 @@
       footer { flex-direction: column; align-items: flex-start; gap: 16px; }
       html, body { cursor: auto; }
       .cursor-dot { display: none; }
+      .almanac-feature { flex-direction: column; gap: 0.75rem; }
     }
   </style>
 </head>
@@ -450,13 +142,10 @@
   </div>
   <div class="rave-strobe" id="rave-strobe"></div>
 
-  <!-- Command palette -->
   <div class="palette-overlay" id="palette-overlay" aria-modal="true" role="dialog">
     <div class="palette">
       <div class="palette-input-wrap">
-        <svg class="palette-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-        </svg>
+        <svg class="palette-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input class="palette-input" id="palette-input" placeholder="search..." autocomplete="off" spellcheck="false">
       </div>
       <ul class="palette-list" id="palette-list"></ul>
@@ -475,7 +164,6 @@
           <span class="sep">·</span>
           <a href="music.html">music</a>
         </nav>
-
       </div>
     </div>
 
@@ -490,8 +178,17 @@
       </p>
     </div>
 
+    <!-- ALMANAC FEATURE -->
+    <a class="almanac-feature anim anim-3" href="almanac.html" style="text-decoration:none;">
+      <div class="almanac-left">
+        <div class="almanac-title">The Hardware Almanac</div>
+        <div class="almanac-desc">On the transition from software-defined power to hardware-defined power, and why every institution meant to govern the modern world is not equipped to survive it.</div>
+      </div>
+      <span class="almanac-link">read &nbsp;→</span>
+    </a>
+
     <!-- Connect -->
-    <div class="section anim anim-5">
+    <div class="section anim anim-4">
       <span class="section-label">connect</span>
       <div class="connect-body">
         reach me at <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener">@arrrrrryaa</a> or <a href="mailto:aryasomu@berkeley.edu">aryasomu@berkeley.edu</a>.
@@ -499,33 +196,25 @@
     </div>
 
     <!-- 3-column grid -->
-    <div class="grid anim anim-3">
+    <div class="grid anim anim-5">
 
       <div class="grid-col">
         <span class="grid-label">building</span>
         <ul class="grid-list">
           <li class="grid-item">
-            <a class="grid-item-link" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener">
-              vela<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener">vela<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">the most transparent dex ever built</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="https://get-nimbus.com/" target="_blank" rel="noopener">
-              nimbus<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://get-nimbus.com/" target="_blank" rel="noopener">nimbus<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">your codebase, on autopilot</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="https://replyguy.aryasomu.com/" target="_blank" rel="noopener">
-              reply guy<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://replyguy.aryasomu.com/" target="_blank" rel="noopener">reply guy<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">i automated my twitter gossip</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="https://www.getrita.app/" target="_blank" rel="noopener">
-              rita<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://www.getrita.app/" target="_blank" rel="noopener">rita<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">macro research assistant for discord</span>
           </li>
         </ul>
@@ -535,27 +224,19 @@
         <span class="grid-label">research</span>
         <ul class="grid-list">
           <li class="grid-item">
-            <a class="grid-item-link" href="https://ssrn.com/abstract=6534258" target="_blank" rel="noopener">
-              lumina<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://ssrn.com/abstract=6534258" target="_blank" rel="noopener">lumina<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">alternative data for macro regime detection</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="https://ssrn.com/abstract=6579199" target="_blank" rel="noopener">
-              vela exchange<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://ssrn.com/abstract=6579199" target="_blank" rel="noopener">vela exchange<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">high-performance verifiable spot dex</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook" target="_blank" rel="noopener">
-              fed hawkishness index<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook" target="_blank" rel="noopener">fed hawkishness index<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">finbert nlp pipeline on fomc language</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="research.html">
-              all research<span class="grid-item-arrow">→</span>
-            </a>
+            <a class="grid-item-link" href="research.html">all research<span class="grid-item-arrow">→</span></a>
             <span class="grid-item-desc">papers, areas of interest</span>
           </li>
         </ul>
@@ -565,27 +246,19 @@
         <span class="grid-label">other</span>
         <ul class="grid-list">
           <li class="grid-item">
-            <a class="grid-item-link" href="https://aryasomu.substack.com/" target="_blank" rel="noopener">
-              substack<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://aryasomu.substack.com/" target="_blank" rel="noopener">substack<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">economics, ai, and institutional reasoning</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="resources.html">
-              quant resources<span class="grid-item-arrow">→</span>
-            </a>
+            <a class="grid-item-link" href="resources.html">quant resources<span class="grid-item-arrow">→</span></a>
             <span class="grid-item-desc">i get asked about this a lot, here is everything</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="https://trvl.aryasomu.com/" target="_blank" rel="noopener">
-              trvl.<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://trvl.aryasomu.com/" target="_blank" rel="noopener">trvl.<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">let me help you plan a trip</span>
           </li>
           <li class="grid-item">
-            <a class="grid-item-link" href="https://bartender.aryasomu.com/" target="_blank" rel="noopener">
-              bartender<span class="grid-item-arrow">↗</span>
-            </a>
+            <a class="grid-item-link" href="https://bartender.aryasomu.com/" target="_blank" rel="noopener">bartender<span class="grid-item-arrow">↗</span></a>
             <span class="grid-item-desc">let me make you a drink</span>
           </li>
         </ul>
@@ -601,24 +274,16 @@
       </div>
       <div class="socials">
         <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener" title="X">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
         <a href="https://github.com/arpjw" target="_blank" rel="noopener" title="GitHub">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
         </a>
         <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener" title="LinkedIn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
         <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener" title="Substack">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
-          </svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
         </a>
       </div>
     </footer>
@@ -626,7 +291,6 @@
   </main>
 
   <script>
-    /* ── Clock ── */
     function tick() {
       const sf = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
       let h = sf.getHours(), m = sf.getMinutes(), s = sf.getSeconds();
@@ -635,47 +299,43 @@
       const pad = n => String(n).padStart(2, '0');
       document.getElementById('sf-time').textContent = `${pad(h)}:${pad(m)}:${pad(s)} ${ampm}`;
     }
-    tick();
-    setInterval(tick, 1000);
+    tick(); setInterval(tick, 1000);
 
-    /* ── Custom cursor ── */
     const dot = document.getElementById('cursor-dot');
     let cursorVisible = false;
     document.addEventListener('mousemove', e => {
-      dot.style.left = e.clientX + 'px';
-      dot.style.top  = e.clientY + 'px';
+      dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
       if (!cursorVisible) { dot.style.opacity = '1'; cursorVisible = true; }
     });
     document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; cursorVisible = false; });
 
-    /* ── Command palette ── */
     const commands = [
-      { label: 'index',                hint: 'home',                                    icon: '→', action: () => { window.location.href = '/'; } },
-      { label: 'research',             hint: 'papers & interests',                      icon: '→', action: () => { window.location.href = 'research.html'; } },
-      { label: 'music',                hint: 'now playing',                             icon: '→', action: () => { window.location.href = 'music.html'; } },
-      { label: 'quant resources',      hint: 'everything i get asked about',            icon: '→', action: () => { window.location.href = 'resources.html'; } },
-      { label: 'monolith systematic',  hint: 'monolithsystematic.com',                  icon: '↗', action: () => window.open('https://monolithsystematic.com/', '_blank') },
-      { label: 'vela',                 hint: 'the most transparent dex ever built',     icon: '↗', action: () => window.open('https://vela.monolithsystematic.com/', '_blank') },
-      { label: 'nimbus',               hint: 'your codebase, on autopilot',             icon: '↗', action: () => window.open('https://get-nimbus.com/', '_blank') },
-      { label: 'reply guy',            hint: 'automated twitter gossip',                icon: '↗', action: () => window.open('https://replyguy.aryasomu.com/', '_blank') },
-      { label: 'rita',                 hint: 'macro research assistant for discord',    icon: '↗', action: () => window.open('https://www.getrita.app/', '_blank') },
-      { label: 'trvl.',                hint: 'let me help you plan a trip',             icon: '↗', action: () => window.open('https://trvl.aryasomu.com/', '_blank') },
-      { label: 'bartender',            hint: 'let me make you a drink',                 icon: '↗', action: () => window.open('https://bartender.aryasomu.com/', '_blank') },
-      { label: 'lumina',               hint: 'alternative data for macro regime detection', icon: '↗', action: () => window.open('https://ssrn.com/abstract=6534258', '_blank') },
-      { label: 'vela exchange paper',  hint: 'high-performance verifiable spot dex',    icon: '↗', action: () => window.open('https://ssrn.com/abstract=6579199', '_blank') },
-      { label: 'fed hawkishness index',hint: 'finbert nlp pipeline on fomc language',   icon: '↗', action: () => window.open('https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook', '_blank') },
-      { label: 'substack',             hint: 'economics, ai, and institutional reasoning', icon: '↗', action: () => window.open('https://aryasomu.substack.com/', '_blank') },
-      { label: 'github',               hint: '@arpjw',                                  icon: '↗', action: () => window.open('https://github.com/arpjw', '_blank') },
-      { label: 'x / twitter',          hint: '@arrrrrryaa',                             icon: '↗', action: () => window.open('https://x.com/arrrrrryaa', '_blank') },
-      { label: 'linkedin',             hint: 'aryasomu',                                icon: '↗', action: () => window.open('https://www.linkedin.com/in/aryasomu/', '_blank') },
-      { label: 'email',                hint: 'aryasomu@berkeley.edu',                   icon: '→', action: () => { window.location.href = 'mailto:aryasomu@berkeley.edu'; } },
+      { label: 'index', hint: 'home', icon: '→', action: () => { window.location.href = '/'; } },
+      { label: 'the hardware almanac', hint: 'new essay series', icon: '→', action: () => { window.location.href = 'almanac.html'; } },
+      { label: 'research', hint: 'papers & interests', icon: '→', action: () => { window.location.href = 'research.html'; } },
+      { label: 'music', hint: 'now playing', icon: '→', action: () => { window.location.href = 'music.html'; } },
+      { label: 'quant resources', hint: 'everything i get asked about', icon: '→', action: () => { window.location.href = 'resources.html'; } },
+      { label: 'monolith systematic', hint: 'monolithsystematic.com', icon: '↗', action: () => window.open('https://monolithsystematic.com/', '_blank') },
+      { label: 'vela', hint: 'the most transparent dex ever built', icon: '↗', action: () => window.open('https://vela.monolithsystematic.com/', '_blank') },
+      { label: 'nimbus', hint: 'your codebase, on autopilot', icon: '↗', action: () => window.open('https://get-nimbus.com/', '_blank') },
+      { label: 'reply guy', hint: 'automated twitter gossip', icon: '↗', action: () => window.open('https://replyguy.aryasomu.com/', '_blank') },
+      { label: 'rita', hint: 'macro research assistant for discord', icon: '↗', action: () => window.open('https://www.getrita.app/', '_blank') },
+      { label: 'trvl.', hint: 'let me help you plan a trip', icon: '↗', action: () => window.open('https://trvl.aryasomu.com/', '_blank') },
+      { label: 'bartender', hint: 'let me make you a drink', icon: '↗', action: () => window.open('https://bartender.aryasomu.com/', '_blank') },
+      { label: 'lumina', hint: 'alternative data for macro regime detection', icon: '↗', action: () => window.open('https://ssrn.com/abstract=6534258', '_blank') },
+      { label: 'vela exchange paper', hint: 'high-performance verifiable spot dex', icon: '↗', action: () => window.open('https://ssrn.com/abstract=6579199', '_blank') },
+      { label: 'fed hawkishness index', hint: 'finbert nlp pipeline on fomc language', icon: '↗', action: () => window.open('https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook', '_blank') },
+      { label: 'substack', hint: 'economics, ai, and institutional reasoning', icon: '↗', action: () => window.open('https://aryasomu.substack.com/', '_blank') },
+      { label: 'github', hint: '@arpjw', icon: '↗', action: () => window.open('https://github.com/arpjw', '_blank') },
+      { label: 'x / twitter', hint: '@arrrrrryaa', icon: '↗', action: () => window.open('https://x.com/arrrrrryaa', '_blank') },
+      { label: 'linkedin', hint: 'aryasomu', icon: '↗', action: () => window.open('https://www.linkedin.com/in/aryasomu/', '_blank') },
+      { label: 'email', hint: 'aryasomu@berkeley.edu', icon: '→', action: () => { window.location.href = 'mailto:aryasomu@berkeley.edu'; } },
     ];
 
-    const overlay   = document.getElementById('palette-overlay');
-    const input     = document.getElementById('palette-input');
-    const list      = document.getElementById('palette-list');
-    let selectedIdx = 0;
-    let filtered    = [...commands];
+    const overlay = document.getElementById('palette-overlay');
+    const input = document.getElementById('palette-input');
+    const list = document.getElementById('palette-list');
+    let selectedIdx = 0, filtered = [...commands];
 
     function renderList() {
       list.innerHTML = '';
@@ -683,24 +343,13 @@
       filtered.forEach((cmd, i) => {
         const li = document.createElement('li');
         li.className = 'palette-item' + (i === selectedIdx ? ' selected' : '');
-        li.innerHTML = `
-          <div class="palette-item-left">
-            <span class="palette-item-icon">${cmd.icon}</span>
-            <span class="palette-item-label">${cmd.label}</span>
-          </div>
-          <span class="palette-item-hint">${cmd.hint}</span>
-        `;
+        li.innerHTML = `<div class="palette-item-left"><span class="palette-item-icon">${cmd.icon}</span><span class="palette-item-label">${cmd.label}</span></div><span class="palette-item-hint">${cmd.hint}</span>`;
         li.addEventListener('click', () => { cmd.action(); closePalette(); });
         list.appendChild(li);
       });
     }
 
-    function openPalette() {
-      filtered = [...commands]; selectedIdx = 0; input.value = '';
-      renderList(); overlay.classList.add('open');
-      setTimeout(() => input.focus(), 50);
-    }
-
+    function openPalette() { filtered = [...commands]; selectedIdx = 0; input.value = ''; renderList(); overlay.classList.add('open'); setTimeout(() => input.focus(), 50); }
     function closePalette() { overlay.classList.remove('open'); input.blur(); }
 
     input.addEventListener('input', () => {
@@ -711,7 +360,7 @@
 
     input.addEventListener('keydown', e => {
       if (e.key === 'ArrowDown') { e.preventDefault(); selectedIdx = Math.min(selectedIdx + 1, filtered.length - 1); renderList(); }
-      if (e.key === 'ArrowUp')   { e.preventDefault(); selectedIdx = Math.max(selectedIdx - 1, 0); renderList(); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); selectedIdx = Math.max(selectedIdx - 1, 0); renderList(); }
       if (e.key === 'Enter' && filtered[selectedIdx]) { filtered[selectedIdx].action(); closePalette(); }
       if (e.key === 'Escape') closePalette();
     });
@@ -722,74 +371,32 @@
       if (e.key === 'Escape' && overlay.classList.contains('open')) closePalette();
     });
 
-    /* ── Rave mode (↑↑↓↓←→←→BA) ── */
     const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-    let konamiIdx = 0;
-    let raving    = false;
-
-    const grainEl     = document.querySelector('.grain');
-    const raveOverlay = document.getElementById('rave-overlay');
-    const raveStrobe  = document.getElementById('rave-strobe');
-    const raveTitle   = document.getElementById('rave-title');
-
-    const raveColors = [
-      '#ff0080','#ff4500','#ffdd00','#00ff88','#00cfff','#bf00ff',
-      '#ff6ec7','#ff2d55','#34aadc','#5ac8fa','#ffcc00','#4cd964',
-      '#ff3b30','#007aff','#ff9500','#af52de'
-    ];
-
+    let konamiIdx = 0, raving = false;
+    const grainEl = document.querySelector('.grain'), raveOverlay = document.getElementById('rave-overlay'), raveStrobe = document.getElementById('rave-strobe'), raveTitle = document.getElementById('rave-title');
+    const raveColors = ['#ff0080','#ff4500','#ffdd00','#00ff88','#00cfff','#bf00ff','#ff6ec7','#ff2d55','#34aadc','#5ac8fa','#ffcc00','#4cd964','#ff3b30','#007aff','#ff9500','#af52de'];
     const raveTitles = ['RAVE MODE','🎉','LFG','🔥','RAVE MODE','🎊','OK','RAVE MODE'];
     let raveInterval = null, strobeInterval = null, colorIdx = 0, titleIdx = 0;
 
     function startRave() {
-      if (raving) return;
-      raving = true;
-      document.body.classList.add('raving');
-      grainEl.style.opacity = '0.22';
-      raveOverlay.classList.add('active');
-
-      raveInterval = setInterval(() => {
-        document.body.style.backgroundColor = raveColors[colorIdx % raveColors.length];
-        raveTitle.textContent = raveTitles[titleIdx % raveTitles.length];
-        colorIdx++; titleIdx++;
-      }, 90);
-
-      strobeInterval = setInterval(() => {
-        const r = Math.floor(Math.random() * 255);
-        const g = Math.floor(Math.random() * 255);
-        const b = Math.floor(Math.random() * 255);
-        raveStrobe.style.background = `rgb(${r},${g},${b})`;
-        raveStrobe.style.opacity = (Math.random() * 0.18).toString();
-      }, 60);
-
+      if (raving) return; raving = true;
+      document.body.classList.add('raving'); grainEl.style.opacity = '0.22'; raveOverlay.classList.add('active');
+      raveInterval = setInterval(() => { document.body.style.backgroundColor = raveColors[colorIdx % raveColors.length]; raveTitle.textContent = raveTitles[titleIdx % raveTitles.length]; colorIdx++; titleIdx++; }, 90);
+      strobeInterval = setInterval(() => { const r = Math.floor(Math.random()*255), g = Math.floor(Math.random()*255), b = Math.floor(Math.random()*255); raveStrobe.style.background = `rgb(${r},${g},${b})`; raveStrobe.style.opacity = (Math.random()*0.18).toString(); }, 60);
       setTimeout(stopRave, 5000);
     }
 
     function stopRave() {
-      clearInterval(raveInterval);
-      clearInterval(strobeInterval);
-      raveOverlay.classList.remove('active');
-      raveStrobe.style.opacity = '0';
-      document.body.classList.remove('raving');
-      document.body.style.transition = 'background-color 0.6s';
-      document.body.style.backgroundColor = '#0b0b0b';
-      grainEl.style.transition = 'opacity 0.6s';
-      grainEl.style.opacity = '0.038';
-      setTimeout(() => {
-        document.body.style.transition = '';
-        grainEl.style.transition = '';
-        raving = false;
-      }, 700);
+      clearInterval(raveInterval); clearInterval(strobeInterval);
+      raveOverlay.classList.remove('active'); raveStrobe.style.opacity = '0';
+      document.body.classList.remove('raving'); document.body.style.transition = 'background-color 0.6s';
+      document.body.style.backgroundColor = '#0b0b0b'; grainEl.style.transition = 'opacity 0.6s'; grainEl.style.opacity = '0.038';
+      setTimeout(() => { document.body.style.transition = ''; grainEl.style.transition = ''; raving = false; }, 700);
     }
 
     document.addEventListener('keydown', e => {
       if (overlay.classList.contains('open')) return;
-      if (e.key === KONAMI[konamiIdx]) {
-        konamiIdx++;
-        if (konamiIdx === KONAMI.length) { konamiIdx = 0; startRave(); }
-      } else {
-        konamiIdx = e.key === KONAMI[0] ? 1 : 0;
-      }
+      if (e.key === KONAMI[konamiIdx]) { konamiIdx++; if (konamiIdx === KONAMI.length) { konamiIdx = 0; startRave(); } } else { konamiIdx = e.key === KONAMI[0] ? 1 : 0; }
     });
   </script>
 </body>
