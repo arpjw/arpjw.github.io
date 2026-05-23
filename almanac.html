@@ -329,6 +329,101 @@
       color: var(--bg);
     }
 
+    /* SIDEBAR */
+    .almanac-sidebar {
+      position: fixed;
+      left: 24px;
+      top: 36px;
+      width: 200px;
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
+
+    .sidebar-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+    }
+
+    .sidebar-part {
+      font-family: var(--sans);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 500;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-group:first-child .sidebar-part {
+      margin-top: 0;
+    }
+
+    .sidebar-nav li {
+      margin-bottom: 0.4rem;
+    }
+
+    .sidebar-nav a {
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      display: flex;
+      align-items: baseline;
+      gap: 0.35em;
+      line-height: 1.4;
+    }
+
+    .sidebar-nav a:hover { color: var(--text); }
+    .sidebar-nav a:hover .ch-num { color: var(--text); }
+    .sidebar-nav a.active { color: var(--accent); font-weight: 500; }
+    .sidebar-nav a.active .ch-num { color: var(--accent); }
+
+    .ch-num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 13px;
+      color: var(--text-faint);
+      flex-shrink: 0;
+      transition: color 0.15s ease;
+    }
+
+    .sidebar-epilogue {
+      margin-top: 0.75rem;
+    }
+
+    .sidebar-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 1.25rem 0 0.75rem;
+    }
+
+    .sidebar-home {
+      font-family: var(--sans);
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      display: block;
+    }
+
+    .sidebar-home:hover { color: var(--link); }
+
+    @media (max-width: 1100px) {
+      .almanac-sidebar { display: none; }
+    }
+
     @media (max-width: 640px) {
       .container { padding: 28px 20px 80px; }
       nav.site-nav { margin-bottom: 40px; }
@@ -347,6 +442,52 @@
   </style>
 </head>
 <body>
+  <aside class="almanac-sidebar">
+    <p class="sidebar-title">The Hardware Almanac</p>
+    <nav class="sidebar-nav">
+      <div class="sidebar-group">
+        <div class="sidebar-part">Part I</div>
+        <ul>
+          <li><a href="#ch1"><span class="ch-num">1.</span><span>The Immaterial Century</span></a></li>
+          <li><a href="#ch2"><span class="ch-num">2.</span><span>Why It Worked</span></a></li>
+          <li><a href="#ch3"><span class="ch-num">3.</span><span>The Assumption Buried Inside</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-part">Part II</div>
+        <ul>
+          <li><a href="#ch4"><span class="ch-num">4.</span><span>The Physical Map</span></a></li>
+          <li><a href="#ch5"><span class="ch-num">5.</span><span>The Chokepoints</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-part">Part III</div>
+        <ul>
+          <li><a href="#ch6"><span class="ch-num">6.</span><span>Markets</span></a></li>
+          <li><a href="#ch7"><span class="ch-num">7.</span><span>Governments</span></a></li>
+          <li><a href="#ch8"><span class="ch-num">8.</span><span>Militaries</span></a></li>
+          <li><a href="#ch9"><span class="ch-num">9.</span><span>International Bodies</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-part">Part IV</div>
+        <ul>
+          <li><a href="#ch10"><span class="ch-num">10.</span><span>The Bifurcation</span></a></li>
+        </ul>
+      </div>
+      <div class="sidebar-group">
+        <div class="sidebar-part">Part V</div>
+        <ul>
+          <li><a href="#ch11"><span class="ch-num">11.</span><span>What Happens Next</span></a></li>
+        </ul>
+      </div>
+      <ul class="sidebar-epilogue">
+        <li><a href="#epilogue">Epilogue</a></li>
+      </ul>
+    </nav>
+    <hr class="sidebar-rule">
+    <a href="/" class="sidebar-home">← aryasomu.com</a>
+  </aside>
   <div class="container">
 
     <nav class="site-nav">
@@ -676,5 +817,31 @@
 
     </article>
   </div>
+  <script>
+    (() => {
+      const ids = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','epilogue'];
+      const links = {};
+      ids.forEach(id => {
+        const a = document.querySelector(`.almanac-sidebar a[href="#${id}"]`);
+        if (a) links[id] = a;
+      });
+
+      const setActive = id => {
+        Object.values(links).forEach(a => a.classList.remove('active'));
+        if (links[id]) links[id].classList.add('active');
+      };
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>
