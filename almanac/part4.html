@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part IV — The Bifurcation | The Hardware Almanac</title>
+  <meta name="description" content="The world is already splitting into two compute stacks. The second-order effects of that split are almost entirely unexamined.">
+  <meta property="og:title" content="Part IV — The Bifurcation | The Hardware Almanac">
+  <meta property="og:description" content="The world is already splitting into two compute stacks. The second-order effects of that split are almost entirely unexamined.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbf8f3;
+      --bg-soft: #f5efe2;
+      --stripe: #f3ede0;
+      --text: #1a1a1a;
+      --text-soft: #2a2a2a;
+      --text-muted: #6e6a60;
+      --text-faint: #9a9486;
+      --link: #1f5fd8;
+      --link-hover: #0f3fa8;
+      --accent: #d96e23;
+      --rule: #e5dfd3;
+      --sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --serif: 'Newsreader', 'Source Serif Pro', Georgia, serif;
+      --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+    .container { max-width: 600px; margin: 0 auto; padding: 36px 24px 120px; }
+
+    nav.site-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 56px; }
+    .logo { width: 18px; height: 18px; background: var(--accent); display: inline-block; transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+    .logo:hover { transform: rotate(45deg); }
+    nav.site-nav ul { list-style: none; display: flex; gap: 20px; }
+    nav.site-nav a { color: var(--text-soft); text-decoration: none; font-size: 15px; transition: color 0.15s ease; }
+    nav.site-nav a:hover { color: var(--link); }
+    nav.site-nav a[aria-current="page"] { color: var(--text); font-weight: 600; }
+
+    .prose { font-family: var(--serif); font-size: 17.5px; line-height: 1.72; color: var(--text); }
+    .prose p { margin-bottom: 1.25em; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose p.opening { font-size: 18.5px; color: var(--text); }
+    .prose a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+    .prose a:hover { color: var(--link-hover); }
+    .prose em, .prose i { font-style: italic; }
+
+    .chapter { margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--rule); }
+    .chapter-label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; display: block; margin-bottom: 0.65rem; }
+    .chapter-title { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 3vw, 1.9rem); line-height: 1.2; color: var(--text); margin-bottom: 2.25rem; }
+
+    .pullquote { margin: 2rem 0 2rem; padding: 0 0 0 1.5rem; border-left: 2px solid var(--accent); }
+    .pullquote p { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 1.2rem; line-height: 1.5; color: var(--text); margin: 0 !important; }
+
+    .chapter-divider { font-family: var(--sans); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; text-align: center; margin: 2.5rem 0 1.5rem; display: block; }
+
+    .doc-footer { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 13px; color: var(--text-muted); text-align: center; }
+    .doc-footer a { color: var(--link); text-decoration: none; }
+    .doc-footer a:hover { text-decoration: underline; }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    .breadcrumb { font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2.5rem; }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s ease; }
+    .breadcrumb a:hover { color: var(--link); }
+
+    .part-page-header { margin-bottom: 0; }
+    .part-page-tag { font-family: var(--sans); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; display: block; margin-bottom: 0.5rem; }
+    .part-page-title { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 2rem; line-height: 1.2; color: var(--text); letter-spacing: -0.005em; }
+
+    .page-nav { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-family: var(--sans); font-size: 13px; color: var(--text-muted); display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+    .page-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.15s ease; }
+    .page-nav a:hover { color: var(--link); }
+    .page-nav .nav-sep { color: var(--rule); user-select: none; }
+
+    @media (max-width: 640px) {
+      .container { padding: 28px 20px 80px; }
+      nav.site-nav { margin-bottom: 40px; }
+      nav.site-nav ul { gap: 16px; }
+      nav.site-nav a { font-size: 14px; }
+      .prose { font-size: 16.5px; line-height: 1.7; }
+      .prose p.opening { font-size: 17.5px; }
+      .chapter-title { margin-bottom: 1.75rem; }
+      .pullquote p { font-size: 1.1rem; }
+      .chapter { margin-top: 3rem; padding-top: 2.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="../" class="logo" aria-label="Home"></a>
+      <ul>
+        <li><a href="../experiments.html">experiments</a></li>
+        <li><a href="../almanac.html" aria-current="page">almanac</a></li>
+        <li><a href="../music.html">music</a></li>
+      </ul>
+    </nav>
+
+    <div class="breadcrumb">
+      <a href="../almanac.html">The Hardware Almanac</a> &nbsp;·&nbsp; Part IV
+    </div>
+
+    <article>
+
+      <div class="part-page-header">
+        <span class="part-page-tag">Part IV</span>
+        <h1 class="part-page-title">The Bifurcation</h1>
+      </div>
+
+      <section class="chapter prose" id="ch10">
+        <span class="chapter-label">Chapter 10</span>
+        <h2 class="chapter-title">The Bifurcation</h2>
+        <p class="opening">The bifurcation is not a scenario being modeled in think tanks and war games. It is a present condition being experienced in server rooms, procurement offices, and engineering teams across the world right now, largely without the conceptual vocabulary required to describe what is happening.</p>
+        <p>The global compute stack — the physical and software infrastructure through which modern economic activity, military capability, and scientific progress increasingly flow — is splitting into two. The split is not clean. It is not complete. It does not follow a single boundary or a single date. It is proceeding unevenly, at different speeds in different sectors, driven by decisions made in Washington and Beijing that were each individually justified and are collectively producing a structural transformation of the global technology order that neither side fully intended and neither side can now stop.</p>
+        <p>Understanding the bifurcation requires understanding what a compute stack actually is, in its full depth. At the bottom is the hardware: the chips, the servers, the networking equipment, the storage systems. Above that is the systems software: the operating systems, the firmware, the drivers that make the hardware usable. Above that is the infrastructure layer: the cloud platforms, the orchestration systems, the data pipelines. Above that is the model layer: the AI systems trained on the infrastructure. At the top is the application layer: the products and services that end users interact with. A compute stack bifurcation does not mean merely that the chips are different. It means the divergence propagates upward through every layer, producing systems that are not just technically separate but architecturally incompatible.</p>
+        <p>The Western stack is anchored in TSMC's fabrication capacity, NVIDIA's GPU architecture, and the hyperscaler infrastructure of Amazon, Microsoft, and Google. The models trained on this stack are optimized for NVIDIA's CUDA programming model, trained on clusters running TSMC-manufactured hardware, deployed on infrastructure built around Western cloud standards. The ecosystem that has accumulated around this stack is vast: millions of developers writing CUDA code, petabytes of model weights stored in formats designed for NVIDIA hardware, an entire generation of AI researchers whose intuitions about what is computationally feasible are calibrated on H100 performance.</p>
+        <p>The Chinese stack is anchored in Huawei's Ascend chip series, produced by SMIC at process nodes currently limited to approximately 7 nanometers, combined with domestic alternatives from Biren Technology and Cambricon. Chinese AI engineers are not simply running inferior versions of Western training pipelines on slower chips. They are developing different approaches to model architecture and training efficiency, driven by the constraints of the hardware available to them. This is the dynamic that the export control debate consistently underestimates. Constraints are not only costs. They are also forcing functions.</p>
+        <p>The developing world is where the bifurcation becomes a geopolitical contest rather than a technical one. India, Indonesia, Brazil, Nigeria, Saudi Arabia, the UAE, and dozens of other nations are making infrastructure investment decisions right now that will determine which compute stack their economies run on for the next two decades. China has been deliberate about this contest in a way that Western governments have not. The Digital Silk Road has financed the deployment of Huawei telecommunications equipment, Alibaba Cloud data centers, and Chinese surveillance infrastructure across Africa, Southeast Asia, Central Asia, and parts of Latin America. A nation whose telecommunications network runs on Huawei equipment, whose government databases are hosted on Alibaba Cloud, and whose AI applications are built on Baidu's model APIs is a nation that has, without necessarily intending to, chosen a compute stack.</p>
+        <p>The second-order effects on AI development are the least examined and potentially the most consequential. Two separate compute stacks mean two separate AI development trajectories. Models trained on different hardware develop different capability profiles, different failure modes, and different performance characteristics on different tasks. Over time, the two stacks will produce AI systems that are not just separately owned but genuinely different in their capabilities and limitations, in ways that cannot be assessed from outside the stack.</p>
+        <p>This matters for AI safety in a way that has received almost no serious public attention. The international governance of AI safety presupposes a degree of technical transparency and shared infrastructure that a bifurcated compute world does not provide. You cannot evaluate the capabilities of a model you cannot run. You cannot set meaningful safety standards for a system whose training process you cannot inspect. You cannot coordinate on catastrophic risk with a counterpart whose AI development program runs on infrastructure you have no access to, produces models you cannot test, and operates under safety frameworks you cannot verify.</p>
+        <p>There is a version of this that resolves relatively benignly — the bifurcation stabilizes at roughly the current level of divergence, the Western stack maintains a meaningful capability lead, and the developing world distributes its infrastructure choices in ways that maintain sufficient interoperability for global economic activity to continue. There is another version in which China closes the capability gap through indigenous semiconductor development, reaches frontier AI capability on domestic hardware, and emerges with a fully sovereign compute stack not dependent on any Western technology at any layer. In that version, the two stacks are genuinely symmetrical, the export controls have failed in their strategic purpose, and the world has two incompatible AI development programs at the frontier with no shared infrastructure, no shared safety frameworks, no shared verification mechanisms, and no institutional architecture capable of managing the coordination problems that produces.</p>
+        <p>The bifurcation is deepening. The institutional infrastructure required to manage it does not exist. The window in which its trajectory could be meaningfully altered by deliberate policy is narrowing.</p>
+      </section>
+
+      <nav class="page-nav">
+        <a href="part3.html">← Previous: Part III — The Institutions and Why They Are Wrong</a>
+        <span class="nav-sep">·</span>
+        <a href="../almanac.html">↑ Table of Contents</a>
+        <span class="nav-sep">·</span>
+        <a href="part5.html">Next: Part V — What Happens Next →</a>
+      </nav>
+
+      <footer class="doc-footer">
+        Arya Somu &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; <a href="../">aryasomu.com</a>
+      </footer>
+
+    </article>
+  </div>
+</body>
+</html>

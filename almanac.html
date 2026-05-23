@@ -174,7 +174,16 @@
       text-transform: uppercase;
       color: var(--text-muted);
       font-weight: 500;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .toc-note {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
     }
 
     .toc-entry {
@@ -325,104 +334,32 @@
 
     .doc-footer a:hover { text-decoration: underline; }
 
+    /* SECTION RULE */
+    hr.section-rule {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 3rem 0;
+    }
+
+    /* PAGE NAV */
+    .page-nav {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .page-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .page-nav a:hover { color: var(--link); }
+
     ::selection {
       background: var(--accent);
       color: var(--bg);
-    }
-
-    /* SIDEBAR */
-    .almanac-sidebar {
-      position: fixed;
-      left: 24px;
-      top: 36px;
-      width: 200px;
-      max-height: calc(100vh - 60px);
-      overflow-y: auto;
-    }
-
-    .sidebar-title {
-      font-family: var(--serif);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 14px;
-      color: var(--text);
-      margin-bottom: 1.25rem;
-      line-height: 1.3;
-    }
-
-    .sidebar-nav ul {
-      list-style: none;
-    }
-
-    .sidebar-part {
-      font-family: var(--sans);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-faint);
-      font-weight: 500;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .sidebar-group:first-child .sidebar-part {
-      margin-top: 0;
-    }
-
-    .sidebar-nav li {
-      margin-bottom: 0.4rem;
-    }
-
-    .sidebar-nav a {
-      font-family: var(--sans);
-      font-size: 13px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s ease;
-      display: flex;
-      align-items: baseline;
-      gap: 0.35em;
-      line-height: 1.4;
-    }
-
-    .sidebar-nav a:hover { color: var(--text); }
-    .sidebar-nav a:hover .ch-num { color: var(--text); }
-    .sidebar-nav a.active { color: var(--accent); font-weight: 500; }
-    .sidebar-nav a.active .ch-num { color: var(--accent); }
-
-    .ch-num {
-      font-family: var(--serif);
-      font-style: italic;
-      font-weight: 400;
-      font-size: 13px;
-      color: var(--text-faint);
-      flex-shrink: 0;
-      transition: color 0.15s ease;
-    }
-
-    .sidebar-epilogue {
-      margin-top: 0.75rem;
-    }
-
-    .sidebar-rule {
-      border: none;
-      border-top: 1px solid var(--rule);
-      margin: 1.25rem 0 0.75rem;
-    }
-
-    .sidebar-home {
-      font-family: var(--sans);
-      font-size: 12px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.15s ease;
-      display: block;
-    }
-
-    .sidebar-home:hover { color: var(--link); }
-
-    @media (max-width: 1100px) {
-      .almanac-sidebar { display: none; }
     }
 
     @media (max-width: 640px) {
@@ -443,52 +380,6 @@
   </style>
 </head>
 <body>
-  <aside class="almanac-sidebar">
-    <p class="sidebar-title">The Hardware Almanac</p>
-    <nav class="sidebar-nav">
-      <div class="sidebar-group">
-        <div class="sidebar-part">Part I</div>
-        <ul>
-          <li><a href="#ch1"><span class="ch-num">1.</span><span>The Immaterial Century</span></a></li>
-          <li><a href="#ch2"><span class="ch-num">2.</span><span>Why It Worked</span></a></li>
-          <li><a href="#ch3"><span class="ch-num">3.</span><span>The Assumption Buried Inside</span></a></li>
-        </ul>
-      </div>
-      <div class="sidebar-group">
-        <div class="sidebar-part">Part II</div>
-        <ul>
-          <li><a href="#ch4"><span class="ch-num">4.</span><span>The Physical Map</span></a></li>
-          <li><a href="#ch5"><span class="ch-num">5.</span><span>The Chokepoints</span></a></li>
-        </ul>
-      </div>
-      <div class="sidebar-group">
-        <div class="sidebar-part">Part III</div>
-        <ul>
-          <li><a href="#ch6"><span class="ch-num">6.</span><span>Markets</span></a></li>
-          <li><a href="#ch7"><span class="ch-num">7.</span><span>Governments</span></a></li>
-          <li><a href="#ch8"><span class="ch-num">8.</span><span>Militaries</span></a></li>
-          <li><a href="#ch9"><span class="ch-num">9.</span><span>International Bodies</span></a></li>
-        </ul>
-      </div>
-      <div class="sidebar-group">
-        <div class="sidebar-part">Part IV</div>
-        <ul>
-          <li><a href="#ch10"><span class="ch-num">10.</span><span>The Bifurcation</span></a></li>
-        </ul>
-      </div>
-      <div class="sidebar-group">
-        <div class="sidebar-part">Part V</div>
-        <ul>
-          <li><a href="#ch11"><span class="ch-num">11.</span><span>What Happens Next</span></a></li>
-        </ul>
-      </div>
-      <ul class="sidebar-epilogue">
-        <li><a href="#epilogue">Epilogue</a></li>
-      </ul>
-    </nav>
-    <hr class="sidebar-rule">
-    <a href="/" class="sidebar-home">← aryasomu.com</a>
-  </aside>
   <div class="container">
 
     <nav class="site-nav">
@@ -515,13 +406,16 @@
         <p>The argument here will seem overstated to some readers until it doesn't. That is the nature of structural transitions. They are invisible until they are undeniable, and by the time they are undeniable, the window for navigating them intelligently has usually closed.</p>
       </section>
 
+      <hr class="section-rule">
+
       <div class="toc">
-        <div class="toc-title">Contents</div>
+        <div class="toc-title">Table of Contents</div>
+        <p class="toc-note">Each essay is meant to stand on its own, though I'd strongly encourage reading the series as a whole.</p>
 
         <div class="toc-entry">
           <div class="toc-num">I.</div>
           <div class="toc-text">
-            <div class="toc-chapter"><a href="#part1">The World We Thought We Lived In</a></div>
+            <div class="toc-chapter"><a href="almanac/part1.html">The World We Thought We Lived In</a></div>
             <div class="toc-desc">The post-Cold War consensus, how abstraction won the twentieth century, and the single assumption buried inside everything that followed.</div>
           </div>
         </div>
@@ -529,7 +423,7 @@
         <div class="toc-entry">
           <div class="toc-num">II.</div>
           <div class="toc-text">
-            <div class="toc-chapter"><a href="#part2">The Physical Reality</a></div>
+            <div class="toc-chapter"><a href="almanac/part2.html">The Physical Reality</a></div>
             <div class="toc-desc">The actual hardware geography of the world. TSMC, ASML, rare earths, and the full supply chain from raw material to inference cluster.</div>
           </div>
         </div>
@@ -537,7 +431,7 @@
         <div class="toc-entry">
           <div class="toc-num">III.</div>
           <div class="toc-text">
-            <div class="toc-chapter"><a href="#part3">The Institutions and Why They Are Wrong</a></div>
+            <div class="toc-chapter"><a href="almanac/part3.html">The Institutions and Why They Are Wrong</a></div>
             <div class="toc-desc">Markets, governments, militaries, and international bodies — each examined for the specific way it is miscalibrated to handle hardware as sovereignty rather than logistics.</div>
           </div>
         </div>
@@ -545,7 +439,7 @@
         <div class="toc-entry">
           <div class="toc-num">IV.</div>
           <div class="toc-text">
-            <div class="toc-chapter"><a href="#part4">The Bifurcation</a></div>
+            <div class="toc-chapter"><a href="almanac/part4.html">The Bifurcation</a></div>
             <div class="toc-desc">The world is already splitting into two compute stacks. The second-order effects of that split are almost entirely unexamined.</div>
           </div>
         </div>
@@ -553,7 +447,7 @@
         <div class="toc-entry">
           <div class="toc-num">V.</div>
           <div class="toc-text">
-            <div class="toc-chapter"><a href="#part5">What Happens Next</a></div>
+            <div class="toc-chapter"><a href="almanac/part5.html">What Happens Next</a></div>
             <div class="toc-desc">Not predictions. Scenarios. What the good resolution requires and what the bad resolution looks like.</div>
           </div>
         </div>
@@ -561,256 +455,15 @@
         <div class="toc-entry">
           <div class="toc-num">&nbsp;</div>
           <div class="toc-text">
-            <div class="toc-chapter"><a href="#epilogue">Epilogue</a></div>
+            <div class="toc-chapter"><a href="almanac/epilogue.html">Epilogue</a></div>
             <div class="toc-desc">Why this, why now, and what the almanac principle means for how we read the world going forward.</div>
           </div>
         </div>
       </div>
 
-      <!-- PART I -->
-      <div class="part-header" id="part1">
-        <span class="part-tag">Part I</span>
-        <span class="part-title">The World We Thought We Lived In</span>
-      </div>
-
-      <section class="chapter prose" id="ch1">
-        <span class="chapter-label">Chapter 1</span>
-        <h2 class="chapter-title">The Immaterial Century</h2>
-        <p class="opening">In 1991, the United States won a war without fighting it. The Soviet Union, the only rival capable of contesting American primacy, collapsed under the weight of its own material contradictions. It had too many tanks, too many factories, too many people organized around the production of physical things in an era that had already decided physical things were not the point. America, by contrast, had Microsoft, Goldman Sachs, and Hollywood. It had ideas, capital, and narrative. It won by being less heavy.</p>
-        <p>The lesson was not lost on the generation that inherited the world afterward. If the great contest of the twentieth century had been settled in favor of the side that bet on abstraction, then abstraction was the correct bet going forward. The most sophisticated minds in economics, strategy, and technology spent the following three decades constructing institutions, companies, and doctrines around a single organizing principle: value lives in software, and hardware is a commodity. A necessary cost. A solved problem. Something you outsource to people willing to do it cheaply, in places you don't need to think about.</p>
-        <p>This was not stupidity. It was a rational extrapolation from observed evidence, and for a long time the evidence cooperated. The companies that came to define American power in the decades after the Cold War were, almost without exception, companies that made nothing you could hold. Google indexed the world's information from servers nobody saw. Facebook owned the social graph of three billion people without owning a single building those people cared about. Amazon ran the logistics of the global economy and was still understood primarily as a software company. Apple, the one apparent exception, outsourced every physical operation it possibly could and kept only the design, the software, and the story. The message across all of them was identical: the material world is overhead. The immaterial world is where power actually compounds.</p>
-        <p>Governments absorbed this lesson too, though more slowly and with considerably less elegance. Trade policy across the 1990s and 2000s was constructed on the premise that deep economic integration made conflict irrational. Why contest territory when you can profit across it? China's WTO accession in 2001 was not simply a trade deal. It was a civilizational bet — that a nation brought fully into the global economic system would find the costs of disrupting that system too high to bear. Offshoring manufacturing was reframed not as hollowing out but as intelligent specialization. The software-defined nation-state farming out its physical production to lower-cost partners while retaining the high-value cognitive work. Elegant in theory. Compelling in spreadsheet. Completely correct until it wasn't.</p>
-        <p>For thirty years this worldview was not merely coherent but empirically vindicated at every turn. Living standards rose across most of the world. Great power conflict receded to the point where serious strategists began treating it as a historical artifact rather than a persistent condition. The most valuable real estate on earth was not a port or an oil field but a data center in a suburb of Seattle. A person in a dorm room could assemble something worth more than the GDP of a midsize country before turning twenty-five. The dematerialization of value seemed not just real but irreversible. A permanent feature of the modern world rather than a contingent feature of a specific historical moment.</p>
-        <div class="pullquote"><p>It was a contingent feature of a specific historical moment.</p></div>
-        <p>And the moment is over.</p>
-      </section>
-
-      <section class="chapter prose" id="ch2">
-        <span class="chapter-label">Chapter 2</span>
-        <h2 class="chapter-title">Why It Worked</h2>
-        <p class="opening">It is tempting, in retrospect, to treat the software-defined era as a prolonged collective delusion. A thirty-year hallucination shared by economists, strategists, and technologists who should have known better. This is the wrong reading, and it leads to the wrong conclusions.</p>
-        <p>The software-defined worldview worked because it was, for a specific and identifiable window of history, genuinely true. Not approximately true. Not true-enough-to-be-useful. Empirically, measurably, defensibly true in ways that compounded across decades and produced real outcomes for real people at a scale that is difficult to overstate.</p>
-        <p>Start with the economics. Between 1990 and 2015, global extreme poverty fell by more than half. That reduction was not delivered by ideology or institutional goodwill. It was delivered by manufacturing supply chains, most of them anchored in Asia, producing physical goods at costs that made them accessible to people who previously could not afford them. The software-defined worldview did not cause this directly, but it created the conditions for it. The logic of comparative advantage, applied globally through trade liberalization, allowed nations to specialize in what they produced most efficiently and trade for everything else. A factory worker in Shenzhen assembling components designed in Cupertino and shipped to consumers in Ohio was not a symptom of dysfunction. It was the system working as intended.</p>
-        <p>The geopolitical case was equally compelling. The period between 1991 and roughly 2014 was, by historical standards, extraordinarily peaceful among major powers. Not peaceful in the sense that conflict disappeared — wars continued, brutally, in places the architects of the liberal order preferred not to look too carefully. But the specific nightmare of great power conflict, the kind that had consumed the first half of the twentieth century and threatened to incinerate the second, receded to a point where credible scholars began writing seriously about whether it had become structurally impossible. The argument had real teeth. Nations deeply integrated into global supply chains faced costs of conflict that earlier great powers did not. When your manufacturing base, your consumer markets, and your financial system are all threaded through the same global network as your rival's, the calculus of confrontation changes. Mutual economic destruction is a meaningful deterrent. It worked, for a while, better than anyone had a right to expect.</p>
-        <p>Then there was the innovation argument, which was perhaps the most seductive of all. The software-defined era did not just redistribute existing wealth. It generated new categories of value that had never existed before. Search. Social networks. Cloud infrastructure. Smartphones. Streaming. These were not refinements of prior technologies. They were genuinely novel, and they emerged almost entirely from environments where capital was cheap, talent was mobile, and physical constraints were treated as engineering problems to be abstracted away. The venture capital model, which funded speculative bets on intangible assets with no physical collateral, produced returns that made traditional capital allocation look primitive. The message from the market was consistent and loud: the immaterial world generates compounding returns, the material world generates margins.</p>
-        <p>None of this was fabricated. The wealth was real. The poverty reduction was real. The relative peace among great powers was real. The innovation was real. The people who built the intellectual scaffolding of the software-defined era were not fools or frauds. They were pattern-matching correctly on the data available to them, constructing a worldview that explained observed outcomes and generated accurate predictions across multiple domains for multiple decades.</p>
-        <p>This is exactly what makes what happened next so serious.</p>
-        <p>The software-defined worldview did not fail because it was intellectually weak. It failed because it was so empirically successful for so long that it stopped being treated as a model and started being treated as a law. The difference between those two things is the difference between a map and the territory. The map was accurate. The territory changed.</p>
-        <p>And buried inside every spreadsheet, every trade agreement, every fabless business model, every national security doctrine written during those thirty years was an assumption so foundational that almost nobody thought to write it down.</p>
-      </section>
-
-      <section class="chapter prose" id="ch3">
-        <span class="chapter-label">Chapter 3</span>
-        <h2 class="chapter-title">The Assumption Buried Inside</h2>
-        <p class="opening">Every coherent worldview rests on a foundation of things it does not bother to defend. Not because the foundation is indefensible, but because it has never been seriously challenged, and unchallenged premises have a way of migrating out of the category of assumptions and into the category of facts. The software-defined era had many such premises. This is the one that mattered most:</p>
-        <div class="pullquote"><p>The physical substrate would always be there.</p></div>
-        <p>Not stated. Not argued. Not written into any treaty or doctrine or business plan in explicit terms. Simply assumed, the way you assume the floor will hold your weight when you walk across a room. Someone would always fabricate the chips. The factories would persist. The supply chains, however complex, however geographically concentrated, would continue to function because they always had and because the economic incentives for all parties to keep them functioning were, in the aggregate, overwhelming. Hardware was a commodity problem. Commodity problems get solved by markets. Markets are reliable. Therefore hardware is reliable. The syllogism was never examined because the conclusion always held.</p>
-        <p>For a long time, the conclusion held because the assumption was being continuously validated by a specific set of historical conditions that nobody recognized as conditions. Taiwan remained stable. ASML, a single Dutch company that manufactures the lithography machines required to produce leading-edge chips, continued to operate without interruption. The rare earth supply chains threading through China continued to flow. TSMC, which by the 2020s was fabricating the majority of the world's most advanced semiconductors within a geography that the People's Republic of China considers an unresolved territorial question, kept expanding capacity. The system was fragile in ways that were visible to anyone who looked directly at it. Almost nobody looked directly at it.</p>
-        <p>The first serious crack appeared not where geopolitical analysts expected but in hospital parking lots. In 2021, automobile manufacturers began halting production lines across the United States, Germany, and Japan because they could not source semiconductors. Not advanced chips. Not cutting-edge processors. Basic microcontrollers, the kind embedded in door locks and dashboard displays, components so mundane they had been treated for decades as interchangeable commodities available on demand. They were not available on demand. They were available only through supply chains so lean, so geographically concentrated, and so optimized for efficiency rather than resilience that a single disruption propagated globally within months. Ford lost an estimated two and a half billion dollars in profit that year. General Motors lost roughly the same. The global automotive industry collectively surrendered more than two hundred billion dollars in revenue.</p>
-        <p>The policy class noticed, registered concern, and largely failed to understand what they were actually seeing. The chip shortage was framed as a supply chain problem, a logistics failure, a pandemic disruption that would self-correct as conditions normalized. This framing was not wrong about the immediate cause. It was wrong about the underlying structure. The shortage was not an aberration. It was a preview. A brief, low-stakes demonstration of what happens when the physical substrate of the modern economy becomes unavailable, in an industry peripheral enough to absorb the blow without systemic collapse. The demonstration was not heeded with the seriousness it warranted.</p>
-        <p>Because the automotive shortage was noise compared to the signal underneath it.</p>
-        <p>The signal is this: the production of leading-edge semiconductors — the chips that power artificial intelligence, advanced weapons systems, financial infrastructure, and communications networks — is not distributed across the global economy in any meaningful sense. It is concentrated, to a degree that has no precedent in the history of strategically critical resources, in a handful of facilities on a single island that sits at the center of the most consequential territorial dispute on earth. TSMC's most advanced fabrication plants are located in Taiwan. The machines required to build those plants are manufactured almost exclusively by ASML in the Netherlands. The specialized gases, chemicals, and raw materials required to run them thread through supply chains spanning dozens of countries, with critical chokepoints at every link. Remove any single node and the entire system does not slow down. It stops.</p>
-        <p>This is not a supply chain problem. It is a sovereignty problem dressed in the language of logistics, and the distinction is not semantic. Supply chain problems have market solutions. You add redundancy, diversify suppliers, build inventory buffers, and over time the system stabilizes. Sovereignty problems do not have market solutions because markets cannot resolve the underlying question, which is not how to move goods efficiently but who controls the physical capacity to produce the foundation of modern technological power and what they are willing to do with that control.</p>
-        <p>The software-defined worldview had no framework for this question because it had no framework for the possibility that hardware could become leverage. In the model, hardware was always becoming cheaper, more abundant, more commoditized, more irrelevant to the actual sources of value. Moore's Law made the chips faster and smaller every two years. Globalization made them cheaper. The trend lines were all pointing toward a world where the physical substrate mattered less and less. Instead, a specific convergence of technological, economic, and geopolitical forces produced the opposite outcome. The chips became so powerful, so central to so many critical systems, and so difficult to produce at the frontier that the physical capacity to make them became the most concentrated and consequential form of leverage in the modern world.</p>
-        <p>The thirty years of software-defined thinking did not see this coming because it was structurally incapable of seeing it coming. You cannot identify a threat to an assumption you have stopped treating as an assumption.</p>
-        <p>The floor, as it turns out, does not always hold your weight.</p>
-        <p>We built the most important technology in human history on top of a single point of failure, told ourselves it was a supply chain, and moved on. Part II is what that actually looks like from the ground.</p>
-      </section>
-
-      <!-- PART II -->
-      <div class="part-header" id="part2">
-        <span class="part-tag">Part II</span>
-        <span class="part-title">The Physical Reality</span>
-      </div>
-
-      <section class="chapter prose" id="ch4">
-        <span class="chapter-label">Chapter 4</span>
-        <h2 class="chapter-title">The Physical Map</h2>
-        <p class="opening">Most people, if asked to locate the center of the modern global economy, would gesture somewhere toward the American coasts. Silicon Valley. Wall Street. The server farms of Northern Virginia. They would be wrong by approximately 8,700 miles.</p>
-        <p>The center of the modern global economy is a campus in the Tainan Science Park in southwestern Taiwan. It occupies roughly three square kilometers. It employs around 73,000 people. It is operated by a company called Taiwan Semiconductor Manufacturing Corporation, and it is, without meaningful exaggeration, the most important industrial facility on earth. If it ceased operations tomorrow, the global economy would begin to seize within weeks and would not recover for years. There is no backup. There is no redundancy. There is no plan.</p>
-        <p>TSMC manufactures approximately 90 percent of the world's most advanced semiconductors — chips built at process nodes of 7 nanometers and below. To understand what that means physically: a human hair is roughly 70,000 nanometers wide. The features being etched onto TSMC's most advanced wafers are smaller than a virus. The engineering required to produce them reliably, at volume, is among the most technically demanding manufacturing processes ever developed, and TSMC is the only organization on earth that can do it at scale. Samsung holds a small share of leading-edge production. Intel has spent years and tens of billions of dollars trying to close the gap and has not closed it. Every company whose products depend on leading-edge chips — Apple, NVIDIA, AMD, Qualcomm, Broadcom, and effectively every AI infrastructure provider in the world — sends its designs to Taiwan to be made physical.</p>
-        <p>The chips themselves do not begin in Taiwan. They begin as sand.</p>
-        <p>The silicon in a semiconductor wafer starts as quartzite, a form of highly pure silicon dioxide mined primarily in the United States, Brazil, and Norway. From quartzite it becomes metallurgical-grade silicon through a reduction process requiring enormous amounts of electricity. From metallurgical silicon it becomes polysilicon through the Siemens process, a chemical refinement that strips out impurities to a purity level of 99.9999999 percent — nine nines — a standard of material purity that has almost no parallel in industrial production. The majority of the world's polysilicon supply passes through a small number of facilities, several of them in China's Xinjiang province.</p>
-        <p>From polysilicon, manufacturers grow single-crystal silicon ingots using the Czochralski process, pulling a pure crystal slowly from a molten bath at precise temperatures while rotating it to maintain uniformity. The ingots are sliced into wafers, polished to atomic flatness, and inspected for defects invisible to any instrument other than the ones built specifically to find them. Two Japanese companies — Shin-Etsu Chemical and Sumco Corporation — control approximately 60 percent of the global silicon wafer market. A third Japanese firm, Siltronic, holds much of the remainder. The geographic concentration of this supply node is not a recent development. It is structural.</p>
-        <p>The wafers arrive in Taiwan. What happens to them there depends entirely on a machine that exists nowhere else.</p>
-        <p>Extreme Ultraviolet lithography, EUV, is the process by which circuit patterns are etched onto wafers using light with a wavelength of 13.5 nanometers, shorter than any light that occurs naturally on the surface of the earth. Generating that light requires heating a tin droplet to plasma using a high-powered laser, 50,000 times per second, in a vacuum chamber operating at temperatures comparable to the surface of the sun. The reflected light is then focused through a series of mirrors polished to within a fraction of an atomic diameter and projected onto the wafer through a mask containing the circuit pattern. The entire process must be repeated hundreds of times per wafer, across thousands of wafers per month, with yields high enough to be economically viable. It is, by any reasonable assessment, the most technically complex manufacturing process in human history.</p>
-        <p>One company builds the machines that do this. That company is ASML, headquartered in Eindhoven, in the Netherlands, a city of 240,000 people better known historically for producing Philips electronics than for hosting the fulcrum of global technological power. A single ASML High-NA EUV machine costs approximately 380 million dollars. It contains over 100,000 individual components sourced from more than 5,000 suppliers across multiple continents. It takes more than a year to build. It weighs 160 tons and arrives at a fab in roughly 40 shipping containers. The optical systems at the heart of each machine are produced by a single company: Carl Zeiss SMT, in Oberkochen, Germany, a town of 8,000 people. Without Carl Zeiss optics, ASML cannot build EUV machines. Without ASML EUV machines, no one can manufacture leading-edge chips. The dependency chain terminates in a small German city that most people in the technology industry have never heard of.</p>
-        <p>ASML ships approximately 50 EUV machines per year. There are fewer than 600 in existence. Every one of them is in the fab of a company that either sells to or competes with the United States and its allies, and every one of them was shipped subject to Dutch export controls that are themselves subject to pressure from Washington. China has received none. China has been trying to build its own EUV equivalent for over a decade and has not succeeded.</p>
-        <p>The completed chips move from Taiwan into a global packaging and testing supply chain concentrated in Taiwan, South Korea, and Malaysia. The high-bandwidth memory stacked on top of NVIDIA's most advanced AI accelerators comes almost exclusively from SK Hynix and Samsung in South Korea. The substrate materials enabling advanced packaging come primarily from Japan. A finished NVIDIA H100, a chip designed in Santa Clara, travels through Taiwan, South Korea, Japan, and Malaysia before it reaches a data center in Virginia. At each stop, the process depends on a small number of firms operating in a small number of countries, each representing a node whose failure propagates immediately to every downstream product.</p>
-        <p>Then there are the materials that none of this works without.</p>
-        <p>Neon gas is used in the laser systems that drive the lithography process. Before 2022, Ukraine supplied approximately 70 percent of the world's semiconductor-grade neon, a byproduct of Russian steel production that was purified in plants in Odessa and Mariupol. The full-scale invasion of Ukraine in February 2022 disrupted that supply chain overnight. The industry adapted, slowly and expensively, by developing alternative sources and building strategic reserves. The adaptation worked. But the episode revealed something that had been true for years without anyone acting on it: the production of the chips powering modern civilization depended, in part, on a byproduct of Russian steel mills being processed in a city that would soon be under siege.</p>
-        <p>Rare earth elements, required for the magnets in hard drives, the speakers in devices, and numerous components throughout the supply chain, present a more durable version of the same problem. China mines approximately 60 percent of the world's rare earth supply and processes approximately 85 percent of it globally. The processing capacity matters more than the mining capacity. Rare earth ore is relatively useless without refinement, and the refinement infrastructure built over decades in China is not replicated anywhere else at meaningful scale. The United States spent the Cold War developing domestic rare earth production and then spent the following three decades allowing it to atrophy in favor of cheaper Chinese supply. The Mountain Pass mine in California, the largest rare earth deposit in the western hemisphere, ships its ore to China for processing.</p>
-        <p>This is the physical map. It is not a metaphor for fragility. It is fragility, specified with geographic coordinates.</p>
-        <p>The center of the modern global economy is not in California. It is distributed across a set of facilities in Taiwan, the Netherlands, Japan, South Korea, and Germany, connected by supply chains that are optimized entirely for cost efficiency and not at all for resilience, governed by trade relationships built for an era in which geopolitical competition over physical production capacity was considered a solved problem.</p>
-        <p>It was not a solved problem. It was a dormant one.</p>
-      </section>
-
-      <section class="chapter prose" id="ch5">
-        <span class="chapter-label">Chapter 5</span>
-        <h2 class="chapter-title">The Chokepoints</h2>
-        <p class="opening">A concentrated industry and a chokepoint are not the same thing. Concentration means a small number of actors control a large share of supply. A chokepoint means the removal of a single actor stops the system entirely — not gradually, not partially, but completely, with no substitution available on any timeline relevant to the crisis that removal would produce. The global semiconductor supply chain contains both. What follows concerns only the latter.</p>
-        <p>There are seven of them. They are not evenly distributed across the chain. They are not the result of planning or malice. They are the residue of decades of rational economic decisions, each one locally optimal, collectively catastrophic.</p>
-
-        <span class="chapter-divider">I. TSMC</span>
-        <p>The first chokepoint is the one most people have at least heard of, which does not mean they understand it correctly. The common framing is that TSMC is important because it makes a lot of chips. This is like saying the Federal Reserve is important because it prints a lot of money. The significance is not the volume. It is the exclusivity at the frontier.</p>
-        <p>At process nodes of 3 nanometers and below, where the chips powering artificial intelligence inference and training are manufactured, TSMC has no peer. Samsung produces leading-edge chips but trails TSMC on yield, on defect density, and on the trust of every major fabless customer in the world. Intel's foundry ambitions have been delayed repeatedly and remain, as of now, not competitive at the leading edge. The customers who matter — Apple, NVIDIA, AMD, Qualcomm, Broadcom, Google, Amazon, Microsoft — have all committed their most advanced designs to TSMC. Redirecting those designs to another fab is not a matter of signing a new contract. It requires months of process qualification, redesign of certain physical characteristics of the chip, and acceptance of yield losses that, at leading-edge nodes, can be commercially catastrophic.</p>
-        <p>If TSMC's Taiwan operations ceased today, the timeline to recovery is not measured in quarters. It is measured in years. The CHIPS Act has funded a TSMC facility in Arizona. That facility is producing chips. It is producing them at yields and at process nodes that trail Taiwan's by at least one generation, and it employs a workforce that took years to train to even approximate the institutional knowledge embedded in TSMC's Taiwanese operations. The Arizona facility is insurance against a degraded future. It is not a substitute for the present.</p>
-        <p>There is currently no version of American national power that does not depend on TSMC's continued operation under conditions of open access.</p>
-
-        <span class="chapter-divider">II. ASML</span>
-        <p>The second chokepoint is less visible than the first and more durable as a form of leverage. TSMC can, in theory, be rebuilt. It would take a decade and a hundred billion dollars and a transfer of institutional knowledge that may not be fully transferable, but the physical infrastructure could be replicated somewhere else. ASML's position is different in kind, not just degree, because the knowledge required to build EUV lithography machines is not documented anywhere in a form that could be handed to a second manufacturer and reproduced.</p>
-        <p>The EUV machine is not a product in the conventional sense. It is the crystallization of approximately thirty years of accumulated engineering refinement across optics, plasma physics, precision mechanics, and systems integration, almost none of which exists in written form at the level of specificity required to reproduce it. The engineers who built it learned from engineers who built earlier versions, going back to experimental systems in the 1990s. The tacit knowledge embedded in ASML's workforce and its supplier relationships is, by any reasonable assessment, unreplicable on a timeline relevant to any crisis scenario shorter than a generation.</p>
-        <p>ASML is therefore not merely a supplier to the semiconductor industry. It is the hard ceiling on what any actor without access to its machines can produce. The export controls preventing ASML from shipping to China are not trade policy in any conventional sense. They are a decision about which countries are permitted to participate in the leading-edge technology economy and which are not.</p>
-
-        <span class="chapter-divider">III. Carl Zeiss SMT</span>
-        <p>The third chokepoint is the one almost nobody outside the industry knows about, which makes it the most important one to name explicitly. Carl Zeiss SMT, the semiconductor division of the German optics manufacturer, produces the mirror and lens systems inside every ASML EUV machine. The optics in an EUV system must be polished to a surface roughness of less than 0.1 nanometers — a standard of precision for which there is no industrial analog. No other company produces them. No other company is close to producing them.</p>
-        <p>ASML owns approximately 25 percent of Carl Zeiss SMT. The relationship is not a vendor relationship. It is an engineering codependency that has been developing for three decades and that cannot be unwound without destroying the product it produces. If Carl Zeiss SMT's Oberkochen facility were to cease operations, ASML could not build new EUV machines. A city of 8,000 people in Baden-Württemberg is, without overstatement, a single point of failure for the global AI economy.</p>
-
-        <span class="chapter-divider">IV. Shin-Etsu and Sumco</span>
-        <p>The fourth chokepoint sits further up the supply chain and receives almost no attention because silicon wafers feel like a commodity. They are not a commodity. They are among the most precisely manufactured materials in industrial production, and their supply is controlled by two Japanese companies to a degree that would attract antitrust scrutiny in any industry where regulators understood what they were looking at.</p>
-        <p>Shin-Etsu Chemical and Sumco together supply approximately 60 percent of the world's semiconductor-grade silicon wafers. The barriers to entry are not patents or trade secrets. They are accumulated process knowledge, equipment calibration developed over decades, and customer qualification cycles that take years and hundreds of millions of dollars to complete. A new wafer supplier could not meaningfully enter the market inside of five years under ideal conditions. There are no ideal conditions.</p>
-
-        <span class="chapter-divider">V. SK Hynix and High-Bandwidth Memory</span>
-        <p>The fifth chokepoint is specific to artificial intelligence and is less than five years old as a strategic vulnerability. High-Bandwidth Memory, HBM, is the memory technology stacked on top of leading AI accelerators to provide the bandwidth required for large-scale matrix operations. Without HBM, the NVIDIA H100 and its successors do not function as AI training or inference hardware. The global supply of HBM is controlled almost entirely by three companies: SK Hynix, Samsung, and Micron. SK Hynix alone supplies the majority of the HBM used in NVIDIA's products.</p>
-        <p>SK Hynix's HBM production facilities are in South Korea. South Korea shares a land border with North Korea and sits within range of Chinese military assets. The dependency of the global AI buildout on a single South Korean company's production capacity for a specific memory technology is not a theoretical vulnerability. It is a current operational reality that every AI infrastructure investment in the world is exposed to and that almost no institutional risk framework accounts for.</p>
-
-        <span class="chapter-divider">VI. Rare Earth Processing</span>
-        <p>The sixth chokepoint is the one with the longest history and the least prospect of near-term resolution. China's dominance in rare earth processing is not an accident of geology. The rare earth deposits are distributed globally. What China holds is the processing infrastructure: the refineries, the chemical expertise, the waste management capacity for the highly toxic byproducts of rare earth separation, and the decades of institutional knowledge required to operate that infrastructure economically. Building equivalent processing capacity outside China is a ten-to-fifteen-year project under favorable conditions. The Mountain Pass mine in California ships its ore to China for processing. The strategic logic of this arrangement, evaluated honestly, is difficult to defend.</p>
-
-        <span class="chapter-divider">The Compound Failure</span>
-        <p>The seven chokepoints described above are not independent risks. They are nodes in a single system, and the system has a property that is more dangerous than any individual node: the failure of one accelerates the failure of others.</p>
-        <p>A Taiwan disruption does not merely stop chip production. It stops the revenue stream that funds ASML's R&amp;D. It stops the wafer orders that keep Shin-Etsu and Sumco operating at scale. It creates inventory shortfalls that propagate through every downstream industry simultaneously, triggering the kind of demand collapse that makes new investment in any part of the supply chain economically irrational precisely when it is strategically necessary. The supply chain is not a collection of independent risks. It is a network, and networks fail non-linearly.</p>
-        <p>Part I described the assumption buried inside the software-defined era. Part II has described what the physical reality looks like underneath that assumption. The gap between the two is not a policy problem. It is not a market failure in the conventional sense. It is a civilizational miscalibration, and its consequences are already being negotiated by actors who understand it and institutions that do not.</p>
-        <p>Part III names the institutions.</p>
-      </section>
-
-      <!-- PART III -->
-      <div class="part-header" id="part3">
-        <span class="part-tag">Part III</span>
-        <span class="part-title">The Institutions and Why They Are Wrong</span>
-      </div>
-
-      <section class="chapter prose" id="ch6">
-        <span class="chapter-label">Chapter 6</span>
-        <h2 class="chapter-title">Markets</h2>
-        <p class="opening">Markets are extraordinarily good at pricing risks that have happened before. They have decades of data on interest rate cycles, credit defaults, earnings misses, and geopolitical disruptions of the kind that resolve within quarters. The institutional infrastructure of modern finance — the options markets, the credit default swaps, the risk models running in every major fund — is built almost entirely on the assumption that the distribution of future outcomes resembles, in its general shape, the distribution of past outcomes. For most risks, most of the time, that assumption is defensible.</p>
-        <p>For hardware sovereignty risk, it is not defensible. And the consequences of that failure are already embedded in the valuations of nearly every significant company in the technology sector.</p>
-        <p>Begin with the most obvious case. NVIDIA, as of 2024, traded at valuations implying a degree of earnings durability and compounding that is consistent with a software business, where margins are structurally high, switching costs are deep, and the physical constraints on production are essentially zero. The market was not wrong to identify NVIDIA's pricing power or the depth of its competitive moat in accelerated computing. It was wrong to price that moat as though it exists independently of TSMC's continued operation under conditions of open access. Every H100, every B100, every Blackwell chip that NVIDIA designs is physically manufactured in Taiwan. NVIDIA owns no fabrication capacity. It has no alternative supplier for its leading-edge products. Its entire business model is, at its foundation, a bet that TSMC will be accessible indefinitely.</p>
-        <p>This is not a tail risk in the way that term is used in finance. A tail risk is an event with low probability and high impact that exists at the edge of a known distribution. The TSMC concentration is not at the edge of a known distribution. It is a structural dependency that sits at the center of every revenue projection NVIDIA has ever published, priced as though it does not exist. The market has assigned NVIDIA a valuation commensurate with a durable compounding business and has simultaneously declined to discount that valuation for the single most material risk to its revenue.</p>
-        <p>The valuation error is not specific to NVIDIA. It runs across the fabless semiconductor industry, the hyperscaler infrastructure buildout, and every technology company whose products depend on leading-edge chips. Apple's market capitalization implicitly assumes continued access to TSMC's most advanced nodes for iPhone and Mac processors. Amazon, Google, and Microsoft are collectively spending hundreds of billions of dollars building data center infrastructure that requires a continuous supply of chips that can only be made in Taiwan. None of their public filings treat the geographic concentration of that supply as a material risk in the way that customer concentration or regulatory risk are treated as material.</p>
-        <p>The options market makes the miscalibration legible in a different way. If you believed, genuinely and with conviction, that there was a ten percent probability of a Taiwan disruption in the next five years, you would expect to find liquid, deep options markets pricing that risk into the volatility surfaces of every company exposed to it. What you find instead is a volatility surface that treats NVIDIA like a high-beta growth stock and prices its long-dated options accordingly, with no visible premium attributable to supply chain sovereignty risk. The market is not pricing a ten percent probability of Taiwan disruption. It is pricing something closer to zero.</p>
-        <p>This is not because sophisticated investors have analyzed the risk and concluded it is negligible. It is because the risk has a property that makes it systematically difficult for markets to price: it has not happened yet in a form that has produced realized losses for institutional investors. Modern risk management is almost entirely backward-looking. Value at Risk models, factor models, stress testing frameworks — all of them are calibrated on historical data. The historical data does not contain a Taiwan disruption because a Taiwan disruption has not occurred. The model therefore assigns it negligible weight, not because the model has evaluated the probability as negligible but because the model has no mechanism for incorporating a risk that has no historical analog.</p>
-        <p>This is a known limitation of quantitative risk frameworks. What is less appreciated is how completely it dominates institutional behavior. A risk that cannot be measured by the tools a fund uses to manage its portfolio is, in operational practice, a risk that does not exist for that fund. The fund manager who raises Taiwan concentration as a reason to reduce NVIDIA exposure faces an immediate problem: the quantitative frameworks their risk committee uses to evaluate that decision will show no historical basis for the concern, the position will look like alpha foregone rather than risk managed, and the manager will underperform every benchmark for as long as the disruption fails to materialize. The incentive structure of institutional asset management actively discourages the pricing of novel structural risks.</p>
-        <p>The result is a global financial system that has allocated trillions of dollars of capital to businesses whose value depends entirely on a physical supply chain it has declined to model as a risk. This is not fraud. It is the predictable output of financial infrastructure built for a world that no longer exists, operated by institutions whose incentive structures punish the early pricing of risks that have not yet materialized. The market will eventually price this correctly. It will do so after the disruption rather than before it, which is the only way markets have ever incorporated structural risks of this kind.</p>
-      </section>
-
-      <section class="chapter prose" id="ch7">
-        <span class="chapter-label">Chapter 7</span>
-        <h2 class="chapter-title">Governments</h2>
-        <p class="opening">In August 2022, President Biden signed the CHIPS and Science Act into law, committing 52 billion dollars to domestic semiconductor manufacturing and research. It was covered as a historic industrial policy intervention, a reversal of decades of offshoring complacency, a signal that the United States had finally understood the strategic importance of semiconductor sovereignty. The applause was genuine. The diagnosis was correct. The response was approximately twenty years too late and an order of magnitude too small.</p>
-        <p>The geographic concentration of semiconductor manufacturing in Taiwan was not a surprise development. It was the predictable outcome of deliberate policy choices made across multiple administrations beginning in the 1980s. By the early 2000s, TSMC's dominance at the leading edge was already a documented feature of the industry landscape. By 2015, the Defense Science Board had published reports flagging the national security implications of leading-edge chip production being concentrated outside American borders. The warning was registered. The policy response was negligible.</p>
-        <p>The CHIPS Act was not a proactive strategy. It was a reaction to a crisis that had already arrived, triggered primarily by the automotive chip shortage of 2021 and the visible acceleration of Chinese semiconductor investment following Huawei's blacklisting in 2019. The legislation addressed symptoms that had been present for decades and did so with a funding commitment that, while significant in absolute terms, is dwarfed by the actual cost of rebuilding competitive domestic manufacturing capacity. A single leading-edge fab costs between 20 and 30 billion dollars to construct. The CHIPS Act's manufacturing incentives are sufficient to partially subsidize two or three such fabs, which is not sufficient to create genuine supply chain resilience at a national level.</p>
-        <p>The deeper problem is structural rather than fiscal. Semiconductor fabs require ten to twelve years from investment decision to full-volume production at a new process node. The political cycle in a democracy is four years. The incentive structure of elected government is therefore systematically misaligned with the investment timeline required to build genuine hardware sovereignty. A politician who commits 30 billion dollars to a fab that will not produce competitive chips until after two more presidential elections is making a bet whose payoff, if it comes, will be attributed to their successor and whose cost will be borne immediately.</p>
-        <p>The export control regime presents a different version of the same structural failure. The Commerce Department's Bureau of Industry and Security began placing Chinese technology companies on the Entity List in 2019, starting with Huawei. The October 2022 export controls represented the most sweeping semiconductor export restrictions since the Cold War. The October 2023 expansion tightened those controls further in response to Chinese firms finding ways around the initial restrictions. Each successive tightening has been a reaction to demonstrated Chinese circumvention of the previous rule.</p>
-        <p>This is not a criticism of the policymakers involved. The problem is not the quality of the individual decisions. It is that the framework within which those decisions are made is reactive by design. Export controls are administered by a bureaucracy that responds to specific identified threats, documents them through a legal process, and issues rules after the threat has already shaped behavior. The Chinese AI investment programs that the October 2022 controls were designed to constrain had been operating at scale for years before the controls were imposed.</p>
-        <p>The European Union's Chips Act, announced in 2022 with a headline figure of 43 billion euros, reproduces the American mistakes with European characteristics. The funding is distributed across member states with competing industrial interests, subject to state aid rules that constrain how aggressively any single country can support its national champions, and oriented primarily toward securing supply for European automotive and industrial customers rather than building sovereign capacity at the leading edge.</p>
-        <p>Japan's response is the most ambitious and the most likely to fail on its stated timeline. RAPIDUS has announced plans to produce chips at 2-nanometer process nodes by 2027. This timeline requires RAPIDUS to compress into three years a capability development that took TSMC over a decade. Leading-edge semiconductor manufacturing is not a technical problem that can be solved by assembling talented engineers and providing adequate funding. It is an accumulated organizational capability, developed through the production of millions of wafers across multiple process generations, in which yield improvement, defect reduction, and process stability are learned through doing at scale rather than through planning.</p>
-        <p>The through line across all of these government failures is a single miscalibration: every major government has treated hardware sovereignty as a supply chain optimization problem rather than as a sovereignty problem in the full political sense. Rebuilding the capability to think about physical production as a dimension of national power, if it is possible at all, will take longer than the timeline on which the problem is developing.</p>
-      </section>
-
-      <section class="chapter prose" id="ch8">
-        <span class="chapter-label">Chapter 8</span>
-        <h2 class="chapter-title">Militaries</h2>
-        <p class="opening">In the spring of 2022, Ukrainian forces used a Starlink terminal, a commercial software application running on a tablet, and a drone built partly from components ordered on AliExpress to direct artillery fire with a precision that would have required a dedicated signals intelligence battalion twenty years earlier. The improvisation was celebrated as evidence of Ukrainian ingenuity and the democratization of military technology. It was also a demonstration of something the celebration obscured: modern warfighting, at every level from the individual soldier to the theater commander, now runs on commercial semiconductor supply chains that military institutions do not control and have not seriously planned around.</p>
-        <p>The Ukrainian conflict has been the first large-scale war fought by both sides under conditions of semiconductor constraint. Russia entered the conflict with weapons systems whose guidance and targeting electronics depended on Western components it could no longer legally import. When stocks were depleted, Russian engineers substituted commercial chips sourced through third-country intermediaries, pulling semiconductors from refrigerators, washing machines, and automotive components to keep precision munitions functional. Russian precision strike accuracy degraded measurably over the course of the conflict. The degradation was not primarily the result of electronic warfare countermeasures. It was the result of a military power discovering that its weapons systems had been designed around semiconductor components it could no longer source at the required quality and quantity.</p>
-        <p>The kill chain for a modern precision munition requires semiconductors at every node. The targeting sensor runs on focal plane array detectors manufactured by a handful of specialized firms. The guidance processor runs on chips that, in American systems, are sourced through the trusted foundry program at process nodes two to three generations behind the commercial leading edge. The datalink connects the munition to the fire control system on radio frequency chips whose leading suppliers are concentrated in Taiwan and South Korea. The entire system, from sensor to warhead, is a stack of semiconductor dependencies, each one concentrated in a small number of suppliers, none of which are under military control.</p>
-        <p>The Department of Defense's trusted foundry program, which requires that chips used in classified systems be manufactured in facilities meeting specific security criteria, has produced a situation in which American military hardware operates on chips that are structurally inferior to what adversaries can acquire on the commercial market. The fabs certified under the trusted foundry program produce chips at process nodes of 14 nanometers and above — two to three generations behind TSMC's commercial leading edge. The kill chains for precision munitions, the processing units in reconnaissance satellites, the signal intelligence systems that underpin American military advantage are all running on hardware that a Chinese AI researcher can outperform with commercially available NVIDIA accelerators.</p>
-        <p>The Chinese People's Liberation Army has drawn the correct conclusions from this and is acting on them with a coherence that American defense institutions have not matched. China's military-civil fusion doctrine, codified in law in 2017, requires Chinese technology companies to make their capabilities, personnel, and data available to the military upon request. A Chinese AI company developing large language models on domestically produced hardware is, under military-civil fusion, simultaneously developing capabilities that the PLA can access and incorporate into military systems on timelines that parallel commercial development rather than lagging it by a decade.</p>
-        <p>The nuclear analogy is worth taking seriously here, not as a rhetorical device but as a genuine structural parallel. When nuclear weapons were developed, they created a strategic reality that existing military doctrine had no framework for. It took roughly two decades of strategic thinking to develop doctrines that made sense of the new reality. During those two decades, military and political institutions operated with frameworks that were inadequate to the weapons they controlled. The compute concentration described in this Almanac creates a strategic reality of comparable novelty. A nation that controls the physical capacity to produce leading-edge semiconductors controls the material foundation of modern military power in a way that has no direct precedent, and no military doctrine currently in use has been built to account for it.</p>
-      </section>
-
-      <section class="chapter prose" id="ch9">
-        <span class="chapter-label">Chapter 9</span>
-        <h2 class="chapter-title">International Bodies</h2>
-        <p class="opening">The institutions examined in the preceding three chapters — markets, governments, militaries — are miscalibrated in ways that are, in principle, correctable. Markets can develop new instruments. Governments can restructure procurement. Militaries can revise doctrine. International bodies present a different problem. Their failure is not a miscalibration. It is a design constraint, built into their founding logic, that makes them structurally incapable of managing the problem this Almanac describes.</p>
-        <p>Every significant multilateral institution created after 1945 was built on a single foundational premise: that economic interdependence among nations reduces the probability of conflict, and that the role of international institutions is to deepen and govern that interdependence. The WTO exists to lower trade barriers. The IMF exists to stabilize the financial conditions that enable trade. The World Bank exists to extend the economic integration of the liberal order to developing nations. The entire architecture of postwar international governance was constructed as an elaboration of the software-defined worldview before that worldview had a name.</p>
-        <p>The semiconductor crisis does not fit inside that architecture. It cannot be made to fit, because it is produced by exactly the dynamic the architecture was designed to prevent: a situation in which deep economic integration has created dependencies so concentrated and so strategically consequential that the normal instruments of multilateral governance cannot manage them without choosing sides between major powers. No international institution is built to choose sides between major powers. That is not a failure of will. It is a design specification.</p>
-        <p>The American export controls on advanced semiconductors imposed beginning in October 2022 are, under a straightforward reading of WTO rules, trade-distorting measures inconsistent with the market access commitments the United States made upon joining the organization. China has not formally challenged them at the WTO, not because it lacks a legal case, but because the political conditions for adjudicating that case do not exist. The WTO's dispute settlement mechanism cannot process a dispute in which the responding party invokes national security under Article XXI and means it. The semiconductor export controls represent the most consequential invocation of Article XXI in the WTO's history, and the WTO has no mechanism to evaluate its legitimacy.</p>
-        <p>The Wassenaar Arrangement presents a more specific and more instructive failure. Wassenaar is a multilateral export control regime covering conventional weapons and dual-use goods and technologies, with 42 member states. China is not a member. The arrangement operates by consensus: any member can block the addition of any item to the control list. It was designed in 1996, when the most sensitive dual-use technology was night-vision equipment and certain machine tools. It was never designed to handle the need to coordinate export controls on the most consequential civilian technology in the world, sought by non-member states with whom member economies are deeply integrated. The consensus requirement means that any member state with commercial interests in selling semiconductor technology to China can delay or dilute control additions indefinitely.</p>
-        <p>The absence of an NPT equivalent for semiconductor technology is worth dwelling on. The Nuclear Non-Proliferation Treaty works because nuclear weapons have no significant civilian application that requires their spread. Semiconductors are the opposite. The chip that enables AI inference is the same chip that enables autonomous weapons guidance. The technology cannot be divided into civilian and weapons categories because it is foundationally dual-use in ways that nuclear technology is not. Any multilateral framework for semiconductor technology governance must either accept that it is managing a technology with direct military applications as a civilian matter, or accept that it is managing a technology with civilian applications as a military matter. Neither framing is workable at the multilateral level.</p>
-        <p>The standards bodies deserve attention as a separate category of failure. China has spent the better part of a decade systematically placing its nationals in leadership positions within international standards bodies, proposing standards that favor Chinese equipment architectures, and building coalitions of developing nations dependent on Chinese infrastructure investment to support Chinese positions in standards votes. The standards set today for 6G wireless networks, for AI system interoperability, and for the next generation of semiconductor interfaces will shape the architecture of the global technology system for decades. Those standards are being set in forums that operate on the assumption that technical consensus is possible between nations with fundamentally incompatible strategic interests in the outcome.</p>
-        <p>What emerges from surveying these institutions is not a story of individual failures. The failure is not of persons but of frameworks. Every institution examined in this part of the Almanac was built to manage a world organized around the premise that economic integration is the primary driver of international order. The semiconductor crisis is a structural challenge to integration itself, and the institutions designed to manage it have no tools for that scenario.</p>
-      </section>
-
-      <!-- PART IV -->
-      <div class="part-header" id="part4">
-        <span class="part-tag">Part IV</span>
-        <span class="part-title">The Bifurcation</span>
-      </div>
-
-      <section class="chapter prose" id="ch10">
-        <span class="chapter-label">Chapter 10</span>
-        <h2 class="chapter-title">The Bifurcation</h2>
-        <p class="opening">The bifurcation is not a scenario being modeled in think tanks and war games. It is a present condition being experienced in server rooms, procurement offices, and engineering teams across the world right now, largely without the conceptual vocabulary required to describe what is happening.</p>
-        <p>The global compute stack — the physical and software infrastructure through which modern economic activity, military capability, and scientific progress increasingly flow — is splitting into two. The split is not clean. It is not complete. It does not follow a single boundary or a single date. It is proceeding unevenly, at different speeds in different sectors, driven by decisions made in Washington and Beijing that were each individually justified and are collectively producing a structural transformation of the global technology order that neither side fully intended and neither side can now stop.</p>
-        <p>Understanding the bifurcation requires understanding what a compute stack actually is, in its full depth. At the bottom is the hardware: the chips, the servers, the networking equipment, the storage systems. Above that is the systems software: the operating systems, the firmware, the drivers that make the hardware usable. Above that is the infrastructure layer: the cloud platforms, the orchestration systems, the data pipelines. Above that is the model layer: the AI systems trained on the infrastructure. At the top is the application layer: the products and services that end users interact with. A compute stack bifurcation does not mean merely that the chips are different. It means the divergence propagates upward through every layer, producing systems that are not just technically separate but architecturally incompatible.</p>
-        <p>The Western stack is anchored in TSMC's fabrication capacity, NVIDIA's GPU architecture, and the hyperscaler infrastructure of Amazon, Microsoft, and Google. The models trained on this stack are optimized for NVIDIA's CUDA programming model, trained on clusters running TSMC-manufactured hardware, deployed on infrastructure built around Western cloud standards. The ecosystem that has accumulated around this stack is vast: millions of developers writing CUDA code, petabytes of model weights stored in formats designed for NVIDIA hardware, an entire generation of AI researchers whose intuitions about what is computationally feasible are calibrated on H100 performance.</p>
-        <p>The Chinese stack is anchored in Huawei's Ascend chip series, produced by SMIC at process nodes currently limited to approximately 7 nanometers, combined with domestic alternatives from Biren Technology and Cambricon. Chinese AI engineers are not simply running inferior versions of Western training pipelines on slower chips. They are developing different approaches to model architecture and training efficiency, driven by the constraints of the hardware available to them. This is the dynamic that the export control debate consistently underestimates. Constraints are not only costs. They are also forcing functions.</p>
-        <p>The developing world is where the bifurcation becomes a geopolitical contest rather than a technical one. India, Indonesia, Brazil, Nigeria, Saudi Arabia, the UAE, and dozens of other nations are making infrastructure investment decisions right now that will determine which compute stack their economies run on for the next two decades. China has been deliberate about this contest in a way that Western governments have not. The Digital Silk Road has financed the deployment of Huawei telecommunications equipment, Alibaba Cloud data centers, and Chinese surveillance infrastructure across Africa, Southeast Asia, Central Asia, and parts of Latin America. A nation whose telecommunications network runs on Huawei equipment, whose government databases are hosted on Alibaba Cloud, and whose AI applications are built on Baidu's model APIs is a nation that has, without necessarily intending to, chosen a compute stack.</p>
-        <p>The second-order effects on AI development are the least examined and potentially the most consequential. Two separate compute stacks mean two separate AI development trajectories. Models trained on different hardware develop different capability profiles, different failure modes, and different performance characteristics on different tasks. Over time, the two stacks will produce AI systems that are not just separately owned but genuinely different in their capabilities and limitations, in ways that cannot be assessed from outside the stack.</p>
-        <p>This matters for AI safety in a way that has received almost no serious public attention. The international governance of AI safety presupposes a degree of technical transparency and shared infrastructure that a bifurcated compute world does not provide. You cannot evaluate the capabilities of a model you cannot run. You cannot set meaningful safety standards for a system whose training process you cannot inspect. You cannot coordinate on catastrophic risk with a counterpart whose AI development program runs on infrastructure you have no access to, produces models you cannot test, and operates under safety frameworks you cannot verify.</p>
-        <p>There is a version of this that resolves relatively benignly — the bifurcation stabilizes at roughly the current level of divergence, the Western stack maintains a meaningful capability lead, and the developing world distributes its infrastructure choices in ways that maintain sufficient interoperability for global economic activity to continue. There is another version in which China closes the capability gap through indigenous semiconductor development, reaches frontier AI capability on domestic hardware, and emerges with a fully sovereign compute stack not dependent on any Western technology at any layer. In that version, the two stacks are genuinely symmetrical, the export controls have failed in their strategic purpose, and the world has two incompatible AI development programs at the frontier with no shared infrastructure, no shared safety frameworks, no shared verification mechanisms, and no institutional architecture capable of managing the coordination problems that produces.</p>
-        <p>The bifurcation is deepening. The institutional infrastructure required to manage it does not exist. The window in which its trajectory could be meaningfully altered by deliberate policy is narrowing.</p>
-      </section>
-
-      <!-- PART V -->
-      <div class="part-header" id="part5">
-        <span class="part-tag">Part V</span>
-        <span class="part-title">What Happens Next</span>
-      </div>
-
-      <section class="chapter prose" id="ch11">
-        <span class="chapter-label">Chapter 11</span>
-        <h2 class="chapter-title">What Happens Next</h2>
-        <p class="opening">This chapter will not offer predictions. It will offer something more useful and more honest: scenarios, each one following with some internal logic from the conditions described in the preceding parts, each one requiring a different set of things to be true, and each one producing a different world.</p>
-        <p>The distinction between prediction and scenario matters here more than it does in most contexts. The transition described in this Almanac has no historical analog close enough to calibrate on. Nobody has navigated the concentration of frontier technology production in a single geographically contested location before. Nobody has managed the bifurcation of a global compute stack during a period of active great power competition. The honest answer to the question of what happens next is that the range of outcomes is wide, the tail risks are severe, and the variables that determine which scenario materializes are partly policy choices and partly contingencies that no analysis can predict.</p>
-
-        <span class="chapter-divider">Scenario One: The Good Resolution</span>
-        <p>The good resolution requires four things to be true simultaneously, each of them difficult, none of them impossible. First, the United States and its allies sustain the investment and political will required to build genuine leading-edge semiconductor capacity outside Taiwan on a timeline that matters — not the current pace of CHIPS Act implementation, but a sustained decade-long commitment at a scale commensurate with the strategic importance of the outcome. Second, the bifurcation stabilizes at a level of divergence that maintains sufficient interoperability for global economic activity and scientific collaboration to continue. Third, some form of technical transparency mechanism emerges for AI development that does not depend on shared physical infrastructure. Fourth, China does not close the semiconductor gap through indigenous development before the first three conditions are met.</p>
-        <p>The good resolution is not utopian. It does not require the US-China competition to end or the geopolitical tensions around Taiwan to resolve. It requires the specific set of institutional failures described in Part III to be corrected sufficiently, and on a sufficient timeline, to prevent the worst outcomes. It is achievable in principle. The conditions for achieving it are not currently present.</p>
-
-        <span class="chapter-divider">Scenario Two: The Bad Resolution</span>
-        <p>The bad resolution does not require a single dramatic catastrophe. It requires only that the current trajectory continues without significant course correction until the conditions for course correction no longer exist. The initiating event in most bad resolution scenarios is a Taiwan disruption before domestic alternatives are ready. The disruption does not need to be a military invasion. A sustained naval blockade, a political crisis that produces export restrictions, a significant natural disaster, or a sufficiently credible threat of military action that causes TSMC's international workforce to evacuate and its supply chains to seize — any of these produces the same outcome: the world's leading-edge chip production stops, and there is no substitute on any relevant timeline.</p>
-        <p>The deeper consequences develop over the years that follow. A sustained disruption of TSMC's operations, lasting long enough to allow China to consolidate its position in the developing world's infrastructure, produces a bifurcation that is no longer a managed competition between a leading Western stack and a trailing Chinese stack. It produces genuine symmetry: two frontier AI development programs, running on separate hardware, with separate model architectures, and no meaningful technical connection between them. Two nations with the most capable AI systems in history are developing those systems on incompatible infrastructure with no shared frameworks, no shared verification mechanisms, and no institutional architecture capable of managing the coordination problems that produces.</p>
-        <p>The bad resolution does not require malice from any actor. It requires only the continuation of the institutional failures documented in Part III, the deepening of the bifurcation documented in Part IV, and a triggering event that arrives before the good resolution's conditions are met.</p>
-
-        <span class="chapter-divider">Scenario Three: The Most Probable World</span>
-        <p>The most probable world is neither the good resolution nor the bad one. It is a prolonged middle state, uncomfortable and costly, in which the bifurcation deepens gradually without fully stabilizing, the institutional failures persist without becoming catastrophic, and the window for the good resolution narrows incrementally without quite closing. The export controls hold imperfectly. China makes partial progress on indigenous semiconductor development, reducing but not eliminating the capability gap. TSMC continues to operate in Taiwan under increasing geopolitical tension, with periodic near-crises that each resolve without the disruption scenario materializing. The CHIPS Act fabs come online behind schedule and below leading-edge performance, providing partial insurance without genuine resilience.</p>
-        <p>This scenario does not end. It continues indefinitely, accumulating risk without triggering the resolution that would either address the underlying problem or make its consequences undeniable. It is the scenario that looks, from inside it, like stability. It is the scenario that produces the bad resolution if a single significant contingency breaks the wrong way.</p>
-
-        <span class="chapter-divider">What I Actually Think</span>
-        <p>The Almanac principle requires stating plainly what the author believes, not retreating into the false security of evenhanded scenario analysis.</p>
-        <p>I think the most probable world trends toward the bad resolution on a timeline of ten to twenty years, not because catastrophe is inevitable, but because the good resolution requires a quality of institutional response that democratic systems have not demonstrated in this domain and that the incentive structures described in Part III actively work against. The software-defined era produced institutions that are very good at optimizing within a stable physical substrate and very poor at recognizing when the substrate itself has become the variable. Correcting that limitation requires a degree of strategic clarity, sustained across electoral cycles and commercial pressures, that would be unusual in any historical period and is particularly difficult in the current one.</p>
-        <p>The people who understand this problem most clearly are not, for the most part, in positions of sufficient institutional authority to act on their analysis. The people in those positions are operating on frameworks built for the world that ended sometime around 2014, when the assumptions of the software-defined era began visibly failing, and they will continue operating on those frameworks until the cost of doing so becomes undeniable.</p>
-        <p>The cost will become undeniable. The question is whether it becomes undeniable early enough and in a form specific enough to allow a corrective response, or whether it becomes undeniable all at once, in a form that makes correction impossible.</p>
-        <p>This Almanac is, among other things, an attempt to make it undeniable early.</p>
-      </section>
-
-      <!-- EPILOGUE -->
-      <section class="chapter prose" id="epilogue">
-        <span class="chapter-label">Epilogue</span>
-        <h2 class="chapter-title">The Almanac Principle</h2>
-        <p class="opening">The original almanac was not a sophisticated document. It was a practical one. Farmers used it to know when to plant. Sailors used it to know when the tides would turn. Merchants used it to anticipate the seasons that would determine whether their goods moved or sat in warehouses. It did not contain information that was secret or technically complex. The tides and seasons were not hidden. They were simply not being looked at directly, because the routines of daily life had oriented everyone's attention toward the present moment rather than the underlying cycles that governed it.</p>
-        <p>The almanac's function was to interrupt that orientation. To force the reader to look at the physical world as it actually was, on its own timeline, independent of whatever the reader happened to believe or plan or want. It was useful precisely because the physical world does not wait for conceptual frameworks to catch up with it. The tide comes in whether or not the sailor has updated his priors about tidal behavior. The frost arrives whether or not the farmer believes it is still summer.</p>
-        <p>I wrote this Almanac because I believe we are living inside a transition of the kind that is legible only in retrospect, and that the window in which retrospective legibility might have been exchanged for something more useful — something that could actually shape the transition — is narrowing. The physical world has a clock. It has been running the whole time. The software-defined era was a period in which the dominant institutions of global power convinced themselves, with considerable empirical justification, that the physical world's clock had been suspended. It had not been suspended. It had been masked by a specific and temporary set of historical conditions that made the mask feel permanent.</p>
-        <p>I became convinced of this not through a research process but through a market event. In January 2025, DeepSeek released a model that performed at the frontier of AI capability, trained on hardware operating under American export restrictions, at a reported cost that was a fraction of what Western labs had spent on comparable systems. In a single day, NVIDIA lost several hundred billion dollars in market capitalization. The reaction across financial media was a combination of panic and confusion: panic because the valuation premises of the entire AI infrastructure buildout appeared to be called into question, and confusion because the analytical frameworks available to most commentators had no category for what had just happened.</p>
-        <p>What had happened was not complicated. A Chinese research organization, operating under hardware constraints that American export controls were designed to make prohibitive, had demonstrated that the constraints were less prohibitive than assumed. Not because the chips were equivalent. They were not. But because the researchers working within the constraints had developed approaches to model efficiency that extracted more capability per unit of compute than Western researchers, operating with abundant hardware, had the incentive to develop. The market recovered within weeks. The question the event raised did not recover. It deepened.</p>
-        <p>I am nineteen years old. I have spent several years building exchange infrastructure, running a systematic macro fund, and studying the physical sciences. I am not a geopolitician. I am not a semiconductor engineer. I have no classified access to the information that would make the analysis in this Almanac more precise or more definitive. What I have is a vantage point — at the intersection of markets, physical systems, and technology infrastructure — that has made a specific set of things visible to me that seem to be less visible to people operating entirely within any single one of those domains. Markets miss the physical reality. Governments miss the market dynamics. Technologists miss the geopolitical implications. The vantage point from which all three are simultaneously visible is not common, and the obligation that comes with it is to say what you see clearly, before the window in which saying it might be useful closes.</p>
-        <p>The Almanac principle is this: understanding a transition while you are inside it is the rarest and most valuable form of knowledge that exists, and it is almost always found not in the institutions responsible for managing the transition but in the people at the edges of those institutions who are close enough to see the physical reality and far enough outside the consensus to be willing to say what it means.</p>
-        <p>I do not know which scenario described in Part V will materialize. I know that the good resolution requires people to understand the physical reality first and act on it before it is consensus, and that the bad resolution is what happens when enough people understand it only after the window for acting on it has closed.</p>
-        <p>This document is for the people who want to be in the first category.</p>
-        <div class="pullquote"><p>The tide is already turning. The question is only whether you have looked at the almanac.</p></div>
-      </section>
+      <nav class="page-nav">
+        <a href="almanac/part1.html">Next: Part I — The World We Thought We Lived In →</a>
+      </nav>
 
       <footer class="doc-footer">
         Arya Somu &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; <a href="/">aryasomu.com</a>
@@ -818,31 +471,5 @@
 
     </article>
   </div>
-  <script>
-    (() => {
-      const ids = ['ch1','ch2','ch3','ch4','ch5','ch6','ch7','ch8','ch9','ch10','ch11','epilogue'];
-      const links = {};
-      ids.forEach(id => {
-        const a = document.querySelector(`.almanac-sidebar a[href="#${id}"]`);
-        if (a) links[id] = a;
-      });
-
-      const setActive = id => {
-        Object.values(links).forEach(a => a.classList.remove('active'));
-        if (links[id]) links[id].classList.add('active');
-      };
-
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      }, { rootMargin: '-20% 0px -70% 0px' });
-
-      ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) observer.observe(el);
-      });
-    })();
-  </script>
 </body>
 </html>

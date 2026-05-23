@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Part II — The Physical Reality | The Hardware Almanac</title>
+  <meta name="description" content="The actual hardware geography of the world. TSMC, ASML, rare earths, and the full supply chain from raw material to inference cluster.">
+  <meta property="og:title" content="Part II — The Physical Reality | The Hardware Almanac">
+  <meta property="og:description" content="The actual hardware geography of the world. TSMC, ASML, rare earths, and the full supply chain from raw material to inference cluster.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbf8f3;
+      --bg-soft: #f5efe2;
+      --stripe: #f3ede0;
+      --text: #1a1a1a;
+      --text-soft: #2a2a2a;
+      --text-muted: #6e6a60;
+      --text-faint: #9a9486;
+      --link: #1f5fd8;
+      --link-hover: #0f3fa8;
+      --accent: #d96e23;
+      --rule: #e5dfd3;
+      --sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --serif: 'Newsreader', 'Source Serif Pro', Georgia, serif;
+      --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 36px 24px 120px;
+    }
+
+    nav.site-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+
+    .logo {
+      width: 18px;
+      height: 18px;
+      background: var(--accent);
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+    .logo:hover { transform: rotate(45deg); }
+
+    nav.site-nav ul { list-style: none; display: flex; gap: 20px; }
+    nav.site-nav a {
+      color: var(--text-soft);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.15s ease;
+    }
+    nav.site-nav a:hover { color: var(--link); }
+    nav.site-nav a[aria-current="page"] { color: var(--text); font-weight: 600; }
+
+    .prose {
+      font-family: var(--serif);
+      font-size: 17.5px;
+      line-height: 1.72;
+      color: var(--text);
+    }
+    .prose p { margin-bottom: 1.25em; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose p.opening { font-size: 18.5px; color: var(--text); }
+    .prose a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+    .prose a:hover { color: var(--link-hover); }
+    .prose em, .prose i { font-style: italic; }
+
+    .chapter {
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .chapter-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.65rem;
+    }
+
+    .chapter-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 2.25rem;
+    }
+
+    .pullquote {
+      margin: 2rem 0 2rem;
+      padding: 0 0 0 1.5rem;
+      border-left: 2px solid var(--accent);
+    }
+    .pullquote p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: var(--text);
+      margin: 0 !important;
+    }
+
+    .chapter-divider {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-align: center;
+      margin: 2.5rem 0 1.5rem;
+      display: block;
+    }
+
+    .doc-footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .doc-footer a { color: var(--link); text-decoration: none; }
+    .doc-footer a:hover { text-decoration: underline; }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    .breadcrumb {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s ease; }
+    .breadcrumb a:hover { color: var(--link); }
+
+    .part-page-header { margin-bottom: 0; }
+    .part-page-tag {
+      font-family: var(--sans);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .part-page-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+
+    .page-nav {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .page-nav a { color: var(--text-muted); text-decoration: none; transition: color 0.15s ease; }
+    .page-nav a:hover { color: var(--link); }
+    .page-nav .nav-sep { color: var(--rule); user-select: none; }
+
+    @media (max-width: 640px) {
+      .container { padding: 28px 20px 80px; }
+      nav.site-nav { margin-bottom: 40px; }
+      nav.site-nav ul { gap: 16px; }
+      nav.site-nav a { font-size: 14px; }
+      .prose { font-size: 16.5px; line-height: 1.7; }
+      .prose p.opening { font-size: 17.5px; }
+      .chapter-title { margin-bottom: 1.75rem; }
+      .pullquote p { font-size: 1.1rem; }
+      .chapter { margin-top: 3rem; padding-top: 2.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="../" class="logo" aria-label="Home"></a>
+      <ul>
+        <li><a href="../experiments.html">experiments</a></li>
+        <li><a href="../almanac.html" aria-current="page">almanac</a></li>
+        <li><a href="../music.html">music</a></li>
+      </ul>
+    </nav>
+
+    <div class="breadcrumb">
+      <a href="../almanac.html">The Hardware Almanac</a> &nbsp;·&nbsp; Part II
+    </div>
+
+    <article>
+
+      <div class="part-page-header">
+        <span class="part-page-tag">Part II</span>
+        <h1 class="part-page-title">The Physical Reality</h1>
+      </div>
+
+      <section class="chapter prose" id="ch4">
+        <span class="chapter-label">Chapter 4</span>
+        <h2 class="chapter-title">The Physical Map</h2>
+        <p class="opening">Most people, if asked to locate the center of the modern global economy, would gesture somewhere toward the American coasts. Silicon Valley. Wall Street. The server farms of Northern Virginia. They would be wrong by approximately 8,700 miles.</p>
+        <p>The center of the modern global economy is a campus in the Tainan Science Park in southwestern Taiwan. It occupies roughly three square kilometers. It employs around 73,000 people. It is operated by a company called Taiwan Semiconductor Manufacturing Corporation, and it is, without meaningful exaggeration, the most important industrial facility on earth. If it ceased operations tomorrow, the global economy would begin to seize within weeks and would not recover for years. There is no backup. There is no redundancy. There is no plan.</p>
+        <p>TSMC manufactures approximately 90 percent of the world's most advanced semiconductors — chips built at process nodes of 7 nanometers and below. To understand what that means physically: a human hair is roughly 70,000 nanometers wide. The features being etched onto TSMC's most advanced wafers are smaller than a virus. The engineering required to produce them reliably, at volume, is among the most technically demanding manufacturing processes ever developed, and TSMC is the only organization on earth that can do it at scale. Samsung holds a small share of leading-edge production. Intel has spent years and tens of billions of dollars trying to close the gap and has not closed it. Every company whose products depend on leading-edge chips — Apple, NVIDIA, AMD, Qualcomm, Broadcom, and effectively every AI infrastructure provider in the world — sends its designs to Taiwan to be made physical.</p>
+        <p>The chips themselves do not begin in Taiwan. They begin as sand.</p>
+        <p>The silicon in a semiconductor wafer starts as quartzite, a form of highly pure silicon dioxide mined primarily in the United States, Brazil, and Norway. From quartzite it becomes metallurgical-grade silicon through a reduction process requiring enormous amounts of electricity. From metallurgical silicon it becomes polysilicon through the Siemens process, a chemical refinement that strips out impurities to a purity level of 99.9999999 percent — nine nines — a standard of material purity that has almost no parallel in industrial production. The majority of the world's polysilicon supply passes through a small number of facilities, several of them in China's Xinjiang province.</p>
+        <p>From polysilicon, manufacturers grow single-crystal silicon ingots using the Czochralski process, pulling a pure crystal slowly from a molten bath at precise temperatures while rotating it to maintain uniformity. The ingots are sliced into wafers, polished to atomic flatness, and inspected for defects invisible to any instrument other than the ones built specifically to find them. Two Japanese companies — Shin-Etsu Chemical and Sumco Corporation — control approximately 60 percent of the global silicon wafer market. A third Japanese firm, Siltronic, holds much of the remainder. The geographic concentration of this supply node is not a recent development. It is structural.</p>
+        <p>The wafers arrive in Taiwan. What happens to them there depends entirely on a machine that exists nowhere else.</p>
+        <p>Extreme Ultraviolet lithography, EUV, is the process by which circuit patterns are etched onto wafers using light with a wavelength of 13.5 nanometers, shorter than any light that occurs naturally on the surface of the earth. Generating that light requires heating a tin droplet to plasma using a high-powered laser, 50,000 times per second, in a vacuum chamber operating at temperatures comparable to the surface of the sun. The reflected light is then focused through a series of mirrors polished to within a fraction of an atomic diameter and projected onto the wafer through a mask containing the circuit pattern. The entire process must be repeated hundreds of times per wafer, across thousands of wafers per month, with yields high enough to be economically viable. It is, by any reasonable assessment, the most technically complex manufacturing process in human history.</p>
+        <p>One company builds the machines that do this. That company is ASML, headquartered in Eindhoven, in the Netherlands, a city of 240,000 people better known historically for producing Philips electronics than for hosting the fulcrum of global technological power. A single ASML High-NA EUV machine costs approximately 380 million dollars. It contains over 100,000 individual components sourced from more than 5,000 suppliers across multiple continents. It takes more than a year to build. It weighs 160 tons and arrives at a fab in roughly 40 shipping containers. The optical systems at the heart of each machine are produced by a single company: Carl Zeiss SMT, in Oberkochen, Germany, a town of 8,000 people. Without Carl Zeiss optics, ASML cannot build EUV machines. Without ASML EUV machines, no one can manufacture leading-edge chips. The dependency chain terminates in a small German city that most people in the technology industry have never heard of.</p>
+        <p>ASML ships approximately 50 EUV machines per year. There are fewer than 600 in existence. Every one of them is in the fab of a company that either sells to or competes with the United States and its allies, and every one of them was shipped subject to Dutch export controls that are themselves subject to pressure from Washington. China has received none. China has been trying to build its own EUV equivalent for over a decade and has not succeeded.</p>
+        <p>The completed chips move from Taiwan into a global packaging and testing supply chain concentrated in Taiwan, South Korea, and Malaysia. The high-bandwidth memory stacked on top of NVIDIA's most advanced AI accelerators comes almost exclusively from SK Hynix and Samsung in South Korea. The substrate materials enabling advanced packaging come primarily from Japan. A finished NVIDIA H100, a chip designed in Santa Clara, travels through Taiwan, South Korea, Japan, and Malaysia before it reaches a data center in Virginia. At each stop, the process depends on a small number of firms operating in a small number of countries, each representing a node whose failure propagates immediately to every downstream product.</p>
+        <p>Then there are the materials that none of this works without.</p>
+        <p>Neon gas is used in the laser systems that drive the lithography process. Before 2022, Ukraine supplied approximately 70 percent of the world's semiconductor-grade neon, a byproduct of Russian steel production that was purified in plants in Odessa and Mariupol. The full-scale invasion of Ukraine in February 2022 disrupted that supply chain overnight. The industry adapted, slowly and expensively, by developing alternative sources and building strategic reserves. The adaptation worked. But the episode revealed something that had been true for years without anyone acting on it: the production of the chips powering modern civilization depended, in part, on a byproduct of Russian steel mills being processed in a city that would soon be under siege.</p>
+        <p>Rare earth elements, required for the magnets in hard drives, the speakers in devices, and numerous components throughout the supply chain, present a more durable version of the same problem. China mines approximately 60 percent of the world's rare earth supply and processes approximately 85 percent of it globally. The processing capacity matters more than the mining capacity. Rare earth ore is relatively useless without refinement, and the refinement infrastructure built over decades in China is not replicated anywhere else at meaningful scale. The United States spent the Cold War developing domestic rare earth production and then spent the following three decades allowing it to atrophy in favor of cheaper Chinese supply. The Mountain Pass mine in California, the largest rare earth deposit in the western hemisphere, ships its ore to China for processing.</p>
+        <p>This is the physical map. It is not a metaphor for fragility. It is fragility, specified with geographic coordinates.</p>
+        <p>The center of the modern global economy is not in California. It is distributed across a set of facilities in Taiwan, the Netherlands, Japan, South Korea, and Germany, connected by supply chains that are optimized entirely for cost efficiency and not at all for resilience, governed by trade relationships built for an era in which geopolitical competition over physical production capacity was considered a solved problem.</p>
+        <p>It was not a solved problem. It was a dormant one.</p>
+      </section>
+
+      <section class="chapter prose" id="ch5">
+        <span class="chapter-label">Chapter 5</span>
+        <h2 class="chapter-title">The Chokepoints</h2>
+        <p class="opening">A concentrated industry and a chokepoint are not the same thing. Concentration means a small number of actors control a large share of supply. A chokepoint means the removal of a single actor stops the system entirely — not gradually, not partially, but completely, with no substitution available on any timeline relevant to the crisis that removal would produce. The global semiconductor supply chain contains both. What follows concerns only the latter.</p>
+        <p>There are seven of them. They are not evenly distributed across the chain. They are not the result of planning or malice. They are the residue of decades of rational economic decisions, each one locally optimal, collectively catastrophic.</p>
+
+        <span class="chapter-divider">I. TSMC</span>
+        <p>The first chokepoint is the one most people have at least heard of, which does not mean they understand it correctly. The common framing is that TSMC is important because it makes a lot of chips. This is like saying the Federal Reserve is important because it prints a lot of money. The significance is not the volume. It is the exclusivity at the frontier.</p>
+        <p>At process nodes of 3 nanometers and below, where the chips powering artificial intelligence inference and training are manufactured, TSMC has no peer. Samsung produces leading-edge chips but trails TSMC on yield, on defect density, and on the trust of every major fabless customer in the world. Intel's foundry ambitions have been delayed repeatedly and remain, as of now, not competitive at the leading edge. The customers who matter — Apple, NVIDIA, AMD, Qualcomm, Broadcom, Google, Amazon, Microsoft — have all committed their most advanced designs to TSMC. Redirecting those designs to another fab is not a matter of signing a new contract. It requires months of process qualification, redesign of certain physical characteristics of the chip, and acceptance of yield losses that, at leading-edge nodes, can be commercially catastrophic.</p>
+        <p>If TSMC's Taiwan operations ceased today, the timeline to recovery is not measured in quarters. It is measured in years. The CHIPS Act has funded a TSMC facility in Arizona. That facility is producing chips. It is producing them at yields and at process nodes that trail Taiwan's by at least one generation, and it employs a workforce that took years to train to even approximate the institutional knowledge embedded in TSMC's Taiwanese operations. The Arizona facility is insurance against a degraded future. It is not a substitute for the present.</p>
+        <p>There is currently no version of American national power that does not depend on TSMC's continued operation under conditions of open access.</p>
+
+        <span class="chapter-divider">II. ASML</span>
+        <p>The second chokepoint is less visible than the first and more durable as a form of leverage. TSMC can, in theory, be rebuilt. It would take a decade and a hundred billion dollars and a transfer of institutional knowledge that may not be fully transferable, but the physical infrastructure could be replicated somewhere else. ASML's position is different in kind, not just degree, because the knowledge required to build EUV lithography machines is not documented anywhere in a form that could be handed to a second manufacturer and reproduced.</p>
+        <p>The EUV machine is not a product in the conventional sense. It is the crystallization of approximately thirty years of accumulated engineering refinement across optics, plasma physics, precision mechanics, and systems integration, almost none of which exists in written form at the level of specificity required to reproduce it. The engineers who built it learned from engineers who built earlier versions, going back to experimental systems in the 1990s. The tacit knowledge embedded in ASML's workforce and its supplier relationships is, by any reasonable assessment, unreplicable on a timeline relevant to any crisis scenario shorter than a generation.</p>
+        <p>ASML is therefore not merely a supplier to the semiconductor industry. It is the hard ceiling on what any actor without access to its machines can produce. The export controls preventing ASML from shipping to China are not trade policy in any conventional sense. They are a decision about which countries are permitted to participate in the leading-edge technology economy and which are not.</p>
+
+        <span class="chapter-divider">III. Carl Zeiss SMT</span>
+        <p>The third chokepoint is the one almost nobody outside the industry knows about, which makes it the most important one to name explicitly. Carl Zeiss SMT, the semiconductor division of the German optics manufacturer, produces the mirror and lens systems inside every ASML EUV machine. The optics in an EUV system must be polished to a surface roughness of less than 0.1 nanometers — a standard of precision for which there is no industrial analog. No other company produces them. No other company is close to producing them.</p>
+        <p>ASML owns approximately 25 percent of Carl Zeiss SMT. The relationship is not a vendor relationship. It is an engineering codependency that has been developing for three decades and that cannot be unwound without destroying the product it produces. If Carl Zeiss SMT's Oberkochen facility were to cease operations, ASML could not build new EUV machines. A city of 8,000 people in Baden-Württemberg is, without overstatement, a single point of failure for the global AI economy.</p>
+
+        <span class="chapter-divider">IV. Shin-Etsu and Sumco</span>
+        <p>The fourth chokepoint sits further up the supply chain and receives almost no attention because silicon wafers feel like a commodity. They are not a commodity. They are among the most precisely manufactured materials in industrial production, and their supply is controlled by two Japanese companies to a degree that would attract antitrust scrutiny in any industry where regulators understood what they were looking at.</p>
+        <p>Shin-Etsu Chemical and Sumco together supply approximately 60 percent of the world's semiconductor-grade silicon wafers. The barriers to entry are not patents or trade secrets. They are accumulated process knowledge, equipment calibration developed over decades, and customer qualification cycles that take years and hundreds of millions of dollars to complete. A new wafer supplier could not meaningfully enter the market inside of five years under ideal conditions. There are no ideal conditions.</p>
+
+        <span class="chapter-divider">V. SK Hynix and High-Bandwidth Memory</span>
+        <p>The fifth chokepoint is specific to artificial intelligence and is less than five years old as a strategic vulnerability. High-Bandwidth Memory, HBM, is the memory technology stacked on top of leading AI accelerators to provide the bandwidth required for large-scale matrix operations. Without HBM, the NVIDIA H100 and its successors do not function as AI training or inference hardware. The global supply of HBM is controlled almost entirely by three companies: SK Hynix, Samsung, and Micron. SK Hynix alone supplies the majority of the HBM used in NVIDIA's products.</p>
+        <p>SK Hynix's HBM production facilities are in South Korea. South Korea shares a land border with North Korea and sits within range of Chinese military assets. The dependency of the global AI buildout on a single South Korean company's production capacity for a specific memory technology is not a theoretical vulnerability. It is a current operational reality that every AI infrastructure investment in the world is exposed to and that almost no institutional risk framework accounts for.</p>
+
+        <span class="chapter-divider">VI. Rare Earth Processing</span>
+        <p>The sixth chokepoint is the one with the longest history and the least prospect of near-term resolution. China's dominance in rare earth processing is not an accident of geology. The rare earth deposits are distributed globally. What China holds is the processing infrastructure: the refineries, the chemical expertise, the waste management capacity for the highly toxic byproducts of rare earth separation, and the decades of institutional knowledge required to operate that infrastructure economically. Building equivalent processing capacity outside China is a ten-to-fifteen-year project under favorable conditions. The Mountain Pass mine in California ships its ore to China for processing. The strategic logic of this arrangement, evaluated honestly, is difficult to defend.</p>
+
+        <span class="chapter-divider">The Compound Failure</span>
+        <p>The seven chokepoints described above are not independent risks. They are nodes in a single system, and the system has a property that is more dangerous than any individual node: the failure of one accelerates the failure of others.</p>
+        <p>A Taiwan disruption does not merely stop chip production. It stops the revenue stream that funds ASML's R&amp;D. It stops the wafer orders that keep Shin-Etsu and Sumco operating at scale. It creates inventory shortfalls that propagate through every downstream industry simultaneously, triggering the kind of demand collapse that makes new investment in any part of the supply chain economically irrational precisely when it is strategically necessary. The supply chain is not a collection of independent risks. It is a network, and networks fail non-linearly.</p>
+        <p>Part I described the assumption buried inside the software-defined era. Part II has described what the physical reality looks like underneath that assumption. The gap between the two is not a policy problem. It is not a market failure in the conventional sense. It is a civilizational miscalibration, and its consequences are already being negotiated by actors who understand it and institutions that do not.</p>
+        <p>Part III names the institutions.</p>
+      </section>
+
+      <nav class="page-nav">
+        <a href="part1.html">← Previous: Part I — The World We Thought We Lived In</a>
+        <span class="nav-sep">·</span>
+        <a href="../almanac.html">↑ Table of Contents</a>
+        <span class="nav-sep">·</span>
+        <a href="part3.html">Next: Part III — The Institutions and Why They Are Wrong →</a>
+      </nav>
+
+      <footer class="doc-footer">
+        Arya Somu &nbsp;·&nbsp; 2025 &nbsp;·&nbsp; <a href="../">aryasomu.com</a>
+      </footer>
+
+    </article>
+  </div>
+</body>
+</html>
