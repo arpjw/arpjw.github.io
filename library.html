@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library — Arya Somu</title>
+  <meta name="description" content="A small set of books and papers I keep returning to.">
+  <meta property="og:title" content="Library — Arya Somu">
+  <meta property="og:description" content="A small set of books and papers I keep returning to.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbf8f3;
+      --text: #1a1a1a;
+      --text-soft: #2a2a2a;
+      --text-muted: #6e6a60;
+      --link: #1f5fd8;
+      --link-hover: #0f3fa8;
+      --accent: #d96e23;
+      --rule: #e5dfd3;
+      --sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --serif: 'Newsreader', 'Source Serif Pro', Georgia, serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 36px 24px 96px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 48px;
+    }
+
+    .logo {
+      width: 18px;
+      height: 18px;
+      background: var(--accent);
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .logo:hover {
+      transform: scale(1.2);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: var(--text-soft);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.15s ease;
+    }
+
+    nav a:hover {
+      color: var(--link);
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .page-title {
+      font-family: var(--sans);
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .page-intro {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 44px;
+      line-height: 1.6;
+    }
+
+    .section-label {
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+    }
+
+    .item-list {
+      list-style: none;
+      margin-bottom: 52px;
+    }
+
+    .item-list li {
+      margin-bottom: 28px;
+    }
+
+    .item-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .item-title a {
+      color: var(--text);
+    }
+
+    .item-title a:hover {
+      color: var(--link);
+    }
+
+    .item-meta {
+      display: inline;
+      font-family: var(--sans);
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+
+    .item-meta .journal {
+      font-family: var(--serif);
+      font-style: italic;
+    }
+
+    .item-note {
+      display: block;
+      font-family: var(--serif);
+      font-size: 15.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 28px 20px 64px;
+      }
+      nav ul {
+        gap: 16px;
+      }
+      nav a {
+        font-size: 14px;
+      }
+      .page-title {
+        font-size: 1.35rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/" class="logo" aria-label="Home"></a>
+      <ul>
+        <li><a href="experiments.html">experiments</a></li>
+        <li><a href="almanac.html">almanac</a></li>
+        <li><a href="music.html">music</a></li>
+      </ul>
+    </nav>
+
+    <h1 class="page-title">Library</h1>
+    <p class="page-intro">A small set of books and papers I keep returning to. Updated when something earns a place.</p>
+
+    <div class="section-label">Books</div>
+    <ul class="item-list">
+      <li>
+        <span class="item-title"><a href="https://en.wikipedia.org/wiki/Endurance:_Shackleton%27s_Incredible_Voyage" target="_blank" rel="noopener noreferrer">The Endurance</a></span><span class="item-meta">, Alfred Lansing, 1959</span>
+        <span class="item-note">[your note here]</span>
+      </li>
+      <li>
+        <span class="item-title"><a href="https://en.wikipedia.org/wiki/Critique_of_Pure_Reason" target="_blank" rel="noopener noreferrer">Critique of Pure Reason</a></span><span class="item-meta">, Immanuel Kant, 1781</span>
+        <span class="item-note">[your note here]</span>
+      </li>
+    </ul>
+
+    <div class="section-label">Papers</div>
+    <ul class="item-list">
+      <li>
+        <span class="item-title"><a href="#">Time Series Momentum</a></span><span class="item-meta">, Moskowitz, Ooi &amp; Pedersen, 2012 &middot; <span class="journal">Journal of Financial Economics</span></span>
+        <span class="item-note">[your note here]</span>
+      </li>
+      <li>
+        <span class="item-title"><a href="#">Continuous Auctions and Insider Trading</a></span><span class="item-meta">, A. S. Kyle, 1985 &middot; <span class="journal">Econometrica</span></span>
+        <span class="item-note">[your note here]</span>
+      </li>
+      <li>
+        <span class="item-title"><a href="#">Bid, Ask and Transaction Prices in a Specialist Market</a></span><span class="item-meta">, Glosten &amp; Milgrom, 1985 &middot; <span class="journal">Journal of Financial Economics</span></span>
+        <span class="item-note">[your note here]</span>
+      </li>
+      <li>
+        <span class="item-title"><a href="#">The Components of the Bid-Ask Spread</a></span><span class="item-meta">, Huang &amp; Stoll, 1997 &middot; <span class="journal">Review of Financial Studies</span></span>
+        <span class="item-note">[your note here]</span>
+      </li>
+      <li>
+        <span class="item-title"><a href="#">A Simple Implicit Measure of the Effective Bid-Ask Spread</a></span><span class="item-meta">, Richard Roll, 1984 &middot; <span class="journal">Journal of Finance</span></span>
+        <span class="item-note">[your note here]</span>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>
