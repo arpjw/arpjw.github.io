@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work</title>
+  <meta name="description" content="Work history of Arya Somu.">
+  <meta property="og:title" content="work — Arya Somu">
+  <meta property="og:description" content="Work history of Arya Somu.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbf8f3;
+      --text: #1a1a1a;
+      --text-soft: #2a2a2a;
+      --text-muted: #6e6a60;
+      --link: #1f5fd8;
+      --link-hover: #0f3fa8;
+      --accent: #d96e23;
+      --rule: #e5dfd3;
+      --sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.65;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 36px 24px 96px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .logo {
+      width: 18px;
+      height: 18px;
+      background: var(--accent);
+      display: inline-block;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .logo:hover { transform: scale(1.2); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: var(--text-soft);
+      text-decoration: none;
+      font-size: 15px;
+      transition: color 0.15s ease;
+    }
+
+    nav a:hover { color: var(--link); }
+
+    nav a[aria-current="page"] {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .work-list {
+      list-style: none;
+    }
+
+    .work-entry {
+      margin-bottom: 36px;
+    }
+
+    .work-entry:last-child {
+      margin-bottom: 0;
+    }
+
+    .work-role {
+      font-size: 15.5px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .work-meta {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-top: 3px;
+    }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    @media (max-width: 600px) {
+      .container { padding: 28px 20px 64px; }
+      nav ul { gap: 16px; }
+      nav a { font-size: 14px; }
+      .work-role { font-size: 15px; }
+      .work-meta { font-size: 13.5px; }
+      .work-entry { margin-bottom: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/" class="logo" aria-label="Home"></a>
+      <ul>
+        <li><a href="work.html" aria-current="page">work</a></li>
+        <li><a href="experiments.html">experiments</a></li>
+        <li><a href="almanac.html">almanac</a></li>
+        <li><a href="music.html">music</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <ul class="work-list">
+        <li class="work-entry">
+          <div class="work-role">Chief Investment Officer</div>
+          <div class="work-meta">Monolith Systematic · 2026 – Present</div>
+        </li>
+        <li class="work-entry">
+          <div class="work-role">Co-Founder</div>
+          <div class="work-meta">The Insight Company of California · 2026 – Present</div>
+        </li>
+        <li class="work-entry">
+          <div class="work-role">Member of Technical Staff</div>
+          <div class="work-meta">Alexandria · 2026 – Present</div>
+        </li>
+        <li class="work-entry">
+          <div class="work-role">Healthcare Investment Banker</div>
+          <div class="work-meta">KCC Capital Partners · 2025 – 2026</div>
+        </li>
+        <li class="work-entry">
+          <div class="work-role">Quantitative Researcher</div>
+          <div class="work-meta">Esplanade Partners · 2025</div>
+        </li>
+        <li class="work-entry">
+          <div class="work-role">Chief Scientist</div>
+          <div class="work-meta">Aletheia Laboratories · 2024 – 2025</div>
+        </li>
+        <li class="work-entry">
+          <div class="work-role">Computational Physicist</div>
+          <div class="work-meta">ASU Beus Center · 2022 – 2024</div>
+        </li>
+      </ul>
+    </main>
+  </div>
+</body>
+</html>
