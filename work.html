@@ -128,6 +128,50 @@
       margin-top: 3px;
     }
 
+    .work-company a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .work-company a:hover {
+      color: var(--text-soft);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--text-muted);
+    }
+
+    /* tooltip for companies without a public website */
+    .company-tip {
+      position: relative;
+      display: inline-block;
+      cursor: default;
+    }
+
+    .company-tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 7px);
+      left: 0;
+      background: #1a1a1a;
+      color: #f5f0e6;
+      padding: 5px 11px;
+      border-radius: 5px;
+      font-size: 12.5px;
+      font-family: var(--sans);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+    }
+
+    .company-tip:hover::after {
+      opacity: 1;
+    }
+
     ::selection { background: var(--accent); color: var(--bg); }
 
     @media (max-width: 600px) {
@@ -158,49 +202,49 @@
             <span class="work-role">Chief Investment Officer</span>
             <span class="work-date current">2026 – Present</span>
           </div>
-          <div class="work-company">Monolith Systematic</div>
+          <div class="work-company"><a href="https://monolithsystematic.com/" target="_blank" rel="noopener">Monolith Systematic</a></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
             <span class="work-role">Co-Founder</span>
             <span class="work-date current">2026 – Present</span>
           </div>
-          <div class="work-company">The Insight Company of California</div>
+          <div class="work-company"><span class="company-tip" data-tip="Coming Soon">The Insight Company of California</span></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
             <span class="work-role">Member of Technical Staff</span>
             <span class="work-date current">2026 – Present</span>
           </div>
-          <div class="work-company">Alexandria</div>
+          <div class="work-company"><span class="company-tip" data-tip="Stealth">Alexandria</span></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
             <span class="work-role">Healthcare Investment Banker</span>
             <span class="work-date">2025 – 2026</span>
           </div>
-          <div class="work-company">KCC Capital Partners</div>
+          <div class="work-company"><a href="https://kcccapitalpartners.com/" target="_blank" rel="noopener">KCC Capital Partners</a></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
             <span class="work-role">Quantitative Researcher</span>
             <span class="work-date">2025</span>
           </div>
-          <div class="work-company">Esplanade Partners</div>
+          <div class="work-company"><a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener">Esplanade Capital</a></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
             <span class="work-role">Chief Scientist</span>
             <span class="work-date">2024 – 2025</span>
           </div>
-          <div class="work-company">Aletheia Laboratories</div>
+          <div class="work-company"><a href="https://aletheialaboratories.com/" target="_blank" rel="noopener">Aletheia Laboratories</a></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
             <span class="work-role">Computational Physicist</span>
             <span class="work-date">2022 – 2024</span>
           </div>
-          <div class="work-company">ASU Beus Center</div>
+          <div class="work-company"><a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener">ASU Beus Center</a></div>
         </li>
       </ul>
     </main>
