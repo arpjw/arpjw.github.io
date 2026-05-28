@@ -87,28 +87,44 @@
 
     .work-list {
       list-style: none;
+      border-top: 1px solid var(--rule);
     }
 
     .work-entry {
-      margin-bottom: 36px;
+      border-bottom: 1px solid var(--rule);
+      padding: 20px 0;
     }
 
-    .work-entry:last-child {
-      margin-bottom: 0;
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
     }
 
     .work-role {
       font-size: 15.5px;
-      font-weight: 400;
+      font-weight: 500;
       color: var(--text);
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
-    .work-meta {
-      font-size: 14px;
-      font-weight: 400;
+    .work-date {
+      font-size: 12.5px;
+      font-family: var(--mono);
       color: var(--text-muted);
-      line-height: 1.4;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .work-date.current {
+      color: var(--accent);
+    }
+
+    .work-company {
+      font-size: 14px;
+      color: var(--text-muted);
       margin-top: 3px;
     }
 
@@ -119,8 +135,7 @@
       nav ul { gap: 16px; }
       nav a { font-size: 14px; }
       .work-role { font-size: 15px; }
-      .work-meta { font-size: 13.5px; }
-      .work-entry { margin-bottom: 30px; }
+      .work-company { font-size: 13.5px; }
     }
   </style>
 </head>
@@ -139,32 +154,53 @@
     <main>
       <ul class="work-list">
         <li class="work-entry">
-          <div class="work-role">Chief Investment Officer</div>
-          <div class="work-meta">Monolith Systematic · 2026 – Present</div>
+          <div class="work-header">
+            <span class="work-role">Chief Investment Officer</span>
+            <span class="work-date current">2026 – Present</span>
+          </div>
+          <div class="work-company">Monolith Systematic</div>
         </li>
         <li class="work-entry">
-          <div class="work-role">Co-Founder</div>
-          <div class="work-meta">The Insight Company of California · 2026 – Present</div>
+          <div class="work-header">
+            <span class="work-role">Co-Founder</span>
+            <span class="work-date current">2026 – Present</span>
+          </div>
+          <div class="work-company">The Insight Company of California</div>
         </li>
         <li class="work-entry">
-          <div class="work-role">Member of Technical Staff</div>
-          <div class="work-meta">Alexandria · 2026 – Present</div>
+          <div class="work-header">
+            <span class="work-role">Member of Technical Staff</span>
+            <span class="work-date current">2026 – Present</span>
+          </div>
+          <div class="work-company">Alexandria</div>
         </li>
         <li class="work-entry">
-          <div class="work-role">Healthcare Investment Banker</div>
-          <div class="work-meta">KCC Capital Partners · 2025 – 2026</div>
+          <div class="work-header">
+            <span class="work-role">Healthcare Investment Banker</span>
+            <span class="work-date">2025 – 2026</span>
+          </div>
+          <div class="work-company">KCC Capital Partners</div>
         </li>
         <li class="work-entry">
-          <div class="work-role">Quantitative Researcher</div>
-          <div class="work-meta">Esplanade Partners · 2025</div>
+          <div class="work-header">
+            <span class="work-role">Quantitative Researcher</span>
+            <span class="work-date">2025</span>
+          </div>
+          <div class="work-company">Esplanade Partners</div>
         </li>
         <li class="work-entry">
-          <div class="work-role">Chief Scientist</div>
-          <div class="work-meta">Aletheia Laboratories · 2024 – 2025</div>
+          <div class="work-header">
+            <span class="work-role">Chief Scientist</span>
+            <span class="work-date">2024 – 2025</span>
+          </div>
+          <div class="work-company">Aletheia Laboratories</div>
         </li>
         <li class="work-entry">
-          <div class="work-role">Computational Physicist</div>
-          <div class="work-meta">ASU Beus Center · 2022 – 2024</div>
+          <div class="work-header">
+            <span class="work-role">Computational Physicist</span>
+            <span class="work-date">2022 – 2024</span>
+          </div>
+          <div class="work-company">ASU Beus Center</div>
         </li>
       </ul>
     </main>
