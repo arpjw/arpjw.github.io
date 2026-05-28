@@ -148,10 +148,9 @@
       cursor: default;
     }
 
-    .company-tip::after {
-      content: attr(data-tip);
+    .tip-card {
       position: absolute;
-      bottom: calc(100% + 7px);
+      top: 0;
       left: 0;
       background: #1a1a1a;
       color: #f5f0e6;
@@ -164,11 +163,12 @@
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.12s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transform: translate(16px, -120%);
       z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
-    .company-tip:hover::after {
+    .company-tip:hover .tip-card {
       opacity: 1;
     }
 
@@ -209,14 +209,14 @@
             <span class="work-role">Co-Founder</span>
             <span class="work-date current">2026 – Present</span>
           </div>
-          <div class="work-company"><span class="company-tip" data-tip="Coming Soon">The Insight Company of California</span></div>
+          <div class="work-company"><span class="company-tip">The Insight Company of California<span class="tip-card">Coming Soon</span></span></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
             <span class="work-role">Member of Technical Staff</span>
             <span class="work-date current">2026 – Present</span>
           </div>
-          <div class="work-company"><span class="company-tip" data-tip="Stealth">Alexandria</span></div>
+          <div class="work-company"><span class="company-tip">Alexandria<span class="tip-card">Stealth</span></span></div>
         </li>
         <li class="work-entry">
           <div class="work-header">
@@ -249,5 +249,17 @@
       </ul>
     </main>
   </div>
+  <script>
+    (function() {
+      document.querySelectorAll('.company-tip').forEach(function(tip) {
+        var card = tip.querySelector('.tip-card');
+        tip.addEventListener('mousemove', function(e) {
+          var rect = tip.getBoundingClientRect();
+          card.style.left = (e.clientX - rect.left) + 'px';
+          card.style.top  = (e.clientY - rect.top)  + 'px';
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
