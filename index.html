@@ -172,9 +172,9 @@
 
     .ucsb-email-wrap .ucsb-tooltip {
       position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%);
+      top: 0;
+      left: 0;
+      transform: translate(16px, -120%);
       background: #003660;
       color: #FEBC11;
       padding: 4px 10px;
@@ -184,13 +184,9 @@
       white-space: nowrap;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.15s ease;
+      transition: opacity 0.12s ease;
       z-index: 10;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .ucsb-email-wrap:hover .ucsb-tooltip {
-      opacity: 1;
     }
 
     @media (max-width: 600px) {
@@ -246,6 +242,19 @@
         tooltip.style.left = (e.clientX - rect.left) + 'px';
         tooltip.style.top = (e.clientY - rect.top) + 'px';
       });
+    })();
+
+    (function() {
+      const wrap = document.querySelector('.ucsb-email-wrap');
+      const tooltip = wrap && wrap.querySelector('.ucsb-tooltip');
+      if (!wrap || !tooltip) return;
+      wrap.addEventListener('mousemove', function(e) {
+        const rect = wrap.getBoundingClientRect();
+        tooltip.style.left = (e.clientX - rect.left) + 'px';
+        tooltip.style.top = (e.clientY - rect.top) + 'px';
+      });
+      wrap.addEventListener('mouseenter', function() { tooltip.style.opacity = '1'; });
+      wrap.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
     })();
   </script>
 </body>
