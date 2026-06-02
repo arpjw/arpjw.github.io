@@ -165,6 +165,34 @@
       color: var(--bg);
     }
 
+    .ucsb-email-wrap {
+      position: relative;
+      display: inline-block;
+    }
+
+    .ucsb-email-wrap .ucsb-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #003660;
+      color: #FEBC11;
+      padding: 4px 10px;
+      border-radius: 5px;
+      font-size: 12.5px;
+      font-family: var(--sans);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .ucsb-email-wrap:hover .ucsb-tooltip {
+      opacity: 1;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 28px 20px 64px;
@@ -205,7 +233,7 @@
 
       <p>I've built a global macro fund, state-of-the-art decentralized exchange infrastructure, and have worked on volatility arbitrage, MBS convexity hedging, AI agent development, as well as applied astrophysics at systematic trading firms and research labs.</p>
 
-      <p>You can browse my writing <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">here</a>, my library <a href="library.html">here</a>, and some more experiments <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">here</a>. If you are looking to break into quantitative finance, <a href="resources.html">this page</a> might be useful. If you'd like to reach out, find me on X at <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">@arrrrrryaa</a>, or email me at <a href="mailto:aryasomu@umail.ucsb.edu">aryasomu@umail.ucsb.edu</a>.</p>
+      <p>You can browse my writing <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">here</a>, my library <a href="library.html">here</a>, and some more experiments <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">here</a>. If you are looking to break into quantitative finance, <a href="resources.html">this page</a> might be useful. If you'd like to reach out, find me on X at <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">@arrrrrryaa</a>, or email me at <span class="ucsb-email-wrap"><a href="mailto:aryasomu@umail.ucsb.edu">aryasomu@umail.ucsb.edu</a><span class="ucsb-tooltip">Go Gauchos!</span></span>.</p>
     </main>
   </div>
   <script>
