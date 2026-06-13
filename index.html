@@ -165,18 +165,18 @@
       color: var(--bg);
     }
 
-    .ucsb-email-wrap {
+    .ucsd-email-wrap {
       position: relative;
       display: inline-block;
     }
 
-    .ucsb-email-wrap .ucsb-tooltip {
+    .ucsd-email-wrap .ucsd-tooltip {
       position: absolute;
       top: 0;
       left: 0;
       transform: translate(16px, -120%);
-      background: #003660;
-      color: #FEBC11;
+      background: #182B49;
+      color: #C69214;
       padding: 4px 10px;
       border-radius: 5px;
       font-size: 12.5px;
@@ -188,6 +188,7 @@
       z-index: 10;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
+
 
     @media (max-width: 600px) {
       .container {
@@ -229,7 +230,7 @@
 
       <p>I've built a global macro fund, state-of-the-art decentralized exchange infrastructure, and have worked on volatility arbitrage, MBS convexity hedging, AI agent development, as well as applied astrophysics at systematic trading firms and research labs.</p>
 
-      <p>You can browse my writing <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">here</a>, my library <a href="library.html">here</a>, and some more experiments <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">here</a>. If you are looking to break into quantitative finance, <a href="resources.html">this page</a> might be useful. If you'd like to reach out, find me on X at <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">@arrrrrryaa</a>, or email me at <span class="ucsb-email-wrap"><a href="mailto:aryasomu@umail.ucsb.edu">aryasomu@umail.ucsb.edu</a><span class="ucsb-tooltip">Go Gauchos!</span></span>.</p>
+      <p>You can browse my writing <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">here</a>, my library <a href="library.html">here</a>, and some more experiments <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">here</a>. If you are looking to break into quantitative finance, <a href="resources.html">this page</a> might be useful. If you'd like to reach out, find me on X at <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">@arrrrrryaa</a>, or email me at <span class="ucsd-email-wrap"><a href="mailto:aryasomu@ucsd.edu">aryasomu@ucsd.edu</a><span class="ucsd-tooltip">Go Tritons!</span></span>.</p>
     </main>
   </div>
   <script>
@@ -245,8 +246,8 @@
     })();
 
     (function() {
-      const wrap = document.querySelector('.ucsb-email-wrap');
-      const tooltip = wrap && wrap.querySelector('.ucsb-tooltip');
+      const wrap = document.querySelector('.ucsd-email-wrap');
+      const tooltip = wrap && wrap.querySelector('.ucsd-tooltip');
       if (!wrap || !tooltip) return;
       wrap.addEventListener('mousemove', function(e) {
         const rect = wrap.getBoundingClientRect();
