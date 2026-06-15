@@ -170,7 +170,7 @@
       display: inline-block;
     }
 
-    .ucsd-email-wrap .ucsd-tooltip {
+    .ucsd-wrap .ucsd-tooltip {
       position: absolute;
       top: 0;
       left: 0;
@@ -233,9 +233,9 @@
 
       <p>I'm an engineer at Alexandria. I'm broadly interested in building low-latency systems across agentic frameworks and crypto.</p>
 
-      <p>I'm 19, and I've lived in Seattle and San Francisco. Now, I'm studying Math and Physics at <a href="https://ucsd.edu/" target="_blank" rel="noopener noreferrer">UC San Diego</a>.</p>
+      <p>I'm 19, and I've lived in Seattle and San Francisco. Now, I'm studying Math and Physics at <span class="ucsd-wrap"><a href="https://ucsd.edu/" target="_blank" rel="noopener noreferrer">UC San Diego</a><span class="ucsd-tooltip">Go Tritons! 🔱</span></span>.</p>
 
-      <p>You can find me on <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>, <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">X</a>, or by <span class="ucsd-email-wrap"><a href="mailto:aryasomu@ucsd.edu">Email</a><span class="ucsd-tooltip">Go Tritons!</span></span>.</p>
+      <p>You can find me on <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>, <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">X</a>, or by <a href="mailto:aryasomu@ucsd.edu">Email</a>.</p>
     </main>
     <footer class="site-footer">© 2026 Arya Somu</footer>
   </div>
@@ -252,7 +252,7 @@
     })();
 
     (function() {
-      const wrap = document.querySelector('.ucsd-email-wrap');
+      const wrap = document.querySelector('.ucsd-wrap');
       const tooltip = wrap && wrap.querySelector('.ucsd-tooltip');
       if (!wrap || !tooltip) return;
       wrap.addEventListener('mousemove', function(e) {
