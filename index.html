@@ -128,6 +128,21 @@
       opacity: 1;
     }
 
+    .hero-caption {
+      display: none;
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: -0.01em;
+      color: var(--text-muted);
+    }
+
+    /* Touch devices can't hover, so show the caption statically */
+    @media (hover: none) {
+      .hero-caption { display: block; }
+      .hero-tooltip { display: none; }
+    }
+
     main p {
       margin-bottom: 18px;
       font-size: 16px;
@@ -148,6 +163,13 @@
       color: var(--link-hover);
       text-decoration: underline;
       text-underline-offset: 2px;
+    }
+
+    a:focus-visible,
+    .logo:focus-visible {
+      outline: 2px solid var(--link);
+      outline-offset: 3px;
+      border-radius: 2px;
     }
 
     em, i, .italic {
@@ -215,7 +237,7 @@
 <body>
   <div class="container">
     <nav>
-      <a href="/" class="logo" aria-label="Home"></a>
+      <a href="/" class="logo" aria-label="Home" title="Home"></a>
       <ul>
         <li><a href="work.html">work</a></li>
         <li><a href="experiments.html">experiments</a></li>
@@ -226,6 +248,7 @@
     <div class="hero">
       <img src="hero.jpg" alt="Edward Hopper, Office in a Small City, 1953">
       <div class="hero-tooltip" id="hero-tooltip">Office in a Small City, 1953</div>
+      <div class="hero-caption">Edward Hopper, Office in a Small City, 1953</div>
     </div>
 
     <main>
@@ -246,8 +269,14 @@
       if (!hero || !tooltip) return;
       hero.addEventListener('mousemove', function(e) {
         const rect = hero.getBoundingClientRect();
-        tooltip.style.left = (e.clientX - rect.left) + 'px';
-        tooltip.style.top = (e.clientY - rect.top) + 'px';
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = y + 'px';
+        // Flip below the cursor when there isn't room above
+        tooltip.style.transform = y < 48
+          ? 'translate(16px, 14px)'
+          : 'translate(16px, -120%)';
       });
     })();
 
