@@ -5,26 +5,23 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arya Somu</title>
-  <meta name="description" content="Applied mathematics and physics at UC San Diego. Founder of Monolith Systematic.">
+  <meta name="description" content="Notes, research, and work by Arya Somu.">
   <meta property="og:title" content="Arya Somu">
-  <meta property="og:description" content="Applied mathematics and physics at UC San Diego. Founder of Monolith Systematic.">
+  <meta property="og:description" content="Notes, research, and work by Arya Somu.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aryasomu.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fdfcfa;
-      --text: #1a1a1a;
-      --text-soft: #2a2a2a;
-      --text-muted: #6e6a60;
-      --link: #1f5fd8;
-      --link-hover: #0f3fa8;
-      --accent: #d96e23;
-      --rule: #e5dfd3;
-      --sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --bg: #ffffff;
+      --fg: #0a0a0a;
+      --muted: #374151;
+      --border: #e5e5e5;
+      --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
       --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+      --serif: 'Lora', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
     }
 
     *, *::before, *::after {
@@ -35,263 +32,242 @@
 
     html {
       -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
     }
 
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--fg);
       font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.65;
-      font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+      overflow-wrap: break-word;
+      overflow-x: hidden;
     }
 
     .container {
-      max-width: 560px;
+      max-width: 700px;
+      width: 100%;
       margin: 0 auto;
-      padding: 36px 24px 96px;
+      padding: 56px 16px 48px;
     }
 
-    nav {
+    h1 {
+      font-family: var(--serif);
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 38px;
+      color: var(--fg);
+      margin-bottom: 24px;
+    }
+
+    .bio {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .logo {
-      width: 18px;
-      height: 18px;
-      background: var(--accent);
-      display: inline-block;
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
+    .bio p {
+      font-size: 16px;
+      line-height: 26px;
+      color: var(--muted);
+      text-wrap: pretty;
     }
 
-    .logo:hover {
-      transform: scale(1.2);
+    .bio a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 2px;
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
     }
 
-    nav ul {
+    .bio a:hover {
+      color: var(--fg);
+      text-decoration-color: var(--fg);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 28px;
+      row-gap: 12px;
+      font-size: 15px;
+      font-weight: 400;
+      margin-top: 24px;
+    }
+
+    .links a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(10, 10, 10, 0.3);
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+
+    .links a:hover {
+      color: var(--fg);
+      text-decoration-color: rgba(10, 10, 10, 0.55);
+    }
+
+    .section-heading {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--fg);
+      margin-top: 40px;
+      margin-bottom: 16px;
+    }
+
+    .notable-work {
       list-style: none;
       display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      color: var(--text-soft);
-      text-decoration: none;
+      flex-direction: column;
+      gap: 18px;
       font-size: 15px;
-      transition: color 0.15s ease;
     }
 
-    nav a:hover {
-      color: var(--link);
-    }
-
-    .hero {
-      width: 100%;
-      margin-bottom: 32px;
-      display: block;
-      position: relative;
-    }
-
-    .hero img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .hero-tooltip {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #1a1a1a;
-      color: #f5f0e6;
-      padding: 5px 11px;
-      border-radius: 5px;
-      font-size: 12.5px;
-      letter-spacing: 0.01em;
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.12s ease;
-      transform: translate(16px, -120%);
-      z-index: 10;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .hero:hover .hero-tooltip {
-      opacity: 1;
-    }
-
-    .hero-caption {
-      display: none;
-      margin-top: 8px;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: -0.01em;
-      color: var(--text-muted);
-    }
-
-    /* Touch devices can't hover, so show the caption statically */
-    @media (hover: none) {
-      .hero-caption { display: block; }
-      .hero-tooltip { display: none; }
-    }
-
-    main p {
-      margin-bottom: 18px;
-      font-size: 16px;
-      color: var(--text);
-    }
-
-    main p:last-child {
-      margin-bottom: 0;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-      transition: color 0.15s ease;
-    }
-
-    a:hover {
-      color: var(--link-hover);
+    .entry-title {
+      color: var(--fg);
+      font-weight: 400;
       text-decoration: underline;
+      text-decoration-color: var(--border);
       text-underline-offset: 2px;
+      transition: text-decoration-color 0.15s ease;
     }
 
-    a:focus-visible,
-    .logo:focus-visible {
-      outline: 2px solid var(--link);
-      outline-offset: 3px;
-      border-radius: 2px;
+    .entry-title:hover {
+      text-decoration-color: var(--fg);
     }
 
-    em, i, .italic {
-      font-style: italic;
+    .entry-date {
+      margin-left: 4px;
+      font-size: 12.5px;
+      font-weight: 400;
+      color: var(--muted);
     }
 
-    .mono {
-      font-family: var(--mono);
-      font-size: 14.5px;
-      letter-spacing: -0.01em;
+    .entry-desc {
+      color: var(--muted);
+      line-height: 24px;
+      margin-top: 2px;
+    }
+
+    .entry-mentions {
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 4px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .entry-mentions a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-color: var(--border);
+      text-underline-offset: 2px;
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+
+    .entry-mentions a:hover {
+      color: var(--fg);
+      text-decoration-color: var(--fg);
+    }
+
+    .more-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(10, 10, 10, 0.3);
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+
+    .more-link:hover {
+      color: var(--fg);
+      text-decoration-color: rgba(10, 10, 10, 0.55);
     }
 
     ::selection {
-      background: var(--accent);
+      background: var(--fg);
       color: var(--bg);
     }
 
-    .ucsd-wrap {
-      position: relative;
-      display: inline-block;
+    @media (min-width: 480px) {
+      .container { padding: 72px 24px 56px; }
     }
 
-    .ucsd-wrap .ucsd-tooltip {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform: translate(16px, -120%);
-      background: #182B49;
-      color: #C69214;
-      padding: 4px 10px;
-      border-radius: 5px;
-      font-size: 12.5px;
-      font-family: var(--sans);
-      white-space: nowrap;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.12s ease;
-      z-index: 10;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    @media (min-width: 640px) {
+      .container { padding: 112px 24px 64px; }
     }
 
-    .site-footer {
-      margin-top: 56px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        padding: 28px 20px 64px;
-      }
-      nav ul {
-        gap: 16px;
-      }
-      nav a {
-        font-size: 14px;
-      }
-      main p {
-        font-size: 15.5px;
-      }
+    @media (max-width: 380px) {
+      h1 { font-size: 26px; line-height: 34px; }
+      .bio p { font-size: 15px; line-height: 24px; }
+      .links { column-gap: 20px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav>
-      <a href="/" class="logo" aria-label="Home" title="Home"></a>
-      <ul>
-        <li><a href="work.html">work</a></li>
-        <li><a href="experiments.html">experiments</a></li>
-        <li><a href="music.html">music</a></li>
-      </ul>
-    </nav>
-
-    <div class="hero">
-      <img src="hero.jpg" alt="Edward Hopper, Office in a Small City, 1953">
-      <div class="hero-tooltip" id="hero-tooltip">Office in a Small City, 1953</div>
-      <div class="hero-caption">Edward Hopper, Office in a Small City, 1953</div>
-    </div>
-
     <main>
-      <p>Hi, I'm Arya Somu.</p>
+      <h1>Arya Somu</h1>
 
-      <p>I'm a 19-year-old engineer and AI maximalist interested in building scalable, low-latency systems.</p>
+      <div class="bio">
+        <p>I'm building world models at <a href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer">Laplace Research</a>, modeling rare events at <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener noreferrer">Stanford's AFT Lab</a>, building enterprise-grade agentic frameworks at Alexandria, and studying at <a href="https://math.ucsd.edu/" target="_blank" rel="noopener noreferrer">UC San Diego</a>. Recently, I've worked with great people and teams at <a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener noreferrer">Esplanade Capital</a>, <a href="https://afterquery.com/" target="_blank" rel="noopener noreferrer">AfterQuery</a>, <a href="https://aletheialaboratories.com/" target="_blank" rel="noopener noreferrer">Aletheia Laboratories</a>, and <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener noreferrer">Arizona State's Beus Center</a>.</p>
 
-      <p>I was born in San Francisco and raised in Seattle. Now, I'm studying CS, Math, & Physics at <span class="ucsd-wrap"><a href="https://math.ucsd.edu/" target="_blank" rel="noopener noreferrer">UC San Diego</a><span class="ucsd-tooltip">Go Tritons! 🔱</span></span>.</p>
+        <p>Reach out via <a href="mailto:asomu@ucsd.edu">email</a> or <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">X</a>! I'm always open to meeting people from different backgrounds and industries, or who want to play badminton. I am most active on:</p>
+      </div>
 
-      <p> Reach me via <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">@arrrrrryaa</a> or at <a href="mailto:asomu@ucsd.edu">asomu@ucsd.edu</a>. Check out more of my work at <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=weV0VEYAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>, <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, and <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>.</p>
+      <div class="links">
+        <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Curius</a>
+        <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=weV0VEYAAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a>
+        <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>
+      </div>
+
+      <section>
+        <h2 class="section-heading">Notable Work</h2>
+        <ul class="notable-work">
+          <li>
+            <div><a href="https://github.com/arpjw/anvil" class="entry-title" target="_blank" rel="noopener noreferrer">Anvil</a><span class="entry-date">(Jul 2026)</span></div>
+            <p class="entry-desc">An AI coding agent with a conscience.</p>
+          </li>
+          <li>
+            <div><a href="https://skew.aryasomu.com" class="entry-title" target="_blank" rel="noopener noreferrer">Skew</a><span class="entry-date">(Jun 2026)</span></div>
+            <p class="entry-desc">Typed DSL for compositional financial contracts in OCaml.</p>
+          </li>
+          <li>
+            <div><a href="https://robinhood.aryasomu.com" class="entry-title" target="_blank" rel="noopener noreferrer">Robinhood</a><span class="entry-date">(May 2026)</span></div>
+            <p class="entry-desc">Prediction Market velocity signals for Robinhood MCP.</p>
+          </li>
+          <li>
+            <div><a href="https://auric.aryasomu.com" class="entry-title" target="_blank" rel="noopener noreferrer">Auric</a><span class="entry-date">(May 2026)</span></div>
+            <p class="entry-desc">A complete DeFi primitive stack.</p>
+          </li>
+          <li>
+            <div><a href="https://github.com/arpjw/xenith" class="entry-title" target="_blank" rel="noopener noreferrer">Xenith</a><span class="entry-date">(Apr 2026)</span></div>
+            <p class="entry-desc">A Rust library for transport-agnostic cross-chain state sync.</p>
+          </li>
+          <li>
+            <div><a href="https://vela.monolithsystematic.com/" class="entry-title" target="_blank" rel="noopener noreferrer">Vela</a><span class="entry-date">(Mar 2026)</span></div>
+            <p class="entry-desc">The fastest published verifiable DEX matching engine ever.</p>
+            <div class="entry-mentions">
+              <span>Paper:</span>
+              <a href="https://ssrn.com/abstract=6579199" target="_blank" rel="noopener noreferrer">Vela Exchange</a>
+            </div>
+          </li>
+        </ul>
+        <a href="experiments.html" class="more-link">More Work</a>
+      </section>
     </main>
-    <footer class="site-footer">© 2026 Arya Somu</footer>
   </div>
-  <script>
-    (function() {
-      const hero = document.querySelector('.hero');
-      const tooltip = document.getElementById('hero-tooltip');
-      if (!hero || !tooltip) return;
-      hero.addEventListener('mousemove', function(e) {
-        const rect = hero.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        tooltip.style.left = x + 'px';
-        tooltip.style.top = y + 'px';
-        // Flip below the cursor when there isn't room above
-        tooltip.style.transform = y < 48
-          ? 'translate(16px, 14px)'
-          : 'translate(16px, -120%)';
-      });
-    })();
-
-    (function() {
-      const wrap = document.querySelector('.ucsd-wrap');
-      const tooltip = wrap && wrap.querySelector('.ucsd-tooltip');
-      if (!wrap || !tooltip) return;
-      wrap.addEventListener('mousemove', function(e) {
-        const rect = wrap.getBoundingClientRect();
-        tooltip.style.left = (e.clientX - rect.left) + 'px';
-        tooltip.style.top = (e.clientY - rect.top) + 'px';
-      });
-      wrap.addEventListener('mouseenter', function() { tooltip.style.opacity = '1'; });
-      wrap.addEventListener('mouseleave', function() { tooltip.style.opacity = '0'; });
-    })();
-
-  </script>
 </body>
 </html>

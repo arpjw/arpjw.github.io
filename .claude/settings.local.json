@@ -8,7 +8,8 @@
       "Bash(git *)",
       "Bash(sed -i '' '/\\\\.doc-title {/{ *)",
       "Bash(sed -i '' 's/\\\\.logo:hover { transform: rotate\\(45deg\\); }/.logo:hover { transform: scale\\(1.2\\); }/' /Users/aryasomu/arpjw.github.io/experiments.html /Users/aryasomu/arpjw.github.io/almanac.html /Users/aryasomu/arpjw.github.io/almanac/epilogue.html /Users/aryasomu/arpjw.github.io/almanac/part1.html /Users/aryasomu/arpjw.github.io/almanac/part4.html /Users/aryasomu/arpjw.github.io/almanac/part5.html /Users/aryasomu/arpjw.github.io/music.html /Users/aryasomu/arpjw.github.io/almanac/part2.html /Users/aryasomu/arpjw.github.io/almanac/part3.html /Users/aryasomu/arpjw.github.io/resources.html)",
-      "Bash(sed -i '' '/\\\\.logo:hover {/{ *)"
+      "Bash(sed -i '' '/\\\\.logo:hover {/{ *)",
+      "Bash(vercel --version)"
     ]
   }
 }

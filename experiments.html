@@ -6,268 +6,344 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Experiments</title>
   <meta name="description" content="Projects, papers, and other experiments by Arya Somu.">
-  <meta property="og:title" content="experiments — Arya Somu">
+  <meta property="og:title" content="Experiments — Arya Somu">
   <meta property="og:description" content="Projects, papers, and other experiments by Arya Somu.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #fdfcfa;
-      --stripe: #f3ede0;
-      --text: #1a1a1a;
-      --text-soft: #2a2a2a;
-      --text-muted: #6e6a60;
-      --link: #1f5fd8;
-      --link-hover: #0f3fa8;
-      --accent: #d96e23;
-      --rule: #e5dfd3;
-      --sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --bg: #ffffff;
+      --fg: #0a0a0a;
+      --muted: #374151;
+      --border: #e5e5e5;
+      --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
       --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+      --serif: 'Lora', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { -webkit-text-size-adjust: 100%; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
+    }
 
     body {
       background: var(--bg);
-      color: var(--text);
+      color: var(--fg);
       font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.65;
-      font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+      overflow-wrap: break-word;
+      overflow-x: hidden;
     }
 
     .container {
-      max-width: 560px;
+      max-width: 1280px;
+      width: 100%;
       margin: 0 auto;
-      padding: 36px 24px 96px;
+      padding: 48px 16px 64px;
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-    }
-
-    .logo {
-      width: 18px;
-      height: 18px;
-      background: var(--accent);
+    .back {
       display: inline-block;
-      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-    }
-
-    .logo:hover { transform: scale(1.2); }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      color: var(--text-soft);
-      text-decoration: none;
       font-size: 15px;
-      transition: color 0.15s ease;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(10, 10, 10, 0.3);
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+      margin-bottom: 24px;
     }
 
-    nav a:hover { color: var(--link); }
-
-    nav a[aria-current="page"] {
-      color: var(--text);
-      font-weight: 600;
+    .back:hover {
+      color: var(--fg);
+      text-decoration-color: rgba(10, 10, 10, 0.55);
     }
 
-    .projects {
+    h1 {
+      font-family: var(--serif);
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 38px;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .work-grid {
       list-style: none;
-      margin: 0 -16px;
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      column-gap: 20px;
+      row-gap: 32px;
     }
 
-    .projects li:nth-child(odd) {
-      background: var(--stripe);
+    .card-thumb {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--border);
     }
 
-    .project-link {
+    .card-thumb a {
       display: block;
-      padding: 12px 16px;
-      text-decoration: none;
-      color: inherit;
+      width: 100%;
+      height: 100%;
     }
 
-    .project-link:hover .project-name {
+    .entry-title {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--fg);
+    }
+
+    .entry-title span {
       text-decoration: underline;
+      text-decoration-color: var(--border);
       text-underline-offset: 2px;
+      transition: text-decoration-color 0.15s ease;
     }
 
-    .project-name {
-      font-weight: 600;
-      color: var(--text);
-      font-size: 15.5px;
-      line-height: 1.4;
-      margin-bottom: 3px;
+    .card:hover .entry-title span {
+      text-decoration-color: var(--fg);
     }
 
-    .project-desc {
-      color: var(--text-muted);
-      font-size: 14.5px;
-      line-height: 1.5;
+    .entry-meta {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
     }
 
-    .project-note {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      opacity: 0.7;
-      padding: 0 16px 10px;
+    .entry-desc {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 21px;
+      color: var(--muted);
     }
 
-    .project-note a {
-      color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      text-decoration-color: var(--text-muted);
+    ::selection {
+      background: var(--fg);
+      color: var(--bg);
     }
 
-    .project-note a:hover {
-      color: var(--text-soft);
-      opacity: 1;
+    @media (min-width: 640px) {
+      .container { padding: 64px 24px 96px; }
+      .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; }
     }
 
-    em, i, .italic { font-style: italic; }
-
-    ::selection { background: var(--accent); color: var(--bg); }
-
-    .site-footer {
-      margin-top: 56px;
-      font-size: 13px;
-      color: var(--text-muted);
+    @media (min-width: 1024px) {
+      .work-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 600px) {
-      .container { padding: 28px 20px 64px; }
-      nav ul { gap: 16px; }
-      nav a { font-size: 14px; }
-      .projects { margin: 0 -14px; }
-      .project-link { padding: 11px 14px; }
-      .project-name { font-size: 15px; }
-      .project-desc { font-size: 14px; }
+    @media (max-width: 380px) {
+      h1 { font-size: 26px; line-height: 34px; }
+      .subtitle { font-size: 14px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <nav>
-      <a href="/" class="logo" aria-label="Home"></a>
-      <ul>
-        <li><a href="work.html">work</a></li>
-        <li><a href="experiments.html" aria-current="page">experiments</a></li>
-        <li><a href="music.html">music</a></li>
-      </ul>
-    </nav>
-
+    <a href="index.html" class="back">← Arya Somu</a>
     <main>
-      <ul class="projects">
-        <li><a href="https://vela.monolithsystematic.com/" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Vela</div>
-          <div class="project-desc">The fastest published verifiable DEX matching engine ever.</div>
-        </a></li>
-        <li><a href="https://github.com/arpjw/anvil" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Anvil</div>
-          <div class="project-desc">An AI coding agent with a conscience.</div>
-        </a></li>
-        <li><a href="https://prism.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Prism</div>
-          <div class="project-desc">Open source connector framework for velocity signal engines.</div>
-        </a></li>
-        <li><a href="https://robinhood.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Robinhood</div>
-          <div class="project-desc">Prediction Market velocity signals for Robinhood MCP.</div>
-        </a></li>
-        <li><a href="https://skew.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Skew</div>
-          <div class="project-desc">Typed DSL for compositional financial contracts in OCaml.</div>
-        </a></li>
-        <li><a href="https://minos.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Minos</div>
-          <div class="project-desc">A Hindley-Milner type inference engine written in OCaml.</div>
-        </a></li>
-        <li><a href="https://auric.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Auric</div>
-          <div class="project-desc">A complete DeFi primitive stack.</div>
-        </a></li>
-        <li><a href="https://github.com/arpjw/xenith" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Xenith</div>
-          <div class="project-desc">A Rust library for transport-agnostic cross-chain state sync.</div>
-        </a></li>
-        <li><a href="https://github.com/arpjw/aegis" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Aegis</div>
-          <div class="project-desc">A coding agent plugin for DeFi developers.</div>
-        </a></li>
-        <li><a href="https://obsidian.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Obsidian</div>
-          <div class="project-desc">Implied volatility surface construction.</div>
-        </a></li>
-        <li><a href="https://create2.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Create2</div>
-          <div class="project-desc">Generate deployer salts that produce contract addresses.</div>
-        </a></li>
-        <li><a href="https://galvani.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Galvani</div>
-          <div class="project-desc">Hodgkin-Huxley neuron simulator.</div>
-        </a></li>
-        <li><a href="https://albatross.aryasomu.com/" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Albatross</div>
-          <div class="project-desc">Multi-Agent Probabilistic Forecasting.</div>
-        </a></li>
-        <li><a href="https://gray.aryasomu.com" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Gray</div>
-          <div class="project-desc">Reaction-Diffusion Simulator.</div>
-        </a></li>
-        <li>
-          <a href="https://devpost.com/software/exoland" class="project-link" target="_blank" rel="noopener">
-            <div class="project-name">ExoLand</div>
-            <div class="project-desc">Buy Real Estate in Space.</div>
-          </a>
-          <p class="project-note">Built with <a href="https://www.linkedin.com/in/brucenh/" target="_blank" rel="noopener">Bruce Nshuti Hirwa</a>, <a href="https://www.linkedin.com/in/scott-martin-bihag-406990277/" target="_blank" rel="noopener">Scott Bihag</a>, and <a href="https://www.linkedin.com/in/dannytat2028/" target="_blank" rel="noopener">Danny Tat</a>.</p>
+      <h1>Experiments</h1>
+      <p class="subtitle">My research and projects.</p>
+
+      <ul class="work-grid">
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fde68a, #fca5a5);">
+            <a href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener noreferrer"><span>Vela</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">The fastest published verifiable DEX matching engine ever.</p>
         </li>
-        <li><a href="https://replyguy.aryasomu.com/" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Reply Guy</div>
-          <div class="project-desc">I automated my Twitter gossip.</div>
-        </a></li>
-        <li><a href="https://www.getrita.app/" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Rita</div>
-          <div class="project-desc">A macro research assistant for Discord.</div>
-        </a></li>
-        <li><a href="https://ssrn.com/abstract=6534258" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name"><i>Lumina</i></div>
-          <div class="project-desc">Alternative data for macro regime detection.</div>
-        </a></li>
-        <li><a href="https://ssrn.com/abstract=6579199" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name"><i>Vela Exchange</i></div>
-          <div class="project-desc">A high-performance verifiable spot DEX.</div>
-        </a></li>
-        <li><a href="https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Fed Hawkishness Index</div>
-          <div class="project-desc">A FinBERT NLP pipeline on FOMC language.</div>
-        </a></li>
-        <li><a href="https://trvl.aryasomu.com/" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Trvl.</div>
-          <div class="project-desc">Let me help you plan a trip.</div>
-        </a></li>
-        <li><a href="https://bartender.aryasomu.com/" class="project-link" target="_blank" rel="noopener">
-          <div class="project-name">Bartender</div>
-          <div class="project-desc">Let me make you a drink.</div>
-        </a></li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #a7f3d0, #6ee7b7);">
+            <a href="https://github.com/arpjw/anvil" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://github.com/arpjw/anvil" target="_blank" rel="noopener noreferrer"><span>Anvil</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">An AI coding agent with a conscience.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #bae6fd, #93c5fd);">
+            <a href="https://robinhood.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://robinhood.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Robinhood</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Prediction Market velocity signals for Robinhood MCP.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #e9d5ff, #d8b4fe);">
+            <a href="https://skew.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://skew.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Skew</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Typed DSL for compositional financial contracts in OCaml.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fbcfe8, #f9a8d4);">
+            <a href="https://auric.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://auric.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Auric</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">A complete DeFi primitive stack.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #d9f99d, #bef264);">
+            <a href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer"><span>Xenith</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">A Rust library for transport-agnostic cross-chain state sync.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #e0e7ff, #c7d2fe);">
+            <a href="https://prism.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://prism.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Prism</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Open source connector framework for velocity signal engines.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">
+            <a href="https://minos.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://minos.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Minos</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">A Hindley-Milner type inference engine written in OCaml.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">
+            <a href="https://github.com/arpjw/aegis" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://github.com/arpjw/aegis" target="_blank" rel="noopener noreferrer"><span>Aegis</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">A coding agent plugin for DeFi developers.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fee2e2, #fecaca);">
+            <a href="https://obsidian.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://obsidian.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Obsidian</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Implied volatility surface construction.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd);">
+            <a href="https://create2.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://create2.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Create2</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Generate deployer salts that produce contract addresses.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #f3e8ff, #e9d5ff);">
+            <a href="https://galvani.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://galvani.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Galvani</span></a>
+          <div class="entry-meta">Research</div>
+          <p class="entry-desc">Hodgkin-Huxley neuron simulator.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fce7f3, #fbcfe8);">
+            <a href="https://albatross.aryasomu.com/" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://albatross.aryasomu.com/" target="_blank" rel="noopener noreferrer"><span>Albatross</span></a>
+          <div class="entry-meta">Research</div>
+          <p class="entry-desc">Multi-Agent Probabilistic Forecasting.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #ecfccb, #d9f99d);">
+            <a href="https://gray.aryasomu.com" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://gray.aryasomu.com" target="_blank" rel="noopener noreferrer"><span>Gray</span></a>
+          <div class="entry-meta">Research</div>
+          <p class="entry-desc">Reaction-Diffusion Simulator.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #e0e7ff, #c7d2fe);">
+            <a href="https://devpost.com/software/exoland" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://devpost.com/software/exoland" target="_blank" rel="noopener noreferrer"><span>ExoLand</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Buy Real Estate in Space. Built with <a href="https://brucenh.com" target="_blank" rel="noopener noreferrer" style="color:inherit;">Bruce Nshuti Hirwa</a>, <a href="https://www.linkedin.com/in/scott-martin-bihag-406990277/" target="_blank" rel="noopener noreferrer" style="color:inherit;">Scott Bihag</a>, and <a href="https://www.linkedin.com/in/dannytat2028/" target="_blank" rel="noopener noreferrer" style="color:inherit;">Danny Tat</a>.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">
+            <a href="https://replyguy.aryasomu.com/" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://replyguy.aryasomu.com/" target="_blank" rel="noopener noreferrer"><span>Reply Guy</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">I automated my Twitter gossip.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">
+            <a href="https://www.getrita.app/" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://www.getrita.app/" target="_blank" rel="noopener noreferrer"><span>Rita</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">A macro research assistant for Discord.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fee2e2, #fecaca);">
+            <a href="https://ssrn.com/abstract=6534258" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://ssrn.com/abstract=6534258" target="_blank" rel="noopener noreferrer"><span><i>Lumina</i></span></a>
+          <div class="entry-meta">Research</div>
+          <p class="entry-desc">Alternative data for macro regime detection.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #e0f2fe, #bae6fd);">
+            <a href="https://ssrn.com/abstract=6579199" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://ssrn.com/abstract=6579199" target="_blank" rel="noopener noreferrer"><span><i>Vela Exchange</i></span></a>
+          <div class="entry-meta">Research</div>
+          <p class="entry-desc">A high-performance verifiable spot DEX.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #f3e8ff, #e9d5ff);">
+            <a href="https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://www.kaggle.com/code/aryasomu/fed-si-finbert-hawkishness-extraction/notebook" target="_blank" rel="noopener noreferrer"><span>Fed Hawkishness Index</span></a>
+          <div class="entry-meta">Research</div>
+          <p class="entry-desc">A FinBERT NLP pipeline on FOMC language.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #fce7f3, #fbcfe8);">
+            <a href="https://trvl.aryasomu.com/" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://trvl.aryasomu.com/" target="_blank" rel="noopener noreferrer"><span>Trvl.</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Let me help you plan a trip.</p>
+        </li>
+        <li class="card">
+          <div class="card-thumb" style="background: linear-gradient(135deg, #ecfccb, #d9f99d);">
+            <a href="https://bartender.aryasomu.com/" target="_blank" rel="noopener noreferrer"></a>
+          </div>
+          <a class="entry-title" href="https://bartender.aryasomu.com/" target="_blank" rel="noopener noreferrer"><span>Bartender</span></a>
+          <div class="entry-meta">Project</div>
+          <p class="entry-desc">Let me make you a drink.</p>
+        </li>
       </ul>
     </main>
-    <footer class="site-footer">© 2026 Arya Somu</footer>
   </div>
 </body>
 </html>
