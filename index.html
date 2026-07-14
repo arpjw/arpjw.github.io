@@ -12,16 +12,14 @@
   <meta property="og:url" content="https://aryasomu.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #ffffff;
-      --fg: #0a0a0a;
-      --muted: #374151;
-      --border: #e5e5e5;
-      --sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-      --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-      --serif: 'Lora', ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+      --fg: #111111;
+      --muted: rgba(0, 0, 0, 0.4);
+      --line: rgba(0, 0, 0, 0.22);
+      --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
 
     *, *::before, *::after {
@@ -39,29 +37,48 @@
       background: var(--bg);
       color: var(--fg);
       font-family: var(--sans);
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 440;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
+      font-feature-settings: "cv05", "cv08", "cv11";
       overflow-wrap: break-word;
       overflow-x: hidden;
     }
 
     .container {
-      max-width: 700px;
+      max-width: 582px;
       width: 100%;
       margin: 0 auto;
-      padding: 56px 16px 48px;
+      padding: 80px 16px 40px;
+    }
+
+    /* Header: name + updated date, tight */
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 20px;
     }
 
     h1 {
-      font-family: var(--serif);
-      font-size: 30px;
-      font-weight: 400;
-      line-height: 38px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
       color: var(--fg);
-      margin-bottom: 24px;
+      letter-spacing: -0.01em;
     }
 
+    .updated {
+      font-size: 14px;
+      font-weight: 440;
+      line-height: 20px;
+      color: var(--muted);
+    }
+
+    /* Bio */
     .bio {
       display: flex;
       flex-direction: column;
@@ -69,88 +86,99 @@
     }
 
     .bio p {
-      font-size: 16px;
-      line-height: 26px;
-      color: var(--muted);
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 440;
+      color: var(--fg);
       text-wrap: pretty;
     }
 
+    /* Inline prose links: distinguished by weight, underline on hover */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
     .bio a {
-      color: var(--muted);
-      text-decoration: underline;
-      text-decoration-color: var(--border);
+      font-weight: 500;
       text-underline-offset: 2px;
-      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+      text-decoration-color: var(--line);
+      transition: text-decoration-color 0.15s ease;
     }
 
     .bio a:hover {
-      color: var(--fg);
+      text-decoration: underline;
       text-decoration-color: var(--fg);
     }
 
+    /* Social links row */
     .links {
       display: flex;
       flex-wrap: wrap;
-      column-gap: 28px;
-      row-gap: 12px;
-      font-size: 15px;
-      font-weight: 400;
-      margin-top: 24px;
+      column-gap: 20px;
+      row-gap: 8px;
+      margin-top: 16px;
     }
 
     .links a {
       color: var(--muted);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
-      text-decoration-color: rgba(10, 10, 10, 0.3);
-      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+      font-weight: 440;
+      transition: color 0.15s ease;
     }
 
     .links a:hover {
       color: var(--fg);
-      text-decoration-color: rgba(10, 10, 10, 0.55);
     }
 
+    /* Section */
     .section-heading {
-      font-size: 16px;
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 500;
       color: var(--fg);
-      margin-top: 40px;
-      margin-bottom: 16px;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
     }
 
     .notable-work {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      font-size: 15px;
+      gap: 16px;
+    }
+
+    .entry-head {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      column-gap: 8px;
     }
 
     .entry-title {
+      font-size: 14px;
+      font-weight: 500;
       color: var(--fg);
-      font-weight: 400;
-      text-decoration: underline;
-      text-decoration-color: var(--border);
       text-underline-offset: 2px;
+      text-decoration-color: var(--line);
       transition: text-decoration-color 0.15s ease;
     }
 
     .entry-title:hover {
+      text-decoration: underline;
       text-decoration-color: var(--fg);
     }
 
     .entry-date {
-      margin-left: 4px;
-      font-size: 12.5px;
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 440;
       color: var(--muted);
     }
 
     .entry-desc {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 440;
       color: var(--muted);
-      line-height: 24px;
       margin-top: 2px;
     }
 
@@ -159,38 +187,35 @@
       display: flex;
       flex-wrap: wrap;
       column-gap: 4px;
-      font-size: 12px;
+      font-size: 14px;
       color: var(--muted);
     }
 
     .entry-mentions a {
       color: var(--muted);
-      text-decoration: underline;
-      text-decoration-color: var(--border);
+      font-weight: 500;
       text-underline-offset: 2px;
+      text-decoration-color: var(--line);
       transition: color 0.15s ease, text-decoration-color 0.15s ease;
     }
 
     .entry-mentions a:hover {
       color: var(--fg);
+      text-decoration: underline;
       text-decoration-color: var(--fg);
     }
 
     .more-link {
       display: inline-block;
-      margin-top: 24px;
+      margin-top: 20px;
       font-size: 14px;
+      font-weight: 440;
       color: var(--muted);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
-      text-decoration-color: rgba(10, 10, 10, 0.3);
-      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+      transition: color 0.15s ease;
     }
 
     .more-link:hover {
       color: var(--fg);
-      text-decoration-color: rgba(10, 10, 10, 0.55);
     }
 
     ::selection {
@@ -198,25 +223,18 @@
       color: var(--bg);
     }
 
-    @media (min-width: 480px) {
-      .container { padding: 72px 24px 56px; }
-    }
-
-    @media (min-width: 640px) {
-      .container { padding: 112px 24px 64px; }
-    }
-
-    @media (max-width: 380px) {
-      h1 { font-size: 26px; line-height: 34px; }
-      .bio p { font-size: 15px; line-height: 24px; }
-      .links { column-gap: 20px; font-size: 14px; }
+    @media (max-width: 480px) {
+      .container { padding: 56px 20px 40px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <main>
-      <h1>Arya Somu</h1>
+      <header>
+        <h1>Arya Somu</h1>
+        <time class="updated">Updated Jul 2026</time>
+      </header>
 
       <div class="bio">
         <p>I'm building world models at <a href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer">Laplace Research</a>, modeling rare events at <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener noreferrer">Stanford's AFT Lab</a>, building enterprise-grade agentic frameworks at Alexandria, and studying at <a href="https://math.ucsd.edu/" target="_blank" rel="noopener noreferrer">UC San Diego</a>. Recently, I've worked with great people and teams at <a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener noreferrer">Esplanade Capital</a>, <a href="https://afterquery.com/" target="_blank" rel="noopener noreferrer">AfterQuery</a>, <a href="https://aletheialaboratories.com/" target="_blank" rel="noopener noreferrer">Aletheia Laboratories</a>, and <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener noreferrer">Arizona State's Beus Center</a>.</p>
@@ -237,31 +255,31 @@
         <h2 class="section-heading">Notable Work</h2>
         <ul class="notable-work">
           <li>
-            <div><a href="https://github.com/arpjw/yolk" class="entry-title" target="_blank" rel="noopener noreferrer">Yolk</a><span class="entry-date">(Jul 2026)</span></div>
+            <div class="entry-head"><a href="https://github.com/arpjw/yolk" class="entry-title" target="_blank" rel="noopener noreferrer">Yolk</a><span class="entry-date">Jul 2026</span></div>
             <p class="entry-desc">A Modern E-Graph Engine for OCaml.</p>
           </li>
           <li>
-            <div><a href="https://github.com/arpjw/spl" class="entry-title" target="_blank" rel="noopener noreferrer">Sparse Parity Learning</a><span class="entry-date">(Jul 2026)</span></div>
+            <div class="entry-head"><a href="https://github.com/arpjw/spl" class="entry-title" target="_blank" rel="noopener noreferrer">Sparse Parity Learning</a><span class="entry-date">Jul 2026</span></div>
             <p class="entry-desc">An MLP hits a real sample-complexity wall learning sparse parities, with a Fourier-basis progress measure that sees it coming before the loss does.</p>
           </li>
           <li>
-            <div><a href="https://github.com/arpjw/grokking" class="entry-title" target="_blank" rel="noopener noreferrer">Grokking on Modular Arithmetic</a><span class="entry-date">(Jul 2026)</span></div>
+            <div class="entry-head"><a href="https://github.com/arpjw/grokking" class="entry-title" target="_blank" rel="noopener noreferrer">Grokking on Modular Arithmetic</a><span class="entry-date">Jul 2026</span></div>
             <p class="entry-desc">Replicating grokking (delayed generalization) in a small transformer trained on modular arithmetic.</p>
           </li>
           <li>
-            <div><a href="https://github.com/arpjw/anvil" class="entry-title" target="_blank" rel="noopener noreferrer">Anvil</a><span class="entry-date">(Jul 2026)</span></div>
+            <div class="entry-head"><a href="https://github.com/arpjw/anvil" class="entry-title" target="_blank" rel="noopener noreferrer">Anvil</a><span class="entry-date">Jul 2026</span></div>
             <p class="entry-desc">A CLI coding agent that knows when not to edit. Constrained, auditable changes instead of maximal autonomy.</p>
           </li>
           <li>
-            <div><a href="https://robinhood.aryasomu.com" class="entry-title" target="_blank" rel="noopener noreferrer">Robinhood</a><span class="entry-date">(May 2026)</span></div>
+            <div class="entry-head"><a href="https://robinhood.aryasomu.com" class="entry-title" target="_blank" rel="noopener noreferrer">Robinhood</a><span class="entry-date">May 2026</span></div>
             <p class="entry-desc">Prediction markets reprice events faster than equities. This engine trades the gap through Robinhood's agentic MCP.</p>
           </li>
           <li>
-            <div><a href="https://github.com/arpjw/xenith" class="entry-title" target="_blank" rel="noopener noreferrer">Xenith</a><span class="entry-date">(Apr 2026)</span></div>
+            <div class="entry-head"><a href="https://github.com/arpjw/xenith" class="entry-title" target="_blank" rel="noopener noreferrer">Xenith</a><span class="entry-date">Apr 2026</span></div>
             <p class="entry-desc">Rust primitives for keeping state honest across chains, with divergence surfaced instead of silently resolved.</p>
           </li>
           <li>
-            <div><a href="https://vela.monolithsystematic.com/" class="entry-title" target="_blank" rel="noopener noreferrer">Vela</a><span class="entry-date">(Mar 2026)</span></div>
+            <div class="entry-head"><a href="https://vela.monolithsystematic.com/" class="entry-title" target="_blank" rel="noopener noreferrer">Vela</a><span class="entry-date">Mar 2026</span></div>
             <p class="entry-desc">The fastest published verifiable DEX matching engine ever.</p>
             <div class="entry-mentions">
               <span>Paper:</span>
