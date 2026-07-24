@@ -46,6 +46,10 @@
       font-feature-settings: "cv05", "cv08", "cv11";
       overflow-wrap: break-word;
       overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
     }
 
     .container {
@@ -53,12 +57,14 @@
       width: 100%;
       margin: 0 auto;
       padding: 80px 16px 40px;
+      text-align: center;
     }
 
     /* Header: name + updated date, tight */
     header {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 4px;
       margin-bottom: 20px;
     }
@@ -115,6 +121,7 @@
     .links {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       column-gap: 20px;
       row-gap: 8px;
       margin-top: 16px;
@@ -248,42 +255,7 @@
         <p>You can find me on <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">X</a>, <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Curius</a>, <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=weV0VEYAAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a>, and <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>, or reach me via <a href="mailto:asomu@ucsd.edu">email</a>.</p>
         
       <section>
-        <h2 class="section-heading">Notable Work</h2>
-        <ul class="notable-work">
-          <li>
-            <div class="entry-head"><a href="https://github.com/arpjw/yolk" class="entry-title" target="_blank" rel="noopener noreferrer">Yolk</a><span class="entry-date">Jul 2026</span></div>
-            <p class="entry-desc">A Modern E-Graph Engine for OCaml.</p>
-          </li>
-          <li>
-            <div class="entry-head"><a href="https://github.com/arpjw/spl" class="entry-title" target="_blank" rel="noopener noreferrer">Sparse Parity Learning</a><span class="entry-date">Jul 2026</span></div>
-            <p class="entry-desc">An MLP hits a real sample-complexity wall learning sparse parities, with a Fourier-basis progress measure that sees it coming before the loss does.</p>
-          </li>
-          <li>
-            <div class="entry-head"><a href="https://github.com/arpjw/grokking" class="entry-title" target="_blank" rel="noopener noreferrer">Grokking on Modular Arithmetic</a><span class="entry-date">Jul 2026</span></div>
-            <p class="entry-desc">Replicating grokking (delayed generalization) in a small transformer trained on modular arithmetic.</p>
-          </li>
-          <li>
-            <div class="entry-head"><a href="https://github.com/arpjw/anvil" class="entry-title" target="_blank" rel="noopener noreferrer">Anvil</a><span class="entry-date">Jul 2026</span></div>
-            <p class="entry-desc">A CLI coding agent that knows when not to edit. Constrained, auditable changes instead of maximal autonomy.</p>
-          </li>
-          <li>
-            <div class="entry-head"><a href="https://robinhood.aryasomu.com" class="entry-title" target="_blank" rel="noopener noreferrer">Robinhood</a><span class="entry-date">May 2026</span></div>
-            <p class="entry-desc">Prediction markets reprice events faster than equities. This engine trades the gap through Robinhood's agentic MCP.</p>
-          </li>
-          <li>
-            <div class="entry-head"><a href="https://github.com/arpjw/xenith" class="entry-title" target="_blank" rel="noopener noreferrer">Xenith</a><span class="entry-date">Apr 2026</span></div>
-            <p class="entry-desc">Rust primitives for keeping state honest across chains, with divergence surfaced instead of silently resolved.</p>
-          </li>
-          <li>
-            <div class="entry-head"><a href="https://vela.monolithsystematic.com/" class="entry-title" target="_blank" rel="noopener noreferrer">Vela</a><span class="entry-date">Mar 2026</span></div>
-            <p class="entry-desc">The fastest published verifiable DEX matching engine ever.</p>
-            <div class="entry-mentions">
-              <span>Paper:</span>
-              <a href="https://ssrn.com/abstract=6579199" target="_blank" rel="noopener noreferrer">Vela Exchange</a>
-            </div>
-          </li>
-        </ul>
-        <a href="experiments.html" class="more-link">More Work</a>
+        <a href="experiments.html" class="more-link">View Most of my Work Here</a>
       </section>
     </main>
   </div>
