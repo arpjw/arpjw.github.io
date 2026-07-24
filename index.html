@@ -101,13 +101,20 @@
     a {
       color: inherit;
       text-decoration: underline;
-      text-decoration-color: var(--line);
+      text-decoration-color: var(--link-color, var(--line));
       text-underline-offset: 2px;
-      transition: text-decoration-color 0.15s ease;
+      transition: text-decoration-color 0.15s ease, text-decoration-thickness 0.15s ease;
     }
 
     a:hover {
-      text-decoration-color: var(--fg);
+      text-decoration-color: var(--link-color, var(--fg));
+      text-decoration-thickness: 2px;
+    }
+
+    .faux-link {
+      text-decoration: underline;
+      text-decoration-color: var(--link-color, var(--line));
+      text-underline-offset: 2px;
     }
 
     .bio a {
@@ -242,11 +249,11 @@
       <div class="bio">
         <p>I was born in San Francisco and live between Seattle and San Diego.</p>
 
-        <p>I co-founded <a href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer" style="color: #002c82">Laplace Research</a>, an AI research lab building the future of financial world models. I also operate <a href="https://monolithsystematic.com/" target="_blank" rel="noopener noreferrer">Monolith Systematic</a>, a macro investment manager.
-        
-        <p>Right now, I'm studying CS, Math, & Physics at <a href="https://math.ucsd.edu/" target="_blank" rel="noopener noreferrer" style="color: #182B49">UC San Diego</a> and working as a research assistant at <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener noreferrer" style="color: #8C1515">Stanford University </a> and the <span style="color: #990000; font-weight: 500">University of Southern California</span>. I'm also an Engineer at <a href="https://www.linkedin.com/company/try-alexandria/" target="_blank" rel="noopener noreferrer" style="color: #5A8D78">Alexandria</a>, where I develop enterprise-grade agentic tools.</p>
+        <p>I co-founded <a href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer" style="--link-color: #002c82">Laplace Research</a>, an AI research lab building the future of financial world models. I also operate <a href="https://monolithsystematic.com/" target="_blank" rel="noopener noreferrer">Monolith Systematic</a>, a macro investment manager.
 
-        <p>Recently, I've worked with great people and teams at <a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener noreferrer" style="color: #A9A9A9">Esplanade Capital</a>, <a href="https://afterquery.com/" target="_blank" rel="noopener noreferrer" style="color: #434343">AfterQuery</a>, <a href="https://aletheialaboratories.com/" target="_blank" rel="noopener noreferrer" style="color: #5e16eb">Aletheia Laboratories</a>, and <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener noreferrer" style="color: #8C1D40">Arizona State University</a>.</p>
+        <p>Right now, I'm studying CS, Math, & Physics at <a href="https://math.ucsd.edu/" target="_blank" rel="noopener noreferrer" style="--link-color: #182B49">UC San Diego</a> and working as a research assistant at <a href="https://fintech.stanford.edu/" target="_blank" rel="noopener noreferrer" style="--link-color: #8C1515">Stanford University </a> and the <span class="faux-link" style="--link-color: #990000">University of Southern California</span>. I'm also an Engineer at <a href="https://www.linkedin.com/company/try-alexandria/" target="_blank" rel="noopener noreferrer" style="--link-color: #5A8D78">Alexandria</a>, where I develop enterprise-grade agentic tools.</p>
+
+        <p>Recently, I've worked with great people and teams at <a href="https://www.esplanadecapital.com/" target="_blank" rel="noopener noreferrer" style="--link-color: #A9A9A9">Esplanade Capital</a>, <a href="https://afterquery.com/" target="_blank" rel="noopener noreferrer" style="--link-color: #434343">AfterQuery</a>, <a href="https://aletheialaboratories.com/" target="_blank" rel="noopener noreferrer" style="--link-color: #5e16eb">Aletheia Laboratories</a>, and <a href="https://sese.asu.edu/beus-center-for-cosmic-foundations" target="_blank" rel="noopener noreferrer" style="--link-color: #8C1D40">Arizona State University</a>.</p>
         
         <p>You can find me on <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer">X</a>, <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer">GitHub</a>, <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Curius</a>, <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=weV0VEYAAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a>, and <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">Substack</a>, or reach me via <a href="mailto:asomu@ucsd.edu">email</a>.</p>
         
