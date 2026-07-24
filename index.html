@@ -52,12 +52,123 @@
       min-height: 100vh;
     }
 
-    .container {
-      max-width: 582px;
+    .page {
+      display: flex;
+      align-items: flex-start;
+      gap: 48px;
+      max-width: 860px;
       width: 100%;
       margin: 0 auto;
       padding: 80px 16px 40px;
     }
+
+    .container {
+      max-width: 582px;
+      width: 100%;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Listening widget */
+    .listening {
+      width: 200px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .listening-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: -0.01em;
+      transition: color 0.3s ease;
+    }
+    .listening-label.live { color: var(--fg); }
+
+    .lf-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+      transition: background 0.3s ease;
+    }
+    .lf-dot.live {
+      background: var(--fg);
+      animation: lf-pulse 2s ease infinite;
+    }
+    @keyframes lf-pulse {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0.35; }
+    }
+
+    .lf-now {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .lf-art {
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.06);
+    }
+    .lf-art.hidden { display: none; }
+    .lf-art-placeholder {
+      width: 40px;
+      height: 40px;
+      border-radius: 2px;
+      background: rgba(0, 0, 0, 0.06);
+      flex-shrink: 0;
+    }
+    .lf-info { min-width: 0; flex: 1; }
+    .lf-title {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--fg);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lf-artist {
+      display: block;
+      font-size: 14px;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .lf-recent {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+      margin-top: 2px;
+    }
+    .lf-recent li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .lf-recent .lf-art,
+    .lf-recent .lf-art-placeholder {
+      width: 26px;
+      height: 26px;
+    }
+    .lf-recent .lf-title { font-size: 13px; }
+    .lf-recent .lf-artist { font-size: 12px; }
 
     /* Header: name + updated date, tight */
     header {
@@ -233,12 +344,22 @@
       color: var(--bg);
     }
 
+    @media (max-width: 820px) {
+      .page {
+        flex-direction: column;
+        gap: 32px;
+        align-items: stretch;
+      }
+      .listening { width: 100%; }
+    }
+
     @media (max-width: 480px) {
-      .container { padding: 56px 20px 40px; }
+      .page { padding: 56px 20px 40px; }
     }
   </style>
 </head>
 <body>
+  <div class="page">
   <div class="container">
     <main>
       <header>
@@ -262,5 +383,114 @@
       </section>
     </main>
   </div>
+
+  <aside class="listening" aria-label="Listening activity">
+    <div class="listening-label" id="lf-status-wrap">
+      <span class="lf-dot" id="lf-dot"></span>
+      <span id="lf-status">listening</span>
+    </div>
+    <div class="lf-now">
+      <img class="lf-art hidden" id="lf-art" alt="">
+      <div class="lf-art-placeholder" id="lf-placeholder"></div>
+      <div class="lf-info">
+        <span class="lf-title" id="lf-title">—</span>
+        <span class="lf-artist" id="lf-artist">—</span>
+      </div>
+    </div>
+    <ul class="lf-recent" id="lf-recent"></ul>
+  </aside>
+  </div>
+
+  <script>
+    (function () {
+      const LASTFM_USER = 'aiibet';
+      const LASTFM_KEY  = '34ff6d331e356e7da4c6d64f3019d977';
+      const BASE        = 'https://ws.audioscrobbler.com/2.0/';
+      const RECENT_COUNT = 4;
+
+      const dot         = document.getElementById('lf-dot');
+      const statusWrap  = document.getElementById('lf-status-wrap');
+      const statusText  = document.getElementById('lf-status');
+      const art         = document.getElementById('lf-art');
+      const placeholder = document.getElementById('lf-placeholder');
+      const title       = document.getElementById('lf-title');
+      const artist      = document.getElementById('lf-artist');
+      const recentList  = document.getElementById('lf-recent');
+
+      const PLACEHOLDER_HASH = '2a96cbd8b46e442fc41c2b86b821562f';
+      const validImg = (url) => url && !url.includes(PLACEHOLDER_HASH);
+      const pickImg  = (track, size) =>
+        track?.image?.find(i => i.size === size)?.['#text'] || '';
+
+      function setNowPlaying(track, isLive) {
+        if (isLive) {
+          dot.classList.add('live');
+          statusWrap.classList.add('live');
+          statusText.textContent = 'now playing';
+        } else {
+          dot.classList.remove('live');
+          statusWrap.classList.remove('live');
+          statusText.textContent = 'last played';
+        }
+
+        if (!track) {
+          title.textContent = '—';
+          artist.textContent = '—';
+          return;
+        }
+
+        title.textContent  = track.name;
+        artist.textContent = track.artist?.['#text'] || '';
+
+        const img = pickImg(track, 'large') || pickImg(track, 'medium');
+        if (validImg(img)) {
+          art.src = img;
+          art.classList.remove('hidden');
+          placeholder.style.display = 'none';
+        } else {
+          art.classList.add('hidden');
+          placeholder.style.display = '';
+        }
+      }
+
+      function renderRecent(tracks) {
+        recentList.innerHTML = '';
+        tracks.forEach(t => {
+          const img = pickImg(t, 'medium') || pickImg(t, 'small');
+          const li = document.createElement('li');
+          const artHtml = validImg(img)
+            ? `<img class="lf-art" src="${img}" alt="" loading="lazy">`
+            : `<div class="lf-art-placeholder"></div>`;
+          li.innerHTML = `
+            ${artHtml}
+            <div class="lf-info">
+              <span class="lf-title"></span>
+              <span class="lf-artist"></span>
+            </div>
+          `;
+          li.querySelector('.lf-title').textContent  = t.name;
+          li.querySelector('.lf-artist').textContent = t.artist?.['#text'] || '';
+          recentList.appendChild(li);
+        });
+      }
+
+      async function refresh() {
+        try {
+          const res = await fetch(`${BASE}?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_KEY}&format=json&limit=${RECENT_COUNT + 1}`);
+          const data = await res.json();
+          const raw  = data?.recenttracks?.track;
+          if (!raw) return;
+          const list = Array.isArray(raw) ? raw : [raw];
+          const isLive = list[0]?.['@attr']?.nowplaying === 'true';
+          setNowPlaying(list[0], isLive);
+          const recent = isLive ? list.slice(1, 1 + RECENT_COUNT) : list.slice(1, 1 + RECENT_COUNT);
+          if (recent.length) renderRecent(recent);
+        } catch {}
+      }
+
+      refresh();
+      setInterval(refresh, 30000);
+    })();
+  </script>
 </body>
 </html>
