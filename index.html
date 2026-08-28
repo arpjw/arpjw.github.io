@@ -70,6 +70,9 @@
     .exp-title a{text-decoration:none}
     .exp-title a:hover{text-decoration:underline}
     .exp-desc{margin-top:3px;font-size:16px;line-height:24px;color:var(--muted);max-width:46ch}
+    .exp-links{margin-top:6px;font-family:var(--mono);font-size:13px;line-height:22px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+    .exp-links .exp-model{color:var(--ink);margin-right:8px}
+    .exp-links a{color:var(--body)}
 
     ::selection{background:var(--ink);color:var(--bg)}
     @media(max-width:520px){.wrap{padding:80px 22px 64px}}
@@ -114,16 +117,20 @@
       <div class="label">Selected Work</div>
       <ul class="exp">
         <li>
+          <span class="exp-title">Cournot-Cold</span>
+          <p class="exp-desc">Laplace Research's inaugural model family.</p>
+          <div class="exp-links">
+            <span><span class="exp-model">4B</span><a href="https://github.com/Laplace-AI-Research/cournot-cold-4b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/cournot-cold-4b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
+            <span><span class="exp-model">8B</span><a href="https://github.com/Laplace-AI-Research/cournot-cold-8b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/cournot-cold-8b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
+          </div>
+        </li>
+        <li>
           <span class="exp-title"><a href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener noreferrer">Vela</a></span>
           <p class="exp-desc">The fastest published verifiable DEX matching engine.</p>
         </li>
         <li>
           <span class="exp-title"><a href="https://robinhood.aryasomu.com" target="_blank" rel="noopener noreferrer">Velocity</a></span>
           <p class="exp-desc">Prediction-market velocity signals through Robinhood's MCP.</p>
-        </li>
-        <li>
-          <span class="exp-title"><a href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer">Xenith</a></span>
-          <p class="exp-desc">Transport-agnostic cross-chain state sync, in Rust.</p>
         </li>
       </ul>
     </main>
