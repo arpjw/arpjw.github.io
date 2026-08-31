@@ -50,39 +50,40 @@
     /* Company marks — Monolith Investments LP and Laplace Research */
     header{display:flex;align-items:center;justify-content:space-between;gap:20px}
     .header-main{min-width:0}
-    .companies{display:flex;align-items:center;gap:4px;flex:none}
+    .companies{display:flex;align-items:center;gap:16px;flex:none}
     .co{
       display:inline-flex;align-items:center;justify-content:center;
-      width:60px;height:60px;border-radius:14px;
-      text-decoration:none;border:1px solid transparent;
+      text-decoration:none;border-radius:6px;
       -webkit-tap-highlight-color:transparent;
-      transition:transform .18s cubic-bezier(.2,.7,.3,1),background-color .18s ease,
-                 border-color .18s ease,box-shadow .18s ease,color .18s ease;
+      transition:color .18s ease;
     }
-    .co:hover{
-      transform:translateY(-2px);
-      background:color-mix(in srgb,var(--ink) 4%,transparent);
-      border-color:var(--line);
-      box-shadow:0 5px 14px rgba(50,38,20,.11);
+    /* The mark itself is the button — no plate behind it, so the shadow and
+       the press follow the silhouette rather than a box around it. */
+    .co__art{
+      display:block;
+      transition:transform .18s cubic-bezier(.2,.7,.3,1),filter .18s ease;
     }
-    .co:active{
-      transform:translateY(0) scale(.93);
-      box-shadow:0 1px 3px rgba(50,38,20,.14);
+    .co:hover .co__art{
+      transform:translateY(-3px);
+      filter:drop-shadow(0 7px 6px rgba(50,38,20,.26));
+    }
+    .co:active .co__art{
+      transform:translateY(0) scale(.92);
+      filter:drop-shadow(0 1px 2px rgba(50,38,20,.3));
       transition-duration:.08s;
     }
-    .co:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-    .co__art{display:block}
+    .co:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
     .co--ox{color:#141210}
     .co--ox:hover{color:#000}
-    .co--ox .co__art{width:40px;height:auto}
-    .co--laplace .co__art{width:34px;height:34px}
-    @media (max-width:520px){
-      .co{width:50px;height:50px;border-radius:12px}
-      .co--ox .co__art{width:33px}
-      .co--laplace .co__art{width:29px}
+    .co--ox .co__art{height:68px;width:auto}
+    .co--laplace .co__art{height:62px;width:auto}
+    @media (max-width:560px){
+      .companies{gap:12px}
+      .co--ox .co__art{height:50px}
+      .co--laplace .co__art{height:53px}
     }
     @media (prefers-reduced-motion:reduce){
-      .co,.co:hover,.co:active{transition:none;transform:none}
+      .co__art,.co:hover .co__art,.co:active .co__art{transition:none;transform:none}
     }
 
     /* Hairline separating header from the text below */
