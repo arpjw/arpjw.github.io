@@ -112,9 +112,17 @@
     .exp-title a{text-decoration:none}
     .exp-title a:hover{text-decoration:underline}
     .exp-desc{margin-top:3px;font-size:16px;line-height:24px;color:var(--muted);max-width:46ch}
-    .exp-links{margin-top:6px;font-family:var(--mono);font-size:13px;line-height:22px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
-    .exp-links .exp-model{color:var(--ink);margin-right:8px}
+    .exp-links{margin-top:10px;font-family:var(--mono);font-size:13px;line-height:22px;color:var(--muted)}
     .exp-links a{color:var(--body)}
+    /* One ruled row per model size; links sit on the right edge of the column. */
+    .exp-row{display:flex;align-items:baseline;gap:14px;padding:6px 0;border-top:1px solid var(--line)}
+    .exp-row:last-child{border-bottom:1px solid var(--line)}
+    .exp-row .exp-model{color:var(--ink);font-weight:500;white-space:nowrap}
+    .exp-row .exp-dest{margin-left:auto;display:flex;gap:16px}
+    @media (max-width:420px){
+      .exp-row{gap:10px}
+      .exp-row .exp-dest{gap:12px}
+    }
 
     ::selection{background:var(--ink);color:var(--bg)}
     @media(max-width:520px){.wrap{padding:80px 22px 64px}}
@@ -173,9 +181,9 @@
           <span class="exp-title">Tarot-Draw</span>
           <p class="exp-desc">Laplace Research's inaugural model family.</p>
           <div class="exp-links">
-            <span><span class="exp-model">1.7B</span><a href="https://github.com/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
-            <span><span class="exp-model">4B</span><a href="https://github.com/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
-            <span><span class="exp-model">8B</span><a href="https://github.com/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
+            <div class="exp-row"><span class="exp-model">Tarot-Draw 1.7B</span><span class="exp-dest"><a href="https://github.com/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span></div>
+            <div class="exp-row"><span class="exp-model">Tarot-Draw 4B</span><span class="exp-dest"><a href="https://github.com/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span></div>
+            <div class="exp-row"><span class="exp-model">Tarot-Draw 8B</span><span class="exp-dest"><a href="https://github.com/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span></div>
           </div>
         </li>
         <li>
