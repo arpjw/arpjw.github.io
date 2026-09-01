@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vela — a sub-microsecond verifiable spot DEX matching engine</title>
+  <meta name="description" content="Design notes on Vela: a Rust matching engine with 0.38 μs p50 match latency, 2.5M ops/sec, sharded per-market execution, and an optimistic-ZK settlement layer on Ethereum.">
+  <meta property="og:title" content="Vela — a sub-microsecond verifiable spot DEX matching engine">
+  <meta property="og:description" content="Design notes on Vela: a Rust matching engine with 0.38 μs p50 match latency, 2.5M ops/sec, sharded per-market execution, and an optimistic-ZK settlement layer on Ethereum.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/vela">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f4f4f6;
+      --ink:#1b1b1e;
+      --body:#47474c;
+      --muted:#9d9da4;
+      --line:rgba(20,20,28,0.14);
+      --line-strong:rgba(20,20,28,0.22);
+      --accent:#0e0e11;
+      --code-bg:#ececef;
+      --sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+      --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+    body{
+      background:var(--bg);color:var(--body);font-family:var(--sans);
+      font-size:17.5px;line-height:28px;font-weight:430;
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+      text-rendering:optimizeLegibility;
+      overflow-wrap:break-word;overflow-x:hidden;
+    }
+    .wrap{max-width:720px;margin:0 auto;padding:96px 24px 104px}
+
+    .back{
+      font-family:var(--mono);font-size:13px;letter-spacing:0.06em;
+      color:var(--muted);text-decoration:none;
+      display:inline-flex;align-items:center;gap:8px;
+    }
+    .back:hover{color:var(--ink)}
+    .back::before{content:"←";margin-right:2px}
+
+    h1{
+      font-size:32px;line-height:38px;font-weight:600;color:var(--ink);
+      letter-spacing:-0.02em;margin-top:28px;
+    }
+    .subtitle{
+      margin-top:12px;color:var(--muted);font-size:16px;line-height:24px;
+    }
+    .byline{
+      margin-top:22px;padding-top:22px;border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:13px;letter-spacing:0.04em;
+      color:var(--muted);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    }
+    .byline a{color:var(--body)}
+    .byline a:hover{color:var(--ink)}
+
+    a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px;transition:text-decoration-color .15s ease}
+    a:hover{text-decoration-color:var(--ink)}
+
+    h2{
+      margin-top:56px;margin-bottom:20px;
+      font-family:var(--mono);font-size:13px;font-weight:500;text-transform:uppercase;
+      letter-spacing:0.14em;color:var(--muted);
+      display:flex;align-items:center;gap:12px;
+    }
+    h2::after{content:"";flex:1;border-bottom:1px solid var(--line)}
+    h2 .num{color:var(--ink);font-weight:500}
+
+    h3{
+      margin-top:36px;margin-bottom:14px;
+      font-size:20px;line-height:26px;font-weight:600;color:var(--ink);
+      letter-spacing:-0.01em;
+    }
+
+    p{margin-top:16px;text-wrap:pretty}
+    p:first-child{margin-top:0}
+    p strong{color:var(--ink);font-weight:600}
+
+    ul,ol{margin-top:14px;padding-left:20px}
+    li{margin-top:6px;color:var(--body)}
+    li::marker{color:var(--muted)}
+
+    code{
+      font-family:var(--mono);font-size:15px;
+      background:var(--code-bg);padding:1px 5px;border-radius:3px;color:var(--ink);
+    }
+    pre{
+      margin-top:20px;margin-bottom:8px;
+      background:var(--code-bg);border-radius:6px;padding:16px 18px;
+      font-family:var(--mono);font-size:13.5px;line-height:22px;color:var(--ink);
+      overflow-x:auto;
+    }
+    pre code{background:none;padding:0;font-size:inherit;border-radius:0}
+
+    /* Tables */
+    table{
+      margin-top:24px;width:100%;border-collapse:collapse;font-size:15px;line-height:22px;
+    }
+    th,td{
+      text-align:left;padding:10px 14px 10px 0;
+      border-bottom:1px solid var(--line);vertical-align:top;
+    }
+    th{
+      font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:0.08em;
+      text-transform:uppercase;color:var(--muted);
+      border-bottom:1px solid var(--line-strong);padding-bottom:8px;
+    }
+    td.num{font-family:var(--mono);color:var(--ink)}
+    td.win{color:#2d6a3a;font-family:var(--mono)}
+    td.strong{color:var(--ink);font-weight:500}
+    caption{
+      text-align:left;font-family:var(--mono);font-size:12px;letter-spacing:0.08em;
+      text-transform:uppercase;color:var(--muted);padding-bottom:8px;
+    }
+
+    /* Callout — used for scope caveats, methodological notes */
+    .callout{
+      margin-top:22px;padding:14px 16px;border-left:2px solid var(--line-strong);
+      background:transparent;color:var(--body);font-size:16px;line-height:25px;
+    }
+    .callout strong{color:var(--ink);font-weight:600}
+
+    /* Figures */
+    figure{margin-top:28px}
+    figcaption{
+      margin-top:10px;font-family:var(--mono);font-size:12px;letter-spacing:0.06em;
+      text-transform:uppercase;color:var(--muted);text-align:center;
+    }
+
+    /* Architecture diagram — inherits currentColor */
+    .arch-diagram{
+      width:100%;height:auto;color:var(--body);
+      background:transparent;
+    }
+    .arch-diagram .box{fill:var(--bg);stroke:var(--line-strong);stroke-width:1}
+    .arch-diagram .box-strong{fill:var(--bg);stroke:var(--ink);stroke-width:1.4}
+    .arch-diagram .label{fill:var(--ink);font-family:var(--mono);font-size:11px;font-weight:500}
+    .arch-diagram .label-sm{fill:var(--muted);font-family:var(--mono);font-size:9px}
+    .arch-diagram .arrow{stroke:var(--body);stroke-width:1;fill:none}
+    .arch-diagram .arrow-hot{stroke:var(--ink);stroke-width:1.4;fill:none}
+
+    /* Throughput bars */
+    .bars{width:100%;height:auto;color:var(--body)}
+    .bars .bar{fill:var(--line-strong)}
+    .bars .bar-vela{fill:var(--ink)}
+    .bars .lab{fill:var(--muted);font-family:var(--mono);font-size:11px}
+    .bars .val{fill:var(--ink);font-family:var(--mono);font-size:11px;font-weight:500}
+
+    hr{border:none;border-top:1px solid var(--line);margin-top:56px}
+
+    /* FAQ */
+    .faq dt{
+      margin-top:22px;color:var(--ink);font-weight:600;font-size:17px;line-height:24px;
+    }
+    .faq dd{
+      margin-top:6px;color:var(--body);
+    }
+
+    footer{
+      margin-top:64px;padding-top:24px;border-top:1px solid var(--line);
+      font-family:var(--mono);font-size:13px;color:var(--muted);
+      display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    }
+    footer a{color:var(--body)}
+    footer a:hover{color:var(--ink)}
+
+    ::selection{background:var(--ink);color:var(--bg)}
+    @media(max-width:520px){
+      .wrap{padding:64px 22px 64px}
+      h1{font-size:26px;line-height:32px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/">Arya Somu</a>
+
+    <h1>Vela: a sub-microsecond verifiable spot DEX matching engine</h1>
+    <p class="subtitle">On making the fastest published verifiable matching engine, and what it took.</p>
+
+    <div class="byline">
+      <span>August 2026</span>
+      <span><a href="https://vela.monolithsystematic.com/">Live</a> · <a href="https://github.com/Monolith-Investments-LP/vela">GitHub</a> · <a href="https://monolithsystematicllc.mintlify.app/">Docs</a></span>
+    </div>
+
+    <h2><span class="num">01</span> Context</h2>
+
+    <p>Centralised exchanges have won on latency and won on UX. Every serious DEX in the last two years has been an attempt to close that gap without giving up the property that made DeFi worth building in the first place: <strong>anyone can verify what the exchange did</strong>. The interesting design question is no longer &ldquo;can a DEX match at CEX speed&rdquo; — <a href="https://aadil.ai/pulse-a-125k-tps-high-performance-spot-dex">Pulse</a> proved you can, in Rust, on a laptop. The question is how far you can push the matcher while keeping every match cryptographically pinned to state a user can audit.</p>
+
+    <p>Vela is our attempt at that. It is a Rust central limit order book that runs each market as an independently locked shard, produces a state root every batch, anchors those roots on Ethereum every ten minutes, and settles withdrawals through an operator‑signed smart contract with a seven‑day emergency exit. The engine matches at <strong>0.38 μs p50</strong> and sustains <strong>2.5M orders/sec</strong> in isolation. The end‑to‑end HTTP+WebSocket path — signature verification, JSON serialisation, WAL fsync, DA submission — closes at <strong>16.9 ms p50</strong> over 127.0.0.1 loopback on an Apple M3.</p>
+
+    <p>None of that is the point on its own. The point is that every one of those matches is deterministic, replayable from the write‑ahead log, hashed into a Merkle root, and posted on a public chain. If we ever lie about what happened, anyone with the log can prove it. This piece is a walk through how the pieces fit together, what we changed to get the numbers where they are, and what we deliberately left for later.</p>
+
+    <h2><span class="num">02</span> Benchmarks</h2>
+
+    <p>Two sets of numbers, because they measure different things and conflating them is how every &ldquo;fastest DEX&rdquo; benchmark gets rightly torn apart.</p>
+
+    <p><strong>Tier 1</strong> is the isolated matching engine: <code>engine.process()</code> in a single thread, no HTTP, no signature verification, no I/O. Ten markets loaded at book capacity, fifty market makers, one taker, roughly 98% cancel and 2% fill — the same workload Pulse published, so the comparison is like‑for‑like at the engine layer.</p>
+
+    <table>
+      <caption>Engine-layer, isolated matcher</caption>
+      <thead>
+        <tr><th>Metric</th><th>Vela (Apple M3)</th><th>Pulse (Apple M2 Pro)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Match latency p50</td><td class="num">0.38 μs</td><td class="num">7.92 μs</td></tr>
+        <tr><td>Match latency p99.9</td><td class="num">0.92 μs</td><td class="num">—</td></tr>
+        <tr><td>Throughput</td><td class="num">2,500,000 ops/sec</td><td class="num">125,000 ops/sec</td></tr>
+        <tr><td>FOK rollback (CoW)</td><td class="num">841 ns</td><td class="num">—</td></tr>
+        <tr><td>Fee calculation overhead</td><td class="num">~0.2 μs</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+
+    <figure>
+      <svg class="bars" viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Throughput comparison bar chart">
+        <text class="lab" x="0" y="22">ENGINE-LAYER THROUGHPUT (OPS/SEC, LOG SCALE)</text>
+        <!-- log scale: 125k -> 200k -> 2.5M mapped visually -->
+        <!-- Pulse 125k -->
+        <rect class="bar" x="180" y="46" width="120" height="30"></rect>
+        <text class="lab" x="0" y="66">Pulse (M2 Pro)</text>
+        <text class="val" x="306" y="66">125,000</text>
+        <!-- Hyperliquid 200k -->
+        <rect class="bar" x="180" y="96" width="150" height="30"></rect>
+        <text class="lab" x="0" y="116">Hyperliquid¹</text>
+        <text class="val" x="336" y="116">200,000</text>
+        <!-- Vela 2.5M -->
+        <rect class="bar-vela" x="180" y="146" width="500" height="30"></rect>
+        <text class="lab" x="0" y="166">Vela (M3)</text>
+        <text class="val" x="686" y="166">2,500,000</text>
+        <text class="lab" x="0" y="210">¹ Hyperliquid&apos;s figure is the self-reported execution-layer ceiling, per official docs. Bars are log-scaled for visual clarity.</text>
+      </svg>
+      <figcaption>Fig 1. Engine-layer throughput, isolated matcher.</figcaption>
+    </figure>
+
+    <p><strong>Tier 2</strong> is the end‑to‑end path a real client walks: sign an order in the browser, ship it over WebSocket, verify the ECDSA signature in the API layer, run it through the batch dispatcher, hit the shard engine, write to the WAL, fan out the response.</p>
+
+    <table>
+      <caption>End-to-end, single client, 127.0.0.1 loopback</caption>
+      <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Round-trip p50</td><td class="num">16.9 ms</td></tr>
+        <tr><td>Round-trip p99</td><td class="num">19.9 ms</td></tr>
+        <tr><td>Approximate ceiling</td><td class="num">~59 ops/sec (single client, single connection)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>What Tier 1 measures and doesn&apos;t.</strong> The 0.38 μs / 2.5M ops/sec figure is the matching layer in isolation. It excludes network transit, ECDSA verification, JSON, the 500 μs batch‑dispatch window, WAL I/O, and DA submission. Hyperliquid&apos;s published 200 ms colocated latency includes HyperBFT consensus round‑trips; Vela does not currently have a consensus layer. All comparisons here should be read as execution‑layer vs execution‑layer, not full‑system vs full‑system.
+    </div>
+
+    <h2><span class="num">03</span> Architecture</h2>
+
+    <p>Vela is an eight‑crate Cargo workspace. The split follows lock granularity: everything that has to be mutated on the hot path lives in <code>engine</code>, everything that touches disk or the network lives in <code>api</code>, everything cryptographic lives in a crate of its own. The dependency graph is a straight line from types out to the wire.</p>
+
+    <figure>
+      <svg class="arch-diagram" viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vela architecture diagram">
+        <!-- types -->
+        <rect class="box" x="20" y="20" width="120" height="40"></rect>
+        <text class="label" x="80" y="45" text-anchor="middle">types</text>
+
+        <!-- engine (highlighted) -->
+        <rect class="box-strong" x="180" y="10" width="360" height="60"></rect>
+        <text class="label" x="360" y="30" text-anchor="middle">engine</text>
+        <text class="label-sm" x="360" y="46" text-anchor="middle">matching · order_book · delta_buffer · credit · ofi · shards</text>
+
+        <!-- state -->
+        <rect class="box" x="580" y="20" width="120" height="40"></rect>
+        <text class="label" x="640" y="45" text-anchor="middle">state (SMT)</text>
+
+        <!-- api (highlighted) -->
+        <rect class="box-strong" x="20" y="120" width="360" height="60"></rect>
+        <text class="label" x="200" y="140" text-anchor="middle">api</text>
+        <text class="label-sm" x="200" y="156" text-anchor="middle">axum · ws · batch dispatcher · wal · snapshot</text>
+
+        <!-- committer -->
+        <rect class="box" x="420" y="120" width="140" height="60"></rect>
+        <text class="label" x="490" y="140" text-anchor="middle">committer</text>
+        <text class="label-sm" x="490" y="156" text-anchor="middle">batch → root</text>
+
+        <!-- zkvm -->
+        <rect class="box" x="580" y="120" width="120" height="60"></rect>
+        <text class="label" x="640" y="140" text-anchor="middle">zkvm</text>
+        <text class="label-sm" x="640" y="156" text-anchor="middle">optimistic-ZK</text>
+
+        <!-- committee -->
+        <rect class="box" x="20" y="230" width="180" height="60"></rect>
+        <text class="label" x="110" y="250" text-anchor="middle">committee</text>
+        <text class="label-sm" x="110" y="266" text-anchor="middle">threshold decrypt (TEOB)</text>
+
+        <!-- tee -->
+        <rect class="box" x="240" y="230" width="140" height="60"></rect>
+        <text class="label" x="310" y="250" text-anchor="middle">tee</text>
+        <text class="label-sm" x="310" y="266" text-anchor="middle">AMD SEV-SNP</text>
+
+        <!-- settlement -->
+        <rect class="box" x="420" y="230" width="280" height="60"></rect>
+        <text class="label" x="560" y="250" text-anchor="middle">VelaSettlement.sol (Ethereum)</text>
+        <text class="label-sm" x="560" y="266" text-anchor="middle">deposits · withdrawals · state root anchoring</text>
+
+        <!-- arrows -->
+        <path class="arrow" d="M140 40 L180 40"></path>
+        <path class="arrow" d="M540 40 L580 40"></path>
+        <path class="arrow-hot" d="M200 70 L200 120"></path>
+        <path class="arrow" d="M380 150 L420 150"></path>
+        <path class="arrow" d="M560 150 L580 150"></path>
+        <path class="arrow" d="M110 180 L110 230"></path>
+        <path class="arrow" d="M310 180 L310 230"></path>
+        <path class="arrow" d="M560 180 L560 230"></path>
+
+        <!-- Legend -->
+        <text class="label-sm" x="20" y="340">Bold arrows: hot path (order request → response).</text>
+        <text class="label-sm" x="20" y="358">Bold boxes: mutated per request.</text>
+      </svg>
+      <figcaption>Fig 2. Vela&apos;s crate topology and primary data flow.</figcaption>
+    </figure>
+
+    <p>Everything from the browser to the Ethereum settlement layer transits through a single Axum process. There is no separate matching service, no separate WebSocket gateway, no sidecar. This is a deliberate constraint — inter‑process messaging is where every DEX I&apos;ve profiled bleeds tens of microseconds. Colocating the matcher, the WAL, and the response fan‑out keeps the entire hot path inside one address space and one lock hierarchy.</p>
+
+    <h2><span class="num">04</span> State</h2>
+
+    <p>All exchange state — balances, resting orders, user metadata (nonce windows, open order IDs, credit ratios, quoted notional) — lives in a depth‑32 sparse Merkle tree in memory. Every mutation flows through a <code>StateCache</code> that mirrors writes into the SMT, so producing a root at commit time is O(dirty × 32), not O(state).</p>
+
+    <p>Durability is a combination of two things. Every sixty seconds we snapshot the entire engine to a JSON file on the Fly volume, and on every order we append a WAL entry — <code>ORDER_POST</code>, <code>ORDER_PROCESSED</code>, one <code>FILL_CREATED</code> per fill — with a single amortised <code>sync_all</code> per batch. On restart the process loads the newest snapshot and replays the WAL from the last checkpoint to reconstruct the exact pre‑crash state. Clean shutdowns write a <code>clean_shutdown: true</code> marker into the final snapshot so recovery can distinguish a graceful exit from a crash and skip replay.</p>
+
+    <p>The choice of a sparse Merkle tree over a Merkle Patricia trie is deliberate. The MPT is what Ethereum uses because it needs prefix‑compressed keys for RLP‑encoded account addresses. Our keys are already 32‑byte hashes of structured state — no path compression buys us anything, and the fixed‑depth SMT gives us O(1) proof size and cheaper delta computation.</p>
+
+    <h2><span class="num">05</span> Matching engine</h2>
+
+    <p>Each market has its own <code>OrderBook</code>. Bids and asks are two <code>BTreeMap&lt;Price, PriceLevel&gt;</code>, each level a <code>VecDeque&lt;Order&gt;</code> preserving arrival order. Best bid is <code>bids.keys().next_back()</code>; best ask is <code>asks.keys().next()</code>; both are O(log n).</p>
+
+    <p>The matching loop is price‑time priority. A taker walks matchable price levels using an iterator that yields references directly into the book:</p>
+
+<pre><code>let matchable_iter: Box&lt;dyn Iterator&lt;Item = (u64, &amp;VecDeque&lt;Order&gt;)&gt;&gt; =
+    match order.side {
+        OrderSide::Bid =&gt; Box::new(book.matchable_asks_ref(order.price)),
+        OrderSide::Ask =&gt; Box::new(book.matchable_bids_ref(order.price)),
+    };</code></pre>
+
+    <p>The <code>_ref</code> in the method name is doing a lot of work. An earlier version of this code cloned the matching levels into a <code>Vec&lt;(Price, Vec&lt;Order&gt;)&gt;</code> so it could iterate without holding the book borrow. That single allocation was 30% of the wall‑clock cost of a match on the 98%‑cancel benchmark. Switching to a borrowing iterator was the biggest single‑commit throughput win we&apos;ve landed.</p>
+
+    <p>Four order types are supported. <strong>GTC</strong> rests. <strong>Post‑Only</strong> rejects if it would cross. <strong>IOC</strong> matches what it can and cancels the rest. <strong>FOK</strong> either matches in full or reverts every state change it touched. FOK atomicity is why the engine matches through a <code>DeltaBuffer</code> — a copy‑on‑write overlay that buffers balance mutations, metadata mutations, and order‑book operations. On success we call <code>delta.commit(engine)</code> and every buffered write applies. On rejection we <code>delta.rollback()</code> and drop the buffer — the underlying state is untouched. Measured cost of a full FOK rollback is 841 ns.</p>
+
+    <p>Nonce validation happens against a fixed‑size ring buffer of the last twenty accepted nonces per user. Twenty is not arbitrary — it&apos;s the maximum number of in‑flight orders we let a market maker have before requiring an ack, and it lets makers pipeline order submission without blocking on network round‑trips. Nonces are accepted if strictly greater than the smallest active nonce, or if the window isn&apos;t full yet. Storing them as a fixed <code>[u64; 20]</code> instead of the original <code>BTreeSet&lt;u64&gt;</code> cut per‑order metadata clone cost from 200 ns to 58.2 ns.</p>
+
+    <h2><span class="num">06</span> Sharded dispatch</h2>
+
+    <p>Everything above describes a single‑market matcher. The engine as it runs in production is <em>sharded</em>: each market gets its own <code>MatchingEngine</code> instance behind its own tokio mutex, and the batch dispatcher hands orders out to shards in parallel. Because user state (balances, nonces, credit) is shared across markets, this needs a protocol.</p>
+
+    <p>The protocol has three phases per batch:</p>
+
+    <ol>
+      <li><strong>Phase 1</strong> — single write lock on <code>UserState</code>. Apply deposits and withdrawals directly. Snapshot balances and metadata. Validate every incoming order against the snapshot, tracking in‑batch reservations so a user can&apos;t double‑spend across markets. Allocate globally‑unique order IDs. Do <em>not</em> mutate nonces or lock balances yet — those are the shard&apos;s job. Release the write lock.</li>
+      <li><strong>Phase 2</strong> — per‑market shard locks acquired concurrently via <code>join_all</code>. Each shard receives the snapshot as its <code>DeltaBuffer</code> base and processes orders against it. Nonces are accepted here; balances are locked here. Shards run in parallel and don&apos;t coordinate.</li>
+      <li><strong>Phase 3</strong> — single write lock on <code>UserState</code> again. Fold each shard&apos;s final balance, metadata, and fee deltas back into the shared state.</li>
+    </ol>
+
+    <p>The subtle bug we caught late in this design was in the fold. The original code did <code>current.nonce_window = final_m.nonce_window.clone()</code> — whichever shard was applied last silently overwrote the nonce windows accepted by earlier shards. Under the sharded engine, replay protection was order‑dependent. The fix was to <em>merge</em> the windows via union with the same eviction policy as <code>accept()</code> — union all shards, keep the newest <code>NONCE_WINDOW_SIZE</code>. Three property tests now cover the distinct/duplicate/overflow cases.</p>
+
+    <h2><span class="num">07</span> API handler</h2>
+
+    <p>Axum on tokio, with a batch dispatcher sitting between the HTTP handlers and the shard engines. The dispatcher opens a window on the first incoming order and closes it at the earlier of 500 μs elapsed or 256 orders accumulated. Both bounds are env‑configurable (<code>VELA_BATCH_WINDOW_US</code>, <code>VELA_BATCH_MAX_SIZE</code>). Everything the window closes gets shipped to <code>MarketShards::dispatch_sharded_batch</code> as a single logical unit — one mutex acquisition, one commit, one WAL flush.</p>
+
+    <p>Each order request returns a one‑shot channel receiver. If the shard engine wedges — panic, deadlock, GC pause on the state <code>RwLock</code> — the receiver is wrapped in <code>tokio::time::timeout</code> with a 500 ms default (<code>VELA_DISPATCH_TIMEOUT_MS</code>) and the client gets a 504 rather than an indefinite hang.</p>
+
+    <p>WebSocket is the primary transport for live traders. Four channel types: <code>orderbook:{market}</code>, <code>trades:{market}</code>, <code>markets</code>, and per‑user authenticated <code>account:{address}</code>. Every envelope carries a per‑channel sequence number so a client can detect a gap after reconnection and re‑request from the last known seq. The public order‑book broadcast task copies raw <code>(price, qty)</code> tuples out from under the engine mutex, releases the lock, and does JSON serialisation outside — earlier versions held the lock across <code>serde_json::json!</code> for every subscribed market on every tick, pinning it across hundreds of allocations per iteration.</p>
+
+    <p>Observability is a hand‑rolled <code>/metrics</code> endpoint emitting Prometheus text format 0.0.4. Nothing exotic — orders/sec, batch dispatch latency, WS client count, feed drops, order‑channel send failures, last snapshot timestamp. A scrape‑side aggregator can compute percentiles from the drainable batch‑size histogram.</p>
+
+    <h2><span class="num">08</span> Committer</h2>
+
+    <p>Every batch produces a <code>CommitBatch</code>: a snapshot of balances and metadata at commit time, the list of requests, and a <code>keccak256</code> of all fill IDs in the batch. The committer writes this to a durable log and hands the state root off to the anchor task, which posts it on Ethereum every ten minutes.</p>
+
+    <p>The committer is also the place forced‑inclusion requests get injected. A user who thinks the operator is censoring their orders can call the <code>/force-include</code> endpoint (production will verify an L1 Merkle proof; the beta gates on an admin token). Force‑included requests get prepended to the next batch after a configurable timeout, bypassing the normal dispatch path entirely.</p>
+
+    <h2><span class="num">09</span> zkVM</h2>
+
+    <p>Vela ships with an optimistic‑ZK settlement model, not full ZK per batch. Generating a STARK or SNARK proof over a matching‑engine STF at 2.5M ops/sec is four to six orders of magnitude too slow with today&apos;s provers. What we do instead:</p>
+
+    <ol>
+      <li>Every batch is assumed valid on submission.</li>
+      <li>The state root goes on chain within ten minutes.</li>
+      <li>Any user can download the batch, re‑execute it locally, and if the derived root doesn&apos;t match the on‑chain root, submit a fraud proof within a seven‑day challenge window.</li>
+      <li>A validated fraud proof reverts the batch and slashes the operator.</li>
+    </ol>
+
+    <p>This is the same optimistic model that made Arbitrum tenable when full ZK was infeasible for general‑purpose EVM. The Vela zkVM crate today ships with a <code>PlaceholderProver</code> that produces a deterministic tag rather than a real proof; the interfaces are in place for the day fast provers make full ZK practical.</p>
+
+    <h2><span class="num">10</span> Interesting features</h2>
+
+    <h3>Market-maker credit system</h3>
+
+    <p>Traditional DEXs require full escrow: to quote 100 ETH of bids across a market, you have to have 100 ETH in the contract, locked and unusable for anything else. That&apos;s a deal‑breaker for professional market making, and it&apos;s the single most‑cited reason serious flow lives on CEXs. Vela lets a maker quote beyond their deposit up to a per‑user credit ratio (default 5×, tunable per address). Quoted notional is tracked in <code>UserMetadata.total_quoted_notional</code> and enforced on every post‑order.</p>
+
+    <p>What happens when a maker breaches their ratio — usually because a fill drained available collateral, or because their credit ratio was revised down — is more interesting than the ratio itself. Rather than reject the incoming order and leave the book stale, the engine walks the maker&apos;s open orders in arrival order and cancels the oldest until they&apos;re back inside their limit. Same maker keeps the same tightest quotes; only their deepest, oldest quotes get pruned.</p>
+
+    <h3>Adverse-selection toxicity scoring</h3>
+
+    <p>Every taker fill is scored on the hot path in the closed interval <code>[0.0, 1.0]</code>. The score combines three signals: an order‑flow‑imbalance accumulator maintained in a fixed‑size ring buffer, the depth the taker walks into the book, and the taker&apos;s size relative to the maker&apos;s quoted liquidity at that level. The scorer uses interior mutability (<code>RefCell&lt;ToxicityScorer&gt;</code>) so it can update per fill without needing a <code>&amp;mut self</code> from the matching loop.</p>
+
+    <p>Fills with a score above the configured threshold trigger a temporary credit penalty on the affected maker — the same maker keeps their spread but their effective credit ratio drops for the penalty duration. The score is also broadcast on an authenticated <code>ws://.../feed/toxicity</code> WebSocket channel so makers can react to a run of toxic fills before the penalty even lands. Hot‑path overhead is under 50 ns at p50, kept there by allocating the OFI ring on shard construction and updating it in place.</p>
+
+    <h3>Threshold-encrypted order book</h3>
+
+    <p>The most interesting thing on the roadmap — and the thing that&apos;s in the <code>committee</code> crate today as a working prototype — is a threshold‑encrypted order book. Orders arrive as ciphertexts encrypted to a committee public key; a threshold of committee nodes runs partial decryption; the plaintext order is only revealed once <code>t</code>‑of‑<code>n</code> shares are combined. Every decryption produces a public proof, which gets committed alongside the batch.</p>
+
+    <p>The property this buys is <em>frontrunning resistance at the sequencing layer</em>. The operator can&apos;t peek at pending orders, can&apos;t reorder them by observed content, can&apos;t sandwich a large taker. The current implementation is HMAC‑SHA256‑based (a placeholder for full BLS threshold signatures) and the committee is single‑party, so this is scaffolding for a real threshold scheme, not the real thing. But the pipeline — ciphertext arrival, pending queue, partial‑decrypt request, threshold combine, proof recording — is fully wired.</p>
+
+    <h3>HFT nonce ring buffer</h3>
+
+    <p>The rolling twenty‑nonce window discussed under the matching engine is what makes maker pipelining feasible. A traditional strict‑increment nonce lets a maker have exactly one in‑flight order per account; a naive rolling‑set nonce is O(n) per accept. The fixed <code>[u64; 20]</code> is O(20) worst case, and because 20 is small enough to fit in a couple of cache lines the constant is trivial.</p>
+
+    <h3>Copy-on-write delta buffer</h3>
+
+    <p>Mentioned in passing under matching; worth calling out on its own. The <code>DeltaBuffer</code> is the reason we can offer FOK. Every mutation an order might perform — balance debit, balance lock, metadata update, order insert, order remove, partial fill — buffers into the delta. If the order matches in full, <code>commit()</code> replays the buffered writes into the engine. If it rejects, <code>rollback()</code> discards the buffer. State corruption in the middle of a partially‑applied FOK is not representable.</p>
+
+    <h2><span class="num">11</span> Optimisations</h2>
+
+    <p>The path from &ldquo;works&rdquo; to sub‑microsecond p50 was mostly a sequence of surgical changes, each measured before and after. The high‑signal ones:</p>
+
+    <table>
+      <caption>Optimisations landed, in order of impact</caption>
+      <thead>
+        <tr><th>Change</th><th>Before</th><th>After</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="strong">Zero-allocation matchable-level iteration</td>
+          <td class="num">Vec&lt;(Price, Vec&lt;Order&gt;)&gt; per match</td>
+          <td class="win">Borrowing iterator, no alloc</td>
+        </tr>
+        <tr>
+          <td class="strong">NonceWindow: BTreeSet → fixed [u64; 20]</td>
+          <td class="num">user_metadata_clone: 200 ns</td>
+          <td class="win">58.2 ns (−71%)</td>
+        </tr>
+        <tr>
+          <td class="strong">Sharded matching (per-market lock)</td>
+          <td class="num">single engine mutex</td>
+          <td class="win">N shards, concurrent execution</td>
+        </tr>
+        <tr>
+          <td class="strong">ahash + mimalloc</td>
+          <td class="num">stdlib HashMap + system malloc</td>
+          <td class="win">2-3× faster hashing on small keys</td>
+        </tr>
+        <tr>
+          <td class="strong">WAL fsync amortisation</td>
+          <td class="num">1 fsync per WAL entry (3-5 per order)</td>
+          <td class="win">1 fsync per dispatch batch</td>
+        </tr>
+        <tr>
+          <td class="strong">WS lock-hold reduction</td>
+          <td class="num">engine lock across JSON serialisation</td>
+          <td class="win">lock only for raw tuple copy</td>
+        </tr>
+        <tr>
+          <td class="strong">Release profile: fat LTO, panic=abort</td>
+          <td class="num">default codegen-units, panic=unwind</td>
+          <td class="win">smaller binary, tighter hot loops</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>The two most instructive of these are worth expanding.</p>
+
+    <h3>Zero-allocation matchable iteration</h3>
+
+    <p>The first version of the matcher pulled matching price levels out of the book into an owned <code>Vec&lt;(Price, Vec&lt;Order&gt;)&gt;</code> — one allocation for the outer vec, one clone per level for the inner. On the 98%‑cancel workload almost every taker call matched at most one level, but the allocation happened every time regardless. Adding <code>matchable_asks_ref</code> and <code>matchable_bids_ref</code> — iterators that yield <code>(Price, &amp;VecDeque&lt;Order&gt;)</code> pairs by reference into the underlying <code>BTreeMap</code> — moved the whole match into the borrow region and dropped that allocation to zero.</p>
+
+    <p>A secondary bug hidden by the old code came out in the same commit: a resting order that had been partially filled <em>before</em> the current dispatch was being compared against its <em>original</em> quantity when checking full consumption. Any partial‑fill‑before‑dispatch scenario would fail to remove the resting order after a fill that consumed the remaining portion. The switch to borrowing iteration made the code path shorter, which made the bug legible enough to notice.</p>
+
+    <h3>Sharded matching</h3>
+
+    <p>The single‑mutex matcher scales linearly with active markets — sixteen markets doing 100k ops/sec each contend on the same lock. The sharded matcher runs each market on its own lock and lets the sixteen shards make progress concurrently, with the three‑phase protocol described earlier holding the shared user state coherent. The 2.5M ops/sec figure in Tier 1 is achievable specifically because the ten‑market benchmark can dispatch across ten shards without lock contention.</p>
+
+    <h2><span class="num">12</span> Extensions</h2>
+
+    <p>What&apos;s deliberately not yet real:</p>
+
+    <ul>
+      <li><strong>Real threshold cryptography</strong> in the committee. The current TEOB pipeline uses HMAC‑SHA256 placeholders for what should be BLS threshold signatures. The interfaces and the pending‑order queue are production‑ready; the crypto is not.</li>
+      <li><strong>Real TEE attestation</strong>. <code>tee</code> ships a <code>PlaceholderAttester</code>. The consumer of an attestation record verifies its shape, not its cryptographic authenticity. Wiring AMD SEV‑SNP attestation into the request path is well‑defined work; we haven&apos;t done it.</li>
+      <li><strong>Real ZK proofs</strong>. Same shape as the TEE story — the crate exists, the placeholder produces deterministic tags, the pipeline handles proofs correctly when they arrive. What&apos;s missing is a fast‑enough prover.</li>
+      <li><strong>Full consensus layer</strong>. Vela today is a single operator + fraud proofs. A production version wants HyperBFT‑style validator consensus so a single machine failure doesn&apos;t take the exchange offline. This is a large piece of work and the honest reason we haven&apos;t started it is that we&apos;re prioritising audit and mainnet deployment first.</li>
+      <li><strong>Smart contract audit</strong> and <strong>mainnet deployment</strong>. Sepolia only, for now. A recent security pass caught a fund‑at‑risk bug in the withdrawal signature scheme (replay after redeposit) and it&apos;s fixed and fuzz‑tested — but the contract has not been through an external audit and shouldn&apos;t hold real funds until it is.</li>
+    </ul>
+
+    <h2><span class="num">13</span> FAQ</h2>
+
+    <dl class="faq">
+      <dt>How is 2.5M ops/sec possible when Pulse gets 125k with the same methodology?</dt>
+      <dd>Three things stack. First, sharded per‑market execution — Pulse serialises through one matcher. Second, zero‑allocation matching iteration where Pulse still clones matching levels. Third, an <code>ahash</code> + <code>mimalloc</code> combination that&apos;s worth 5–15% on the HashMap‑heavy hot path. The M3 is also faster than the M2 Pro on single‑core integer work, which accounts for some but not most of the gap.</dd>
+
+      <dt>What happens if the operator (that&apos;s us) goes down?</dt>
+      <dd>Two things. In the short term, the engine restarts from its latest snapshot plus WAL replay, so no accepted orders are lost. In the long term, any user can invoke <code>initiateEmergencyExit</code> on the settlement contract, wait seven days, and then <code>executeEmergencyExit</code> to withdraw their deposited funds directly — no operator signature required. Deposited funds are never in operator custody.</dd>
+
+      <dt>What stops the operator from censoring specific users?</dt>
+      <dd>The <code>/force-include</code> endpoint. In production this verifies an L1 Merkle proof that the request was submitted to a delayed inbox on Ethereum. Once submitted there, the request is guaranteed to be included in the next batch after a configurable timeout, or the operator can be slashed via fraud proof.</dd>
+
+      <dt>What stops the operator from stealing funds?</dt>
+      <dd>The settlement contract only lets the operator sign withdrawals. Every withdrawal requires an operator signature <em>and</em> matches the operator&apos;s off‑chain accounting via a state‑root fraud‑proof mechanism. The operator can sign more than a user is owed, but a fraud proof against the resulting state root will slash them. The recent contract security pass fixed a signature‑replay bug in this scheme — the withdraw hash now includes <code>address(this)</code> to prevent cross‑contract replay and consumes the nonce to prevent same‑contract replay.</dd>
+
+      <dt>Why not full ZK from day one?</dt>
+      <dd>Prover throughput. Producing a SNARK per batch at 2.5M ops/sec is 10&#8309;–10&#8310;× too slow with today&apos;s general‑purpose provers. The optimistic model gets us 95% of the security property (the 5% being time‑to‑finality) at 0% of the prover cost. When per‑batch STARK proving gets fast enough, the zkVM crate&apos;s <code>ZkProver</code> trait is where we swap in the real implementation.</dd>
+
+      <dt>How much state can the engine actually hold?</dt>
+      <dd>Bounded per‑market via <code>OrderBook::max_orders</code>. On the current Fly VM (2 vCPU, 2 GB) we can comfortably hold 10k orders per market across all sixteen markets while retaining the p50 numbers reported here. Serialised snapshots are ~1 MB at that load. Scaling to more state means either a larger VM, sharding markets across processes, or off‑loading historical order data to durable storage while keeping only the live book in memory.</dd>
+    </dl>
+
+    <h2><span class="num">14</span> Contact</h2>
+
+    <p>Vela is being built at <a href="https://monolithinvestmentslp.com">Monolith Investments LP</a>. The code is on <a href="https://github.com/Monolith-Investments-LP/vela">GitHub</a>, docs at <a href="https://monolithsystematicllc.mintlify.app/">monolithsystematicllc.mintlify.app</a>, and the live beta at <a href="https://vela.monolithsystematic.com/">vela.monolithsystematic.com</a> (Sepolia only — do not deposit real funds).</p>
+
+    <p>Reach me at <a href="mailto:asomu@ucsd.edu">asomu@ucsd.edu</a> with questions, corrections, or if you want to trade against it.</p>
+
+    <footer>
+      <span>© 2026 Arya Somu</span>
+      <span><a href="/">home</a> · <a href="https://github.com/Monolith-Investments-LP/vela">github</a></span>
+    </footer>
+  </div>
+</body>
+</html>
