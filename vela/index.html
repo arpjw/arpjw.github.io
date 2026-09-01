@@ -8,9 +8,9 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vela: a sub-microsecond verifiable spot DEX matching engine</title>
-  <meta name="description" content="Design notes on Vela: a Rust matching engine with 0.38 μs p50 match latency, 2.5M ops/sec, sharded per-market execution, and an optimistic-ZK settlement layer on Ethereum.">
+  <meta name="description" content="Design notes on Vela: a Rust matching engine with 0.38 μs p50 match latency, 2.5M ops/sec, sharded per-market execution, an optimistic-ZK settlement layer on Ethereum, and an agentic + institutional surface (MCP, capability tokens, reputation, borrow-lend, portfolio margin, perps, FIX).">
   <meta property="og:title" content="Vela: a sub-microsecond verifiable spot DEX matching engine">
-  <meta property="og:description" content="Design notes on Vela: a Rust matching engine with 0.38 μs p50 match latency, 2.5M ops/sec, sharded per-market execution, and an optimistic-ZK settlement layer on Ethereum.">
+  <meta property="og:description" content="Design notes on Vela: a Rust matching engine with 0.38 μs p50 match latency, 2.5M ops/sec, sharded per-market execution, an optimistic-ZK settlement layer on Ethereum, and an agentic + institutional surface (MCP, capability tokens, reputation, borrow-lend, portfolio margin, perps, FIX).">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://aryasomu.com/vela">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -226,12 +226,16 @@
       <li><a href="#sharded"><span class="n">06</span><span>Sharded dispatch</span></a></li>
       <li><a href="#api"><span class="n">07</span><span>API handler</span></a></li>
       <li><a href="#committer"><span class="n">08</span><span>Committer</span></a></li>
-      <li><a href="#zkvm"><span class="n">09</span><span>zkVM</span></a></li>
+      <li><a href="#verifiability"><span class="n">09</span><span>Verifiability</span></a></li>
       <li><a href="#features"><span class="n">10</span><span>Features</span></a></li>
-      <li><a href="#optimizations"><span class="n">11</span><span>Optimizations</span></a></li>
-      <li><a href="#extensions"><span class="n">12</span><span>Extensions</span></a></li>
-      <li><a href="#faq"><span class="n">13</span><span>FAQ</span></a></li>
-      <li><a href="#contact"><span class="n">14</span><span>Contact</span></a></li>
+      <li><a href="#agentic"><span class="n">11</span><span>Agentic surface</span></a></li>
+      <li><a href="#moneymarkets"><span class="n">12</span><span>Money markets</span></a></li>
+      <li><a href="#perps"><span class="n">13</span><span>Perpetuals</span></a></li>
+      <li><a href="#institutional"><span class="n">14</span><span>Institutional access</span></a></li>
+      <li><a href="#optimizations"><span class="n">15</span><span>Optimizations</span></a></li>
+      <li><a href="#extensions"><span class="n">16</span><span>What&apos;s next</span></a></li>
+      <li><a href="#faq"><span class="n">17</span><span>FAQ</span></a></li>
+      <li><a href="#contact"><span class="n">18</span><span>Contact</span></a></li>
     </ol>
   </nav>
 
@@ -255,6 +259,8 @@
     <p>Vela is a central limit order book written in Rust. Each market runs as its own concurrent shard. Every batch produces a keccak256 state root that gets anchored on Ethereum every ten minutes. Deposits and withdrawals go through an operator-signed smart contract with a seven-day emergency exit escape hatch. The matcher runs at 0.38 μs p50 and sustains 2.5 million operations per second in isolation. The end-to-end path across HTTP and WebSocket, including signature verification and WAL fsync, closes at 16.9 ms p50 on Apple M3 over loopback.</p>
 
     <p>The numbers are the headline but they aren&apos;t the point. The point is that every match is deterministic and replayable from the write-ahead log, hashed into a state root, and posted on a public chain. If we ever misreport what happened, anyone with the log can prove it. This piece walks through how the system fits together, the specific changes that made the numbers move, and the parts we haven&apos;t built yet.</p>
+
+    <p>The other thing that happened between the first writeup and this one is that the surface got wider. Session keys, iceberg orders, self-trade prevention, a points-and-referrals stack, historical data exports, an IEX-style speed bump, and an MM credit-vault LP product landed as the growth-unblock tier. A permissionless listing market, sub-accounts, volume-tiered maker rebates, a WebSocket drop-copy channel, and multi-chain deposit routing landed as the product-surface tier. On top of that we added an <em>agentic</em> surface (MCP server, capability-scoped session keys, ERC-8004 reputation attestations, verifiable-intent orders, prompt-injection firewall, copy-trading strategy contracts, signed backtest receipts) and a <em>large-scale</em> surface (spot borrow-lend money market, SPAN-style portfolio margin, a perpetuals crate scaffold, and a FIX 4.4 gateway). Sections 11 through 14 are the new material.</p>
 
     <h2 id="benchmarks"><span class="num">02</span> Benchmarks</h2>
 
@@ -339,7 +345,7 @@
 
     <h2 id="architecture"><span class="num">03</span> Architecture</h2>
 
-    <p>Vela is an eight-crate Cargo workspace. The split follows lock granularity: everything mutated on the hot path lives in <code>engine</code>, everything that touches disk or the network lives in <code>api</code>, and each cryptographic concern gets its own crate. The dependency graph is a straight line from shared types out to the wire.</p>
+    <p>Vela is a ten-crate Cargo workspace. The split follows lock granularity: everything mutated on the hot path lives in <code>engine</code>, everything that touches disk or the network lives in <code>api</code>, each cryptographic concern gets its own crate, and the two big product bets (perpetuals math and the FIX 4.4 codec) live in their own dependency-light crates so they can move without touching the matcher.</p>
 
     <figure>
       <svg class="svg-fig" viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vela architecture diagram">
@@ -573,7 +579,7 @@
 
     <p>The committer is also where forced-inclusion requests get injected. A user who thinks the operator is censoring their orders can call <code>/force-include</code> (production will verify an L1 Merkle proof that the request was posted to a delayed inbox on Ethereum; the current beta gates it on an admin token as a placeholder). Force-included requests get prepended to the next batch after a configurable timeout, bypassing the normal dispatch path.</p>
 
-    <h2 id="zkvm"><span class="num">09</span> zkVM</h2>
+    <h2 id="verifiability"><span class="num">09</span> Verifiability</h2>
 
     <p>Vela runs an optimistic-ZK settlement model, not full ZK per batch. Generating a STARK or SNARK proof over a matching-engine state transition function at 2.5M ops per second is four to six orders of magnitude too slow with today&apos;s provers. So we do what Arbitrum does: assume batches are valid, post the root, and let anyone challenge inside a fixed window.</p>
 
@@ -623,6 +629,10 @@
 
     <p>The <code>zkvm</code> crate ships with a <code>PlaceholderProver</code> that returns a deterministic tag rather than a real proof. The trait interface, the batch-proof storage, and the on-chain anchoring are wired up so that swapping in a real prover the day one is fast enough is a matter of replacing one implementation.</p>
 
+    <p>The prover is now selectable at boot via <code>VELA_PROVER=placeholder|sp1</code>. The SP1 path uses an HTTP-backed <code>Sp1Prover</code> that speaks to any SP1-compatible proving service (Succinct&apos;s Prover Network or a self-hosted <code>sp1-server</code>) via <code>VELA_SP1_PROVER_URL</code>. When no URL is set, it falls back to a deterministic <code>sp1-mock</code> pseudo-proof (a domain-tagged keccak of the public inputs) so downstream verification code has something concrete to exercise in CI without needing a live prover network. A matching <code>Sp1Verifier</code> re-derives the mock proof from public inputs for the mock branch and defers to a verify endpoint for the real branch. The remaining critical-path work is refactoring the matcher STF into a <code>no_std</code> core that compiles as an SP1 zkVM guest ELF; that&apos;s the multi-week piece.</p>
+
+    <p>The threshold-encrypted order book uses real BLS12-381 threshold ElGamal via the blst FFI, with Lagrange share reconstruction on the group side. Recent hardening: at key generation we now derive per-node public key shares <code>pk_i = share_i · G</code> and expose a <code>verify_pk_shares_reconstruct_group()</code> function that Lagrange-combines any <code>t</code> of them in the exponent and checks against the group pub key. Rotated or swapped share configs no longer pass silently. Full Chaum-Pedersen NIZK proofs of per-share correctness on the decrypt path (so a bad share can be attributed to a specific node cryptographically) are the audit-blocked follow-up.</p>
+
     <h2 id="features"><span class="num">10</span> Notable features</h2>
 
     <h3>Market-maker credit system</h3>
@@ -641,7 +651,7 @@
 
     <p>The most interesting thing on the roadmap, and the thing that&apos;s in the <code>committee</code> crate today as a working prototype, is a threshold-encrypted order book. Orders arrive as ciphertexts encrypted to a committee public key. A threshold of committee nodes runs partial decryption. The plaintext order is only revealed once <code>t</code>-of-<code>n</code> shares are combined. Every decryption produces a public proof that gets committed alongside the batch.</p>
 
-    <p>This buys frontrunning resistance at the sequencing layer. The operator can&apos;t peek at pending orders, can&apos;t reorder them by observed content, and can&apos;t sandwich a large taker. The current implementation uses HMAC-SHA256 as a placeholder for full BLS threshold signatures, and the committee is single-party in the beta. The pipeline (ciphertext arrival, pending queue, partial-decrypt request, threshold combine, proof recording) is fully wired.</p>
+    <p>This buys frontrunning resistance at the sequencing layer. The operator can&apos;t peek at pending orders, can&apos;t reorder them by observed content, and can&apos;t sandwich a large taker. The threshold ElGamal itself is real BLS12-381 via blst; the per-share HMAC that the committee nodes use for share-submission auth is the layer that still needs to move to per-share BLS signatures + Chaum-Pedersen correctness proofs before slashing is meaningful. The pipeline (ciphertext arrival, pending queue, partial-decrypt request, threshold combine, proof recording, per-node pk-share Lagrange consistency check) is fully wired.</p>
 
     <h3>Copy-on-write delta buffer</h3>
 
@@ -688,7 +698,79 @@
       <figcaption>Fig 6. DeltaBuffer as a copy-on-write overlay. Every mutation buffers first, then either commits atomically or discards.</figcaption>
     </figure>
 
-    <h2 id="optimizations"><span class="num">11</span> Optimizations</h2>
+    <h2 id="agentic"><span class="num">11</span> Agentic surface</h2>
+
+    <p>Autonomous agents are becoming a real fraction of trading intent. The interesting design question is not whether an exchange should let LLM-driven callers place orders, it&apos;s what a venue needs to expose so agent flow can be underpriced when it&apos;s clean and overpriced (or blocked) when it&apos;s adverse. Vela added an agentic surface with that framing.</p>
+
+    <p><strong>MCP server.</strong> A JSON-RPC 2.0 endpoint at <code>POST /mcp</code> speaks the Model Context Protocol so any MCP-capable client (Claude Desktop, agent runtimes) discovers eight tools out of the box: <code>list_markets</code>, <code>book_snapshot</code>, <code>toxicity_score</code>, <code>points</code>, <code>portfolio</code>, <code>place_order</code>, <code>cancel_order</code>, <code>place_twap</code>. The signed-order tools reuse the master-or-agent verification path so an agent using its delegated session key can operate without exposing the master signature to the model.</p>
+
+    <p><strong>Capability tokens on session keys.</strong> Session keys were the biggest single UX unlock (no more MetaMask popup per order); capability tokens are the risk layer that makes them safe to hand to an agent. An <code>AgentDelegation</code> now carries a <code>CapabilityScope</code>: allowed markets, allowed sides, allowed order types, max notional per hour, max notional per day. The scope is hashed into the delegation-signing message so a compromised agent can&apos;t widen its own permissions post-hoc. Rate enforcement runs as a two-phase check-and-record with atomic rollback on rejection so caps stay tight under concurrent order submission.</p>
+
+    <p><strong>ERC-8004 reputation attestations.</strong> Every taker fill Vela processes is already public evidence. On top of that we emit portable reputation attestations: an operator-ECDSA-signed <code>(address, dimension, score_bps, expires_at)</code> tuple where <code>score_bps</code> is a weighted average of clean-flow (1 − average toxicity), volume, and activity. Attestations expire in 24 h so a downgrade in behavior actually costs the address something. Relying parties (Vela&apos;s own RFQ and credit-line paths, plus external ERC-8004-aware venues) verify the signature offline against the operator&apos;s well-known pubkey.</p>
+
+    <p><strong>Agent-flow toxicity tier.</strong> The existing per-fill toxicity score got aggregated into a green / amber / red tier per address (thresholds default 0.3 and 0.6, notional-weighted rolling 30-day average, taker-side only). Green flow is unrestricted. Amber flow gets an extra 1 ms deterministic delay stacked on the IEX speed bump, so it still trades but doesn&apos;t win the quote-cancel race. Red flow is blocked at order intake until an operator clears it. Human retail almost never hits amber; badly-tuned bots do.</p>
+
+    <p><strong>Verifiable-intent order type.</strong> A <code>POST /orders/from-intent</code> endpoint accepts signed natural-language intents (&ldquo;buy 0.5 BTC-USDC at market&rdquo;, &ldquo;sell 100 SOL-USDC limit 145.25 post-only&rdquo;) and runs them through a hand-rolled deterministic parser. The intent goes through a prompt-injection firewall first (regex + heuristics for override-instruction patterns, chat-template tokens, zero-width joiners, RTL overrides, oversize base64 blobs); a Block verdict short-circuits before the parser sees the text. On accept, the response is a signed receipt binding the raw intent bytes plus the parsed order plus a keccak256 <code>intent_hash</code>, so an auditor can re-derive the parse offline and prove what the agent meant vs. what the exchange saw.</p>
+
+    <p><strong>Reasoning-trace audit log.</strong> Any signed order can carry an optional keccak256 hash of the caller&apos;s model reasoning trace plus an agent identifier string. Vela stores the hash on the order record, emits a structured tracing event on <code>target=reasoning_trace</code> for operator log aggregators, and exposes <code>POST /agents/reasoning/attest</code> which returns an operator-signed EIP-191 receipt binding <code>(address, hash, agent_id, order_id, ts)</code>. The trace itself stays in the caller&apos;s own S3 or private log; Vela commits only the hash, so compliance auditors can prove the trace existed at submission time without Vela storing it.</p>
+
+    <p><strong>Copy-trading strategy contracts.</strong> A strategy owner publishes a signed identity; followers subscribe with an <code>allocation_bps</code> and optional per-trade notional cap. Every mirrored order remains a normal signed order attributed to the follower. Owner cannot pull follower funds, cannot skim, cannot silently swap the strategy identity. <code>mirror_quantity()</code> scales follower size by <code>allocation_bps</code> with the notional cap applied per fill.</p>
+
+    <p><strong>Reputation-collateralized credit lines.</strong> Agents with a non-expired reputation attestation can open a short-duration credit line sized by <code>score_bps × $10/bp</code> (default). The line auto-expires after 5 min; a background sweep every 10 s emits a warn-level event if the address is still drawn when it expires so ops can force-flatten. The idea is to underprice the collateral-fragmentation cost that keeps well-behaved agent flow on centralized venues.</p>
+
+    <p><strong>Backtest attestation.</strong> A strategy owner can submit claimed backtest metrics (total return, drawdown, trade count, Sharpe) plus a window and a replay-hash. Vela counts the actual trades in the tape over that window, runs a deterministic sanity gate (drawdown ≤ 100%, trade_count ≤ tape, |Sharpe| ≤ 20, window well-formed), and returns an operator-signed receipt covering the whole tuple. The guarantee is narrow but real: the claimed metrics were derived from Vela&apos;s actual tape, not a fabricated dataset. Deterministic re-execution inside the fraud-proof harness is the follow-up.</p>
+
+    <p><strong>Machine-readable stream schema.</strong> Every WebSocket message shape (order-book snapshot, trade, markets, account envelope, drop-copy fill, bare admin) is published as JSON Schema draft 2020-12 at <code>GET /agent-stream/schema.json</code>. Agent runtimes with structured-output support (OpenAI, Anthropic, Google) constrain their generated messages against it; agents with a JSON Schema validator reject malformed inbound messages instead of accepting them and crashing later.</p>
+
+    <h2 id="moneymarkets"><span class="num">12</span> Money markets and portfolio margin</h2>
+
+    <p>Leveraged spot is the missing rung between cash spot and perps. Vela added a two-asset borrow-lend pool (USDC + ETH seeded, wBTC next) with the machinery to grow.</p>
+
+    <p><strong>Interest-rate model.</strong> Kink curve, similar in shape to Compound V2 and Aave. Below the kink (default 80% utilization) the borrow rate is base + slope1 × u/u_kink. Above it, base + slope1 + slope2 × (u − u_kink)/(1 − u_kink). Defaults: 0 / 400 bps / 20 000 bps. Supply rate = borrow rate × utilization × (1 − reserve factor). Reserve factor default 10%.</p>
+
+    <p><strong>Accrual.</strong> Index-based, lazy: each supply/borrow position stores a scaled principal; the market maintains borrow_index and supply_index (both starting at 1e18 ray) that tick up on any interaction. No per-block cron. Current-balance queries just multiply the stored principal by the current index. Interest accrued on the outstanding borrow book gets split between the reserve pool and the supply index in one pass.</p>
+
+    <p><strong>Liquidations.</strong> Health factor = borrowing power / total borrow value, in bps. Under 10 000 = liquidatable. Public liquidator endpoint with a 50% close-factor cap: repay in one asset, seize in another at price × (1 + liquidation_bonus_bps), default 500 bps. Every borrow and every withdraw is HF-gated with atomic rollback if the post-op HF drops below 10 000.</p>
+
+    <p><strong>Portfolio margin.</strong> A separate SPAN-style scenario-sweep engine runs on top of the borrow-lend positions. Twelve shocks per risk factor (BTC as primary at −30% / −20% / −10% / −5% / −2% / 0 / +2% / +5% / +10% / +20% / +30% plus a −50% extreme), scaled by each asset&apos;s correlation to BTC (env-configurable, defaults 90% for ETH, 75% for SOL, 0 for anything unmodeled). Account is solvent iff every scenario nets to ≥ maintenance requirement (default 5% of gross notional); opening a new position requires passing the initial threshold (default 10%). <code>positions_from_borrow_lend()</code> surfaces supplies as long positions and borrows as shorts so the sweep already sees today&apos;s balances. A <code>/portfolio-margin/preview/:address</code> endpoint runs the sweep against a hypothetical extra position so a caller can check whether a proposed order would push them under water.</p>
+
+    <p>The bet: an MM quoting BTC/USDC + ETH/USDC pays for margin twice under isolated rules even though the drawdowns are 90% correlated. Under portfolio margin, the hedged book&apos;s capital requirement drops toward the residual scenario risk, and the correlations show up in the math instead of being ignored.</p>
+
+    <h2 id="perps"><span class="num">13</span> Perpetuals</h2>
+
+    <p>Perps are where volume and revenue on DEXs actually live. Vela shipped the ledger side first in its own <code>perp</code> crate so the matching-engine integration and the ledger accounting can move in parallel.</p>
+
+    <p><strong>Position math.</strong> <code>Position</code> carries a signed <code>size</code> (positive = long, negative = short), a volume-weighted <code>entry_price</code>, a <code>funding_index_snapshot</code>, and cumulative <code>realized_pnl_micro_usdc</code>. <code>apply_fill(pos, fill_size, fill_price)</code> handles four cases in one pass: open, add-to (VWAP the entry), close (realize P&amp;L on the closed portion), and flip-and-reopen (realize the close, then reopen the residual at the fill price). All arithmetic on <code>i128</code> so sign handling stays legible.</p>
+
+    <p><strong>Funding.</strong> Rate = (mark − index)/index + interest, in bps per hour, clamped ±<code>max_funding_bps_per_hour</code> (default 100 bps/hour). <code>accrue_funding()</code> advances the market&apos;s cumulative <code>funding_index</code> by rate × elapsed_ms scaled into price space. <code>settle_funding()</code> subtracts <code>(delta × size)/SIZE_SCALE</code> from a position&apos;s realized P&amp;L and updates its snapshot. Longs pay when premium is positive; shorts receive.</p>
+
+    <p><strong>Margin.</strong> Initial margin bps = 10 000 / max_leverage. Maintenance = initial × maint_ratio_bps (default 5000 = 50%). <code>margin_report()</code> returns notional, initial requirement, maintenance requirement, unrealized P&amp;L, equity, and pass/fail booleans. <code>liquidation_price_micro_usdc()</code> computes the price at which equity first hits maintenance — useful as a UI signal even before a real liquidator ships.</p>
+
+    <p><strong>Service layer.</strong> <code>api::perp_service::PerpRegistry</code> seeds 8 majors at their configured leverages (BTC/ETH 50×, SOL/LINK 20×, HYPE/SUI/DOGE/ARB 10×). Endpoints: <code>GET /perp/markets</code> (accrues on read, shows funding rate + OI + margin bps), <code>GET /perp/account/:address</code> (per-position margin report with settled funding), <code>POST /perp/positions/open</code> (signed manual fill for dev/testing until the matcher bridge lands), <code>POST /perp/admin/mark</code> (signed mark bump until Pyth is wired).</p>
+
+    <p>What&apos;s not yet done: the matching-engine bridge (route perp orders through the existing sharded matcher with a margin gate on dispatch), Pyth pull-based index prices with Chainlink secondary and a 10 s staleness guard, insurance fund + ADL, the ZK circuit extension for the perp STF. That&apos;s the multi-quarter piece.</p>
+
+    <h2 id="institutional"><span class="num">14</span> Institutional access</h2>
+
+    <p>Serious flow does not walk in through a browser wallet. What follows is the collection of features that add up to &ldquo;can a real desk connect.&rdquo;</p>
+
+    <p><strong>FIX 4.4 gateway.</strong> Every institutional OMS speaks FIX. WebSocket JSON forces custom adapters and gets a hard &ldquo;no&rdquo; from compliance-gated funds. Vela added a hand-rolled <code>fix</code> crate (SOH-delimited tag=value codec, BodyLength + checksum, typed builders for Logon / Heartbeat / TestRequest / ResendRequest / Logout / Reject / NewOrderSingle / OrderCancelRequest / OrderCancelReplace / ExecutionReport / OrderCancelReject) plus an <code>api::fix_gateway</code> tokio TCP listener that spins up when <code>VELA_FIX_BIND</code> is set. One task per connection, streaming parser draining complete frames from a rolling buffer, <code>SessionState</code> stamps outbound with monotonic <code>MsgSeqNum</code> and enforces monotonicity inbound. Logon → Heartbeat loop → NewOrderSingle → ExecutionReport(New/New) is the session envelope today; the bridge into <code>AppState.order_tx</code> with FIX→<code>PostOrderBody</code> translation is the next commit. Rolling FIX ourselves instead of wrapping quickfix-rs eliminates the C++ dependency that&apos;s painful on Fly.io and in distroless containers.</p>
+
+    <p><strong>Sub-accounts + master API keys.</strong> One master wallet spawns N logically isolated child accounts, each with its own balance, positions, API key, and permissions (trade-only, read-only, withdraw). Non-negotiable for any prop desk running multi-strategy books; every child derives deterministically from the master signature so there&apos;s nothing new to register.</p>
+
+    <p><strong>Volume-tiered maker rebates + formal MM program.</strong> A published fee schedule tied to 30-day rolling volume, evaluated at fill time so a maker whose volume just crossed a threshold sees the new rebate on the very next fill. MMs are P&amp;L-driven; without a rebate ladder they won&apos;t quote tight.</p>
+
+    <p><strong>WebSocket drop-copy.</strong> A <code>dropcopy:0x&lt;address&gt;</code> channel mirrors every fill on the account, delivered to the risk / back-office system on a separate connection from the trading connection. Institutions mandate segregation-of-duties: trading and risk systems consume fills independently.</p>
+
+    <p><strong>MM credit vaults.</strong> LPs deposit USDC into a vault run by a chosen operator; PnL and fees stream on-chain. Vela&apos;s existing 5× MM credit system is the substrate — operators get leverage, LPs get the yield. Turns an internal MM feature into a retail product no competitor can copy without also having the credit system.</p>
+
+    <p><strong>Permissionless market listing.</strong> Anyone posts a USDC bond plus oracle spec plus tick/lot params; the market goes live after a delay if unchallenged. HIP-1-style auction. The bond and the &ldquo;unvetted&rdquo; tag mitigate scam-token brand risk.</p>
+
+    <p><strong>RFQ / block-trade venue.</strong> Off-book quote request for trades above the min-notional floor (default 250k USDC). Whitelisted MMs post signed quotes; requester accepts one; the trade settles atomically through the same delta-buffer path as CLOB matches. Book-improvement is enforced at accept time so an MM cabal can&apos;t collude to fill worse than the requester could have gotten in the book. As of Tier 3 the maker slot also admits any address with a non-expired reputation attestation ≥ 6000 bps, tagged with a <code>MakerProvenance</code> so the requester can see whether a quote came from a human desk or an agent maker.</p>
+
+    <p><strong>Session keys / agent wallets.</strong> ECDSA subkeys delegated by the master via signed enrollment, scoped and rate-limited (see Section 11). The single biggest UX win: no MetaMask popup per order. Master compromises still let the attacker revoke or rotate every agent; agent compromises are bounded by the CapabilityScope.</p>
+
+    <h2 id="optimizations"><span class="num">15</span> Optimizations</h2>
 
     <p>The path from &ldquo;works&rdquo; to sub-microsecond p50 was mostly a sequence of surgical changes, each measured before and after. The high-signal ones:</p>
 
@@ -748,19 +830,21 @@
 
     <p>The single-mutex matcher scales linearly with active markets. Sixteen markets doing 100k operations per second each all contend on the same lock. Sharding gives each market its own lock and lets the sixteen shards make progress concurrently, with the three-phase protocol described earlier keeping the shared user state coherent. The 2.5M ops per second figure in Tier 1 is achievable specifically because the ten-market benchmark can dispatch across ten shards without lock contention.</p>
 
-    <h2 id="extensions"><span class="num">12</span> Extensions</h2>
+    <h2 id="extensions"><span class="num">16</span> What&apos;s next</h2>
 
-    <p>What&apos;s deliberately not yet real:</p>
+    <p>Where the placeholders still sit, and what the honest gap is:</p>
 
     <ul>
-      <li><strong>Real threshold cryptography</strong> in the committee. The TEOB pipeline uses HMAC-SHA256 placeholders where it should have BLS threshold signatures. The interfaces and the pending-order queue are production-ready. The crypto is not.</li>
-      <li><strong>Real TEE attestation.</strong> The <code>tee</code> crate ships a <code>PlaceholderAttester</code>. The consumer of an attestation record verifies its shape, not its cryptographic authenticity. Wiring AMD SEV-SNP attestation into the request path is well-scoped work we haven&apos;t done yet.</li>
-      <li><strong>Real ZK proofs.</strong> Same shape as the TEE story. The crate exists, the placeholder produces deterministic tags, the pipeline handles proofs correctly when they arrive. What&apos;s missing is a fast-enough prover.</li>
-      <li><strong>Full consensus layer.</strong> Vela today is one operator plus fraud proofs. A production version wants HyperBFT-style validator consensus so a single machine failure doesn&apos;t take the exchange offline. Large piece of work; we&apos;re prioritizing audit and mainnet first.</li>
-      <li><strong>Smart contract audit</strong> and <strong>mainnet deployment.</strong> Sepolia only, for now. A recent security pass caught a fund-at-risk bug in the withdrawal signature scheme (replay after redeposit) which is fixed and fuzz-tested, but the contract has not been through an external audit and shouldn&apos;t hold real funds until it is.</li>
+      <li><strong>Full BLS-signed decrypt shares.</strong> The threshold ElGamal itself is real; the per-share HMAC used for committee-node auth needs to move to per-share BLS signatures with Chaum-Pedersen NIZK correctness proofs so a bad <code>sk_i · R</code> can be attributed to a specific node and slashed. External audit (Trail of Bits, Least Authority, or Sigma Prime) is the gating dependency.</li>
+      <li><strong>Real TEE attestation.</strong> The <code>tee</code> crate still ships a <code>PlaceholderAttester</code>. Wiring AMD SEV-SNP attestation into the request path is well-scoped work with the interfaces already in place; timing is a function of the mainnet-audit calendar.</li>
+      <li><strong>Real SP1 proofs at scale.</strong> The prover trait, verifier trait, factory, HTTP path, and mock fallback all landed. What&apos;s missing is the <code>no_std</code> matcher-core refactor so the STF compiles as an SP1 zkVM guest ELF. That&apos;s the multi-week critical path per the roadmap; the surrounding wiring is done so the swap-in is local.</li>
+      <li><strong>Perp matching-engine bridge.</strong> The <code>perp</code> crate owns position accounting and funding accrual. The matcher extension (route perp orders through the sharded matcher, plug a margin gate into dispatch), Pyth pull-based index prices with a Chainlink secondary and a 10 s staleness guard, insurance fund + ADL, and the ZK circuit extension for the perp STF are all follow-ups.</li>
+      <li><strong>FIX order bridge.</strong> The session layer and codec ship today; NewOrderSingle currently acks with a synthetic <code>ExecutionReport(New/New)</code> so a FIX conformance client can validate the round-trip. Translating FIX fields into <code>PostOrderRequest</code> and pushing them through <code>AppState.order_tx</code> is the next commit.</li>
+      <li><strong>Full consensus layer.</strong> Vela today is one operator plus fraud proofs. The roadmap picks rotating single-sequencer per epoch (24 h) via on-chain bond-weighted election over full HyperBFT, on the argument that 100–400 ms of consensus latency dilutes the whole point of the matcher. TEOB committee + fraud proofs + force inclusion carry the safety/liveness guarantees.</li>
+      <li><strong>Smart contract audit</strong> and <strong>mainnet deployment.</strong> Sepolia only, for now. A recent security pass caught a fund-at-risk bug in the withdrawal signature scheme (replay after redeposit) which is fixed and fuzz-tested, but <code>VelaSettlement.sol</code> has not been through an external audit and shouldn&apos;t hold real funds until it is.</li>
     </ul>
 
-    <h2 id="faq"><span class="num">13</span> FAQ</h2>
+    <h2 id="faq"><span class="num">17</span> FAQ</h2>
 
     <dl class="faq">
       <dt>How is 2.5M ops/sec possible when Pulse gets 125k with the same methodology?</dt>
@@ -780,9 +864,18 @@
 
       <dt>How much state can the engine actually hold?</dt>
       <dd>Bounded per market via <code>OrderBook::max_orders</code>. On the current Fly VM (2 vCPU, 2 GB), the engine holds 10k orders per market across all sixteen markets while keeping the p50 numbers reported here. Serialized snapshots are around 1 MB at that load. Scaling further means either a larger VM, sharding markets across processes, or offloading historical order data while keeping only the live book in memory.</dd>
+
+      <dt>Why bet on agent flow this early?</dt>
+      <dd>Two reasons. First, well-scoped agent flow is <em>cheap</em> flow to serve: the API is deterministic, the risk envelope is capped by CapabilityScope, and adverse selection can be measured per-address in the same toxicity pipeline the exchange already runs. Second, the interfaces (MCP, ERC-8004, structured-output-friendly schema) are commodity today. Waiting a year buys nothing and cedes the well-behaved end of the flow curve to whoever ships first.</dd>
+
+      <dt>Are the perps live?</dt>
+      <dd>No. What&apos;s live today is the <code>perp</code> crate&apos;s ledger — position accounting, funding-index accrual, margin math, and a service-layer with signed manual-fill endpoints for dev testing. The matching-engine bridge, Pyth wiring, insurance fund, and ZK circuit extension are the multi-quarter follow-up. Publishing the ledger side first lets us wire real integration tests against margin and funding before the matcher extension ships.</dd>
+
+      <dt>Is portfolio margin safe when correlations blow out?</dt>
+      <dd>The scenario sweep includes a −5000 bps &ldquo;custom extreme&rdquo; shock alongside the ±30% band precisely to catch tail correlation. A hedged book that passes maintenance at ±30% but blows up at −50% will fail the sweep, which is the intended behavior. Correlations are env-configurable per asset so an operator can drop them (or set them to zero) as regime changes; the wrong response to a rising-correlation regime is to keep quoting under 60%-correlation assumptions.</dd>
     </dl>
 
-    <h2 id="contact"><span class="num">14</span> Contact</h2>
+    <h2 id="contact"><span class="num">18</span> Contact</h2>
 
     <p>Vela is being built at <a href="https://monolithinvestmentslp.com">Monolith Investments LP</a>. Code is on <a href="https://github.com/Monolith-Investments-LP/vela">GitHub</a>, docs at <a href="https://monolithsystematicllc.mintlify.app/">monolithsystematicllc.mintlify.app</a>, and the live beta at <a href="https://vela.monolithsystematic.com/">vela.monolithsystematic.com</a> (Sepolia only; do not deposit real funds).</p>
 
