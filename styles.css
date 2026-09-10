@@ -197,6 +197,87 @@ main { margin-top: 1.5rem; }
 .project-links a { text-decoration-color: var(--border); text-underline-offset: 0.18em; }
 .project-links a:hover { color: var(--foreground); }
 
+/* Work */
+
+.work-site { width: min(100% - 2.5rem, 34rem); }
+.work-main { margin-top: 3.5rem; }
+.work-main > h1,
+.work-project h2 {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.work-list { display: grid; gap: 2.5rem; margin-top: 1.5rem; }
+.work-project > p { margin: 0.25rem 0 0; color: var(--body); }
+.tarot-project { padding: 1.25rem; background: #edf3ff; }
+.project-heading { display: flex; align-items: center; gap: 0.75rem; }
+.project-heading img { width: 1.75rem; height: 1.75rem; object-fit: contain; }
+.project-heading a { color: #667085; font-family: var(--sans); font-size: 0.75rem; text-decoration: none; }
+.project-heading a:hover, .project-heading a:focus-visible { color: #1646c0; }
+.tarot-project .release-list { margin-top: 1rem; padding: 0; border: 0; border-top: 1px solid #d1ddf4; }
+.tarot-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #d1ddf4; color: #667085; font-family: var(--sans); font-size: 0.75rem; }
+.tarot-project .release-row > span { display: inline; margin: 0; }
+.tarot-project .release-row > span:first-child { color: #303846; }
+.tarot-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b9c8e5; text-underline-offset: 0.18em; }
+.tarot-project .release-row a:hover, .tarot-project .release-row a:focus-visible { color: #1646c0; }
+.vela-project {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 1.25rem;
+  background: #0d0d0c;
+}
+.vela-project::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.22) 0 0.6px, transparent 0.8px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.14) 0 0.6px, transparent 0.8px);
+  background-position: 0 0, 6px 4px;
+  background-size: 12px 8px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.vela-project h2,
+.vela-project .prose-link { color: #e8e5de; }
+.vela-project > p { color: #9a9892; }
+.vela-project .project-meta { color: #706f6b !important; }
+.vela-project .project-links { margin-top: 0.7rem; color: #888681; }
+.vela-project .project-links a { text-decoration-color: #393936; }
+.vela-project .project-links a:hover,
+.vela-project .project-links a:focus-visible { color: #e8e5de; }
+.project-meta { color: var(--faint) !important; font-family: var(--sans); font-size: 0.75rem; }
+.velocity-project { padding: 1.25rem; border: 1px solid #e0e9de; background: #f2f7f0; }
+.velocity-project .project-links { margin-top: 0.7rem; color: #73806f; }
+.velocity-project .project-links a { text-decoration-color: #c7d4c3; }
+.velocity-project .project-links a:hover,
+.velocity-project .project-links a:focus-visible { color: #385c33; }
+.work-site .socials { margin-top: 4rem; }
+
+html.dark .tarot-project { background: #111827; }
+html.dark .project-heading a,
+html.dark .tarot-project .release-row { color: #9099aa; }
+html.dark .tarot-project .release-list,
+html.dark .tarot-project .release-row { border-color: #26334b; }
+html.dark .tarot-project .release-row > span:first-child { color: #d9e2f2; }
+html.dark .tarot-project .release-row a { color: inherit; text-decoration-color: #3a4965; }
+html.dark .velocity-project { border-color: #273125; background: #111710; }
+html.dark .velocity-project .project-links { color: #7f8d7b; }
+html.dark .velocity-project .project-links a { text-decoration-color: #344231; }
+html.dark .velocity-project .project-links a:hover,
+html.dark .velocity-project .project-links a:focus-visible { color: #b8cbb3; }
+
+@media (max-width: 36rem) {
+  .work-site { width: min(100% - 2.5rem, 34rem); padding-top: 3rem; }
+  .work-main { margin-top: 3rem; }
+  .tarot-project .release-row { align-items: flex-start; }
+  .tarot-project .release-row > span:last-child { text-align: right; }
+}
+
 @media (max-width: 36rem) {
   .site { padding-top: 3rem; }
   .bio { gap: 1.6rem; }

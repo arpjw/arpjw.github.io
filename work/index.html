@@ -21,8 +21,8 @@
     })();
   </script>
 </head>
-<body>
-  <div class="site">
+<body class="work-page">
+  <div class="site work-site">
     <header class="topbar">
       <nav class="nav" aria-label="Primary navigation">
         <a href="../">Arya</a>
@@ -36,28 +36,43 @@
       </button>
     </header>
 
-    <main>
-      <h1 class="sr-only">Selected work</h1>
-      <div class="projects">
-        <article class="project">
-          <h2>Tarot-Draw</h2>
-          <p>Laplace Research's inaugural family of language models.</p>
-          <div class="project-links">
-            <span>1.7B <a href="https://github.com/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
-            <span>4B <a href="https://github.com/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
-            <span>8B <a href="https://github.com/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
+    <main class="work-main">
+      <h1>Selected work</h1>
+
+      <div class="work-list">
+        <article class="work-project tarot-project">
+          <header class="project-heading">
+            <img src="../laplace-asterisk.png" alt="" width="32" height="32">
+            <div>
+              <h2>Tarot-Draw</h2>
+              <a href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer">Laplace Research ↗</a>
+            </div>
+          </header>
+          <p>A family of foundation models for calibrated forecasting.</p>
+          <div class="release-list" aria-label="Tarot-Draw model releases">
+            <div class="release-row"><span>1.7B</span><span><a href="https://github.com/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span></div>
+            <div class="release-row"><span>4B</span><span><a href="https://github.com/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span></div>
+            <div class="release-row"><span>8B</span><span><a href="https://github.com/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span></div>
           </div>
         </article>
 
-        <article class="project">
+        <article class="work-project vela-project">
           <h2><a class="prose-link" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener noreferrer">Vela</a></h2>
-          <p>The fastest published verifiable decentralized-exchange matching engine.</p>
-          <div class="project-links"><a href="../vela/">Technical writeup</a></div>
+          <p>A verifiable decentralized exchange with a sub-microsecond matching engine.</p>
+          <p class="project-meta">0.38 μs p50 · 2.5M operations per second</p>
+          <div class="project-links">
+            <a href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener noreferrer">Exchange ↗</a>
+            <a href="../vela/">Technical writeup</a>
+            <a href="https://github.com/arpjw/vela" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
         </article>
 
-        <article class="project">
-          <h2><a class="prose-link" href="https://robinhood.aryasomu.com" target="_blank" rel="noopener noreferrer">Velocity</a></h2>
+        <article class="work-project velocity-project">
+          <h2>Velocity</h2>
           <p>Prediction-market velocity signals through Robinhood's MCP.</p>
+          <div class="project-links">
+            <a href="https://robinhood.aryasomu.com" target="_blank" rel="noopener noreferrer">View project ↗</a>
+          </div>
         </article>
       </div>
     </main>
