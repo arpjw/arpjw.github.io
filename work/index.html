@@ -4,17 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="favicon.ico" sizes="any">
-  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
-  <link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css">
-  <title>Arya Somu</title>
-  <meta name="description" content="Research, work, and notes by Arya Somu.">
-  <meta property="og:title" content="Arya Somu">
-  <meta property="og:description" content="Research, work, and notes by Arya Somu.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://aryasomu.com/">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css">
+  <title>Work · Arya Somu</title>
+  <meta name="description" content="Selected work by Arya Somu.">
   <script>
     (function () {
       try {
@@ -27,15 +22,11 @@
   </script>
 </head>
 <body>
-  <div class="splash" role="status" aria-label="Introducing Arya Somu" tabindex="0">
-    <pre class="splash__art" aria-hidden="true"></pre>
-  </div>
-
-  <div class="site home-site">
+  <div class="site">
     <header class="topbar">
       <nav class="nav" aria-label="Primary navigation">
-        <a href="./" aria-current="page">Arya</a>
-        <a href="work/">Work</a>
+        <a href="../">Arya</a>
+        <a href="./" aria-current="page">Work</a>
         <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
         <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer">Writing</a>
       </nav>
@@ -46,17 +37,29 @@
     </header>
 
     <main>
-      <div class="bio">
-        <p>Judgement and calibration are the bottlenecks to good decisions under uncertainty. Models can now produce forecasts at scale, but not ones whose confidence you can take at face value. What we're building at <a class="prose-link" href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer">Laplace Research</a> is our attempt at solving the latter, so human judgement can be spent choosing which questions matter rather than second-guessing the answers.</p>
-        <p>I study CS and Math at the <a class="prose-link" href="https://cse.ucsd.edu/" target="_blank" rel="noopener noreferrer">University of California, San Diego</a> and research efficient rare event algorithms at <a class="prose-link" href="https://fintech.stanford.edu/" target="_blank" rel="noopener noreferrer">Stanford's AFT Lab</a>. I also build open-source exchange infrastructure at <a class="prose-link" href="https://touchstonemarkets.xyz/" target="_blank" rel="noopener noreferrer">Touchstone Markets</a>. I'm broadly interested in continual learning, exchange operations, and frontier intelligence.</p>
-        <p>Previously, I founded <a class="prose-link" href="https://monolithinvestmentslp.com/" target="_blank" rel="noopener noreferrer">Monolith Investments LP</a>. Most recently, I built agents across trading and security at <a class="prose-link" href="https://www.tryalexandria.ai/" target="_blank" rel="noopener noreferrer">Alexandria</a>. Before that, I worked on prepayment modeling and OAS analysis at <a class="prose-link" href="https://www.esplanadecapital.com/" target="_blank" rel="noopener noreferrer">Esplanade Capital</a>.</p>
-        <p>I grew up in San Francisco and live between San Diego and Seattle. When I'm free, I'm usually playing very competitive poker, badminton, or building something.</p>
-      </div>
+      <h1 class="sr-only">Selected work</h1>
+      <div class="projects">
+        <article class="project">
+          <h2>Tarot-Draw</h2>
+          <p>Laplace Research's inaugural family of language models.</p>
+          <div class="project-links">
+            <span>1.7B <a href="https://github.com/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
+            <span>4B <a href="https://github.com/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
+            <span>8B <a href="https://github.com/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">Hugging Face</a></span>
+          </div>
+        </article>
 
-      <figure class="cover">
-        <img src="early-sunday-morning.png" alt="A quiet row of red-brick storefronts in early morning light, painted by Edward Hopper" width="1184" height="695">
-        <figcaption><cite>Early Sunday Morning</cite>, 1930 · Edward Hopper</figcaption>
-      </figure>
+        <article class="project">
+          <h2><a class="prose-link" href="https://vela.monolithsystematic.com/" target="_blank" rel="noopener noreferrer">Vela</a></h2>
+          <p>The fastest published verifiable decentralized-exchange matching engine.</p>
+          <div class="project-links"><a href="../vela/">Technical writeup</a></div>
+        </article>
+
+        <article class="project">
+          <h2><a class="prose-link" href="https://robinhood.aryasomu.com" target="_blank" rel="noopener noreferrer">Velocity</a></h2>
+          <p>Prediction-market velocity signals through Robinhood's MCP.</p>
+        </article>
+      </div>
     </main>
 
     <footer class="socials" aria-label="Social links">
@@ -68,6 +71,6 @@
     </footer>
   </div>
 
-  <script src="site.js"></script>
+  <script src="../site.js"></script>
 </body>
 </html>
