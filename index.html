@@ -51,9 +51,17 @@
         <p>I love badminton, pickleball, and anything that involves both a racket and my friends. I have a lot I want to accomplish before I die, so expect this page to change a lot as I check things off my list.</p>
       </div>
 
-      <figure class="cover">
-        <img src="early-sunday-morning.png" alt="A quiet row of red-brick storefronts in early morning light, painted by Edward Hopper" width="1184" height="695">
-        <figcaption><cite>Early Sunday Morning</cite>, 1930 · Edward Hopper</figcaption>
+      <figure class="cover hopper-gallery" aria-label="Edward Hopper paintings" aria-roledescription="carousel">
+        <div class="hopper-gallery__frame">
+          <button class="hopper-gallery__arrow hopper-gallery__arrow--previous" type="button" aria-label="Previous painting">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <img class="hopper-gallery__image" src="early-sunday-morning.png" alt="A quiet row of red-brick storefronts in early morning light, painted by Edward Hopper" width="1184" height="695">
+          <button class="hopper-gallery__arrow hopper-gallery__arrow--next" type="button" aria-label="Next painting">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+        <figcaption aria-live="polite"><cite data-gallery-title>Early Sunday Morning</cite>, <span data-gallery-year>1930</span> · Edward Hopper <span class="sr-only" data-gallery-status>Painting 1 of 8</span></figcaption>
       </figure>
     </main>
 
