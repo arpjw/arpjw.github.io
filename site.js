@@ -15,91 +15,101 @@
   });
   setThemeButton();
 
-  var gallery = document.querySelector('.hopper-gallery');
+  var gallery = document.querySelector('.photo-gallery');
   if (gallery) {
-    var paintings = [
+    var photos = [
       {
-        src: 'early-sunday-morning.png',
-        title: 'Early Sunday Morning',
-        year: '1930',
-        alt: 'A quiet row of red-brick storefronts in early morning light, painted by Edward Hopper'
+        src: 'friends/01-before-college.jpg',
+        caption: 'My friends and I before splitting up for college!',
+        alt: 'Arya and friends together before leaving for college'
       },
       {
-        src: 'hopper/automat.jpg',
-        title: 'Automat',
-        year: '1927',
-        alt: 'A woman sitting alone at a cafe table at night, painted by Edward Hopper'
+        src: 'friends/02-de-anza.jpg',
+        caption: 'My OG friend group at De Anza',
+        alt: 'Seven friends pose for a group selfie outdoors'
       },
       {
-        src: 'hopper/house-by-the-railroad.jpg',
-        title: 'House by the Railroad',
-        year: '1925',
-        alt: 'A tall Victorian house beyond a railroad track, painted by Edward Hopper'
+        src: 'friends/03-lake-trip.jpg',
+        caption: 'My friends and I on our lake trip! (Summer 2025)',
+        alt: 'Four friends in life jackets relax together on inflatable tubes in a lake'
       },
       {
-        src: 'hopper/night-windows.jpg',
-        title: 'Night Windows',
-        year: '1928',
-        alt: 'A nighttime view into the lit windows of an apartment, painted by Edward Hopper'
+        src: 'friends/04-pbl-banquet-2025.jpg',
+        caption: 'The guys at PBLs 2025 Banquet',
+        alt: 'Four friends in suits pose together in a courtyard'
       },
       {
-        src: 'hopper/railroad-sunset.jpg',
-        title: 'Railroad Sunset',
-        year: '1929',
-        alt: 'Railroad tracks beneath a deep orange and purple sunset, painted by Edward Hopper'
+        src: 'friends/05-last-high-school-event.jpg',
+        caption: 'Our last high school event! (The last time all of these people were pictured together lol)',
+        alt: 'A large group of friends gathers on a field at night'
       },
       {
-        src: 'hopper/lighthouse-at-two-lights.jpg',
-        title: 'The Lighthouse at Two Lights',
-        year: '1929',
-        alt: 'A white lighthouse rising above a sunlit rocky hill, painted by Edward Hopper'
+        src: 'friends/06-first-college-party.jpg',
+        caption: 'First party with my friends after our first term of college!',
+        alt: 'Friends sit together on a couch at a party'
       },
       {
-        src: 'hopper/chop-suey.jpg',
-        title: 'Chop Suey',
-        year: '1929',
-        alt: 'Two women sitting across from one another at a restaurant table, painted by Edward Hopper'
+        src: 'friends/07-senior-trip.jpg',
+        caption: 'Me and my guys in LA for our senior trip! (Summer 2024)',
+        alt: 'A group of friends poses outdoors at night during their senior trip'
       },
       {
-        src: 'hopper/sunday.jpg',
-        title: 'Sunday',
-        year: '1926',
-        alt: 'A solitary man sitting on a curb before a row of storefronts, painted by Edward Hopper'
+        src: 'friends/08-banquet-2025.jpg',
+        caption: 'Me and the guys during banquet 2025',
+        alt: 'Four friends in suits give thumbs up outside their banquet'
+      },
+      {
+        src: 'friends/09-classic-pose.jpg',
+        caption: 'George and I hitting our classic pose',
+        alt: 'Two friends seated in stadium stands strike their classic pose'
+      },
+      {
+        src: 'friends/10-pbl-banquet-2026.jpg',
+        caption: 'PBL banquet 2026, our last PBL event!',
+        alt: 'Six friends in suits crowd together in front of a red curtain'
+      },
+      {
+        src: 'friends/11-fbla-nationals-2026.jpg',
+        caption: 'EBOD at FBLA Nationals 2026 in Vegas',
+        alt: 'Friends pose together beside the Bellagio fountains in Las Vegas'
+      },
+      {
+        src: 'friends/12-last-pbl-group-photo.jpg',
+        caption: 'My favorite group of people, our last PBL group photo',
+        alt: 'A large PBL group poses together in formal attire at FBLA Nationals'
       }
     ];
-    var galleryImage = gallery.querySelector('.hopper-gallery__image');
-    var galleryTitle = gallery.querySelector('[data-gallery-title]');
-    var galleryYear = gallery.querySelector('[data-gallery-year]');
+    var galleryImage = gallery.querySelector('.photo-gallery__image');
+    var galleryCaption = gallery.querySelector('[data-gallery-caption]');
     var galleryStatus = gallery.querySelector('[data-gallery-status]');
-    var previousButton = gallery.querySelector('.hopper-gallery__arrow--previous');
-    var nextButton = gallery.querySelector('.hopper-gallery__arrow--next');
+    var previousButton = gallery.querySelector('.photo-gallery__arrow--previous');
+    var nextButton = gallery.querySelector('.photo-gallery__arrow--next');
     var galleryIndex = 0;
     var touchStartX = 0;
 
-    function showPainting(index) {
-      galleryIndex = (index + paintings.length) % paintings.length;
-      var painting = paintings[galleryIndex];
-      galleryImage.src = painting.src;
-      galleryImage.alt = painting.alt;
-      galleryTitle.textContent = painting.title;
-      galleryYear.textContent = painting.year;
-      galleryStatus.textContent = 'Painting ' + (galleryIndex + 1) + ' of ' + paintings.length;
+    function showPhoto(index) {
+      galleryIndex = (index + photos.length) % photos.length;
+      var photo = photos[galleryIndex];
+      galleryImage.src = photo.src;
+      galleryImage.alt = photo.alt;
+      galleryCaption.textContent = photo.caption;
+      galleryStatus.textContent = 'Photo ' + (galleryIndex + 1) + ' of ' + photos.length;
 
-      var nextPainting = paintings[(galleryIndex + 1) % paintings.length];
+      var nextPhoto = photos[(galleryIndex + 1) % photos.length];
       var preload = new Image();
-      preload.src = nextPainting.src;
+      preload.src = nextPhoto.src;
     }
 
-    previousButton.addEventListener('click', function () { showPainting(galleryIndex - 1); });
-    nextButton.addEventListener('click', function () { showPainting(galleryIndex + 1); });
+    previousButton.addEventListener('click', function () { showPhoto(galleryIndex - 1); });
+    nextButton.addEventListener('click', function () { showPhoto(galleryIndex + 1); });
     gallery.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        showPainting(galleryIndex - 1);
+        showPhoto(galleryIndex - 1);
       }
       if (event.key === 'ArrowRight') {
         event.preventDefault();
-        showPainting(galleryIndex + 1);
+        showPhoto(galleryIndex + 1);
       }
     });
     gallery.addEventListener('touchstart', function (event) {
@@ -108,9 +118,9 @@
     gallery.addEventListener('touchend', function (event) {
       var distance = event.changedTouches[0].clientX - touchStartX;
       if (Math.abs(distance) < 45) return;
-      showPainting(galleryIndex + (distance < 0 ? 1 : -1));
+      showPhoto(galleryIndex + (distance < 0 ? 1 : -1));
     }, { passive: true });
-    showPainting(0);
+    showPhoto(0);
   }
 
   if (!splash) return;
