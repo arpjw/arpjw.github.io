@@ -167,9 +167,11 @@ main { margin-top: 1.5rem; }
   background: var(--cover);
 }
 .photo-gallery .photo-gallery__image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 .photo-gallery__arrow {
   position: absolute;
