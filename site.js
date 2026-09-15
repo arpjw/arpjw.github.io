@@ -120,7 +120,7 @@
       if (Math.abs(distance) < 45) return;
       showPhoto(galleryIndex + (distance < 0 ? 1 : -1));
     }, { passive: true });
-    showPhoto(0);
+    showPhoto(Math.floor(Math.random() * photos.length));
   }
 
   if (!splash) return;
