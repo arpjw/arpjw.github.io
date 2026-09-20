@@ -15,6 +15,20 @@
   });
   setThemeButton();
 
+  var visitorCount = document.querySelector('[data-visitor-count]');
+  if (visitorCount) {
+    fetch('https://countapi.mileshilliard.com/api/v1/hit/aryasomu_com_all_time_visits_2026')
+      .then(function (response) {
+        if (!response.ok) throw new Error('Visitor count request failed');
+        return response.json();
+      })
+      .then(function (data) {
+        var count = Number(data.value);
+        if (Number.isFinite(count)) visitorCount.textContent = count.toLocaleString();
+      })
+      .catch(function () {});
+  }
+
   var gallery = document.querySelector('.photo-gallery');
   if (gallery) {
     var photos = [
