@@ -139,7 +139,77 @@ body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
 html.dark .theme-toggle .sun { display: none; }
 html.dark .theme-toggle .moon { display: block; }
 
+.lifespan { margin-top: 0.75rem; }
+.lifespan__readout {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: -0.025em;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+.lifespan__readout [data-lifespan-age],
+.lifespan__readout [data-lifespan-percent] { color: var(--body); }
+.lifespan__bar {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  color: var(--muted);
+  letter-spacing: -0.12em;
+}
+.lifespan__probe { position: absolute; visibility: hidden; letter-spacing: -0.12em; }
+.lifespan__expectancy {
+  position: relative;
+  color: var(--body);
+  text-decoration: underline;
+  text-decoration-color: var(--faint);
+  text-decoration-style: dotted;
+  text-underline-offset: 0.18em;
+}
+.lifespan__tooltip {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 0.6rem);
+  left: 0;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 2.5rem));
+  padding: 0.33rem 0.45rem;
+  border: 1px solid var(--border);
+  background: var(--hover);
+  color: var(--foreground);
+  font-family: var(--sans);
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0, -0.2rem);
+  transition: opacity 150ms ease, transform 150ms ease;
+  white-space: nowrap;
+}
+.lifespan__tooltip::after {
+  position: absolute;
+  top: -0.28rem;
+  left: 0.65rem;
+  width: 0.48rem;
+  height: 0.48rem;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  background: var(--hover);
+  content: '';
+  transform: rotate(45deg);
+}
+.lifespan__expectancy:hover .lifespan__tooltip,
+.lifespan__expectancy:focus-visible .lifespan__tooltip { opacity: 1; transform: translate(0, 0); }
+
 main { margin-top: 1.5rem; }
+.lifespan + main { transition: margin-top 150ms ease; }
+.lifespan:has(.lifespan__expectancy:hover) + main,
+.lifespan:has(.lifespan__expectancy:focus-visible) + main { margin-top: 2.7rem; }
 .bio { display: grid; gap: 0.75rem; }
 .bio p { margin: 0; text-wrap: pretty; }
 .prose-link {
@@ -332,6 +402,10 @@ html.dark .velocity-project .project-links a:focus-visible { color: #b8cbb3; }
 
 @media (max-width: 36rem) {
   .site { padding-top: 3rem; }
+  .lifespan__readout { font-size: 0.67rem; }
+  .lifespan__tooltip { left: -3.5rem; max-width: min(12rem, calc(100vw - 2.5rem)); transform: translate(0, -0.2rem); white-space: normal; }
+  .lifespan__expectancy:hover .lifespan__tooltip,
+  .lifespan__expectancy:focus-visible .lifespan__tooltip { transform: translate(0, 0); }
   .bio { gap: 1.6rem; }
   .cover { margin-top: 1.6rem; }
   .socials { margin-top: 2.5rem; }
