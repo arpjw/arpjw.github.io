@@ -380,6 +380,60 @@ main { margin-top: 1.5rem; }
 .velocity-project .project-links a:focus-visible { color: #385c33; }
 .work-site .socials { margin-top: 4rem; }
 
+/* Writing */
+
+.writing-main { margin-top: 3.5rem; }
+.writing-main h1 {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.writing-intro { margin: 0.75rem 0 0; }
+.writing-list { margin-top: 2rem; border-top: 1px solid var(--border); }
+.writing-empty { margin: 1rem 0 0; color: var(--muted); }
+.writing-entry { padding: 1.1rem 0; border-bottom: 1px solid var(--border); }
+.writing-entry h2 { margin: 0; font-size: 1rem; font-weight: 400; }
+.writing-entry h2 a { color: var(--foreground); text-decoration: none; }
+.writing-entry h2 a:hover, .writing-entry h2 a:focus-visible { text-decoration: underline; text-underline-offset: 0.16em; }
+.writing-entry time { color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
+.writing-entry p { margin: 0.4rem 0 0; }
+.writing-article-main { margin-top: 3.5rem; }
+.writing-page { --article-accent: #286f78; }
+html.dark .writing-page { --article-accent: #8acbd2; }
+.writing-page.article-color-blue { --article-accent: #365f9a; }
+html.dark .writing-page.article-color-blue { --article-accent: #a8c5ec; }
+.writing-page.article-color-rust { --article-accent: #a4523e; }
+html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
+.writing-post { border-top: 2px solid var(--article-accent); padding-top: 1.3rem; }
+.writing-post__meta { margin: 0; color: var(--article-accent); font-family: var(--sans); font-size: 0.75rem; line-height: 1.4; }
+.writing-post h1 { margin: 0.7rem 0 0; color: var(--foreground); font-size: clamp(1.75rem, 5vw, 2.25rem); font-weight: 400; line-height: 1.18; text-wrap: balance; }
+.writing-post__dek { margin: 0.75rem 0 0; color: var(--muted); font-size: 1.1rem; line-height: 1.4; }
+.writing-post__body { margin-top: 2.5rem; }
+.writing-post__body p, .writing-post__body li { line-height: 1.7; }
+.writing-post__body p { margin: 0 0 1.3rem; }
+.writing-post__body h2 { margin: 2.2rem 0 0.8rem; color: var(--foreground); font-size: 1.3rem; font-weight: 400; line-height: 1.3; }
+.writing-post__body h3 { margin: 1.8rem 0 0.65rem; color: var(--foreground); font-size: 1.08rem; font-weight: 400; }
+.writing-post__body a { color: var(--foreground); text-decoration-color: var(--article-accent); text-underline-offset: 0.2em; }
+.writing-post__body a:hover { color: var(--article-accent); }
+.writing-post__body blockquote { margin: 2rem 0; padding: 0.15rem 0 0.15rem 1.1rem; border-left: 2px solid var(--article-accent); color: var(--foreground); font-size: 1.1rem; font-style: italic; line-height: 1.5; }
+.writing-post__body blockquote p { margin: 0; line-height: inherit; }
+.writing-post__body ul, .writing-post__body ol { margin: 0 0 1.3rem; padding-left: 1.4rem; }
+.writing-post__body li + li { margin-top: 0.4rem; }
+.writing-post__body figure { margin: 2rem 0; }
+.writing-post__body figure img { display: block; width: 100%; height: auto; }
+.writing-post__body figcaption { margin-top: 0.5rem; color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
+.writing-back { display: inline-block; margin-top: 2rem; color: var(--muted); font-family: var(--sans); font-size: 0.8rem; }
+.writing-preview-tools { margin-bottom: 2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); font-family: var(--sans); }
+.writing-preview-tools p { margin: 0 0 0.6rem; color: var(--faint); font-size: 0.75rem; }
+.writing-preview-colors { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.writing-preview-colors button { padding: 0.35rem 0.6rem; border: 1px solid var(--border); border-radius: 0.2rem; background: transparent; color: var(--muted); font-size: 0.75rem; cursor: pointer; }
+.writing-preview-colors button[aria-pressed='true'] { border-color: var(--article-accent); color: var(--foreground); }
+.writing-preview-colors button:hover, .writing-preview-colors button:focus-visible { color: var(--foreground); }
+.writing-preview-colors button::before { display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.4rem; border-radius: 50%; background: var(--swatch); content: ''; }
+.writing-site .socials { margin-top: 4rem; }
+
 html.dark .tarot-project { background: #111827; }
 html.dark .project-heading a,
 html.dark .tarot-project .release-row { color: #9099aa; }
@@ -396,6 +450,7 @@ html.dark .velocity-project .project-links a:focus-visible { color: #b8cbb3; }
 @media (max-width: 36rem) {
   .work-site { width: min(100% - 2.5rem, 34rem); padding-top: 3rem; }
   .work-main { margin-top: 3rem; }
+  .writing-main, .writing-article-main { margin-top: 3rem; }
   .tarot-project .release-row { align-items: flex-start; }
   .tarot-project .release-row > span:last-child { text-align: right; }
 }

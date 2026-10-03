@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css">
+  <title>Article layout preview · Arya Somu</title>
+  <meta name="description" content="A preview of the article layout for Arya Somu’s writing.">
+  <meta property="og:title" content="Article layout preview · Arya Somu">
+  <meta property="og:description" content="A preview of the article layout for Arya Somu’s writing.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="writing-page">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+        <a href="./" aria-current="page">Writing</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main">
+      <section class="writing-preview-tools" aria-label="Article color preview">
+        <p>Layout preview · Sample copy · Choose an accent</p>
+        <div class="writing-preview-colors">
+          <button type="button" data-color="teal" style="--swatch: #286f78" aria-pressed="true">Teal</button>
+          <button type="button" data-color="blue" style="--swatch: #365f9a" aria-pressed="false">Blue</button>
+          <button type="button" data-color="rust" style="--swatch: #a4523e" aria-pressed="false">Rust</button>
+        </div>
+      </section>
+      <article class="writing-post">
+        <header>
+          <p class="writing-post__meta">Sample article · Layout preview</p>
+          <h1>On keeping a notebook</h1>
+          <p class="writing-post__dek">Small observations become more useful when they have somewhere to land.</p>
+        </header>
+        <div class="writing-post__body">
+          <p>Most notes begin as fragments. A question overheard in conversation, a number that does not fit the pattern, or a thought that arrives on a walk may not deserve an essay yet. It still deserves a place to wait.</p>
+          <p>A notebook gives those fragments a second chance. It asks for very little: enough context to understand the thought later, and enough honesty to leave the uncertainty intact.</p>
+          <h2>Leave a trail</h2>
+          <p>The useful detail is often the one that seemed obvious at the time. Where did the idea come from? What changed your mind? What would you need to check before sharing it? A few lines of context can turn an old note into a starting point.</p>
+          <blockquote><p>A good note does not have to finish the thought. It has to make the thought possible to resume.</p></blockquote>
+          <p>This is also how a longer piece can grow. First collect the observation. Then return to it with a clearer question. If it still matters, give it more room.</p>
+          <h2>Keep the form simple</h2>
+          <p>The page should stay out of the way. Headings divide an argument, links carry sources, and a short quotation creates a pause. The color can change with the subject, while the type and spacing give every piece the same home.</p>
+        </div>
+      </article>
+      <a class="writing-back" href="./">← All writing</a>
+    </main>
+  </div>
+
+  <script src="../site.js"></script>
+  <script>
+    var colorButtons = document.querySelectorAll('[data-color]');
+    colorButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        document.body.classList.remove('article-color-blue', 'article-color-rust');
+        if (button.dataset.color !== 'teal') document.body.classList.add('article-color-' + button.dataset.color);
+        colorButtons.forEach(function (option) { option.setAttribute('aria-pressed', option === button ? 'true' : 'false'); });
+      });
+    });
+  </script>
+</body>
+</html>

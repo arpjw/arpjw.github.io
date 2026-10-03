@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="canonical" href="https://aryasomu.com/writing/your-post-slug.html">
+  <title>Your post title · Arya Somu</title>
+  <meta name="description" content="A short description of your post.">
+  <meta property="og:title" content="Your post title · Arya Somu">
+  <meta property="og:description" content="A short description of your post.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/your-post-slug.html">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="writing-page">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+        <a href="./" aria-current="page">Writing</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main">
+      <article class="writing-post">
+        <header>
+          <p class="writing-post__meta"><time datetime="2026-10-03">October 3, 2026</time> · Essay</p>
+          <h1>Your post title</h1>
+          <p class="writing-post__dek">A sentence that introduces the piece.</p>
+        </header>
+        <div class="writing-post__body">
+          <p>Write your first paragraph here.</p>
+          <h2>Optional section heading</h2>
+          <p>Continue writing here.</p>
+          <blockquote><p>An optional passage to call out.</p></blockquote>
+          <p>End with a final thought.</p>
+        </div>
+      </article>
+      <a class="writing-back" href="./">← All writing</a>
+    </main>
+  </div>
+
+  <script src="../site.js"></script>
+</body>
+</html>
