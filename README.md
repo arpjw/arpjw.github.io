@@ -4,6 +4,7 @@ aryasomu.com
 
 The Writing tab points to `/writing/` on this site. Posts are plain HTML files in
 `writing/`, so they can be edited locally or in GitHub without a separate service.
+The Substack button in the social footer is a separate external link.
 
 To publish a post:
 

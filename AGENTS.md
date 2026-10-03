@@ -10,3 +10,6 @@ keep both light and dark modes readable.
 The underscore-prefixed sample is a repository reference. Do not rename it to
 a public HTML path or add it to `writing/index.html`. List only articles Arya
 has approved for publication.
+
+Keep the navigation's Writing link pointed at `/writing/`. Keep the Substack
+button in the social footer pointed at Arya's Substack.
