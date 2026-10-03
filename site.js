@@ -117,6 +117,11 @@
         src: 'friends/12-last-pbl-group-photo.jpg',
         caption: 'My favorite group of people, our last PBL group photo',
         alt: 'A large PBL group poses together in formal attire at FBLA Nationals'
+      },
+      {
+        src: 'friends/13-guys-nyc-2026.jpg',
+        caption: 'The guys in NYC 2026',
+        alt: 'A group of friends seen from behind at a New York City crosswalk'
       }
     ];
     var galleryImage = gallery.querySelector('.photo-gallery__image');
