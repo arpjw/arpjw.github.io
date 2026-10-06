@@ -7,17 +7,17 @@
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css">
-  <link rel="canonical" href="https://aryasomu.com/writing/">
-  <title>Writing · Arya Somu</title>
-  <meta name="description" content="Writing by Arya Somu.">
-  <meta property="og:title" content="Writing · Arya Somu">
-  <meta property="og:description" content="Writing by Arya Somu.">
+  <link rel="canonical" href="https://aryasomu.com/stack/">
+  <title>Stack · Arya Somu</title>
+  <meta name="description" content="The tools, subscriptions, and routines Arya Somu uses day to day, with their costs.">
+  <meta property="og:title" content="Stack · Arya Somu">
+  <meta property="og:description" content="The tools, subscriptions, and routines Arya Somu uses day to day, with their costs.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://aryasomu.com/writing/">
+  <meta property="og:url" content="https://aryasomu.com/stack/">
   <meta property="og:site_name" content="Arya Somu">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Writing · Arya Somu">
-  <meta name="twitter:description" content="Writing by Arya Somu.">
+  <meta name="twitter:title" content="Stack · Arya Somu">
+  <meta name="twitter:description" content="The tools, subscriptions, and routines Arya Somu uses day to day, with their costs.">
   <script>
     (function () {
       try {
@@ -29,15 +29,15 @@
     })();
   </script>
 </head>
-<body class="writing-page">
-  <div class="site writing-site">
+<body class="stack-page">
+  <div class="site stack-site">
     <header class="topbar">
       <nav class="nav" aria-label="Primary navigation">
         <a href="../">Arya</a>
         <a href="../work/">Work</a>
         <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
-        <a href="./" aria-current="page">Writing</a>
-        <a href="../stack/">Stack</a>
+        <a href="../writing/">Writing</a>
+        <a href="./" aria-current="page">Stack</a>
       </nav>
       <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
@@ -45,13 +45,83 @@
       </button>
     </header>
 
-    <main class="writing-main">
-      <h1>Writing</h1>
-      <p class="writing-intro">Notes and essays, published here.</p>
+    <main class="stack-main">
+      <h1>Stack</h1>
 
-      <div class="writing-list" aria-label="Posts">
-        <p class="writing-empty">No posts yet.</p>
+      <div class="stack-total" aria-label="Total cost">
+        <p class="stack-total__amount">$435.98<span> / month</span></p>
+        <p class="stack-total__annual">$5,231.76 annualized at these monthly rates</p>
       </div>
+
+      <section class="stack-section" aria-labelledby="stack-ai">
+        <h2 id="stack-ai">AI &amp; work</h2>
+        <div class="stack-list">
+          <article class="stack-item">
+            <div>
+              <h3>ChatGPT / Codex Pro (5x)</h3>
+              <p>My main LLM and coding agent.</p>
+            </div>
+            <p class="stack-item__price">$100<span> / mo</span></p>
+          </article>
+          <article class="stack-item">
+            <div>
+              <h3>Hark Pro</h3>
+              <p>My LifeOS for email, bookings, and more.</p>
+            </div>
+            <p class="stack-item__price">$100<span> / mo</span></p>
+          </article>
+          <article class="stack-item">
+            <div>
+              <h3>Google Student AI Plan</h3>
+            </div>
+            <p class="stack-item__price">Free</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="stack-section" aria-labelledby="stack-storage">
+        <h2 id="stack-storage">Storage</h2>
+        <div class="stack-list">
+          <article class="stack-item">
+            <div><h3>Cloudflare R2 Storage</h3></div>
+            <p class="stack-item__price">$5<span> / mo</span></p>
+          </article>
+          <article class="stack-item">
+            <div><h3>Apple iCloud 2TB Storage</h3></div>
+            <p class="stack-item__price">$11.99<span> / mo</span></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="stack-section" aria-labelledby="stack-media">
+        <h2 id="stack-media">Music &amp; social</h2>
+        <div class="stack-list">
+          <article class="stack-item">
+            <div><h3>Spotify Premium for Students</h3></div>
+            <p class="stack-item__price">$7.99<span> / mo</span></p>
+          </article>
+          <article class="stack-item">
+            <div><h3>X Premium</h3></div>
+            <p class="stack-item__price">$11<span> / mo</span></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="stack-section" aria-labelledby="stack-fitness">
+        <h2 id="stack-fitness">Fitness</h2>
+        <div class="stack-list">
+          <article class="stack-item">
+            <div>
+              <h3>Orangetheory Fitness</h3>
+              <ul class="stack-schedule">
+                <li><span>Mon / Wed / Fri</span>Orange 2G Class</li>
+                <li><span>Tue / Thu / Sat</span>Upper Body Strength</li>
+              </ul>
+            </div>
+            <p class="stack-item__price">$200<span> / mo</span></p>
+          </article>
+        </div>
+      </section>
     </main>
 
     <footer class="socials" aria-label="Social links">
