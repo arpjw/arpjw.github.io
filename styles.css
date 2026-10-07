@@ -344,35 +344,6 @@ main { margin-top: 1.5rem; }
 .tarot-project .release-row > span:first-child { color: #303846; }
 .tarot-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b9c8e5; text-underline-offset: 0.18em; }
 .tarot-project .release-row a:hover, .tarot-project .release-row a:focus-visible { color: #1646c0; }
-.vela-project {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  padding: 1.25rem;
-  background: #0d0d0c;
-}
-.vela-project::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.22) 0 0.6px, transparent 0.8px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.14) 0 0.6px, transparent 0.8px);
-  background-position: 0 0, 6px 4px;
-  background-size: 12px 8px;
-  opacity: 0.12;
-  pointer-events: none;
-}
-.vela-project h2,
-.vela-project .prose-link { color: #e8e5de; }
-.vela-project > p { color: #9a9892; }
-.vela-project .project-meta { color: #706f6b !important; }
-.vela-project .project-links { margin-top: 0.7rem; color: #888681; }
-.vela-project .project-links a { text-decoration-color: #393936; }
-.vela-project .project-links a:hover,
-.vela-project .project-links a:focus-visible { color: #e8e5de; }
-.project-meta { color: var(--faint) !important; font-family: var(--sans); font-size: 0.75rem; }
 .velocity-project { padding: 1.25rem; border: 1px solid #e0e9de; background: #f2f7f0; }
 .velocity-project .project-links { margin-top: 0.7rem; color: #73806f; }
 .velocity-project .project-links a { text-decoration-color: #c7d4c3; }
