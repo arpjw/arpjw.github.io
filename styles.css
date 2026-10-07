@@ -93,7 +93,7 @@ button { font: inherit; }
   margin-inline: auto;
   padding: 5rem 0 4rem;
 }
-.home-site { opacity: 0; translate: 0 6px; transition: opacity 560ms ease, translate 620ms ease; }
+.home-site { padding-top: 2.5rem; opacity: 0; translate: 0 6px; transition: opacity 560ms ease, translate 620ms ease; }
 body.is-ready .home-site { opacity: 1; translate: 0 0; }
 body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
 
@@ -472,6 +472,7 @@ html.dark .velocity-project .project-links a:focus-visible { color: #b8cbb3; }
 
 @media (max-width: 36rem) {
   .site { padding-top: 3rem; }
+  .home-site { padding-top: 3rem; }
   .topbar { gap: 0.5rem; }
   .nav { gap: 0.5rem; }
   .nav a { font-size: 0.95rem; }
