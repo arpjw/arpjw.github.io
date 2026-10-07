@@ -140,7 +140,7 @@
       return dot;
     });
     var galleryIndex = 0;
-    var visibleDotCount = Math.min(6, photos.length);
+    var visibleDotCount = Math.min(7, photos.length);
     var touchStartX = 0;
 
     function showPhoto(index) {
@@ -150,10 +150,7 @@
       galleryImage.alt = photo.alt;
       galleryCaption.textContent = photo.caption;
       galleryStatus.textContent = 'Photo ' + (galleryIndex + 1) + ' of ' + photos.length;
-      var firstVisibleDot = Math.min(
-        Math.max(galleryIndex - Math.floor(visibleDotCount / 2), 0),
-        photos.length - visibleDotCount
-      );
+      var firstVisibleDot = Math.floor(galleryIndex / visibleDotCount) * visibleDotCount;
       dotButtons.forEach(function (dot, index) {
         dot.hidden = index < firstVisibleDot || index >= firstVisibleDot + visibleDotCount;
         if (index === galleryIndex) dot.setAttribute('aria-current', 'true');
