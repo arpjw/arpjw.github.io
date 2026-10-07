@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css?v=gallery-dots-compact">
+  <link rel="stylesheet" href="styles.css?v=gallery-autoplay">
   <link rel="canonical" href="https://aryasomu.com/">
   <title>Arya Somu</title>
   <meta name="description" content="Research, work, and notes by Arya Somu.">
@@ -125,6 +125,10 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
             </button>
           </div>
+          <button class="photo-gallery__autoplay" type="button" aria-label="Pause slideshow" title="Pause slideshow">
+            <svg class="photo-gallery__pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+            <svg class="photo-gallery__play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg>
+          </button>
         </div>
         <figcaption aria-live="polite"><span data-gallery-caption>My friends and I before splitting up for college!</span> <span class="sr-only" data-gallery-status>Photo 1 of 13</span></figcaption>
       </figure>
@@ -140,6 +144,6 @@
     </footer>
   </div>
 
-  <script src="site.js?v=gallery-dots-page"></script>
+  <script src="site.js?v=gallery-autoplay-dots"></script>
 </body>
 </html>

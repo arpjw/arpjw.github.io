@@ -1,6 +1,7 @@
 (function () {
   var toggle = document.querySelector('.theme-toggle');
   var splash = document.querySelector('.splash');
+  var startGalleryAutoplay;
 
   function setThemeButton() {
     var dark = document.documentElement.classList.contains('dark');
@@ -129,19 +130,54 @@
     var galleryStatus = gallery.querySelector('[data-gallery-status]');
     var previousButton = gallery.querySelector('.photo-gallery__arrow--previous');
     var nextButton = gallery.querySelector('.photo-gallery__arrow--next');
+    var autoplayButton = gallery.querySelector('.photo-gallery__autoplay');
+    var caption = gallery.querySelector('figcaption');
     var dots = gallery.querySelector('.photo-gallery__dots');
     var dotButtons = photos.map(function (photo, index) {
       var dot = document.createElement('button');
       dot.className = 'photo-gallery__dot';
       dot.type = 'button';
       dot.setAttribute('aria-label', 'Show photo ' + (index + 1) + ' of ' + photos.length);
-      dot.addEventListener('click', function () { showPhoto(index); });
+      dot.addEventListener('click', function () { pauseAutoplay(); showPhoto(index); });
       dots.appendChild(dot);
       return dot;
     });
     var galleryIndex = 0;
     var visibleDotCount = Math.min(7, photos.length);
     var touchStartX = 0;
+    var autoplayTimer = 0;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var autoplayPaused = reducedMotion.matches;
+
+    function updateAutoplayButton() {
+      var label = autoplayPaused ? 'Play slideshow' : 'Pause slideshow';
+      autoplayButton.setAttribute('aria-label', label);
+      autoplayButton.title = label;
+      autoplayButton.classList.toggle('is-paused', autoplayPaused);
+      caption.setAttribute('aria-live', autoplayPaused ? 'polite' : 'off');
+    }
+
+    function stopAutoplay() {
+      window.clearTimeout(autoplayTimer);
+      autoplayTimer = 0;
+    }
+
+    function scheduleAutoplay() {
+      stopAutoplay();
+      if (autoplayPaused || document.hidden) return;
+      autoplayTimer = window.setTimeout(function () {
+        showPhoto(galleryIndex + 1);
+        scheduleAutoplay();
+      }, 3500);
+    }
+
+    function pauseAutoplay() {
+      autoplayPaused = true;
+      stopAutoplay();
+      updateAutoplayButton();
+    }
+
+    startGalleryAutoplay = scheduleAutoplay;
 
     function showPhoto(index) {
       galleryIndex = (index + photos.length) % photos.length;
@@ -162,16 +198,31 @@
       preload.src = nextPhoto.src;
     }
 
-    previousButton.addEventListener('click', function () { showPhoto(galleryIndex - 1); });
-    nextButton.addEventListener('click', function () { showPhoto(galleryIndex + 1); });
+    previousButton.addEventListener('click', function () { pauseAutoplay(); showPhoto(galleryIndex - 1); });
+    nextButton.addEventListener('click', function () { pauseAutoplay(); showPhoto(galleryIndex + 1); });
+    autoplayButton.addEventListener('click', function () {
+      autoplayPaused = !autoplayPaused;
+      updateAutoplayButton();
+      scheduleAutoplay();
+    });
+    gallery.addEventListener('focusin', function (event) {
+      if (event.target !== autoplayButton) pauseAutoplay();
+    });
+    document.addEventListener('visibilitychange', scheduleAutoplay);
+    window.addEventListener('pagehide', stopAutoplay, { once: true });
+    reducedMotion.addEventListener('change', function (event) {
+      if (event.matches) pauseAutoplay();
+    });
     gallery.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
+        pauseAutoplay();
         showPhoto(galleryIndex - 1);
         if (event.target.classList.contains('photo-gallery__dot')) dotButtons[galleryIndex].focus();
       }
       if (event.key === 'ArrowRight') {
         event.preventDefault();
+        pauseAutoplay();
         showPhoto(galleryIndex + 1);
         if (event.target.classList.contains('photo-gallery__dot')) dotButtons[galleryIndex].focus();
       }
@@ -182,9 +233,12 @@
     gallery.addEventListener('touchend', function (event) {
       var distance = event.changedTouches[0].clientX - touchStartX;
       if (Math.abs(distance) < 45) return;
+      pauseAutoplay();
       showPhoto(galleryIndex + (distance < 0 ? 1 : -1));
     }, { passive: true });
     showPhoto(Math.floor(Math.random() * photos.length));
+    updateAutoplayButton();
+    if (!splash) scheduleAutoplay();
   }
 
   if (!splash) return;
@@ -223,6 +277,7 @@
       document.body.classList.add('is-ready');
       window.setTimeout(function () { splash.remove(); }, 600);
     }
+    if (startGalleryAutoplay) startGalleryAutoplay();
   }
 
   function frame(now) {
