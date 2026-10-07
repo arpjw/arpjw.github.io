@@ -129,7 +129,18 @@
     var galleryStatus = gallery.querySelector('[data-gallery-status]');
     var previousButton = gallery.querySelector('.photo-gallery__arrow--previous');
     var nextButton = gallery.querySelector('.photo-gallery__arrow--next');
+    var dots = gallery.querySelector('.photo-gallery__dots');
+    var dotButtons = photos.map(function (photo, index) {
+      var dot = document.createElement('button');
+      dot.className = 'photo-gallery__dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Show photo ' + (index + 1) + ' of ' + photos.length);
+      dot.addEventListener('click', function () { showPhoto(index); });
+      dots.appendChild(dot);
+      return dot;
+    });
     var galleryIndex = 0;
+    var visibleDotCount = Math.min(6, photos.length);
     var touchStartX = 0;
 
     function showPhoto(index) {
@@ -139,6 +150,15 @@
       galleryImage.alt = photo.alt;
       galleryCaption.textContent = photo.caption;
       galleryStatus.textContent = 'Photo ' + (galleryIndex + 1) + ' of ' + photos.length;
+      var firstVisibleDot = Math.min(
+        Math.max(galleryIndex - Math.floor(visibleDotCount / 2), 0),
+        photos.length - visibleDotCount
+      );
+      dotButtons.forEach(function (dot, index) {
+        dot.hidden = index < firstVisibleDot || index >= firstVisibleDot + visibleDotCount;
+        if (index === galleryIndex) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
 
       var nextPhoto = photos[(galleryIndex + 1) % photos.length];
       var preload = new Image();
@@ -151,10 +171,12 @@
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
         showPhoto(galleryIndex - 1);
+        if (event.target.classList.contains('photo-gallery__dot')) dotButtons[galleryIndex].focus();
       }
       if (event.key === 'ArrowRight') {
         event.preventDefault();
         showPhoto(galleryIndex + 1);
+        if (event.target.classList.contains('photo-gallery__dot')) dotButtons[galleryIndex].focus();
       }
     });
     gallery.addEventListener('touchstart', function (event) {
