@@ -391,7 +391,10 @@ main { margin-top: 1.5rem; }
 .research-paper p { margin: 0.5rem 0 0; }
 .research-paper .research-authors { color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
 .research-authors a { text-decoration-color: var(--border); text-underline-offset: 0.18em; }
-.research-paper > a { display: inline-block; margin-top: 0.7rem; font-family: var(--sans); font-size: 0.78rem; text-decoration-color: var(--border); text-underline-offset: 0.18em; }
+.research-paper > a,
+.research-links { margin-top: 0.7rem; font-family: var(--sans); font-size: 0.78rem; }
+.research-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
+.research-links a { text-decoration-color: var(--border); text-underline-offset: 0.18em; }
 .research-paper a:hover,
 .research-paper a:focus-visible { color: var(--foreground); }
 .work-site .socials { margin-top: 4rem; }
