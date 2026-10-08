@@ -61,68 +61,68 @@
     var photos = [
       {
         src: 'friends/01-before-college.jpg',
-        caption: 'My friends and I before splitting up for college!',
-        alt: 'Arya and friends together before leaving for college'
+        caption: 'Summer 2024',
+        alt: 'Summer 2024'
       },
       {
         src: 'friends/02-de-anza.jpg',
-        caption: 'My OG friend group at De Anza',
-        alt: 'Seven friends pose for a group selfie outdoors'
+        caption: 'Summer 2025',
+        alt: 'Summer 2025'
       },
       {
         src: 'friends/03-lake-trip.jpg',
-        caption: 'My friends and I on our lake trip! (Summer 2025)',
-        alt: 'Four friends in life jackets relax together on inflatable tubes in a lake'
+        caption: 'Summer 2025',
+        alt: 'Summer 2025'
       },
       {
         src: 'friends/04-pbl-banquet-2025.jpg',
-        caption: 'The guys at PBLs 2025 Banquet',
-        alt: 'Four friends in suits pose together in a courtyard'
+        caption: 'Spring 2026',
+        alt: 'Spring 2025'
       },
       {
         src: 'friends/05-last-high-school-event.jpg',
-        caption: 'Our last high school event! (The last time all of these people were pictured together lol)',
-        alt: 'A large group of friends gathers on a field at night'
+        caption: 'Summer 2024',
+        alt: 'Summer 2024'
       },
       {
         src: 'friends/06-first-college-party.jpg',
-        caption: 'First party with my friends after our first term of college!',
-        alt: 'Friends sit together on a couch at a party'
+        caption: 'Winter 2025',
+        alt: 'Winter 2025'
       },
       {
         src: 'friends/07-senior-trip.jpg',
-        caption: 'Me and my guys in LA for our senior trip! (Summer 2024)',
-        alt: 'A group of friends poses outdoors at night during their senior trip'
+        caption: 'Summer 2024',
+        alt: 'Summer 2024'
       },
       {
         src: 'friends/08-banquet-2025.jpg',
-        caption: 'Me and the guys during banquet 2025',
-        alt: 'Four friends in suits give thumbs up outside their banquet'
+        caption: 'Summer 2025',
+        alt: 'Summer 2025'
       },
       {
         src: 'friends/09-classic-pose.jpg',
-        caption: 'George and I hitting our classic pose',
-        alt: 'Two friends seated in stadium stands strike their classic pose'
+        caption: 'Summer 2025',
+        alt: 'Summer 2025'
       },
       {
         src: 'friends/10-pbl-banquet-2026.jpg',
-        caption: 'PBL banquet 2026, our last PBL event!',
-        alt: 'Six friends in suits crowd together in front of a red curtain'
+        caption: 'Summer 2026',
+        alt: 'Summer 2026'
       },
       {
         src: 'friends/11-fbla-nationals-2026.jpg',
-        caption: 'EBOD at FBLA Nationals 2026 in Vegas',
-        alt: 'Friends pose together beside the Bellagio fountains in Las Vegas'
+        caption: 'Spring 2026',
+        alt: 'Spring 2026'
       },
       {
         src: 'friends/12-last-pbl-group-photo.jpg',
-        caption: 'My favorite group of people, our last PBL group photo',
-        alt: 'A large PBL group poses together in formal attire at FBLA Nationals'
+        caption: 'Spring 2026',
+        alt: 'Spring 2026'
       },
       {
         src: 'friends/13-guys-nyc-2026.jpg',
-        caption: 'The guys in NYC 2026',
-        alt: 'A group of friends seen from behind at a New York City crosswalk'
+        caption: 'Fall 2026',
+        alt: 'Fall 2026'
       }
     ];
     var galleryImage = gallery.querySelector('.photo-gallery__image');
