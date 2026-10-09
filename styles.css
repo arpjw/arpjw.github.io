@@ -93,6 +93,7 @@ button { font: inherit; }
   margin-inline: auto;
   padding: 2.5rem 0 4rem;
 }
+.home-site, .work-site, .writing-site { padding-top: 1.25rem; }
 .home-site { opacity: 0; translate: 0 6px; transition: opacity 560ms ease, translate 620ms ease; }
 body.is-ready .home-site { opacity: 1; translate: 0 0; }
 body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
@@ -490,6 +491,7 @@ html.dark .tarot-project .release-row a { color: inherit; text-decoration-color:
 
 @media (max-width: 36rem) {
   .site { padding-top: 3rem; }
+  .home-site, .work-site, .writing-site { padding-top: 1.75rem; }
   .topbar { gap: 0.5rem; }
   .nav { gap: 0.5rem; }
   .nav a { font-size: 0.95rem; }
