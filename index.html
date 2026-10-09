@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css?v=shared-framing">
+  <link rel="stylesheet" href="styles.css?v=lifespan-bar">
   <link rel="canonical" href="https://aryasomu.com/">
   <title>Arya Somu</title>
   <meta name="description" content="Research, work, and notes by Arya Somu.">
@@ -97,10 +97,11 @@
 
     <section class="lifespan" aria-label="Lifespan counter">
       <div class="lifespan__readout">
-        <span data-lifespan-age>—</span> / <a class="lifespan__expectancy" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9772563/" target="_blank" rel="noopener noreferrer" aria-describedby="lifespan-source">86.53<span class="lifespan__tooltip" id="lifespan-source" role="tooltip">U.S. estimate for Asian Indian men · 86.53 years</span></a> yrs
-        <span aria-hidden="true">[</span><span class="lifespan__bar" aria-hidden="true" data-lifespan-bar></span><span aria-hidden="true">]</span>
-        <span data-lifespan-percent>—</span>%
-        <span class="lifespan__probe" aria-hidden="true" data-lifespan-probe>██████████</span>
+        <span><span data-lifespan-age>—</span> <span class="lifespan__unit">of <a class="lifespan__expectancy" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9772563/" target="_blank" rel="noopener noreferrer" aria-describedby="lifespan-source">86.53<span class="lifespan__tooltip" id="lifespan-source" role="tooltip">U.S. estimate for Asian Indian men · 86.53 years</span></a> years</span></span>
+        <span class="lifespan__percent"><span data-lifespan-percent>—</span>% lived</span>
+      </div>
+      <div class="lifespan__track" role="progressbar" aria-label="Estimated lifespan elapsed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-lifespan-bar>
+        <span class="lifespan__fill" data-lifespan-fill></span>
       </div>
     </section>
 
@@ -143,6 +144,6 @@
     </footer>
   </div>
 
-  <script src="site.js?v=gallery-autoplay-dots"></script>
+  <script src="site.js?v=lifespan-bar"></script>
 </body>
 </html>

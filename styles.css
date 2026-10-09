@@ -139,28 +139,48 @@ body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
 html.dark .theme-toggle .sun { display: none; }
 html.dark .theme-toggle .moon { display: block; }
 
-.lifespan { margin-top: 0.75rem; }
+.lifespan { margin-top: 0.9rem; }
 .lifespan__readout {
   display: flex;
   align-items: baseline;
-  gap: 0.3rem;
-  color: var(--faint);
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--body);
   font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: -0.025em;
   line-height: 1.35;
   white-space: nowrap;
 }
-.lifespan__readout [data-lifespan-age],
-.lifespan__readout [data-lifespan-percent] { color: var(--body); }
-.lifespan__bar {
-  min-width: 0;
-  flex: 1;
-  overflow: hidden;
-  color: var(--muted);
-  letter-spacing: -0.12em;
+.lifespan__readout [data-lifespan-age] { color: var(--foreground); font-variant-numeric: tabular-nums; }
+.lifespan__unit, .lifespan__percent { color: var(--muted); }
+.lifespan__percent { flex: none; }
+.lifespan__track {
+  height: 0.35rem;
+  margin-top: 0.55rem;
+  border-radius: 999px;
+  background: var(--border);
 }
-.lifespan__probe { position: absolute; visibility: hidden; letter-spacing: -0.12em; }
+.lifespan__fill {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--foreground);
+}
+.lifespan__fill::after {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 2px solid var(--background);
+  border-radius: 50%;
+  background: var(--foreground);
+  content: '';
+  transform: translate(50%, -50%);
+}
 .lifespan__expectancy {
   position: relative;
   color: var(--body);
@@ -178,7 +198,7 @@ html.dark .theme-toggle .moon { display: block; }
   max-width: min(16rem, calc(100vw - 2.5rem));
   padding: 0.33rem 0.45rem;
   border: 1px solid var(--border);
-  background: var(--hover);
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--sans);
   font-size: 0.64rem;
@@ -199,7 +219,7 @@ html.dark .theme-toggle .moon { display: block; }
   height: 0.48rem;
   border-top: 1px solid var(--border);
   border-left: 1px solid var(--border);
-  background: var(--hover);
+  background: var(--background);
   content: '';
   transform: rotate(45deg);
 }

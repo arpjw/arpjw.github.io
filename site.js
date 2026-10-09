@@ -19,27 +19,25 @@
   var lifespanAge = document.querySelector('[data-lifespan-age]');
   var lifespanPercent = document.querySelector('[data-lifespan-percent]');
   var lifespanBar = document.querySelector('[data-lifespan-bar]');
-  var lifespanProbe = document.querySelector('[data-lifespan-probe]');
-  if (lifespanAge && lifespanPercent && lifespanBar && lifespanProbe) {
+  var lifespanFill = document.querySelector('[data-lifespan-fill]');
+  if (lifespanAge && lifespanPercent && lifespanBar && lifespanFill) {
     var birthTime = Date.parse('2006-07-19T02:34:00.000Z');
     var expectedYears = 86.53;
     var millisecondsPerYear = 31556952000;
-    var lifespanFrame;
+    var lifespanTimer;
 
     function updateLifespan() {
       var age = (Date.now() - birthTime) / millisecondsPerYear;
       var percent = Math.min(100, Math.max(0, (age / expectedYears) * 100));
-      var characterWidth = lifespanProbe.getBoundingClientRect().width / lifespanProbe.textContent.length;
-      var barLength = Math.max(8, Math.floor(lifespanBar.clientWidth / characterWidth));
-      var filled = Math.min(barLength, Math.floor((percent / 100) * barLength));
       lifespanAge.textContent = age.toFixed(8);
       lifespanPercent.textContent = percent.toFixed(2);
-      lifespanBar.textContent = '█'.repeat(filled) + '░'.repeat(barLength - filled);
-      lifespanFrame = requestAnimationFrame(updateLifespan);
+      lifespanFill.style.width = percent + '%';
+      lifespanBar.setAttribute('aria-valuenow', percent.toFixed(2));
+      lifespanTimer = setTimeout(updateLifespan, 250);
     }
 
     updateLifespan();
-    window.addEventListener('pagehide', function () { cancelAnimationFrame(lifespanFrame); }, { once: true });
+    window.addEventListener('pagehide', function () { clearTimeout(lifespanTimer); }, { once: true });
   }
 
   var visitorCount = document.querySelector('[data-visitor-count]');
