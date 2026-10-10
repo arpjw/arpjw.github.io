@@ -1,0 +1,3508 @@
+{
+  "schema": "reward-continuation-retrospective-v1",
+  "retrospective": true,
+  "source_evidence": "baselines/reward-continuation-2026-10-10",
+  "input_sha256": {
+    "historical/success_only/rollouts.jsonl": "cc990d62d0eeecc2aabb804fc53920c902f8fe83fa26e3ebc5e97c579946d999",
+    "historical/success_only/metrics.jsonl": "cc47237f4c65a68b6c03d0ea184c66f9392ebbd074add4ef60d7f7790201f985",
+    "token_penalty/rollouts.jsonl": "47453104785abb4a5f84ce1b30cd39b6154f3cd06a2b1e0d9181f72b397d846f",
+    "token_penalty/metrics.jsonl": "0b39a62f0ea5e891518b493a782576a45584651069e4c847e3f8ba2b8ac70830",
+    "historical/base-dev/records.jsonl": "c42c1adb56d7db4ed73faa50ac99a76dc62b9b2fb1e13804859ceb0b701b49c3",
+    "historical/success_only-dev/records.jsonl": "ba79792b6c74a4d303b79ce5cb51c60e94fb7147c42702ce1e25d25dbc83fef9",
+    "token_penalty-dev/records.jsonl": "b13610e73402d1654be7cae324fe76f025c04770c4d3589fc837f9552d76d558",
+    "prepared/historical/dev.jsonl": "27ff5d906f15638b88c41b4a1bcfa155f4de388cf8cc1fc165bfb54fd2e2b681",
+    "prepared/historical/config.json": "f1fb9d42c56b16f3a9e24f3ee50d696cf95a2ef7f5b3b76c972c5b1b5a5b2b97",
+    "comparison.json": "fcc0f6da58e3327fe7e8ae19c9bac091a88373d6949f8f51f7e2058e430c755e",
+    "independent-audit.json": "1043b4b99d7f7a323ea7e3abbdfb83b194c0c9a2a7e1f2086112abcfafec79ce",
+    "historical/success_only/run.json": "07c4f65b8de23f34c5a2972ec6fb856a39a106d53513a7ce2a6897d72fd8eb73",
+    "token_penalty/run.json": "b17d3d808ddb695c6e43054c3e5488c78f7afc59d0d0f1e55f8c739fd762049e",
+    "source/repair_tasks.py": "b5789415b1885d89bd79b5328797377352b3ce71c5fc07705dbd2db5e0ce21cc"
+  },
+  "models_loaded": false,
+  "clip_threshold": 1.0,
+  "arms": {
+    "success_only": {
+      "groups": 64,
+      "trajectories": 256,
+      "counts": {
+        "all_correct": 32,
+        "skipped": 34,
+        "length_only_updates": 0,
+        "cost_varies": 57,
+        "success_only_signal": 30,
+        "penalty_signal_on_same_rows": 61,
+        "clipped_updates": 30,
+        "mixed": 30,
+        "updated": 30,
+        "all_wrong": 2
+      },
+      "group_records": [
+        {
+          "step": 1,
+          "task_id": "v3-t3-train-00367",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1196,
+            1036,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 2,
+          "task_id": "v3-t3-train-00185",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1314,
+            1266,
+            940,
+            1442
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 3,
+          "task_id": "v3-t3-train-00028",
+          "family": "nested_absolute",
+          "successes": 1,
+          "costs": [
+            2049,
+            2049,
+            870,
+            2049
+          ],
+          "advantages": [
+            -0.3333333333333333,
+            -0.3333333333333333,
+            1.0,
+            -0.3333333333333333
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 84.42135620117188,
+          "raw_clip_multiplier": 0.011845343798691248,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 4,
+          "task_id": "v3-t3-train-00049",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            2049,
+            2049,
+            1302,
+            1232
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 5,
+          "task_id": "v3-t3-train-00023",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            1312,
+            1353,
+            2049,
+            1333
+          ],
+          "advantages": [
+            0.33333333333333337,
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 95.44694519042969,
+          "raw_clip_multiplier": 0.010477024566138173,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 6,
+          "task_id": "v3-t3-train-00125",
+          "family": "bounded_affine",
+          "successes": 2,
+          "costs": [
+            1683,
+            2049,
+            2049,
+            1671
+          ],
+          "advantages": [
+            0.6666666666666667,
+            -0.6666666666666666,
+            -0.6666666666666666,
+            0.6666666666666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 120.23334503173828,
+          "raw_clip_multiplier": 0.008317160197271958,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 7,
+          "task_id": "v3-t3-train-00453",
+          "family": "bounded_affine",
+          "successes": 3,
+          "costs": [
+            889,
+            885,
+            888,
+            1098
+          ],
+          "advantages": [
+            0.33333333333333337,
+            0.33333333333333337,
+            0.33333333333333337,
+            -1.0
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 72.0145492553711,
+          "raw_clip_multiplier": 0.013886082693759745,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 8,
+          "task_id": "v3-t3-train-00092",
+          "family": "nested_absolute",
+          "successes": 1,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.3333333333333333,
+            -0.3333333333333333,
+            -0.3333333333333333,
+            1.0
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 114.14982604980469,
+          "raw_clip_multiplier": 0.00876041625156112,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 9,
+          "task_id": "v3-t3-train-00458",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1699,
+            1086,
+            963,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 10,
+          "task_id": "v3-t3-train-00052",
+          "family": "nested_absolute",
+          "successes": 1,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            1558
+          ],
+          "advantages": [
+            -0.3333333333333333,
+            -0.3333333333333333,
+            -0.3333333333333333,
+            1.0
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 90.87895202636719,
+          "raw_clip_multiplier": 0.011003647893147105,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 11,
+          "task_id": "v3-t3-train-00340",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            2049,
+            2049,
+            1760,
+            1876
+          ],
+          "advantages": [
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 104.08612060546875,
+          "raw_clip_multiplier": 0.009607428777012471,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 12,
+          "task_id": "v3-t3-train-00321",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1403,
+            1385,
+            1423,
+            1844
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 13,
+          "task_id": "v3-t3-train-00202",
+          "family": "floor_composition",
+          "successes": 0,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_wrong",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 14,
+          "task_id": "v3-t3-train-00166",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1311,
+            840,
+            1277,
+            807
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 15,
+          "task_id": "v3-t3-train-00167",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            2049,
+            721,
+            764,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 16,
+          "task_id": "v3-t3-train-00483",
+          "family": "modular_composition",
+          "successes": 2,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.6666666666666667,
+            0.6666666666666667,
+            -0.6666666666666666,
+            -0.6666666666666666
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 119.95144653320312,
+          "raw_clip_multiplier": 0.0083367063971712,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 17,
+          "task_id": "v3-t3-train-00403",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1133,
+            1114,
+            1141,
+            1096
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 18,
+          "task_id": "v3-t3-train-00147",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            999,
+            1185,
+            951,
+            986
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 19,
+          "task_id": "v3-t3-train-00017",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1303,
+            1400,
+            1354,
+            1383
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 20,
+          "task_id": "v3-t3-train-00236",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            1568,
+            1230,
+            1020,
+            824
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 21,
+          "task_id": "v3-t3-train-00090",
+          "family": "floor_composition",
+          "successes": 2,
+          "costs": [
+            2049,
+            1121,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.6666666666666666,
+            0.6666666666666667,
+            -0.6666666666666666,
+            0.6666666666666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 106.43926239013672,
+          "raw_clip_multiplier": 0.00939502931671609,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 22,
+          "task_id": "v3-t3-train-00149",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            878,
+            1482,
+            784,
+            881
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 23,
+          "task_id": "v3-t3-train-00199",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1299,
+            1248,
+            886,
+            1252
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 24,
+          "task_id": "v3-t3-train-00429",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1311,
+            1281,
+            1385,
+            1614
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 25,
+          "task_id": "v3-t3-train-00365",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            953,
+            956,
+            1440,
+            991
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 26,
+          "task_id": "v3-t3-train-00388",
+          "family": "nested_absolute",
+          "successes": 1,
+          "costs": [
+            2049,
+            1859,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.3333333333333333,
+            1.0,
+            -0.3333333333333333,
+            -0.3333333333333333
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 141.38241577148438,
+          "raw_clip_multiplier": 0.0070730153213910225,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 27,
+          "task_id": "v3-t3-train-00445",
+          "family": "bounded_affine",
+          "successes": 3,
+          "costs": [
+            1607,
+            1464,
+            1511,
+            899
+          ],
+          "advantages": [
+            0.33333333333333337,
+            0.33333333333333337,
+            0.33333333333333337,
+            -1.0
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 58.951622009277344,
+          "raw_clip_multiplier": 0.016963061387514775,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 28,
+          "task_id": "v3-t3-train-00003",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1194,
+            1038,
+            1225,
+            1051
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 29,
+          "task_id": "v3-t3-train-00102",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            935,
+            905,
+            813,
+            1503
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 30,
+          "task_id": "v3-t3-train-00037",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            921,
+            963,
+            960,
+            961
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 31,
+          "task_id": "v3-t3-train-00194",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1303,
+            2049,
+            1846,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 32,
+          "task_id": "v3-t3-train-00195",
+          "family": "modular_composition",
+          "successes": 1,
+          "costs": [
+            1202,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            1.0,
+            -0.3333333333333333,
+            -0.3333333333333333,
+            -0.3333333333333333
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 113.98881530761719,
+          "raw_clip_multiplier": 0.00877279045780543,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 33,
+          "task_id": "v3-t3-train-00105",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            810,
+            1510,
+            846,
+            1460
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 34,
+          "task_id": "v3-t3-train-00012",
+          "family": "nested_absolute",
+          "successes": 0,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_wrong",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 35,
+          "task_id": "v3-t3-train-00224",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 216.69314575195312,
+          "raw_clip_multiplier": 0.00461482061149212,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 36,
+          "task_id": "v3-t3-train-00180",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            693,
+            1585,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.33333333333333337,
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 81.04090881347656,
+          "raw_clip_multiplier": 0.012339446858402702,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 37,
+          "task_id": "v3-t3-train-00409",
+          "family": "bounded_affine",
+          "successes": 1,
+          "costs": [
+            2049,
+            2049,
+            1294,
+            2049
+          ],
+          "advantages": [
+            -0.3333333333333333,
+            -0.3333333333333333,
+            1.0,
+            -0.3333333333333333
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 79.491943359375,
+          "raw_clip_multiplier": 0.012579891057628452,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 38,
+          "task_id": "v3-t3-train-00120",
+          "family": "nested_absolute",
+          "successes": 1,
+          "costs": [
+            2049,
+            2049,
+            1797,
+            2049
+          ],
+          "advantages": [
+            -0.3333333333333333,
+            -0.3333333333333333,
+            1.0,
+            -0.3333333333333333
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 111.17473602294922,
+          "raw_clip_multiplier": 0.00899484925063124,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 39,
+          "task_id": "v3-t3-train-00331",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1170,
+            1231,
+            1237,
+            1180
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 40,
+          "task_id": "v3-t3-train-00076",
+          "family": "nested_absolute",
+          "successes": 1,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.3333333333333333,
+            -0.3333333333333333,
+            -0.3333333333333333,
+            1.0
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 137.8206024169922,
+          "raw_clip_multiplier": 0.007255809183873504,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 41,
+          "task_id": "v3-t3-train-00377",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1333,
+            1143,
+            1323,
+            1461
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 42,
+          "task_id": "v3-t3-train-00097",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1349,
+            1396,
+            1300,
+            1327
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 43,
+          "task_id": "v3-t3-train-00455",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            1384,
+            2049,
+            1282,
+            2049
+          ],
+          "advantages": [
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 111.36615753173828,
+          "raw_clip_multiplier": 0.008979388471184535,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 44,
+          "task_id": "v3-t3-train-00179",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            924,
+            2049,
+            911,
+            1118
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 45,
+          "task_id": "v3-t3-train-00279",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            884,
+            2049,
+            1012,
+            1134
+          ],
+          "advantages": [
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 111.25066375732422,
+          "raw_clip_multiplier": 0.008988710334282876,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 46,
+          "task_id": "v3-t3-train-00428",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            1293,
+            1320,
+            1994,
+            1732
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 47,
+          "task_id": "v3-t3-train-00000",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 48,
+          "task_id": "v3-t3-train-00124",
+          "family": "nested_absolute",
+          "successes": 2,
+          "costs": [
+            2049,
+            2049,
+            1260,
+            2049
+          ],
+          "advantages": [
+            0.6666666666666667,
+            -0.6666666666666666,
+            0.6666666666666667,
+            -0.6666666666666666
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 153.3018341064453,
+          "raw_clip_multiplier": 0.00652307912234481,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 49,
+          "task_id": "v3-t3-train-00251",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            889,
+            1031,
+            946,
+            887
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 50,
+          "task_id": "v3-t3-train-00444",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            1561,
+            2049,
+            1029,
+            2049
+          ],
+          "advantages": [
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 120.10366821289062,
+          "raw_clip_multiplier": 0.008326140296575309,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 51,
+          "task_id": "v3-t3-train-00426",
+          "family": "floor_composition",
+          "successes": 2,
+          "costs": [
+            1364,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.6666666666666667,
+            -0.6666666666666666,
+            0.6666666666666667,
+            -0.6666666666666666
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 151.57086181640625,
+          "raw_clip_multiplier": 0.006597574107704812,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 52,
+          "task_id": "v3-t3-train-00084",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            1840,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.33333333333333337,
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 109.88016510009766,
+          "raw_clip_multiplier": 0.009100823519769973,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 53,
+          "task_id": "v3-t3-train-00326",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            925,
+            955,
+            954,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 54,
+          "task_id": "v3-t3-train-00474",
+          "family": "floor_composition",
+          "successes": 3,
+          "costs": [
+            1611,
+            2049,
+            1950,
+            978
+          ],
+          "advantages": [
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 91.70970153808594,
+          "raw_clip_multiplier": 0.010903971688106959,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 55,
+          "task_id": "v3-t3-train-00044",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            1613,
+            2049,
+            1534,
+            2049
+          ],
+          "advantages": [
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 136.0893096923828,
+          "raw_clip_multiplier": 0.007348115696319505,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 56,
+          "task_id": "v3-t3-train-00477",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1296,
+            1273,
+            1354,
+            1306
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 57,
+          "task_id": "v3-t3-train-00505",
+          "family": "bounded_affine",
+          "successes": 2,
+          "costs": [
+            2049,
+            1343,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.6666666666666666,
+            0.6666666666666667,
+            0.6666666666666667,
+            -0.6666666666666666
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 137.1459197998047,
+          "raw_clip_multiplier": 0.007291503780558846,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 58,
+          "task_id": "v3-t3-train-00343",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            1314,
+            2049,
+            1432,
+            1394
+          ],
+          "advantages": [
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 141.20797729492188,
+          "raw_clip_multiplier": 0.007081752830646978,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 59,
+          "task_id": "v3-t3-train-00152",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            731,
+            1295,
+            1807,
+            1999
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 60,
+          "task_id": "v3-t3-train-00177",
+          "family": "bounded_affine",
+          "successes": 3,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            1693
+          ],
+          "advantages": [
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 103.31727600097656,
+          "raw_clip_multiplier": 0.009678923303316907,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 61,
+          "task_id": "v3-t3-train-00313",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1432,
+            1338,
+            1541,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 62,
+          "task_id": "v3-t3-train-00298",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1210,
+            915,
+            1357,
+            959
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 63,
+          "task_id": "v3-t3-train-00250",
+          "family": "floor_composition",
+          "successes": 3,
+          "costs": [
+            1020,
+            2049,
+            1291,
+            1384
+          ],
+          "advantages": [
+            0.33333333333333337,
+            -1.0,
+            0.33333333333333337,
+            0.33333333333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 109.11412811279297,
+          "raw_clip_multiplier": 0.009164715955037175,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 64,
+          "task_id": "v3-t3-train-00260",
+          "family": "nested_absolute",
+          "successes": 2,
+          "costs": [
+            1523,
+            2049,
+            2049,
+            1462
+          ],
+          "advantages": [
+            0.6666666666666667,
+            -0.6666666666666666,
+            -0.6666666666666666,
+            0.6666666666666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 124.30481719970703,
+          "raw_clip_multiplier": 0.008044740457231584,
+          "ceiling_hits": 2
+        }
+      ],
+      "preclip_norm": {
+        "min": 58.951622009277344,
+        "median": 111.30841064453125,
+        "max": 216.69314575195312
+      },
+      "training_ceiling_hits": 95,
+      "median_raw_clip_multiplier": 0.008984049402733705
+    },
+    "token_penalty": {
+      "groups": 64,
+      "trajectories": 256,
+      "counts": {
+        "all_correct": 34,
+        "updated": 59,
+        "length_only_updates": 33,
+        "cost_varies": 55,
+        "success_only_signal": 26,
+        "penalty_signal_on_same_rows": 59,
+        "clipped_updates": 59,
+        "mixed": 26,
+        "all_wrong": 4,
+        "skipped": 5
+      },
+      "group_records": [
+        {
+          "step": 1,
+          "task_id": "v3-t3-train-00367",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1196,
+            1036,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.5032552083333334,
+            0.7115885416666666,
+            -0.607421875,
+            -0.607421875
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 175.33499145507812,
+          "raw_clip_multiplier": 0.00570336808413304,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 2,
+          "task_id": "v3-t3-train-00185",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1261,
+            1266,
+            940,
+            1442
+          ],
+          "advantages": [
+            -0.0439453125,
+            -0.05045572916666666,
+            0.3740234375,
+            -0.27962239583333337
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 37.10155487060547,
+          "raw_clip_multiplier": 0.02695304756187522,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 3,
+          "task_id": "v3-t3-train-00028",
+          "family": "nested_absolute",
+          "successes": 2,
+          "costs": [
+            2049,
+            2049,
+            870,
+            2049
+          ],
+          "advantages": [
+            0.28287760416666674,
+            -1.0504557291666665,
+            1.8180338541666667,
+            -1.0504557291666665
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 190.5676727294922,
+          "raw_clip_multiplier": 0.005247479703296816,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 4,
+          "task_id": "v3-t3-train-00049",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            2049,
+            2049,
+            1302,
+            1232
+          ],
+          "advantages": [
+            -0.5091145833333333,
+            -0.5091145833333333,
+            0.46354166666666663,
+            0.5546875
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 97.61624908447266,
+          "raw_clip_multiplier": 0.010244196013826035,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 5,
+          "task_id": "v3-t3-train-00023",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            1784,
+            1353,
+            2049,
+            1333
+          ],
+          "advantages": [
+            0.13248697916666663,
+            0.6936848958333333,
+            -1.5458984375,
+            0.7197265625
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 151.17578125,
+          "raw_clip_multiplier": 0.006614816110865535,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 6,
+          "task_id": "v3-t3-train-00125",
+          "family": "bounded_affine",
+          "successes": 2,
+          "costs": [
+            1683,
+            2049,
+            2049,
+            1671
+          ],
+          "advantages": [
+            0.9010416666666667,
+            -0.9088541666666667,
+            -0.9088541666666667,
+            0.9166666666666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 162.58181762695312,
+          "raw_clip_multiplier": 0.006150749256253049,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 7,
+          "task_id": "v3-t3-train-00453",
+          "family": "bounded_affine",
+          "successes": 3,
+          "costs": [
+            889,
+            885,
+            888,
+            1098
+          ],
+          "advantages": [
+            0.3997395833333333,
+            0.4049479166666667,
+            0.4010416666666667,
+            -1.2057291666666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 85.84644317626953,
+          "raw_clip_multiplier": 0.011648706124003087,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 8,
+          "task_id": "v3-t3-train-00092",
+          "family": "nested_absolute",
+          "successes": 0,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_wrong",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 9,
+          "task_id": "v3-t3-train-00458",
+          "family": "floor_composition",
+          "successes": 2,
+          "costs": [
+            1699,
+            1086,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.6949869791666667,
+            1.4931640625,
+            -1.0940755208333335,
+            -1.0940755208333335
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 218.231201171875,
+          "raw_clip_multiplier": 0.00458229616135468,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 10,
+          "task_id": "v3-t3-train-00052",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            1558
+          ],
+          "advantages": [
+            0.17350260416666674,
+            0.17350260416666674,
+            -1.1598307291666665,
+            0.8128255208333333
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 98.05777740478516,
+          "raw_clip_multiplier": 0.010198069100362167,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 11,
+          "task_id": "v3-t3-train-00340",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            1609,
+            2049,
+            1663,
+            1876
+          ],
+          "advantages": [
+            0.24772135416666663,
+            -0.3251953125,
+            0.17740885416666663,
+            -0.09993489583333337
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 53.31364059448242,
+          "raw_clip_multiplier": 0.018756925433949214,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 12,
+          "task_id": "v3-t3-train-00321",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1403,
+            1334,
+            1423,
+            1844
+          ],
+          "advantages": [
+            0.12760416666666669,
+            0.21744791666666663,
+            0.1015625,
+            -0.4466145833333333
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 44.4913215637207,
+          "raw_clip_multiplier": 0.02247629295730184,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 13,
+          "task_id": "v3-t3-train-00202",
+          "family": "floor_composition",
+          "successes": 1,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.33333333333333326,
+            -0.33333333333333326,
+            1.0,
+            -0.33333333333333326
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 102.56694030761719,
+          "raw_clip_multiplier": 0.009749730149413499,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 14,
+          "task_id": "v3-t3-train-00166",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1311,
+            840,
+            1277,
+            804
+          ],
+          "advantages": [
+            -0.3294270833333333,
+            0.2838541666666667,
+            -0.28515625,
+            0.3307291666666667
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 36.894378662109375,
+          "raw_clip_multiplier": 0.02710439934641326,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 15,
+          "task_id": "v3-t3-train-00167",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            2049,
+            1367,
+            738,
+            2049
+          ],
+          "advantages": [
+            -0.6487630208333333,
+            0.2392578125,
+            1.0582682291666665,
+            -0.6487630208333333
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 115.82779693603516,
+          "raw_clip_multiplier": 0.008633506099738172,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 16,
+          "task_id": "v3-t3-train-00483",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.33333333333333326,
+            0.33333333333333326,
+            -1.0,
+            0.33333333333333326
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 97.00474548339844,
+          "raw_clip_multiplier": 0.010308773913152196,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 17,
+          "task_id": "v3-t3-train-00403",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1151,
+            2049,
+            1170,
+            1096
+          ],
+          "advantages": [
+            0.2805989583333333,
+            -0.888671875,
+            0.255859375,
+            0.3522135416666667
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 82.03770446777344,
+          "raw_clip_multiplier": 0.012189516933683942,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 18,
+          "task_id": "v3-t3-train-00147",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            999,
+            607,
+            951,
+            999
+          ],
+          "advantages": [
+            -0.14322916666666666,
+            0.3671875,
+            -0.08072916666666666,
+            -0.14322916666666666
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 22.8486385345459,
+          "raw_clip_multiplier": 0.0437662819481245,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 19,
+          "task_id": "v3-t3-train-00017",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1392,
+            1400,
+            1354,
+            1383
+          ],
+          "advantages": [
+            -0.0126953125,
+            -0.023111979166666685,
+            0.036783854166666685,
+            -0.0009765625
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 2.49432635307312,
+          "raw_clip_multiplier": 0.4009096876430258,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 20,
+          "task_id": "v3-t3-train-00236",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            1568,
+            796,
+            1020,
+            824
+          ],
+          "advantages": [
+            -0.671875,
+            0.3333333333333333,
+            0.041666666666666664,
+            0.296875
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 84.1688461303711,
+          "raw_clip_multiplier": 0.011880880326792128,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 21,
+          "task_id": "v3-t3-train-00090",
+          "family": "floor_composition",
+          "successes": 2,
+          "costs": [
+            2049,
+            1121,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.96875,
+            1.5729166666666667,
+            -0.96875,
+            0.36458333333333326
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 171.45753479003906,
+          "raw_clip_multiplier": 0.005832347906974268,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 22,
+          "task_id": "v3-t3-train-00149",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            916,
+            1444,
+            784,
+            836
+          ],
+          "advantages": [
+            0.10286458333333333,
+            -0.5846354166666666,
+            0.2747395833333333,
+            0.20703125
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 77.42999267578125,
+          "raw_clip_multiplier": 0.012914891924016554,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 23,
+          "task_id": "v3-t3-train-00199",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1247,
+            926,
+            886,
+            1213
+          ],
+          "advantages": [
+            -0.23307291666666666,
+            0.18489583333333331,
+            0.23697916666666669,
+            -0.18880208333333334
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 21.522180557250977,
+          "raw_clip_multiplier": 0.04646369130099141,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 24,
+          "task_id": "v3-t3-train-00429",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1311,
+            1281,
+            1385,
+            1325
+          ],
+          "advantages": [
+            0.018880208333333315,
+            0.057942708333333315,
+            -0.07747395833333331,
+            0.0006510416666666852
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 4.6230316162109375,
+          "raw_clip_multiplier": 0.21630822947115727,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 25,
+          "task_id": "v3-t3-train-00365",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1028,
+            956,
+            1220,
+            1013
+          ],
+          "advantages": [
+            0.0341796875,
+            0.1279296875,
+            -0.2158203125,
+            0.0537109375
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 29.623048782348633,
+          "raw_clip_multiplier": 0.033757496522045,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 26,
+          "task_id": "v3-t3-train-00388",
+          "family": "nested_absolute",
+          "successes": 0,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_wrong",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 27,
+          "task_id": "v3-t3-train-00445",
+          "family": "bounded_affine",
+          "successes": 3,
+          "costs": [
+            1573,
+            1760,
+            1511,
+            899
+          ],
+          "advantages": [
+            0.15462239583333337,
+            -0.0888671875,
+            0.2353515625,
+            -0.30110677083333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 28.170635223388672,
+          "raw_clip_multiplier": 0.03549795581719059,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 28,
+          "task_id": "v3-t3-train-00003",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1080,
+            1160,
+            1225,
+            1037
+          ],
+          "advantages": [
+            0.05924479166666667,
+            -0.044921875,
+            -0.12955729166666669,
+            0.115234375
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 14.513086318969727,
+          "raw_clip_multiplier": 0.06890332690914928,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 29,
+          "task_id": "v3-t3-train-00102",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            935,
+            905,
+            697,
+            1247
+          ],
+          "advantages": [
+            0.014322916666666671,
+            0.05338541666666667,
+            0.32421875,
+            -0.39192708333333337
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 32.378787994384766,
+          "raw_clip_multiplier": 0.03088441634347175,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 30,
+          "task_id": "v3-t3-train-00037",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            903,
+            963,
+            1332,
+            961
+          ],
+          "advantages": [
+            0.17805989583333334,
+            0.09993489583333334,
+            -0.3805338541666667,
+            0.1025390625
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 27.618513107299805,
+          "raw_clip_multiplier": 0.03620759596678272,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 31,
+          "task_id": "v3-t3-train-00194",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1303,
+            1263,
+            1775,
+            2049
+          ],
+          "advantages": [
+            0.38346354166666663,
+            0.435546875,
+            -0.23111979166666663,
+            -0.587890625
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 88.60360717773438,
+          "raw_clip_multiplier": 0.01128622209147567,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 32,
+          "task_id": "v3-t3-train-00195",
+          "family": "modular_composition",
+          "successes": 1,
+          "costs": [
+            1132,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            1.8955078125,
+            -0.6318359375,
+            -0.6318359375,
+            -0.6318359375
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 169.7086181640625,
+          "raw_clip_multiplier": 0.005892452633965924,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 33,
+          "task_id": "v3-t3-train-00105",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            810,
+            1508,
+            846,
+            1543
+          ],
+          "advantages": [
+            0.4775390625,
+            -0.4313151041666667,
+            0.4306640625,
+            -0.4768880208333333
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 77.96935272216797,
+          "raw_clip_multiplier": 0.01282555199268868,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 34,
+          "task_id": "v3-t3-train-00012",
+          "family": "nested_absolute",
+          "successes": 0,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_wrong",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 35,
+          "task_id": "v3-t3-train-00224",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.33333333333333326,
+            0.33333333333333326,
+            0.33333333333333326,
+            -1.0
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 156.31980895996094,
+          "raw_clip_multiplier": 0.006397141861010038,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 36,
+          "task_id": "v3-t3-train-00180",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            1515,
+            1717,
+            2049,
+            1343
+          ],
+          "advantages": [
+            0.5169270833333334,
+            0.25390625,
+            -1.51171875,
+            0.7408854166666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 153.76429748535156,
+          "raw_clip_multiplier": 0.006503460230043358,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 37,
+          "task_id": "v3-t3-train-00409",
+          "family": "bounded_affine",
+          "successes": 3,
+          "costs": [
+            1493,
+            2049,
+            1294,
+            837
+          ],
+          "advantages": [
+            0.23600260416666663,
+            -1.8212890625,
+            0.4951171875,
+            1.0901692708333335
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 234.6125030517578,
+          "raw_clip_multiplier": 0.0042623474142682105,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 38,
+          "task_id": "v3-t3-train-00120",
+          "family": "nested_absolute",
+          "successes": 2,
+          "costs": [
+            2049,
+            2049,
+            1797,
+            1004
+          ],
+          "advantages": [
+            -1.0888671875,
+            -1.0888671875,
+            0.5725911458333333,
+            1.6051432291666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 236.47215270996094,
+          "raw_clip_multiplier": 0.004228827725849383,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 39,
+          "task_id": "v3-t3-train-00331",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1170,
+            1231,
+            1217,
+            1154
+          ],
+          "advantages": [
+            0.029947916666666657,
+            -0.04947916666666666,
+            -0.03125,
+            0.05078125
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 7.456293106079102,
+          "raw_clip_multiplier": 0.13411488143750955,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 40,
+          "task_id": "v3-t3-train-00076",
+          "family": "nested_absolute",
+          "successes": 0,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_wrong",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 41,
+          "task_id": "v3-t3-train-00377",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            2049,
+            1379,
+            2049,
+            1286
+          ],
+          "advantages": [
+            -0.46647135416666663,
+            0.40592447916666663,
+            -0.46647135416666663,
+            0.5270182291666666
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 106.39286041259766,
+          "raw_clip_multiplier": 0.009399126846696438,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 42,
+          "task_id": "v3-t3-train-00097",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1349,
+            2049,
+            2049,
+            1317
+          ],
+          "advantages": [
+            0.4453125,
+            -0.46614583333333337,
+            -0.46614583333333337,
+            0.48697916666666663
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 94.95530700683594,
+          "raw_clip_multiplier": 0.010531270141612398,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 43,
+          "task_id": "v3-t3-train-00455",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            765,
+            2049,
+            1217,
+            673
+          ],
+          "advantages": [
+            0.8684895833333334,
+            -2.13671875,
+            0.2799479166666667,
+            0.98828125
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 221.3907928466797,
+          "raw_clip_multiplier": 0.004516899653436052,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 44,
+          "task_id": "v3-t3-train-00179",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1105,
+            1002,
+            911,
+            1168
+          ],
+          "advantages": [
+            -0.076171875,
+            0.057942708333333336,
+            0.17643229166666669,
+            -0.158203125
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 21.07256317138672,
+          "raw_clip_multiplier": 0.04745506962830111,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 45,
+          "task_id": "v3-t3-train-00279",
+          "family": "modular_composition",
+          "successes": 3,
+          "costs": [
+            1194,
+            2049,
+            1134,
+            948
+          ],
+          "advantages": [
+            0.5120442708333334,
+            -1.9345703125,
+            0.5901692708333334,
+            0.8323567708333334
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 200.3623046875,
+          "raw_clip_multiplier": 0.004990958736318769,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 46,
+          "task_id": "v3-t3-train-00428",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            1210,
+            2049,
+            1751,
+            1754
+          ],
+          "advantages": [
+            0.9596354166666667,
+            -1.4661458333333335,
+            0.25520833333333337,
+            0.25130208333333337
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 185.01156616210938,
+          "raw_clip_multiplier": 0.00540506745247873,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 47,
+          "task_id": "v3-t3-train-00000",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            2049,
+            920,
+            2049,
+            2049
+          ],
+          "advantages": [
+            -0.36751302083333337,
+            1.1025390625,
+            -0.36751302083333337,
+            -0.36751302083333337
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 131.48194885253906,
+          "raw_clip_multiplier": 0.007605606709677868,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 48,
+          "task_id": "v3-t3-train-00124",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            2049,
+            2049,
+            1260,
+            2049
+          ],
+          "advantages": [
+            -0.2568359375,
+            -0.2568359375,
+            0.7705078125,
+            -0.2568359375
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 51.889801025390625,
+          "raw_clip_multiplier": 0.01927160946790049,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 49,
+          "task_id": "v3-t3-train-00251",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            889,
+            996,
+            1094,
+            1044
+          ],
+          "advantages": [
+            0.15201822916666666,
+            0.0126953125,
+            -0.11490885416666666,
+            -0.0498046875
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 10.655381202697754,
+          "raw_clip_multiplier": 0.09384928489442808,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 50,
+          "task_id": "v3-t3-train-00444",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            2049,
+            2049,
+            1055,
+            1805
+          ],
+          "advantages": [
+            -0.06966145833333337,
+            -1.4029947916666665,
+            1.224609375,
+            0.248046875
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 181.753173828125,
+          "raw_clip_multiplier": 0.005501967164786258,
+          "ceiling_hits": 2
+        },
+        {
+          "step": 51,
+          "task_id": "v3-t3-train-00426",
+          "family": "floor_composition",
+          "successes": 1,
+          "costs": [
+            1166,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            1.8623046875,
+            -0.6207682291666667,
+            -0.6207682291666667,
+            -0.6207682291666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 172.34921264648438,
+          "raw_clip_multiplier": 0.005802173266952984,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 52,
+          "task_id": "v3-t3-train-00084",
+          "family": "nested_absolute",
+          "successes": 2,
+          "costs": [
+            1339,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            1.3600260416666667,
+            -0.8977864583333333,
+            0.435546875,
+            -0.8977864583333333
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 284.7997741699219,
+          "raw_clip_multiplier": 0.0035112387269384737,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 53,
+          "task_id": "v3-t3-train-00326",
+          "family": "floor_composition",
+          "successes": 3,
+          "costs": [
+            924,
+            955,
+            922,
+            2049
+          ],
+          "advantages": [
+            0.708984375,
+            0.6686197916666666,
+            0.7115885416666666,
+            -2.0891927083333335
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 206.70660400390625,
+          "raw_clip_multiplier": 0.004837774777352192,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 54,
+          "task_id": "v3-t3-train-00474",
+          "family": "floor_composition",
+          "successes": 2,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            1155
+          ],
+          "advantages": [
+            -0.9576822916666667,
+            0.37565104166666674,
+            -0.9576822916666667,
+            1.5397135416666667
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 256.66522216796875,
+          "raw_clip_multiplier": 0.0038961258079968733,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 55,
+          "task_id": "v3-t3-train-00044",
+          "family": "nested_absolute",
+          "successes": 3,
+          "costs": [
+            1898,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.48079427083333326,
+            0.2841796875,
+            0.2841796875,
+            -1.0491536458333335
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 106.8235855102539,
+          "raw_clip_multiplier": 0.009361228476484552,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 56,
+          "task_id": "v3-t3-train-00477",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            1298,
+            1397,
+            1381,
+            1323
+          ],
+          "advantages": [
+            0.0673828125,
+            -0.0615234375,
+            -0.040690104166666685,
+            0.034830729166666685
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 7.061657428741455,
+          "raw_clip_multiplier": 0.14160979465247547,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 57,
+          "task_id": "v3-t3-train-00505",
+          "family": "bounded_affine",
+          "successes": 2,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.6666666666666667,
+            -0.6666666666666667,
+            0.6666666666666667,
+            -0.6666666666666667
+          ],
+          "kind": "mixed",
+          "cost_varies": false,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 129.02964782714844,
+          "raw_clip_multiplier": 0.0077501567204885345,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 58,
+          "task_id": "v3-t3-train-00343",
+          "family": "modular_composition",
+          "successes": 4,
+          "costs": [
+            1084,
+            1339,
+            1341,
+            1100
+          ],
+          "advantages": [
+            0.171875,
+            -0.16015625,
+            -0.16276041666666666,
+            0.15104166666666666
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 28.616300582885742,
+          "raw_clip_multiplier": 0.0349451167581369,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 59,
+          "task_id": "v3-t3-train-00152",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            731,
+            725,
+            1542,
+            2049
+          ],
+          "advantages": [
+            0.6910807291666667,
+            0.6988932291666667,
+            -0.36490885416666663,
+            -1.0250651041666667
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 134.67555236816406,
+          "raw_clip_multiplier": 0.007425252579184055,
+          "ceiling_hits": 1
+        },
+        {
+          "step": 60,
+          "task_id": "v3-t3-train-00177",
+          "family": "bounded_affine",
+          "successes": 4,
+          "costs": [
+            2049,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "kind": "all_correct",
+          "cost_varies": false,
+          "optimizer_updated": false,
+          "preclip_grad_norm": 0.0,
+          "raw_clip_multiplier": null,
+          "ceiling_hits": 4
+        },
+        {
+          "step": 61,
+          "task_id": "v3-t3-train-00313",
+          "family": "bounded_affine",
+          "successes": 2,
+          "costs": [
+            1529,
+            2049,
+            2049,
+            2049
+          ],
+          "advantages": [
+            1.1744791666666667,
+            -0.8359375,
+            -0.8359375,
+            0.49739583333333326
+          ],
+          "kind": "mixed",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 160.50592041015625,
+          "raw_clip_multiplier": 0.006230299737319993,
+          "ceiling_hits": 3
+        },
+        {
+          "step": 62,
+          "task_id": "v3-t3-train-00298",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1085,
+            1066,
+            1117,
+            820
+          ],
+          "advantages": [
+            -0.08203125,
+            -0.05729166666666667,
+            -0.12369791666666666,
+            0.2630208333333333
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 21.872970581054688,
+          "raw_clip_multiplier": 0.045718525089025935,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 63,
+          "task_id": "v3-t3-train-00250",
+          "family": "floor_composition",
+          "successes": 4,
+          "costs": [
+            1015,
+            1074,
+            903,
+            1301
+          ],
+          "advantages": [
+            0.07584635416666667,
+            -0.0009765625,
+            0.2216796875,
+            -0.2965494791666667
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 56.929691314697266,
+          "raw_clip_multiplier": 0.017565526166419047,
+          "ceiling_hits": 0
+        },
+        {
+          "step": 64,
+          "task_id": "v3-t3-train-00260",
+          "family": "nested_absolute",
+          "successes": 4,
+          "costs": [
+            2049,
+            2049,
+            1626,
+            1200
+          ],
+          "advantages": [
+            -0.4140625,
+            -0.4140625,
+            0.13671875,
+            0.69140625
+          ],
+          "kind": "all_correct",
+          "cost_varies": true,
+          "optimizer_updated": true,
+          "preclip_grad_norm": 93.42109680175781,
+          "raw_clip_multiplier": 0.010704220176496191,
+          "ceiling_hits": 2
+        }
+      ],
+      "preclip_norm": {
+        "min": 2.49432635307312,
+        "median": 97.00474548339844,
+        "max": 284.7997741699219
+      },
+      "training_ceiling_hits": 100,
+      "median_raw_clip_multiplier": 0.010308773913152196
+    }
+  },
+  "first_group_trajectories_identical": true,
+  "evaluation": {
+    "base": {
+      "count": 64,
+      "success": 0.828125,
+      "cost": 1554.828125,
+      "scratch_budget_hit_fraction": 0.328125
+    },
+    "success_only": {
+      "count": 64,
+      "success": 0.8125,
+      "cost": 1556.6875,
+      "scratch_budget_hit_fraction": 0.3125
+    },
+    "token_penalty": {
+      "count": 64,
+      "success": 0.84375,
+      "cost": 1567.890625,
+      "scratch_budget_hit_fraction": 0.359375
+    }
+  },
+  "primary_contrast": {
+    "difference": {
+      "success": 0.03125,
+      "cost": 11.203125,
+      "scratch_budget_hit": 0.046875,
+      "relative_cost_change": 0.00719677199180957
+    },
+    "descriptive_95_percent_task_intervals": {
+      "success": [
+        -0.0625,
+        0.140625
+      ],
+      "cost": [
+        -65.09375,
+        88.34375
+      ],
+      "scratch_budget_hit": [
+        -0.078125,
+        0.15625
+      ],
+      "relative_cost_change": [
+        -0.040653380291993724,
+        0.058874684755196194
+      ]
+    },
+    "family_differences": {
+      "bounded_affine": {
+        "success": -0.125,
+        "cost": 62.0625,
+        "scratch_budget_hit": 0.0625,
+        "relative_cost_change": 0.040995788952192136
+      },
+      "floor_composition": {
+        "success": 0.125,
+        "cost": -48.625,
+        "scratch_budget_hit": -0.0625,
+        "relative_cost_change": -0.031549067315490675
+      },
+      "modular_composition": {
+        "success": 0.0,
+        "cost": -24.0625,
+        "scratch_budget_hit": 0.0625,
+        "relative_cost_change": -0.017636280348144795
+      },
+      "nested_absolute": {
+        "success": 0.125,
+        "cost": 55.4375,
+        "scratch_budget_hit": 0.125,
+        "relative_cost_change": 0.030675058790980758
+      }
+    }
+  },
+  "outcome_cells": {
+    "00": 5,
+    "01": 7,
+    "10": 5,
+    "11": 47
+  },
+  "examples": [
+    {
+      "outcome_cell": "00",
+      "task_id": "v3-t3-dev-00010",
+      "sample": 1,
+      "seed": 36262015,
+      "family": "floor_composition",
+      "candidates": [
+        "abs((abs((9 * x) // 5 - 3) + 7) // 4 - 9) + abs((abs((4 * y) // 2 - 6) + 3) // 5 - 4)",
+        "abs((abs((10 * x) // 5 - 3) + 7) // 4 - 9) + abs((abs((5 * y) // 2 - 6) + 3) // 5 - 4)",
+        "abs((abs((10 * x) // 5 - 3) + 7) // 4 - 9) + abs((abs((4 * y) // 2 - 6) + 3) // 5 - 4)",
+        "abs((abs((9 * x) // 5 - 3) + 7) // 4 - 9) + abs((abs((5 * y) // 2 - 6) + 3) // 5 - 4)"
+      ],
+      "target": "abs((abs((10 * x) // 5 - 3) + 7) // 4 - 9) + abs((abs((4 * y) // 2 - 6) + 3) // 5 - 4)",
+      "visible_inputs": [
+        [
+          -4,
+          6
+        ],
+        [
+          -9,
+          3
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          11,
+          -6
+        ]
+      ],
+      "visible_examples": [
+        {
+          "x": -4,
+          "y": 6,
+          "output": 8
+        },
+        {
+          "x": -9,
+          "y": 3,
+          "output": 6
+        },
+        {
+          "x": 1,
+          "y": 8,
+          "output": 9
+        },
+        {
+          "x": 11,
+          "y": -6,
+          "output": 3
+        }
+      ],
+      "control": {
+        "answer": "B",
+        "success": 0,
+        "cost": 2049,
+        "scratch_budget_hit": true,
+        "scratch": "x=-4, y=6:  \nA: abs((abs((9*(-4)//5 - 3) + 7)//4 - 9) + abs((abs((4*6)//2 - 6) + 3)//5 - 4))  \n\u2192 9*(-4) = -36 //5 = -7 \u2192 abs(-7 -3)=10 \u2192 10+7=17 \u2192 17//4=4 \u2192 4-9=-5 \u2192 abs(-5)=5  \n\u2192 4*6=24 //2=12 \u2192 12-6=6 \u2192 abs(6)=6 \u2192 6+3=9 \u2192 9//5=1 \u2192 1-4=-3 \u2192 abs(-3)=3  \n\u2192 5+3=8 \u2705  \n\nx=-9, y=3:  \nA: abs((abs((9*(-9)//5 -3)+7)//4 -9)) + abs((abs((4*3)//2 -6)+3)//5 -4)  \n\u2192 9*(-9) = -81 //5 = -16 \u2192 abs(-16-3)=19 \u2192 19+7=26 \u2192 26//4=6 \u2192 6-9=-3 \u2192 abs=3  \n\u2192 4*3=12 //2=6 \u2192 6-6=0 \u2192 abs=0 \u2192 0+3=3 \u2192 3//5=0 \u2192 0-4=-4 \u2192 abs=4  \n\u2192 3+4=7 \u274c expected 6 \u2192 fail\n\nB: abs((abs((10*x)//5 -3)+7)//4 -9) + abs((abs((5*y)//2 -6)+3)//5 -4)  \nx=-9: 10*(-9) = -90 //5 = -18 \u2192 -18-3 = -21 \u2192 +7 = -14 \u2192 //4 = -4 \u2192 -4-9 = -13 \u2192 abs=13  \ny=3: 5*3=15 //2 = 7 \u2192 7-6=1 \u2192 +3=4 \u2192 //5=0 \u2192 0-4=-4 \u2192 abs=4 \u2192 13+4=17 \u274c expected 6  \n\nC: same as B \u2192 same failure \u2192 fail  \n\nD: abs((abs((9*x)//5 -3)+7)//4 -9) + abs((abs((5*y)//2 -6)+3)//5 -4)  \nx=-9: 9*(-9) = -81 //5 = -16 \u2192 -16-3 = -19 \u2192 +7 = -12 \u2192 //4 = -3 \u2192 -3-9 = -12 \u2192 abs=12  \ny=3: 5*3=15 //2 = 7 \u2192 7-6=1 \u2192 +3=4 \u2192 //5=0 \u2192 0-4=-4 \u2192 abs=4 \u2192 12+4=16 \u274c expected 6  \n\nSo A failed at x=-9,y=3 \u2192 fails\n\nWait \u2014 earlier A gave 8 for first pair, but failed second.\n\nBut let's recheck A on first pair:\n\nx=-4, y=6  \n(9*x)//5 = (9*(-4))//5 = -36//5 = -8 (since floor division rounds down)  \n-36//5 = -8 \u2192 -8 -3 = -11 \u2192 abs(-11)=11 \u2192 11+7=18 \u2192 18//4=4 (18//4=4.5\u21924) \u2192 4-9=-5 \u2192 abs=5  \n(4*y)//2 = (24)//2=12 \u2192 12-6=6 \u2192 abs=6 \u2192 +3=9 \u2192 9//5=1 \u2192 1-4=-3 \u2192 abs=3  \n5+3=8 \u2705\n\nx=-9, y=3  \n9*(-9) = -81 //5 = -17 (since -81//5 = -16.2 \u2192 -17)  \n-17 -3 = -20 \u2192 abs=20 \u2192 +7=27 \u2192 //4 = 6 (27//4=6) \u2192 6-9=-3 \u2192 abs=3  \n5*3=15 //2 = 7 \u2192 7-6=1 \u2192 +3=4 \u2192 //5=0 \u2192 0-4=-4 \u2192 abs=4 \u2192 3+4=7 \u274c expected 6\n\nSo A fails.\n\nNow check if any expression gives 6 for x=-9,y=3.\n\nTry candidate B again:\n\nx=-9: (10*x)//5 = -90//5 = -18 \u2192 -18 -3 = -21 \u2192 +7 = -14 \u2192 //4 = -4 (since -14//4 = -4) \u2192 -4-9 = -13 \u2192 abs=13  \ny=3: (5*3)//2 = 15//2 = 7 \u2192 7-6=1 \u2192 +3=4 \u2192 //5=0 \u2192 0-4=-4 \u2192 abs=4 \u2192 13+4=17 \u274c\n\nC: same as B \u2192 17 \u274c\n\nD: (9*x)//5 = -81//5 = -17 \u2192 -17-3=-20 \u2192 +7=-13 \u2192 //4 = -4 (since -13//4 = -4) \u2192 -4-9=-13 \u2192 abs=13  \n(5*y)//2 = 15//2=7 \u2192 same \u2192 4 \u2192 abs=4 \u2192 13+4=17 \u274c\n\nAll fail? But one must work.\n\nWait \u2014 perhaps I miscalculated the first pair.\n\nTry candidate A again with x=1, y=8 \u2192 expected 9\n\nA:  \n(9*1)//5 = 9//5 = 1 \u2192 1-3 = -2 \u2192 abs=2 \u2192 +7=9 \u2192 //4 = 2 \u2192 2-9 = -7 \u2192 abs=7  \n(4*8)=32 //2=16 \u2192 16-6=10 \u2192 abs=10 \u2192 +3=13 \u2192 //5=2 \u2192 2-4=-2 \u2192 abs=2  \n7+2=9 \u2705\n\nx=11, y=-6 \u2192 expected 3  \n(9*11)=99//5=19 \u2192 19-3=16 \u2192 abs=16 \u2192 +7=23 \u2192 //4=5 \u2192 5-9=-4 \u2192 abs=4  \n(4*(-6))=-24 //2 = -12 \u2192 -12-6=-18 \u2192 abs=18 \u2192 +3=21 \u2192 //5=4 \u2192 4-4=0 \u2192 abs=0  \n4+0=4 \u274c expected 3 \u2192 fail\n\nNow try B:  \nx=11: (10*11)//5 = 110//5=22 \u2192 22-3=19 \u2192 +7=26 \u2192 //4=6 \u2192 6-9=-3 \u2192 abs=3  \ny=-6: (5*(-6))//2 = -30//2 = -15 \u2192 -15-6=-21 \u2192 abs=21 \u2192 +3=24 \u2192 //5=4 \u2192 4-4=0 \u2192 abs=0  \n3+0=3 \u2705\n\nx=-9,y=3:  \n(10*(-9))//5 = -90//5 = -18 \u2192 -18-3=-21 \u2192 +7=-14 \u2192 //4 = -4 \u2192 -4-9=-13 \u2192 abs=13  \n(5*3)//2 = 15//2 = 7 \u2192 7-6=1 \u2192 +3=4 \u2192 //5=0 \u2192 0-4=-4 \u2192 abs=4 \u2192 13+4=17 \u274c\n\nStill fails.\n\nTry C: same as B \u2192 same values \u2192 fails\n\nTry D:  \nx=11: (9*11)//5 = 99//5=19 \u2192 19-3=16 \u2192 +7=23 \u2192 //4=5 \u2192 5-9=-4 \u2192 abs=4  \ny=-6: (5*(-6))//2 = -30//2=-15 \u2192 -15-6=-21 \u2192 +3=-18 \u2192 abs=18 \u2192 +3=21 \u2192 //5=4 \u2192 4-4=0 \u2192 abs=0  \n4+0=4 \u274c expected 3\n\nNow check if any expression gives correct output for all.\n\nTry A on x=-9,y=3: we had 7 \u2192 expected 6 \u2192 fail\n\nIs there a candidate that gives 6?\n\nTry to reverse-engineer.\n\nWe need a function f(x,y) that outputs:\n\nx=-4,y=6 \u2192 8  \nx=-9,y=3 \u2192 6  \nx=1,y=8 \u2192 9  \nx=11,y=-6 \u2192 3\n\nTry candidate D on x=-9,y=3:\n\n(9*x)//5 = 9*(-9"
+      },
+      "penalty": {
+        "answer": "A",
+        "success": 0,
+        "cost": 2049,
+        "scratch_budget_hit": true,
+        "scratch": "x=-4, y=6:  \nA: abs((abs((9*(-4)//5 - 3) + 7)//4 - 9) + abs((abs((4*6)//2 - 6) + 3)//5 - 4))  \n\u2192 9*(-4) = -36 //5 = -7 \u2192 abs(-7 -3)=10 \u2192 10+7=17 \u2192 17//4=4 \u2192 4-9=-5 \u2192 abs(-5)=5  \n\u2192 4*6=24 //2=12 \u2192 12-6=6 \u2192 abs(6)=6 \u2192 6+3=9 \u2192 9//5=1 \u2192 1-4=-3 \u2192 abs(-3)=3  \n\u2192 5+3=8 \u2705  \n\nx=-9, y=3:  \nA: abs((abs((9*(-9)//5 -3)+7)//4 -9)) + abs((abs((4*3)//2 -6)+3)//5 -4)  \n\u2192 9*(-9) = -81 //5 = -16 \u2192 abs(-16-3)=19 \u2192 19+7=26 \u2192 26//4=6 \u2192 6-9=-3 \u2192 abs=3  \n\u2192 4*3=12 //2=6 \u2192 6-6=0 \u2192 abs=0 \u2192 0+3=3 \u2192 3//5=0 \u2192 0-4=-4 \u2192 abs=4  \n\u2192 3+4=7 \u274c expected 6 \u2192 fail\n\nB: abs((abs((10*(-4)//5 -3)+7)//4 -9)) + abs((abs((5*6)//2 -6)+3)//5 -4)  \n\u2192 10*(-4)=-40 //5=-8 \u2192 abs(-8-3)=11 \u2192 11+7=18 \u2192 18//4=4 \u2192 4-9=-5 \u2192 abs=5  \n\u2192 5*6=30 //2=15 \u2192 15-6=9 \u2192 abs=9 \u2192 9+3=12 \u2192 12//5=2 \u2192 2-4=-2 \u2192 abs=2  \n\u2192 5+2=7 \u274c expected 8 \u2192 fail\n\nC: same as B \u2192 same result \u2192 fail\n\nD: abs((abs((9*(-4)//5 -3)+7)//4 -9)) + abs((abs((5*6)//2 -6)+3)//5 -4)  \n\u2192 9*(-4)=-36 //5=-7 \u2192 abs(-7-3)=10 \u2192 10+7=17 \u2192 17//4=4 \u2192 4-9=-5 \u2192 abs=5  \n\u2192 5*6=30 //2=15 \u2192 15-6=9 \u2192 abs=9 \u2192 9+3=12 \u2192 12//5=2 \u2192 2-4=-2 \u2192 abs=2  \n\u2192 5+2=7 \u274c expected 8 \u2192 fail\n\nA fails at x=-9,y=3 \u2192 not correct.\n\nNo candidate passes all.\n\nWait \u2014 recheck A at x=-9,y=3:\n\nA: abs((abs((9*(-9)//5 -3)+7)//4 -9))  \n9*(-9) = -81 //5 = -16.2 \u2192 floor? Integer division in Python is floor division.  \n-81 // 5 = -17 (since -81 / 5 = -16.2 \u2192 floor is -17)  \n\u2192 -17 -3 = -20 \u2192 abs = 20 \u2192 +7 = 27 \u2192 27//4 = 6 \u2192 6-9 = -3 \u2192 abs = 3  \n\ny part: (4*3)//2 = 12//2 = 6 \u2192 6-6=0 \u2192 abs=0 \u2192 +3=3 \u2192 3//5=0 \u2192 0-4=-4 \u2192 abs=4  \n3+4=7 \u2192 expected 6 \u2192 fail\n\nAll fail?\n\nBut let's check if any matches first example.\n\nx=1,y=8 \u2192 expected 9\n\nTry A:  \nx=1: 9*1=9 //5=1 \u2192 1-3=-2 \u2192 abs=2 \u2192 +7=9 \u2192 9//4=2 \u2192 2-9=-7 \u2192 abs=7  \ny=8: 4*8=32 //2=16 \u2192 16-6=10 \u2192 abs=10 \u2192 +3=13 \u2192 13//5=2 \u2192 2-4=-2 \u2192 abs=2  \n7+2=9 \u2705\n\nx=11,y=-6 \u2192 expected 3\n\nA:  \nx=11: 9*11=99 //5=19 \u2192 19-3=16 \u2192 abs=16 \u2192 +7=23 \u2192 23//4=5 \u2192 5-9=-4 \u2192 abs=4  \ny=-6: 4*(-6)=-24 //2=-12 \u2192 -12-6=-18 \u2192 abs=18 \u2192 +3=21 \u2192 21//5=4 \u2192 4-4=0 \u2192 abs=0  \n4+0=4 \u274c expected 3\n\nSo A fails at x=11,y=-6\n\nB:  \nx=11: 10*11=110 //5=22 \u2192 22-3=19 \u2192 abs=19 \u2192 +7=26 \u2192 26//4=6 \u2192 6-9=-3 \u2192 abs=3  \ny=-6: 5*(-6)=-30 //2=-15 \u2192 -15-6=-21 \u2192 abs=21 \u2192 +3=24 \u2192 24//5=4 \u2192 4-4=0 \u2192 abs=0  \n3+0=3 \u2705\n\nx=1,y=8:  \nB: x part: 10*1=10//5=2 \u2192 2-3=-1 \u2192 abs=1 \u2192 +7=8 \u2192 8//4=2 \u2192 2-9=-7 \u2192 abs=7  \ny part: 5*8=40//2=20 \u2192 20-6=14 \u2192 abs=14 \u2192 +3=17 \u2192 17//5=3 \u2192 3-4=-1 \u2192 abs=1  \n7+1=8 \u274c expected 9 \u2192 fail\n\nC: same as B \u2192 same failure\n\nD:  \nx=1: 9*1=9//5=1 \u2192 1-3=-2 \u2192 abs=2 \u2192 +7=9 \u2192 9//4=2 \u2192 2-9=-7 \u2192 abs=7  \ny=8: 5*8=40//2=20 \u2192 20-6=14 \u2192 abs=14 \u2192 +3=17 \u2192 17//5=3 \u2192 3-4=-1 \u2192 abs=1  \n7+1=8 \u274c expected 9 \u2192 fail\n\nOnly B passed x=11,y=-6, but failed x=1,y=8.\n\nIs there a candidate that works on first three?\n\nx=-4,y=6 \u2192 expected 8\n\nTry B:  \nx=-4: 10*(-4)=-40//5=-8 \u2192 -8-3=-11 \u2192 abs=11 \u2192 +7=18 \u2192 18//4=4 \u2192 4-9=-5 \u2192 abs=5  \ny=6: 5*6=30//2=15 \u2192 15-6=9 \u2192 abs=9 \u2192 +3=12 \u2192 12//5=2 \u2192 2-4=-2 \u2192 abs=2  \n5+2=7 \u274c expected 8\n\nNo.\n\nWait \u2014 maybe I made a mistake in the y part of D.\n\nD: y part: (abs((5*y)//2 -6) +3)//5 -4\n\nAt y=6: (5*6)=30//2=15 \u2192 15-6=9 \u2192 abs=9 \u2192 +3=12 \u2192 12//5=2 \u2192 2-4=-2 \u2192 abs=2 \u2192 so part is 2\n\nx part: 9*(-4)=-36//5 = -7.2 \u2192 floor to -8? -36//5 = -8?  \nIn Python: -36 // 5 = -8 (since 5*(-8) = -40, which is less than -36) \u2192 correct  \n-8 -3 = -11 \u2192 abs=11 \u2192 +7=18 \u2192 18//4=4 \u2192 4-9=-5 \u2192 abs=5  \n5+2=7 \u2192 not 8\n\nAll fail?\n\nBut must be one.\n\nTry candidate C and D with x=1,y=8.\n\nC: x=1: (10*1//5)=2 \u2192 2-3=-1 \u2192 abs=1 \u2192 +7=8 \u2192 8//4=2 \u2192 2-9=-7 \u2192 abs=7  \ny=8: (5*8//2)=40//2"
+      }
+    },
+    {
+      "outcome_cell": "01",
+      "task_id": "v3-t3-dev-00004",
+      "sample": 0,
+      "seed": 36261405,
+      "family": "nested_absolute",
+      "candidates": [
+        "abs(abs(abs(abs(x - 2) - 8) - 7) - 6) + abs(abs(abs(abs(y - 7) - 6) - 4) - 3)",
+        "abs(abs(abs(abs(x + 2) - 8) - 7) - 6) + abs(abs(abs(abs(y - 7) - 6) - 4) - 3)",
+        "abs(abs(abs(abs(x - 2) - 8) - 7) - 6) + abs(abs(abs(abs(y + 7) - 6) - 4) - 3)",
+        "abs(abs(abs(abs(x + 2) - 8) - 7) - 6) + abs(abs(abs(abs(y + 7) - 6) - 4) - 3)"
+      ],
+      "target": "abs(abs(abs(abs(x + 2) - 8) - 7) - 6) + abs(abs(abs(abs(y - 7) - 6) - 4) - 3)",
+      "visible_inputs": [
+        [
+          7,
+          -3
+        ],
+        [
+          -15,
+          11
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          14,
+          7
+        ]
+      ],
+      "visible_examples": [
+        {
+          "x": 7,
+          "y": -3,
+          "output": 3
+        },
+        {
+          "x": -15,
+          "y": 11,
+          "output": 5
+        },
+        {
+          "x": 15,
+          "y": 6,
+          "output": 6
+        },
+        {
+          "x": 14,
+          "y": 7,
+          "output": 6
+        }
+      ],
+      "control": {
+        "answer": "A",
+        "success": 0,
+        "cost": 2049,
+        "scratch_budget_hit": true,
+        "scratch": "x=7, y=-3 \u2192 3  \nx=-15, y=11 \u2192 5  \nx=15, y=6 \u2192 6  \nx=14, y=7 \u2192 6  \n\nTest A:  \nx=7, y=-3:  \nabs(abs(abs(abs(7-2)-8)-7)-6) = abs(abs(abs(5-8)-7)-6) = abs(abs(3-7)-6) = abs(4-6) = 2  \nabs(abs(abs(abs(-3-7)-6)-4)-3) = abs(abs(abs(-10-6)-6)-4)-3) = abs(abs(-16-6)-4)-3) = abs(-22-4)-3 = abs(-26)-3 = 26-3 = 23  \nTotal: 2 + 23 = 25 \u2192 not 3 \u2192 fail\n\nTest B:  \nx=7, y=-3:  \nabs(abs(abs(abs(7+2)-8)-7)-6) = abs(abs(abs(9-8)-7)-6) = abs(abs(1-7)-6) = abs(6-6) = 0  \nabs(abs(abs(abs(-3-7)-6)-4)-3) = abs(abs(abs(-10-6)-6)-4)-3) = abs(abs(-16-6)-4)-3) = abs(-22-4)-3 = 26-3 = 23  \nTotal: 0 + 23 = 23 \u2192 not 3 \u2192 fail\n\nTest C:  \nx=7, y=-3:  \nabs(abs(abs(abs(7-2)-8)-7)-6) = abs(abs(abs(5-8)-7)-6) = abs(abs(3-7)-6) = abs(4-6) = 2  \nabs(abs(abs(abs(-3+7)-6)-4)-3) = abs(abs(abs(4-6)-4)-3) = abs(abs(-2-4)-3) = abs(-6-3) = 9  \nTotal: 2 + 9 = 11 \u2192 not 3 \u2192 fail\n\nTest D:  \nx=7, y=-3:  \nabs(abs(abs(abs(7+2)-8)-7)-6) = abs(abs(abs(9-8)-7)-6) = abs(abs(1-7)-6) = abs(6-6) = 0  \nabs(abs(abs(abs(-3+7)-6)-4)-3) = abs(abs(abs(4-6)-4)-3) = abs(abs(-2-4)-3) = abs(-6-3) = 9  \nTotal: 0 + 9 = 9 \u2192 not 3 \u2192 fail\n\nAll candidates fail? But problem says \"only one\" satisfies every pair.\n\nWait \u2014 recheck the first example: x=7, y=-3 \u2192 3\n\nTry to reverse engineer.\n\nTry candidate A again, more carefully:\n\nx=7, y=-3  \nx-2 = 5  \nabs(5-8)=3  \nabs(3-7)=4  \nabs(4-6)=2  \n\ny-7 = -10  \nabs(-10-6)=16  \nabs(16-4)=12  \nabs(12-3)=9 \u2192 too big\n\nWait \u2014 maybe I misread the structure.\n\nAll expressions are of form:  \nabs(abs(abs(abs(x \u00b1 a) - b) - c) - d) + same for y with similar constants\n\nTry to find expression that gives 3 for (7,-3)\n\nTry candidate D:  \nx=7+2=9 \u2192 abs(9-8)=1 \u2192 abs(1-7)=6 \u2192 abs(6-6)=0 \u2192 abs(0-6)=6? Wait no:\n\nWait expression D:  \nabs(abs(abs(abs(x+2)-8)-7)-6) \u2192  \nx=7: x+2=9 \u2192 abs(9-8)=1 \u2192 abs(1-7)=6 \u2192 abs(6-6)=0\n\ny=-3: y+7=4 \u2192 abs(4-6)=2 \u2192 abs(2-4)=2 \u2192 abs(2-3)=1\n\nWait! I made a mistake earlier \u2014 the y part is:  \nabs(abs(abs(abs(y+7)-6)-4)-3)\n\ny=-3 \u2192 y+7=4  \nabs(4-6)=2  \nabs(2-4)=2  \nabs(2-3)=1 \u2192 not 1, wait: abs(2-4)=2, then abs(2-3)=1 \u2192 total = 0 + 1 = 1 \u2192 not 3\n\nStill not 3.\n\nWait \u2014 maybe I misread the expression.\n\nLet me write it again:\n\nA: abs(abs(abs(abs(x-2)-8)-7)-6) + abs(abs(abs(abs(y-7)-6)-4)-3)\n\nB: abs(abs(abs(abs(x+2)-8)-7)-6) + abs(abs(abs(abs(y-7)-6)-4)-3)\n\nC: abs(abs(abs(abs(x-2)-8)-7)-6) + abs(abs(abs(abs(y+7)-6)-4)-3)\n\nD: abs(abs(abs(abs(x+2)-8)-7)-6) + abs(abs(abs(abs(y+7)-6)-4)-3)\n\nTry A with x=7, y=-3:\n\nx-2 = 5  \nabs(5-8)=3  \nabs(3-7)=4  \nabs(4-6)=2\n\ny-7 = -10  \nabs(-10-6)=16  \nabs(16-4)=12  \nabs(12-3)=9  \nSum: 2+9=11 \u2192 no\n\nTry B:  \nx=7: x+2=9 \u2192 abs(9-8)=1 \u2192 abs(1-7)=6 \u2192 abs(6-6)=0  \ny=-3: y-7=-10 \u2192 abs(-10-6)=16 \u2192 abs(16-4)=12 \u2192 abs(12-3)=9 \u2192 sum=0+9=9 \u2192 no\n\nC:  \nx=7: x-2=5 \u2192 abs(5-8)=3 \u2192 abs(3-7)=4 \u2192 abs(4-6)=2  \ny=-3: y+7=4 \u2192 abs(4-6)=2 \u2192 abs(2-4)=2 \u2192 abs(2-3)=1 \u2192 sum=2+1=3 \u2192 YES!\n\nNow check second pair: x=-15, y=11 \u2192 should be 5\n\nC:  \nx=-15: x-2 = -17  \nabs(-17-8)=25  \nabs(25-7)=18  \nabs(18-6)=12  \n\u2192 12\n\ny=11: y+7=18  \nabs(18-6)=12  \nabs(12-4)=8  \nabs(8-3)=5  \n\u2192 5  \nSum: 12+5=17 \u2192 not 5 \u2192 fail\n\nWait \u2014 no.\n\nWait \u2014 the expression is:  \nabs(abs(abs(abs(x-2)-8)-7)-6) \u2192 so nested abs\n\nx=-15:  \nx-2 = -17  \nabs(-17) = 17  \n17 - 8 = 9 \u2192 abs(9)=9  \n9 - 7 = 2 \u2192 abs(2)=2  \n2 - 6 = -4 \u2192 abs(-4)=4  \n\u2192 4\n\ny=11: y+7=18  \nabs(18-6)=12  \nabs(12-4)=8  \nabs(8-3)=5  \n\u2192 5  \nSum: 4+5=9 \u2192 not 5 \u2192 fail\n\nNo.\n\nTry D: x=7, y=-3\n\nx=7: x+2=9 \u2192 abs(9-8)=1 \u2192 abs(1-7)=6 \u2192 abs(6-6)=0  \ny=-3: y+7=4 \u2192 abs(4-6)=2 \u2192 abs(2-4)=2 \u2192 abs(2-3)=1 \u2192 sum=0+1=1 \u2192 not 3\n\nNo.\n\nTry B with x=7, y=-3:  \nx=7: x+2=9 \u2192 abs(9-8)=1 \u2192 abs(1-7)=6 \u2192 abs(6-6)=0  \ny=-3: y-7=-10 \u2192 abs(-10-6)=16 \u2192 abs(16-4)=12 \u2192 abs(12-3)=9 \u2192 sum=0+9=9 \u2192 no\n\nA: x=7,y=-3 \u2192 x part: 2, y part: y-7=-10 \u2192 abs(-10-6)=16 \u2192 abs(16-4)=12 \u2192 abs(12-3)=9 \u2192 sum=11 \u2192 no\n\nWait \u2014 perhaps I made a mistake in the y part.\n\nLet\u2019s redefine the structure.\n\nAll expressions have the form:  \nouter: abs( ... )  \nfour levels: | | | | val - c | - d | - e | - f |\n\nSo for x: | | | | x \u00b1 a | - b | - c | - d | - e |\n\nFor each, compute step by"
+      },
+      "penalty": {
+        "answer": "B",
+        "success": 1,
+        "cost": 2049,
+        "scratch_budget_hit": true,
+        "scratch": "x=7, y=-3 \u2192 3  \nx=-15, y=11 \u2192 5  \nx=15, y=6 \u2192 6  \nx=14, y=7 \u2192 6  \n\nTest A:  \nx=7, y=-3:  \nabs(abs(abs(abs(7-2)-8)-7)-6) = abs(abs(abs(5-8)-7)-6) = abs(abs(3-7)-6) = abs(4-6) = 2  \nabs(abs(abs(abs(-3-7)-6)-4)-3) = abs(abs(abs(-10-6)-6)-4)-3) = abs(abs(16-6)-4)-3) = abs(10-4)-3 = 6-3 = 3  \nTotal: 2+3 = 5 \u2192 should be 3 \u2192 mismatch  \n\nFail A.\n\nTest B:  \nx=7, y=-3:  \nabs(abs(abs(abs(7+2)-8)-7)-6) = abs(abs(abs(9-8)-7)-6) = abs(abs(1-7)-6) = abs(6-6) = 0  \nabs(abs(abs(abs(-3-7)-6)-4)-3) = abs(abs(abs(-10-6)-6)-4)-3) = abs(abs(16-6)-4)-3) = abs(10-4)-3 = 6-3 = 3  \nTotal: 0+3 = 3 \u2192 good  \n\nx=-15, y=11:  \nabs(abs(abs(abs(-15+2)-8)-7)-6) = abs(abs(abs(-13-8)-7)-6) = abs(abs(-21-7)-6) = abs(-28-6) = 34  \nWait \u2014 too large. Let's step carefully:  \nabs(-15+2) = 13  \nabs(13-8)=5  \nabs(5-7)=2  \nabs(2-6)=4  \n\u2192 first part: 4  \n\ny=11:  \nabs(abs(abs(abs(11-7)-6)-4)-3) = abs(abs(abs(4-6)-4)-3) = abs(abs(2-4)-3) = abs(2-3)=1  \nTotal: 4+1 = 5 \u2192 good  \n\nx=15, y=6:  \nx part: abs(abs(abs(abs(15+2)-8)-7)-6) = abs(abs(abs(17-8)-7)-6) = abs(abs(9-7)-6)=abs(2-6)=4  \ny part: abs(abs(abs(abs(6-7)-6)-4)-3) = abs(abs(abs(-1-6)-4)-3)=abs(abs(7-4)-3)=abs(3-3)=0  \nTotal: 4+0=4 \u2192 should be 6 \u2192 mismatch  \n\nFail B.\n\nTest C:  \nx=7, y=-3:  \nx part: abs(abs(abs(abs(7-2)-8)-7)-6) = abs(abs(abs(5-8)-7)-6)=abs(abs(3-7)-6)=abs(4-6)=2  \ny part: abs(abs(abs(abs(-3+7)-6)-4)-3)=abs(abs(abs(4-6)-4)-3)=abs(abs(2-4)-3)=abs(2-3)=1  \nTotal: 2+1=3 \u2192 good  \n\nx=-15, y=11:  \nx part: same as A: abs(abs(abs(abs(-15-2)-8)-7)-6) = abs(abs(abs(-17-8)-7)-6)=abs(abs(-25-7)-6)=abs(-32-6)=38 \u2192 too big  \nWait: step by step:  \nx=-15: abs(-15-2)=17  \nabs(17-8)=9  \nabs(9-7)=2  \nabs(2-6)=4 \u2192 x part = 4  \n\ny=11: abs(abs(abs(abs(11+7)-6)-4)-3)=abs(abs(abs(18-6)-4)-3)=abs(abs(12-4)-3)=abs(8-3)=5  \nTotal: 4+5=9 \u2192 should be 5 \u2192 mismatch  \n\nFail C.\n\nTest D:  \nx=7, y=-3:  \nx: abs(abs(abs(abs(7+2)-8)-7)-6)=abs(abs(abs(9-8)-7)-6)=abs(abs(1-7)-6)=abs(6-6)=0  \ny: abs(abs(abs(abs(-3+7)-6)-4)-3)=abs(abs(abs(4-6)-4)-3)=abs(abs(2-4)-3)=abs(2-3)=1  \nTotal: 0+1=1 \u2192 should be 3 \u2192 mismatch  \n\nFail D.\n\nAll fail? But must have one correct.\n\nWait \u2014 recheck B.\n\nx=15, y=6 \u2192 should be 6  \nB:  \nx=15: abs(abs(abs(abs(15+2)-8)-7)-6)  \n17-8=9 \u2192 9-7=2 \u2192 2-6 = -4 \u2192 abs=4  \ny=6: abs(abs(abs(abs(6-7)-6)-4)-3) = abs(abs(abs(-1-6)-4)-3)=abs(abs(7-4)-3)=abs(3-3)=0  \n4+0=4 \u2260 6 \u2192 fail\n\nWait \u2014 perhaps I miscalculated the pattern.\n\nLook at the outputs:  \nx=7,y=-3 \u2192 3  \nx=-15,y=11 \u2192 5  \nx=15,y=6 \u2192 6  \nx=14,y=7 \u2192 6\n\nTry to reverse-engineer.\n\nTry A again with x=7,y=-3:\n\nx: abs(abs(abs(abs(7-2)-8)-7)-6)  \n5-8=-3 \u2192 abs=3  \n3-7=-4 \u2192 abs=4  \n4-7=-3 \u2192 abs=3  \n3-6=-3 \u2192 abs=3 \u2192 x part = 3\n\ny: abs(abs(abs(abs(-3-7)-6)-4)-3)  \n-10-6=-16 \u2192 abs=16  \n16-6=10  \n10-4=6  \n6-3=3 \u2192 y part =3  \nTotal: 3+3=6 \u2192 should be 3 \u2192 fail\n\nWait \u2014 earlier I messed up.\n\nCorrect step-by-step for A:\n\nx=7:  \nx-2=5  \nabs(5)=5  \n5-8=-3 \u2192 abs=3  \n3-7=-4 \u2192 abs=4  \n4-6=-2 \u2192 abs=2 \u2192 x part = 2\n\ny=-3:  \ny-7=-10 \u2192 abs=10  \n10-6=4  \n4-4=0  \n0-3=-3 \u2192 abs=3 \u2192 y part=3  \nTotal: 2+3=5 \u2192 should be 3 \u2192 fail\n\nTry B: x=7,y=-3  \nx+2=9  \n9-8=1  \n1-7=-6 \u2192 abs=6  \n6-6=0 \u2192 x part=0  \ny: -3-7=-10 \u219210\u219210-6=4\u21924-4=0\u21920-3=-3\u21923 \u2192 y part=3  \nTotal: 0+3=3 \u2192 good\n\nx=-15,y=11  \nx+2=-13 \u2192 abs=13  \n13-8=5  \n5-7=-2 \u2192 abs=2  \n2-6=-4 \u2192 abs=4 \u2192 x part=4  \ny=11: 11-7=4 \u21924-6=-2 \u2192 abs=2 \u21922-4=-2 \u2192 abs=2 \u21922-3=-1 \u2192 abs=1 \u2192 y part=1  \nTotal: 4+1=5 \u2192 good\n\nx=15,y=6  \nx+2=17 \u219217-8=9 \u21929-7=2 \u21922-6=-4 \u2192 abs=4  \ny=6: 6-7=-1 \u21921-6=-5 \u21925-4=1 \u21921-3=-2 \u2192 abs=2  \nTotal: 4+2=6 \u2192 good\n\nx=14,y=7  \nx+2=16 \u219216-8=8 \u21928-7=1 \u21921-6=-5 \u2192 abs=5  \ny=7: 7-7=0 \u21920-6=-6 \u21926-4=2 \u21922-3=-1 \u2192 abs=1  \nTotal: 5+1=6 \u2192 good\n\nAll match!\n\nSo B works.\n\nEarlier I made a mistake in y part of B for x=15,y=6.\n\nCorrect y part:  \nabs(abs(abs(abs(y-7)-6)-4)-3)  \ny=6: 6-7=-1 \u2192 abs=1  \n1-6=-5 \u2192 abs=5  \n5-4=1 \u21921-3=-2 \u2192 abs=2 \u2192 yes, 2\n\nx part: 15+2=17 \u219217-8=9 \u21929-7=2"
+      }
+    },
+    {
+      "outcome_cell": "10",
+      "task_id": "v3-t3-dev-00001",
+      "sample": 0,
+      "seed": 36261105,
+      "family": "bounded_affine",
+      "candidates": [
+        "min(32, max(0, min(35, max(0, 5 * x - 4) + 2) - 5) + 5) + min(72, max(0, min(49, max(0, 7 * y - 9) + 8) - 3) + 7)",
+        "min(32, max(0, min(35, max(0, 5 * x - 4) + 2) - 5) + 5) + min(72, max(0, min(49, max(0, 8 * y - 9) + 8) - 3) + 7)",
+        "min(32, max(0, min(35, max(0, 6 * x - 4) + 2) - 5) + 5) + min(72, max(0, min(49, max(0, 7 * y - 9) + 8) - 3) + 7)",
+        "min(32, max(0, min(35, max(0, 6 * x - 4) + 2) - 5) + 5) + min(72, max(0, min(49, max(0, 8 * y - 9) + 8) - 3) + 7)"
+      ],
+      "target": "min(32, max(0, min(35, max(0, 5 * x - 4) + 2) - 5) + 5) + min(72, max(0, min(49, max(0, 7 * y - 9) + 8) - 3) + 7)",
+      "visible_inputs": [
+        [
+          13,
+          4
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          2,
+          -8
+        ]
+      ],
+      "visible_examples": [
+        {
+          "x": 13,
+          "y": 4,
+          "output": 63
+        },
+        {
+          "x": 7,
+          "y": 3,
+          "output": 56
+        },
+        {
+          "x": 2,
+          "y": 9,
+          "output": 61
+        },
+        {
+          "x": 2,
+          "y": -8,
+          "output": 20
+        }
+      ],
+      "control": {
+        "answer": "A",
+        "success": 1,
+        "cost": 1704,
+        "scratch_budget_hit": false,
+        "scratch": "x=13, y=4 \u2192 63  \nx=7, y=3 \u2192 56  \nx=2, y=9 \u2192 61  \nx=2, y=-8 \u2192 20  \n\nTest candidate A:  \nx=13, y=4  \nFirst part: min(32, max(0, min(35, max(0, 5*13 - 4) + 2) - 5) + 5)  \n5*13 - 4 = 65 - 4 = 61 \u2192 max(0,61) = 61  \n61 + 2 = 63 \u2192 min(35,63) = 35  \n35 - 5 = 30 \u2192 max(0,30) = 30  \n30 + 5 = 35 \u2192 min(32,35) = 32  \n\nSecond part: min(72, max(0, min(49, max(0, 7*4 - 9) + 8) - 3) + 7)  \n7*4 - 9 = 28 - 9 = 19 \u2192 max(0,19) = 19  \n19 + 8 = 27 \u2192 min(49,27) = 27  \n27 - 3 = 24 \u2192 max(0,24) = 24  \n24 + 7 = 31 \u2192 min(72,31) = 31  \n\nTotal: 32 + 31 = 63 \u2192 matches  \n\nx=7, y=3  \nFirst: 5*7 - 4 = 35 - 4 = 31 \u2192 max(0,31)=31 \u2192 +2 = 33 \u2192 min(35,33)=33 \u2192 -5 = 28 \u2192 +5 = 33 \u2192 min(32,33)=32  \nSecond: 7*3 - 9 = 21 - 9 = 12 \u2192 +8 = 20 \u2192 min(49,20)=20 \u2192 -3 = 17 \u2192 +7 = 24 \u2192 min(72,24)=24  \nTotal: 32 + 24 = 56 \u2192 matches  \n\nx=2, y=9  \nFirst: 5*2 - 4 = 10 - 4 = 6 \u2192 +2 = 8 \u2192 min(35,8)=8 \u2192 -5 = 3 \u2192 +5 = 8 \u2192 min(32,8)=8  \nSecond: 7*9 - 9 = 63 - 9 = 54 \u2192 +8 = 62 \u2192 min(49,62)=49 \u2192 -3 = 46 \u2192 +7 = 53 \u2192 min(72,53)=53  \nTotal: 8 + 53 = 61 \u2192 matches  \n\nx=2, y=-8  \nFirst: 5*2 - 4 = 6 \u2192 +2 = 8 \u2192 min(35,8)=8 \u2192 -5 = 3 \u2192 +5 = 8 \u2192 min(32,8)=8  \nSecond: 7*(-8) - 9 = -56 - 9 = -65 \u2192 max(0,-65)=0 \u2192 +8 = 8 \u2192 min(49,8)=8 \u2192 -3 = 5 \u2192 +7 = 12 \u2192 min(72,12)=12  \nTotal: 8 + 12 = 20 \u2192 matches  \n\nA passes all.\n\nNow check if any other candidate fails earlier \u2014 stop at first mismatch.\n\nTest candidate B:  \nx=13, y=4  \nFirst part: min(32, max(0, min(35, max(0, 5*13 - 4) + 2) - 5) + 5)  \nSame as A: 5*13-4=61 \u2192 +2=63 \u2192 min(35,63)=35 \u2192 -5=30 \u2192 +5=35 \u2192 min(32,35)=32  \nSecond part: min(72, max(0, min(49, max(0, 8*4 - 9) + 8) - 3) + 7)  \n8*4 - 9 = 32 - 9 = 23 \u2192 +8 = 31 \u2192 min(49,31)=31 \u2192 -3 = 28 \u2192 +7 = 35 \u2192 min(72,35)=35  \nTotal: 32 + 35 = 67 \u2260 63 \u2192 fails  \n\nB fails at first example.\n\nC:  \nx=13, y=4  \nFirst: 6*13 - 4 = 78 - 4 = 74 \u2192 max(0,74)=74 \u2192 +2 = 76 \u2192 min(35,76)=35 \u2192 -5 = 30 \u2192 +5 = 35 \u2192 min(32,35)=32  \nSecond: 7*4 - 9 = 19 \u2192 +8 = 27 \u2192 min(49,27)=27 \u2192 -3 = 24 \u2192 +7 = 31 \u2192 min(72,31)=31  \nTotal: 32 + 31 = 63 \u2192 matches  \n\nx=7, y=3  \nFirst: 6*7 - 4 = 42 - 4 = 38 \u2192 +2 = 40 \u2192 min(35,40)=35 \u2192 -5 = 30 \u2192 +5 = 35 \u2192 min(32,35)=32  \nSecond: 7*3 - 9 = 12 \u2192 +8 = 20 \u2192 min(49,20)=20 \u2192 -3 = 17 \u2192 +7 = 24 \u2192 min(72,24)=24  \nTotal: 32 + 24 = 56 \u2192 matches  \n\nx=2, y=9  \nFirst: 6*2 - 4 = 12 - 4 = 8 \u2192 +2 = 10 \u2192 min(35,10)=10 \u2192 -5 = 5 \u2192 +5 = 10 \u2192 min(32,10)=10  \nSecond: 7*9 - 9 = 54 \u2192 +8 = 62 \u2192 min(49,62)=49 \u2192 -3 = 46 \u2192 +7 = 53 \u2192 min(72,53)=53  \nTotal: 10 + 53 = 63 \u2260 61 \u2192 fails  \n\nC fails at x=2,y=9  \n\nD:  \nx=13, y=4  \nFirst: 6*13 - 4 = 78 - 4 = 74 \u2192 +2 = 76 \u2192 min(35,76)=35 \u2192 -5 = 30 \u2192 +5 = 35 \u2192 min(32,35)=32  \nSecond: 8*4 - 9 = 32 - 9 = 23 \u2192 +8 = 31 \u2192 min(49,31)=31 \u2192 -3 = 28 \u2192 +7 = 35 \u2192 min(72,35)=35  \nTotal: 32 + 35 = 67 \u2260 63 \u2192 fails  \n\nOnly A passes all examples.\n\nThe correct repair is A."
+      },
+      "penalty": {
+        "answer": "C",
+        "success": 0,
+        "cost": 2049,
+        "scratch_budget_hit": true,
+        "scratch": "x=13, y=4 \u2192 63  \nx=7, y=3 \u2192 56  \nx=2, y=9 \u2192 61  \nx=2, y=-8 \u2192 20  \n\nTest A:  \nx=13, y=4  \n5*x - 4 = 65 - 4 = 61 \u2192 max(0,61)=61 \u2192 +2 = 63 \u2192 min(35,63)=35 \u2192 -5 = 30 \u2192 +5 = 35 \u2192 min(32,35)=32  \n8*y - 9 = 32 - 9 = 23 \u2192 max(0,23)=23 \u2192 +8 = 31 \u2192 min(49,31)=31 \u2192 -3 = 28 \u2192 +7 = 35 \u2192 min(72,35)=35  \nTotal: 32 + 35 = 67 \u2192 not 63 \u2192 fail  \n\nTest B:  \nx=13, y=4  \n5*x - 4 = 61 \u2192 max(0,61)=61 \u2192 +2 = 63 \u2192 min(35,63)=35 \u2192 -5 = 30 \u2192 +5 = 35 \u2192 min(32,35)=32  \n8*y - 9 = 32 - 9 = 23 \u2192 max(0,23)=23 \u2192 +8 = 31 \u2192 min(49,31)=31 \u2192 -3 = 28 \u2192 +7 = 35 \u2192 min(72,35)=35  \n32 + 35 = 67 \u2192 not 63 \u2192 fail  \n\nTest C:  \nx=13, y=4  \n6*x - 4 = 78 - 4 = 74 \u2192 max(0,74)=74 \u2192 +2 = 76 \u2192 min(35,76)=35 \u2192 -5 = 30 \u2192 +5 = 35 \u2192 min(32,35)=32  \n7*y - 9 = 28 - 9 = 19 \u2192 max(0,19)=19 \u2192 +8 = 27 \u2192 min(49,27)=27 \u2192 -3 = 24 \u2192 +7 = 31 \u2192 min(72,31)=31  \n32 + 31 = 63 \u2192 good  \nx=7, y=3  \n6*x - 4 = 42 - 4 = 38 \u2192 max(0,38)=38 \u2192 +2 = 40 \u2192 min(35,40)=35 \u2192 -5 = 30 \u2192 +5 = 35 \u2192 min(32,35)=32  \n7*y - 9 = 21 - 9 = 12 \u2192 max(0,12)=12 \u2192 +8 = 20 \u2192 min(49,20)=20 \u2192 -3 = 17 \u2192 +7 = 24 \u2192 min(72,24)=24  \n32 + 24 = 56 \u2192 good  \nx=2, y=9  \n6*x - 4 = 12 - 4 = 8 \u2192 max(0,8)=8 \u2192 +2 = 10 \u2192 min(35,10)=10 \u2192 -5 = 5 \u2192 +5 = 10 \u2192 min(32,10)=10  \n7*y - 9 = 63 - 9 = 54 \u2192 max(0,54)=54 \u2192 +8 = 62 \u2192 min(49,62)=49 \u2192 -3 = 46 \u2192 +7 = 53 \u2192 min(72,53)=53  \n10 + 53 = 63 \u2192 but expected 61 \u2192 fail  \n\nTest D:  \nx=13, y=4  \n6*x - 4 = 74 \u2192 max=74 \u2192 +2=76 \u2192 min(35,76)=35 \u2192 -5=30 \u2192 +5=35 \u2192 min(32,35)=32  \n8*y - 9 = 32 - 9 = 23 \u2192 max=23 \u2192 +8=31 \u2192 min(49,31)=31 \u2192 -3=28 \u2192 +7=35 \u2192 min(72,35)=35  \n32 + 35 = 67 \u2192 not 63 \u2192 fail  \n\nAll candidates fail at least one example. Wait \u2014 did I miscalculate?\n\nRecheck C: x=2, y=9 \u2192 expected 61  \n6*x - 4 = 12 - 4 = 8 \u2192 max(0,8)=8 \u2192 +2 = 10 \u2192 min(35,10)=10 \u2192 -5 = 5 \u2192 +5 = 10 \u2192 min(32,10)=10  \n7*y - 9 = 63 - 9 = 54 \u2192 max(0,54)=54 \u2192 +8 = 62 \u2192 min(49,62)=49 \u2192 -3 = 46 \u2192 +7 = 53 \u2192 min(72,53)=53  \n10 + 53 = 63 \u2192 not 61 \u2192 fail  \n\nIs there a candidate that gives 61?\n\nWait \u2014 maybe I misread the expressions.\n\nLet me go back to candidate C and D \u2014 perhaps the y part is different.\n\nWait \u2014 in C and D, y uses 7*y or 8*y.\n\nTry candidate C again with x=2, y=9 \u2192 output 63 \u2192 expected 61 \u2192 too high.\n\nTry x=2, y=-8 \u2192 for all?\n\nTry candidate A with x=2, y=-8  \n5*x - 4 = 10 - 4 = 6 \u2192 max(0,6)=6 \u2192 +2 = 8 \u2192 min(35,8)=8 \u2192 -5 = 3 \u2192 +5 = 8 \u2192 min(32,8)=8  \n8*y - 9 = -64 -9 = -73 \u2192 max(0,-73)=0 \u2192 +8 = 8 \u2192 min(49,8)=8 \u2192 -3 = 5 \u2192 +7 = 12 \u2192 min(72,12)=12  \n8 + 12 = 20 \u2192 matches  \nx=13, y=4 \u2192 earlier gave 67 \u2192 not 63 \u2192 fail  \n\nCandidate B: x=2, y=-8  \n5*x-4=6 \u2192 max(0,6)=6 \u2192 +2=8 \u2192 min(35,8)=8 \u2192 -5=3 \u2192 +5=8 \u2192 min(32,8)=8  \n8*y-9 = -64-9=-73 \u2192 max(0,-73)=0 \u2192 +8=8 \u2192 min(49,8)=8 \u2192 -3=5 \u2192 +7=12 \u2192 min(72,12)=12  \n8+12=20 \u2192 good  \nx=13, y=4:  \n5*x-4=61 \u2192 max=61 \u2192 +2=63 \u2192 min(35,63)=35 \u2192 -5=30 \u2192 +5=35 \u2192 min(32,35)=32  \n8*y-9=32-9=23 \u2192 max=23 \u2192 +8=31 \u2192 min(49,31)=31 \u2192 -3=28 \u2192 +7=35 \u2192 min(72,35)=35  \n32+35=67 \u226063 \u2192 fail  \n\nCandidate D: x=2, y=-8  \n6*x-4=12-4=8 \u2192 max=8 \u2192 +2=10 \u2192 min(35,10)=10 \u2192 -5=5 \u2192 +5=10 \u2192 min(32,10)=10  \n8*y-9=-64-9=-73 \u2192 max=0 \u2192 +8=8 \u2192 min(49,8)=8 \u2192 -3=5 \u2192 +7=12 \u2192 min(72,12)=12  \n10+12=22 \u2192 not 20 \u2192 fail  \n\nSo only candidate C and D have 7y in y part, others have 8y.\n\nWait \u2014 maybe I miscalculated x=2, y=9 for C.\n\nC: x=2, y=9  \n6x-4 = 12-4=8 \u2192 +2=10 \u2192 min(35,10)=10 \u2192 -5=5 \u2192 +5=10 \u2192 min(32,10)=10  \n7y-9 = 63-9=54 \u2192 +8=62 \u2192 min(49,62)=49 \u2192 -3=46 \u2192 +7=53 \u2192 min(72,53)=53  \n10+53=63 \u2192 expected 61 \u2192 off by 2  \n\nWhat if the y part"
+      }
+    },
+    {
+      "outcome_cell": "11",
+      "task_id": "v3-t3-dev-00000",
+      "sample": 0,
+      "seed": 36261005,
+      "family": "nested_absolute",
+      "candidates": [
+        "abs(abs(abs(abs(x - 4) - 9) - 2) - 4) + abs(abs(abs(abs(y - 5) - 7) - 8) - 2)",
+        "abs(abs(abs(abs(x + 4) - 9) - 2) - 4) + abs(abs(abs(abs(y - 5) - 7) - 8) - 2)",
+        "abs(abs(abs(abs(x - 4) - 9) - 2) - 4) + abs(abs(abs(abs(y + 5) - 7) - 8) - 2)",
+        "abs(abs(abs(abs(x + 4) - 9) - 2) - 4) + abs(abs(abs(abs(y + 5) - 7) - 8) - 2)"
+      ],
+      "target": "abs(abs(abs(abs(x - 4) - 9) - 2) - 4) + abs(abs(abs(abs(y - 5) - 7) - 8) - 2)",
+      "visible_inputs": [
+        [
+          -15,
+          -16
+        ],
+        [
+          13,
+          -3
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          -12,
+          -1
+        ]
+      ],
+      "visible_examples": [
+        {
+          "x": -15,
+          "y": -16,
+          "output": 8
+        },
+        {
+          "x": 13,
+          "y": -3,
+          "output": 7
+        },
+        {
+          "x": 0,
+          "y": 12,
+          "output": 7
+        },
+        {
+          "x": -12,
+          "y": -1,
+          "output": 6
+        }
+      ],
+      "control": {
+        "answer": "A",
+        "success": 1,
+        "cost": 1094,
+        "scratch_budget_hit": false,
+        "scratch": "x=-15, y=-16 \u2192 8  \nx=13, y=-3 \u2192 7  \nx=0, y=12 \u2192 7  \nx=-12, y=-1 \u2192 6\n\nTest A:  \nx=-15, y=-16  \nabs(-15 - 4) = 19  \nabs(19 - 9) = 10  \nabs(10 - 2) = 8  \nabs(8 - 4) = 4  \n\u2192 4  \n\ny: abs(-16 - 5) = 21  \nabs(21 - 7) = 14  \nabs(14 - 8) = 6  \nabs(6 - 2) = 4  \n\u2192 4  \nTotal: 4 + 4 = 8 \u2705\n\nx=13, y=-3  \nx: abs(13-4)=9 \u2192 9-9=0 \u2192 0-2=-2 \u2192 abs=2 \u2192 2-4=-2 \u2192 abs=2  \ny: abs(-3-5)=8 \u2192 8-7=1 \u2192 1-8=-7 \u2192 abs=7 \u2192 7-2=5 \u2192 abs=5  \nTotal: 2 + 5 = 7 \u2705\n\nx=0, y=12  \nx: abs(0-4)=4 \u2192 4-9=-5 \u2192 abs=5 \u2192 5-2=3 \u2192 3-4=-1 \u2192 abs=1  \ny: abs(12-5)=7 \u2192 7-7=0 \u2192 0-8=-8 \u2192 abs=8 \u2192 8-2=6  \nTotal: 1 + 6 = 7 \u2705\n\nx=-12, y=-1  \nx: abs(-12-4)=16 \u2192 16-9=7 \u2192 7-2=5 \u2192 5-4=1 \u2192 abs=1  \ny: abs(-1-5)=6 \u2192 6-7=-1 \u2192 abs=1 \u2192 1-8=-7 \u2192 abs=7 \u2192 7-2=5  \nTotal: 1 + 5 = 6 \u2705  \n\nA passes all.\n\nNow check if others fail.\n\nTest B:  \nx=-15, y=-16  \nx: abs(-15+4)=11 \u2192 11-9=2 \u2192 2-2=0 \u2192 0-4=-4 \u2192 abs=4  \ny: same as A \u2192 4  \nTotal: 4+4=8 \u2705\n\nx=13, y=-3  \nx: abs(13+4)=17 \u2192 17-9=8 \u2192 8-2=6 \u2192 6-4=2 \u2192 abs=2  \ny: abs(-3-5)=8 \u2192 8-7=1 \u2192 1-8=-7 \u2192 abs=7 \u2192 7-2=5  \nTotal: 2 + 5 = 7 \u2705\n\nx=0, y=12  \nx: abs(0+4)=4 \u2192 4-9=-5 \u2192 abs=5 \u2192 5-2=3 \u2192 3-4=-1 \u2192 abs=1  \ny: abs(12-5)=7 \u2192 7-7=0 \u2192 0-8=-8 \u2192 abs=8 \u2192 8-2=6  \nTotal: 1+6=7 \u2705\n\nx=-12, y=-1  \nx: abs(-12+4)=8 \u2192 8-9=-1 \u2192 abs=1 \u2192 1-2=-1 \u2192 abs=1 \u2192 1-4=-3 \u2192 abs=3  \ny: same as A \u2192 5  \nTotal: 3+5=8 \u274c (should be 6) \u2192 fails\n\nB fails at x=-12, y=-1 \u2192 gives 8, expected 6 \u2192 reject.\n\nTest C:  \nx=-15, y=-16  \nx: abs(-15-4)=19 \u2192 19-9=10 \u2192 10-2=8 \u2192 8-4=4  \ny: abs(-16+5)=11 \u2192 11-7=4 \u2192 4-8=-4 \u2192 abs=4 \u2192 4-2=2  \nTotal: 4 + 2 = 6 \u274c (expected 8) \u2192 fail\n\nC fails first example \u2192 reject.\n\nTest D:  \nx=-15, y=-16  \nx: abs(-15+4)=11 \u2192 11-9=2 \u2192 2-2=0 \u2192 0-4=-4 \u2192 abs=4  \ny: abs(-16+5)=11 \u2192 11-7=4 \u2192 4-8=-4 \u2192 abs=4 \u2192 4-2=2  \nTotal: 4 + 2 = 6 \u274c (expected 8) \u2192 fail\n\nOnly A passes all.\n\nThe correct repair is A."
+      },
+      "penalty": {
+        "answer": "A",
+        "success": 1,
+        "cost": 2049,
+        "scratch_budget_hit": true,
+        "scratch": "x=-15, y=-16 \u2192 8  \nx=13, y=-3 \u2192 7  \nx=0, y=12 \u2192 7  \nx=-12, y=-1 \u2192 6\n\nA. abs(abs(abs(abs(x - 4) - 9) - 2) - 4) + abs(abs(abs(abs(y - 5) - 7) - 8) - 2)  \nx=-15: abs(-15-4)=29 \u2192 abs(29-9)=20 \u2192 abs(20-2)=18 \u2192 abs(18-4)=14  \ny=-16: abs(-16-5)=21 \u2192 abs(21-7)=14 \u2192 abs(14-8)=6 \u2192 abs(6-2)=4  \nSum: 14+4=18 \u2192 not 8 \u2192 fail\n\nB. abs(abs(abs(abs(x + 4) - 9) - 2) - 4) + abs(abs(abs(abs(y - 5) - 7) - 8) - 2)  \nx=-15: -15+4=-11 \u2192 abs(-11)=11 \u2192 11-9=2 \u2192 2-2=0 \u2192 0-4=-4 \u2192 abs=4  \ny=-16: -16-5=-21 \u2192 abs=21 \u2192 21-7=14 \u2192 14-8=6 \u2192 6-2=4 \u2192 abs=4  \nSum: 4+4=8 \u2192 good  \nx=13: 13+4=17 \u2192 17-9=8 \u2192 8-2=6 \u2192 6-4=2 \u2192 abs=2  \ny=-3: -3-5=-8 \u2192 8 \u2192 8-7=1 \u2192 1-8=-7 \u2192 abs=7 \u2192 7-2=5 \u2192 abs=5  \nSum: 2+5=7 \u2192 good  \nx=0: 0+4=4 \u2192 4-9=-5 \u2192 abs=5 \u2192 5-2=3 \u2192 3-4=-1 \u2192 abs=1  \ny=12: 12-5=7 \u2192 7-7=0 \u2192 0-8=-8 \u2192 abs=8 \u2192 8-2=6 \u2192 abs=6  \nSum: 1+6=7 \u2192 good  \nx=-12: -12+4=-8 \u2192 8 \u2192 8-9=-1 \u2192 abs=1 \u2192 1-2=-1 \u2192 abs=1 \u2192 1-4=-3 \u2192 abs=3  \ny=-1: -1-5=-6 \u2192 6 \u2192 6-7=-1 \u2192 abs=1 \u2192 1-8=-7 \u2192 abs=7 \u2192 7-2=5 \u2192 abs=5  \nSum: 3+5=8 \u2192 should be 6 \u2192 fail\n\nC. abs(abs(abs(abs(x - 4) - 9) - 2) - 4) + abs(abs(abs(abs(y + 5) - 7) - 8) - 2)  \nx=-15: -15-4=-19 \u2192 19 \u2192 19-9=10 \u2192 10-2=8 \u2192 8-4=4 \u2192 abs=4  \ny=-16: -16+5=-11 \u2192 11 \u2192 11-7=4 \u2192 4-8=-4 \u2192 abs=4 \u2192 4-2=2 \u2192 abs=2  \nSum: 4+2=6 \u2192 not 8 \u2192 fail\n\nD. abs(abs(abs(abs(x + 4) - 9) - 2) - 4) + abs(abs(abs(abs(y + 5) - 7) - 8) - 2)  \nx=-15: -15+4=-11 \u2192 11 \u2192 11-9=2 \u2192 2-2=0 \u2192 0-4=-4 \u2192 abs=4  \ny=-16: -16+5=-11 \u2192 11 \u2192 11-7=4 \u2192 4-8=-4 \u2192 abs=4 \u2192 4-2=2 \u2192 abs=2  \nSum: 4+2=6 \u2192 not 8 \u2192 fail\n\nOnly B passes first three, fails last.  \nWait: last example: x=-12, y=-1 \u2192 should be 6  \nB: x=-12: -12+4=-8 \u2192 8 \u2192 8-9=-1 \u2192 abs=1 \u2192 1-2=-1 \u2192 abs=1 \u2192 1-4=-3 \u2192 abs=3  \ny=-1: -1+5=4 \u2192 4-7=-3 \u2192 abs=3 \u2192 3-8=-5 \u2192 abs=5 \u2192 5-2=3 \u2192 abs=3  \nSum: 3+3=6 \u2192 good\n\nRecheck all:\n\nB:  \nx=-15, y=-16 \u2192 4+4=8  \nx=13, y=-3 \u2192 x:17\u21928\u21926\u21922\u21922 (wait: 17-9=8; 8-2=6; 6-4=2) \u2192 2  \ny=-3: -3-5=-8\u21928\u21928-7=1\u21921-8=-7\u21927\u21927-2=5\u21925 \u2192 sum=2+5=7  \nx=0: 0+4=4\u21924-9=-5\u21925\u21925-2=3\u21923-4=-1\u21921 \u2192 y=12:12+5=17\u219217-7=10\u219210-8=2\u21922-2=0 \u2192 sum=1+0=1 \u2192 should be 7 \u2192 fail!\n\nWait: y=12: in B, y term is abs(abs(abs(abs(y-5)-7)-8)-2)  \ny=12: 12-5=7 \u2192 7-7=0 \u2192 0-8=-8 \u2192 abs=8 \u2192 8-2=6 \u2192 abs=6  \nx=0: x+4=4 \u2192 4-9=-5 \u2192 5 \u2192 5-2=3 \u2192 3-4=-1 \u2192 abs=1  \nSum: 1+6=7 \u2192 good\n\nx=-12: x+4=-8 \u2192 8 \u2192 8-9=-1 \u2192 1 \u2192 1-2=-1 \u2192 1 \u2192 1-4=-3 \u2192 3  \ny=-1: y-5=-6 \u2192 6 \u2192 6-7=-1 \u2192 1 \u2192 1-8=-7 \u2192 7 \u2192 7-2=5 \u2192 5  \nSum: 3+5=8 \u2192 should be 6 \u2192 fail\n\nWait: in B, y term is abs(abs(abs(abs(y-5)-7)-8)-2) \u2192 y=-1 \u2192 -1-5=-6 \u2192 6 \u2192 6-7=-1 \u2192 1 \u2192 1-8=-7 \u2192 7 \u2192 7-2=5 \u2192 5  \nx=-12: x+4=-8 \u2192 8 \u2192 8-9=-1 \u2192 1 \u2192 1-2=-1 \u2192 1 \u2192 1-4=-3 \u2192 3  \n3+5=8 \u2260 6 \u2192 fail\n\nSo B fails last.\n\nTry C again:\n\nC: abs(abs(abs(abs(x-4)-9)-2)-4) + abs(abs(abs(abs(y+5)-7)-8)-2)\n\nx=-15: -15-4=-19 \u219219\u219219-9=10\u21928\u21928-2=6\u21926-4=2 \u2192 2  \ny=-16: -16+5=-11\u219211\u219211-7=4\u21924-8=-4\u21924\u21924-2=2 \u2192 2  \nSum: 2+2=4 \u2192 not 8\n\nD: x+4, y+5  \nx=-15: -11\u219211\u21922\u21920\u21924  \ny=-16: -11\u219211\u21924\u21924\u21922 \u2192 sum 4+2=6 \u2192 not 8\n\nNone seem to work.\n\nWait \u2014 perhaps a typo in reasoning.\n\nGo back to B:  \nx=-12, y=-1 \u2192 output must be 6\n\nx=-12: x+4 = -8 \u2192 | -8 | = 8  \n8 - 9 = -1 \u2192 | -1 | = 1  \n1 - 2 = -1 \u2192 | -1 | = 1  \n1 - 4 = -3 \u2192 | -3 | = 3\n\ny=-1: y-5 = -6 \u2192 6  \n6 - 7 = -1 \u2192 1  \n1 - 8 = -7 \u2192 7  \n7 - 2 = 5 \u2192 5\n\n3+5=8 \u2192 not 6\n\nSo fails.\n\nTry C: y term uses y+5 \u2192 y=-1 \u2192 4 \u2192 4-7=-3 \u2192 3 \u2192 3-8=-5 \u21925 \u21925-2=3 \u21923  \nx term: x-4 = -16-4"
+      }
+    }
+  ],
+  "example_rule": "First (task_id, sample, seed) in each nonempty control/penalty success cell; four illustrations, not representative effect estimates.",
+  "limitations": [
+    "One training seed and reused inspected development tasks.",
+    "Control differs in deterministic runtime; later trajectories are not shared between policies.",
+    "Same-row reward rescoring reconstructs estimator support, not a trained counterfactual.",
+    "Clipping acts before Adam; norm or update count cannot establish the cause of the endpoint.",
+    "No intermediate checkpoint evaluation, new hypotheses or inferential tests are retroactively registered."
+  ]
+}

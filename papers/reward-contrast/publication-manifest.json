@@ -1,0 +1,56 @@
+{
+  "research_source_commit": "20c9a2c0a33ab2608566720c07a54350a7de4910",
+  "scope": "Public manuscript, derived diagnostic data, recorded synthetic illustrations and figures; complete raw audit archive remains private.",
+  "future_test_data_included": false,
+  "raw_example_traces_preserved": 12,
+  "files": {
+    "LICENSE.md": {
+      "bytes": 568,
+      "sha256": "c743ccc4962f34b09a7b606e7fd1d8ebfbdc7d50f2d75b11189c32380643e3c4"
+    },
+    "PAPER_DRAFT.pdf": {
+      "bytes": 203026,
+      "sha256": "4fdad4d169932386833e85c2e59f6e2e9c1008977391ed547dfa924e9f29b6f4"
+    },
+    "PAPER_DRAFT.tex": {
+      "bytes": 84980,
+      "sha256": "61879f4680445bf42c80da5ee134d7a2ecb9db23f786b2770a071f23c170c434"
+    },
+    "clipping-and-ceilings.png": {
+      "bytes": 116437,
+      "sha256": "424f0295449d4655f20fa837e69d349ed7f8d76bb47a5126cffa9f66cf625b23"
+    },
+    "clipping-and-ceilings.svg": {
+      "bytes": 40991,
+      "sha256": "8e1abf06d608956f2fb14069170a5352d86e99d14f38eb6822d94cb9012b7c30"
+    },
+    "diagnostics.md": {
+      "bytes": 6941,
+      "sha256": "759e2724705d4f086a6b3972ec2496dd67afa5841e02926f65cd23ecb796af57"
+    },
+    "final-outcomes.png": {
+      "bytes": 113461,
+      "sha256": "87fdd3c958e9665153b4897f2a8c18970580b257a2744110d9ef56d2c8f4df5c"
+    },
+    "final-outcomes.svg": {
+      "bytes": 30151,
+      "sha256": "014ade2432e3e00b82c0e8709308d97abf992cc5ffb3890890733f13370ddfe7"
+    },
+    "index.html": {
+      "bytes": 210004,
+      "sha256": "6b60a615643ac48941b4dddd3c398834b511076377d37f4feaa57681ecd2ef49"
+    },
+    "reward-continuation-analysis.json": {
+      "bytes": 123664,
+      "sha256": "934112c01b2d641ebd5500dcb9db41a75c106685513d616ce8b1cdc2a33c0c21"
+    },
+    "update-support.png": {
+      "bytes": 116376,
+      "sha256": "3634f47ae799196c743e2801992a6232596d111c219d15e44919e9a76fe8a347"
+    },
+    "update-support.svg": {
+      "bytes": 29097,
+      "sha256": "4410b71470d90afa1d89d389c5496631cb899a1a4e5f986db039a3cb8df4e5aa"
+    }
+  }
+}
