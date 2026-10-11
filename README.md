@@ -10,7 +10,10 @@ To publish a post:
 
 1. Copy `writing/post-template.txt` to `writing/your-post-slug.html`.
 2. Replace the title, description, date, canonical URL, and article text. Keep
-   the shared `writing-post` classes to retain the same fonts, width, and spacing.
+   the shared `writing-post` classes for the title, reading column, section
+   navigation, and mobile layout. Give each section a stable ID and add it to
+   both tables of contents. `writing/writing.js` marks the current section in
+   the desktop guide.
    Set the `<body>` class to `writing-page`, `writing-page article-color-blue`, or
    `writing-page article-color-rust` to choose an accent. The default is teal.
 3. Add a matching entry at the top of `.writing-list` in `writing/index.html`, then
@@ -19,9 +22,10 @@ To publish a post:
    at `https://aryasomu.com/writing/your-post-slug.html` after GitHub Pages updates.
 
 The template stays a `.txt` file so it is not published as a post.
-`writing/_article-preview.html` shows the layout with sample copy and lets you
-compare the three accent colors locally. GitHub Pages excludes the underscore
-file from the published site, and it must not be added to the Writing index.
+`writing/_article-preview.html` shows the reading layout with sample copy and
+lets you compare the three accent colors locally. GitHub Pages excludes the
+underscore file from the published site, and it must not be added to the
+Writing index.
 For another color, keep `<body class="writing-page">` and add this after the shared
 stylesheet in that post's `<head>`:
 

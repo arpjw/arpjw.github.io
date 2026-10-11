@@ -27,7 +27,7 @@
     })();
   </script>
 </head>
-<body class="writing-page">
+<body class="writing-page writing-article-page">
   <div class="site writing-site">
     <header class="topbar">
       <nav class="nav" aria-label="Primary navigation">
@@ -42,25 +42,39 @@
       </button>
     </header>
 
-    <main class="writing-article-main">
+    <main class="writing-article-main" id="top">
       <article class="writing-post">
-        <header>
-          <p class="writing-post__meta"><time datetime="2026-10-03">October 3, 2026</time> · Essay</p>
+        <header class="writing-post__header">
           <h1>Your post title</h1>
-          <p class="writing-post__dek">A sentence that introduces the piece.</p>
+          <p class="writing-post__meta">Arya Somu · Essay<br><time datetime="2026-10-03">October 3, 2026</time></p>
         </header>
+        <div class="writing-post__content">
+          <nav class="writing-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ul>
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#first-section">First section</a></li>
+            </ul>
+          </nav>
         <div class="writing-post__body">
+          <details class="writing-toc-mobile">
+            <summary>In this article</summary>
+            <nav aria-label="On this page"><ul><li><a href="#introduction">Introduction</a></li><li><a href="#first-section">First section</a></li></ul></nav>
+          </details>
+          <p class="writing-post__lead" id="introduction">A sentence that introduces the piece.</p>
           <p>Write your first paragraph here.</p>
-          <h2>Optional section heading</h2>
+          <h2 id="first-section">First section<a class="heading-anchor" href="#first-section" aria-label="Link to First section">#</a></h2>
           <p>Continue writing here.</p>
           <blockquote><p>An optional passage to call out.</p></blockquote>
           <p>End with a final thought.</p>
         </div>
+        </div>
       </article>
-      <a class="writing-back" href="./">← All writing</a>
+      <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
     </main>
   </div>
 
   <script src="../site.js"></script>
+  <script src="writing.js"></script>
 </body>
 </html>

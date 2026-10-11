@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=section-spacing">
+  <link rel="stylesheet" href="../styles.css?v=writing-reading-layout">
   <link rel="canonical" href="https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html">
   <title>When 95% credible intervals cover 81% · Arya Somu</title>
   <meta name="description" content="A small example of why Bayesian credible intervals can lose frequentist coverage when the likelihood's variance is wrong.">
@@ -38,7 +38,7 @@
     })();
   </script>
 </head>
-<body class="writing-page article-color-blue">
+<body class="writing-page writing-article-page article-color-blue">
   <div class="site writing-site">
     <header class="topbar">
       <nav class="nav" aria-label="Primary navigation">
@@ -53,25 +53,50 @@
       </button>
     </header>
 
-    <main class="writing-article-main">
+    <main class="writing-article-main" id="top">
       <article class="writing-post">
-        <header>
-          <p class="writing-post__meta"><time datetime="2026-10-11">October 11, 2026</time> · Statistics</p>
+        <header class="writing-post__header">
           <h1>When 95% credible intervals cover 81%</h1>
-          <p class="writing-post__dek">A posterior can locate the right parameter and still report the wrong uncertainty.</p>
+          <p class="writing-post__meta">Arya Somu <span aria-hidden="true">·</span> Statistics<br><time datetime="2026-10-11">October 11, 2026</time></p>
         </header>
+        <div class="writing-post__content">
+          <nav class="writing-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ul>
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#wrong-likelihood">A deliberately wrong likelihood</a></li>
+              <li><a href="#repeated-sampling">What repeated sampling sees</a></li>
+              <li><a href="#simulation">Check it with simulation</a></li>
+              <li><a href="#limits">What this example says</a></li>
+              <li><a href="#further-reading">Further reading</a></li>
+            </ul>
+          </nav>
         <div class="writing-post__body">
+          <details class="writing-toc-mobile">
+            <summary>In this article</summary>
+            <nav aria-label="On this page">
+              <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#wrong-likelihood">A deliberately wrong likelihood</a></li>
+                <li><a href="#repeated-sampling">What repeated sampling sees</a></li>
+                <li><a href="#simulation">Check it with simulation</a></li>
+                <li><a href="#limits">What this example says</a></li>
+                <li><a href="#further-reading">Further reading</a></li>
+              </ul>
+            </nav>
+          </details>
+          <p class="writing-post__lead" id="introduction">A posterior can locate the right parameter and still report the wrong uncertainty.</p>
           <p>Suppose I report a 95% Bayesian credible interval for a population mean. If I could repeat the data collection thousands of times, how often would that interval contain the mean? Under familiar conditions the answer approaches 95%. A wrong assumption about the observations' variance is enough to break that agreement.</p>
           <p>The key is to distinguish two distributions. One is the posterior distribution of a parameter <em>given this dataset</em>. The other is the distribution of the estimator <em>across new datasets</em>. They have the same center asymptotically in this example, but different widths.</p>
 
-          <h2>A deliberately wrong likelihood</h2>
+          <h2 id="wrong-likelihood">A deliberately wrong likelihood<a class="heading-anchor" href="#wrong-likelihood" aria-label="Link to A deliberately wrong likelihood">#</a></h2>
           <p>Let the true observations be independent draws from a normal distribution with mean zero and standard deviation σ. We want the mean, but fit a model that insists the standard deviation is one. Give its mean parameter a wide, proper prior:</p>
           <div class="math-block" role="math" aria-label="True data: X sub i is Normal zero sigma squared. Fitted model: X sub i given theta is Normal theta one. Prior theta is Normal zero one hundred.">Truth: X<sub>i</sub> ∼ N(0, σ²)<br>Model: X<sub>i</sub> | θ ∼ N(θ, 1)<br>Prior: θ ∼ N(0, 100)</div>
           <p>The model is misspecified whenever σ differs from one. Still, the value of θ closest to the truth in Kullback–Leibler divergence is zero, so the fitted mean targets the right value. Completing the square gives the exact posterior:</p>
           <div class="math-block" role="math" aria-label="Theta given X is Normal with mean n X bar divided by n plus 0.01, and variance one divided by n plus 0.01.">θ | X ∼ N(nX̄/(n + 0.01), 1/(n + 0.01)).</div>
           <p>Its central 95% interval has a half-width of 1.96/√(n + 0.01). Notice what is absent: σ. The data-generating standard deviation cannot affect the width because the fitted likelihood fixed it at one.</p>
 
-          <h2>What repeated sampling sees</h2>
+          <h2 id="repeated-sampling">What repeated sampling sees<a class="heading-anchor" href="#repeated-sampling" aria-label="Link to What repeated sampling sees">#</a></h2>
           <p>Across fresh datasets, the sample mean has variance σ²/n. The posterior mean is only slightly shrunk toward zero by the prior, so its sampling variance is close to σ²/n too. At large n, the posterior variance is close to 1/n. The two agree only when σ = 1.</p>
           <div class="math-block" role="math" aria-label="Posterior variance is approximately one over n. Sampling variance of sample mean is sigma squared over n.">Posterior variance ≈ 1/n &nbsp; | &nbsp; Sampling variance of X̄ = σ²/n.</div>
           <p>This is the one-dimensional version of the distinction between inverse curvature, H<sup>−1</sup>, and the sandwich variance, H<sup>−1</sup>JH<sup>−1</sup>, where H is expected negative log-likelihood curvature and J is score variance. Here H = 1 and J = σ². The sandwich describes how the estimate varies across samples; it is not automatically the covariance of the ordinary posterior.</p>
@@ -79,7 +104,7 @@
           <div class="math-block" role="math" aria-label="Coverage is approximately two times Phi of 1.96 divided by sigma minus one.">Coverage ≈ 2Φ(1.96/σ) − 1.</div>
           <p>With σ = 1.5, this is 80.9%, rather than 95%. With σ = 2, it falls to 67.3%. If σ is below one, the interval is too wide and overcovers. These are repeated-sampling statements about the pseudo-true mean, not posterior probabilities conditional on any one dataset.</p>
 
-          <h2>Check it with simulation</h2>
+          <h2 id="simulation">Check it with simulation<a class="heading-anchor" href="#simulation" aria-label="Link to Check it with simulation">#</a></h2>
           <p>I drew 50,000 independent datasets of size 100 for each true σ, keeping the fitted variance at one. For each dataset I formed the exact posterior interval and a comparison interval centered on the sample mean with standard error estimated from that dataset. The <a href="credible-intervals-under-misspecification/simulate.py">standard-library Python script</a> fixes the random seed and reproduces the table and figure.</p>
           <div class="results-wrap">
             <table>
@@ -98,21 +123,23 @@
           </figure>
           <p class="note">The comparison interval uses 1.96 times the sample standard error. Its coverage is about 94.7% at n = 100 because that normal approximation is slightly narrow when σ is estimated; a Student-t critical value would correct this in the normal-data example. Simulation uncertainty is about ±0.2 percentage points for coverage near 95%.</p>
 
-          <h2>What this example does and does not say</h2>
+          <h2 id="limits">What this example does and does not say<a class="heading-anchor" href="#limits" aria-label="Link to What this example says">#</a></h2>
           <p>The ordinary posterior is internally consistent with the model it was given. It answers a conditional question under a likelihood that has fixed the variance incorrectly. If the intended claim is about repeated-sampling coverage, the variance assumption has to be checked or the uncertainty calculation has to account for its failure.</p>
           <p>This example is intentionally narrow: independent normal observations, one mean parameter, and a known zero true mean used only for evaluation. It does not establish that a sandwich interval solves every form of misspecification. Dependence, changing distributions, and biased pseudo-true targets need separate treatment. Its useful lesson is more basic: getting the center right does not guarantee getting the uncertainty right.</p>
 
-          <h2>Further reading</h2>
+          <h2 id="further-reading">Further reading<a class="heading-anchor" href="#further-reading" aria-label="Link to Further reading">#</a></h2>
           <ul>
             <li><a href="https://anishlk.com/posts/bayesian-misspecification/">Anish Lakkapragada's essay on Bernstein–von Mises and power posteriors</a> prompted this example.</li>
             <li><a href="https://pure.uva.nl/ws/files/1850322/114737_376240.pdf">Kleijn and van der Vaart (2012)</a> prove a misspecified Bernstein–von Mises theorem and explain why ordinary credible sets need not have nominal frequentist coverage.</li>
           </ul>
         </div>
+        </div>
       </article>
-      <a class="writing-back" href="./">← All writing</a>
+      <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
     </main>
   </div>
 
   <script src="../site.js"></script>
+  <script src="writing.js"></script>
 </body>
 </html>
