@@ -499,7 +499,7 @@ html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
 .writing-post__meta { margin: 3.25rem 0 0; color: var(--foreground); font-family: var(--sans); font-size: 0.9rem; line-height: 1.8; }
 .writing-post__meta time { display: block; color: var(--muted); }
 .writing-post__content { display: grid; grid-template-columns: minmax(10rem, 14rem) minmax(0, 43rem) minmax(0, 10rem); column-gap: clamp(1.5rem, 3vw, 3rem); justify-content: center; align-items: start; }
-.writing-toc { position: sticky; top: 6rem; align-self: start; font-family: var(--sans); font-size: 0.79rem; line-height: 1.45; }
+.writing-toc { position: sticky; top: 6rem; align-self: start; max-height: calc(100dvh - 7rem); overflow-y: auto; font-family: var(--sans); font-size: 0.79rem; line-height: 1.45; }
 .writing-toc p { margin: 0 0 1.2rem; color: var(--faint); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }
 .writing-toc ul { margin: 0; padding: 0; list-style: none; }
 .writing-toc li + li { margin-top: 0.8rem; }
@@ -515,6 +515,7 @@ html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
 .writing-post__body h3 { margin: 2em 0 0.8em; color: var(--foreground); font-size: 1.3rem; font-weight: 600; }
 .writing-post__body a { color: inherit; text-decoration-color: var(--article-accent); text-underline-offset: 0.17em; }
 .writing-post__body a:hover { color: var(--article-accent); }
+.writing-post__body .writing-post__origin { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.85rem; }
 .writing-post__body .heading-anchor { margin-left: 0.35em; color: var(--faint); font: 0.6em var(--sans); text-decoration: none; opacity: 0; }
 .writing-post__body h2:hover .heading-anchor, .writing-post__body .heading-anchor:focus-visible { opacity: 1; }
 .writing-post__body blockquote { margin: 2.5rem 0; padding: 0 0 0 1.25rem; border-left: 2px solid var(--article-accent); color: var(--foreground); font-size: 1.2rem; font-style: italic; line-height: 1.5; }
