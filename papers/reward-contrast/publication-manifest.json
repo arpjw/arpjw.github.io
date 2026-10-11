@@ -1,20 +1,20 @@
 {
   "research_source_commit": "20c9a2c0a33ab2608566720c07a54350a7de4910",
-  "scope": "Public manuscript, derived diagnostic data, recorded synthetic illustrations and figures; complete raw audit archive remains private.",
+  "scope": "Public manuscript, derived diagnostics, recorded examples and figures; links to versioned public frozen source and raw scientific records. Model/optimizer/RNG tensors and full operational archive remain private.",
   "future_test_data_included": false,
-  "raw_example_traces_preserved": 12,
+  "raw_example_traces_preserved": 8,
   "files": {
     "LICENSE.md": {
       "bytes": 568,
       "sha256": "c743ccc4962f34b09a7b606e7fd1d8ebfbdc7d50f2d75b11189c32380643e3c4"
     },
     "PAPER_DRAFT.pdf": {
-      "bytes": 203026,
-      "sha256": "4fdad4d169932386833e85c2e59f6e2e9c1008977391ed547dfa924e9f29b6f4"
+      "bytes": 203743,
+      "sha256": "bb39dbbd312d26ea1bdc4b03e8ae94f4214c89951531f6e0fab4b8bab716b2de"
     },
     "PAPER_DRAFT.tex": {
-      "bytes": 84980,
-      "sha256": "61879f4680445bf42c80da5ee134d7a2ecb9db23f786b2770a071f23c170c434"
+      "bytes": 85630,
+      "sha256": "ebe3345f3d10980ce598cb5de545d02301ae3fa4d8d369c1f70e4e7eb9cef11d"
     },
     "clipping-and-ceilings.png": {
       "bytes": 116437,
@@ -41,8 +41,8 @@
       "sha256": "014ade2432e3e00b82c0e8709308d97abf992cc5ffb3890890733f13370ddfe7"
     },
     "index.html": {
-      "bytes": 111822,
-      "sha256": "4ff9a18386a12fc2740b5e975c3e46ca3700256d8fc08319bc9dcb5d411c98bf"
+      "bytes": 112222,
+      "sha256": "42fc940101f30013f1ddba5d8e966092a181d2904257eeb82be97abf46dc05e4"
     },
     "reward-continuation-analysis.json": {
       "bytes": 123664,
@@ -66,8 +66,14 @@
     "all_128_group_records_unchanged": true,
     "all_8_reasoning_traces_unchanged": true,
     "scientific_figures_unchanged": true,
-    "pdf_and_tex_unchanged": true,
-    "desktop_mobile_light_dark_verified": true,
-    "group_controls_and_example_expansion_verified": true
-  }
+    "pdf_and_tex_unchanged": false,
+    "desktop_mobile_light_dark_verified": false,
+    "group_controls_and_example_expansion_verified": true,
+    "paper_public_availability_updated": true,
+    "desktop_mobile_public_links_verified": true,
+    "browser_console_errors": 0
+  },
+  "public_repository": "https://github.com/arpjw/reward-paper",
+  "public_release": "paper-v1.0.0",
+  "public_commit": "454d31bf7f2ec295d6a016514e7b09857d5844f7"
 }
