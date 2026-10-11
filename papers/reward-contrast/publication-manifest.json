@@ -9,12 +9,12 @@
       "sha256": "c743ccc4962f34b09a7b606e7fd1d8ebfbdc7d50f2d75b11189c32380643e3c4"
     },
     "PAPER_DRAFT.pdf": {
-      "bytes": 203743,
-      "sha256": "bb39dbbd312d26ea1bdc4b03e8ae94f4214c89951531f6e0fab4b8bab716b2de"
+      "bytes": 204053,
+      "sha256": "39864f35e8002846044a9b6ad32ea439b3914c325d1eeead0193d0b2f6476cc7"
     },
     "PAPER_DRAFT.tex": {
-      "bytes": 85630,
-      "sha256": "ebe3345f3d10980ce598cb5de545d02301ae3fa4d8d369c1f70e4e7eb9cef11d"
+      "bytes": 85702,
+      "sha256": "c9c7a43dbb9eb882ee71a16987631c6a06621135d348127dbbf47e4116dcaf5c"
     },
     "clipping-and-ceilings.png": {
       "bytes": 116437,
@@ -41,8 +41,8 @@
       "sha256": "014ade2432e3e00b82c0e8709308d97abf992cc5ffb3890890733f13370ddfe7"
     },
     "index.html": {
-      "bytes": 112222,
-      "sha256": "42fc940101f30013f1ddba5d8e966092a181d2904257eeb82be97abf46dc05e4"
+      "bytes": 112234,
+      "sha256": "563257779e5d6f2795f22545c99388f09006bc97072052a5b9276294cf56cc1e"
     },
     "reward-continuation-analysis.json": {
       "bytes": 123664,
@@ -71,9 +71,10 @@
     "group_controls_and_example_expansion_verified": true,
     "paper_public_availability_updated": true,
     "desktop_mobile_public_links_verified": true,
-    "browser_console_errors": 0
+    "browser_console_errors": 0,
+    "canonical_repo_links_updated": true
   },
-  "public_repository": "https://github.com/arpjw/reward-paper",
-  "public_release": "paper-v1.0.0",
-  "public_commit": "454d31bf7f2ec295d6a016514e7b09857d5844f7"
+  "public_repository": "https://github.com/arpjw/reward-function",
+  "public_release": "research-v1.0.1",
+  "public_commit": "58bece2670440e32c08c5c72af56a9d7164e8919"
 }
