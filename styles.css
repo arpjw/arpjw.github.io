@@ -467,6 +467,21 @@ main { margin-top: 1.5rem; }
 .writing-entry h2 a:hover, .writing-entry h2 a:focus-visible { text-decoration: underline; text-underline-offset: 0.16em; }
 .writing-entry time { color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
 .writing-entry p { margin: 0.4rem 0 0; }
+.writing-index-page .writing-site { width: min(100% - 3rem, 48rem); }
+.writing-index-page .writing-main { margin-top: 3rem; }
+.writing-index-page .writing-main h1 { font-family: var(--sans); font-size: 1.55rem; font-weight: 500; line-height: 1.2; }
+.writing-index-page .writing-intro { margin-top: 0.45rem; color: var(--muted); font-family: var(--sans); font-size: 0.92rem; }
+.writing-index-page .writing-list { margin-top: 2.3rem; border-top: 0; }
+.writing-index-page .writing-entry { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 1.5rem; align-items: start; padding: 1.7rem 0; }
+.writing-index-page .writing-entry time { padding-top: 0.15rem; color: var(--muted); font-size: 0.84rem; line-height: 1.4; white-space: nowrap; }
+.writing-index-page .writing-entry h2 { font-size: 1.18rem; line-height: 1.4; }
+.writing-index-page .writing-entry p { margin-top: 0.38rem; color: var(--muted); font-family: var(--sans); font-size: 0.84rem; line-height: 1.4; }
+@media (max-width: 36rem) {
+  .writing-index-page .writing-site { width: min(100% - 2.5rem, 48rem); }
+  .writing-index-page .writing-main { margin-top: 2.4rem; }
+  .writing-index-page .writing-entry { grid-template-columns: 1fr; gap: 0.45rem; padding: 1.4rem 0; }
+  .writing-index-page .writing-entry time { padding-top: 0; }
+}
 .writing-article-main { margin-top: 3.5rem; }
 .writing-page { --article-accent: #286f78; }
 html.dark .writing-page { --article-accent: #8acbd2; }

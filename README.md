@@ -14,8 +14,9 @@ To publish a post:
    navigation, and mobile layout. Give each section a stable ID and add it to
    both tables of contents. `writing/writing.js` marks the current section in
    the desktop guide.
-   Set the `<body>` class to `writing-page`, `writing-page article-color-blue`, or
-   `writing-page article-color-rust` to choose an accent. The default is teal.
+   Keep `writing-page writing-article-page` on `<body>`, and optionally add
+   `article-color-blue` or `article-color-rust` to choose an accent. The default
+   is teal.
 3. Add a matching entry at the top of `.writing-list` in `writing/index.html`, then
    remove the "No posts yet" paragraph when publishing the first post.
 4. Preview the site locally, then commit and push when ready. The post will appear
@@ -43,8 +44,10 @@ Example index entry:
 
 ```html
 <article class="writing-entry">
-  <time datetime="2026-10-03">October 3, 2026</time>
-  <h2><a href="your-post-slug.html">Your post title</a></h2>
-  <p>A short description of the post.</p>
+  <time datetime="2026-10-03">Oct 3, 2026</time>
+  <div class="writing-entry__content">
+    <h2><a href="your-post-slug.html">Your post title</a></h2>
+    <p>Arya Somu</p>
+  </div>
 </article>
 ```
