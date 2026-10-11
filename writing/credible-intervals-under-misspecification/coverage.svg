@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-labelledby="title desc">
+<title id="title">Coverage falls as the true standard deviation rises</title>
+<desc id="desc">The nominal 95 percent posterior interval covers about 100, 95, 81, and 67 percent of the time at true standard deviations 0.5, 1, 1.5, and 2. Sandwich intervals remain near 95 percent.</desc>
+<rect width="720" height="400" fill="#ffffff"/>
+<text x="78" y="23" fill="#202020" font-family="Arial,sans-serif" font-size="16">Actual coverage of nominal 95% intervals</text>
+<line x1="78" y1="276.1" x2="680" y2="276.1" stroke="#dedede" stroke-width="1"/>
+<text x="65" y="280.1" text-anchor="end" fill="#555" font-family="Arial,sans-serif" font-size="12">60%</text>
+<line x1="78" y1="192.2" x2="680" y2="192.2" stroke="#dedede" stroke-width="1"/>
+<text x="65" y="196.2" text-anchor="end" fill="#555" font-family="Arial,sans-serif" font-size="12">80%</text>
+<line x1="78" y1="129.3" x2="680" y2="129.3" stroke="#dedede" stroke-width="1"/>
+<text x="65" y="133.3" text-anchor="end" fill="#555" font-family="Arial,sans-serif" font-size="12">95%</text>
+<line x1="78" y1="108.4" x2="680" y2="108.4" stroke="#dedede" stroke-width="1"/>
+<text x="65" y="112.4" text-anchor="end" fill="#555" font-family="Arial,sans-serif" font-size="12">100%</text>
+<line x1="78" y1="318" x2="680" y2="318" stroke="#555"/>
+<text x="78.0" y="338" text-anchor="middle" fill="#555" font-family="Arial,sans-serif" font-size="12">0.5</text>
+<text x="278.7" y="338" text-anchor="middle" fill="#555" font-family="Arial,sans-serif" font-size="12">1.0</text>
+<text x="479.3" y="338" text-anchor="middle" fill="#555" font-family="Arial,sans-serif" font-size="12">1.5</text>
+<text x="680.0" y="338" text-anchor="middle" fill="#555" font-family="Arial,sans-serif" font-size="12">2.0</text>
+<text x="379" y="374" text-anchor="middle" fill="#555" font-family="Arial,sans-serif" font-size="13">True standard deviation</text>
+<polyline points="78.0,108.4 82.0,108.4 86.0,108.5 90.0,108.5 94.1,108.5 98.1,108.5 102.1,108.6 106.1,108.6 110.1,108.7 114.1,108.8 118.1,108.8 122.1,108.9 126.2,109.0 130.2,109.2 134.2,109.3 138.2,109.5 142.2,109.6 146.2,109.8 150.2,110.0 154.3,110.3 158.3,110.5 162.3,110.8 166.3,111.1 170.3,111.4 174.3,111.8 178.3,112.1 182.3,112.5 186.4,113.0 190.4,113.4 194.4,113.9 198.4,114.4 202.4,114.9 206.4,115.4 210.4,116.0 214.5,116.6 218.5,117.2 222.5,117.9 226.5,118.6 230.5,119.3 234.5,120.0 238.5,120.7 242.5,121.5 246.6,122.3 250.6,123.1 254.6,123.9 258.6,124.8 262.6,125.6 266.6,126.5 270.6,127.5 274.7,128.4 278.7,129.3 282.7,130.3 286.7,131.3 290.7,132.3 294.7,133.3 298.7,134.4 302.7,135.4 306.8,136.5 310.8,137.5 314.8,138.6 318.8,139.7 322.8,140.8 326.8,142.0 330.8,143.1 334.9,144.2 338.9,145.4 342.9,146.6 346.9,147.7 350.9,148.9 354.9,150.1 358.9,151.3 362.9,152.5 367.0,153.7 371.0,154.9 375.0,156.2 379.0,157.4 383.0,158.6 387.0,159.8 391.0,161.1 395.1,162.3 399.1,163.6 403.1,164.8 407.1,166.1 411.1,167.3 415.1,168.6 419.1,169.8 423.1,171.1 427.2,172.3 431.2,173.6 435.2,174.8 439.2,176.1 443.2,177.3 447.2,178.6 451.2,179.9 455.3,181.1 459.3,182.4 463.3,183.6 467.3,184.9 471.3,186.1 475.3,187.3 479.3,188.6 483.3,189.8 487.4,191.1 491.4,192.3 495.4,193.5 499.4,194.8 503.4,196.0 507.4,197.2 511.4,198.4 515.5,199.6 519.5,200.9 523.5,202.1 527.5,203.3 531.5,204.5 535.5,205.7 539.5,206.8 543.5,208.0 547.6,209.2 551.6,210.4 555.6,211.6 559.6,212.7 563.6,213.9 567.6,215.1 571.6,216.2 575.7,217.4 579.7,218.5 583.7,219.7 587.7,220.8 591.7,221.9 595.7,223.0 599.7,224.2 603.7,225.3 607.8,226.4 611.8,227.5 615.8,228.6 619.8,229.7 623.8,230.8 627.8,231.9 631.8,233.0 635.9,234.0 639.9,235.1 643.9,236.2 647.9,237.2 651.9,238.3 655.9,239.3 659.9,240.4 663.9,241.4 668.0,242.4 672.0,243.5 676.0,244.5 680.0,245.5" fill="none" stroke="#365f9a" stroke-width="3" stroke-linejoin="round"/>
+<circle cx="78.0" cy="108.4" r="5" fill="#365f9a" stroke="#fff" stroke-width="1"/>
+<rect x="73.0" y="125.6" width="10" height="10" fill="#a4523e"/>
+<circle cx="278.7" cy="129.6" r="5" fill="#365f9a" stroke="#fff" stroke-width="1"/>
+<rect x="273.7" y="125.6" width="10" height="10" fill="#a4523e"/>
+<circle cx="479.3" cy="189.4" r="5" fill="#365f9a" stroke="#fff" stroke-width="1"/>
+<rect x="474.3" y="125.9" width="10" height="10" fill="#a4523e"/>
+<circle cx="680.0" cy="245.3" r="5" fill="#365f9a" stroke="#fff" stroke-width="1"/>
+<rect x="675.0" y="125.2" width="10" height="10" fill="#a4523e"/>
+<line x1="328" y1="55" x2="360" y2="55" stroke="#365f9a" stroke-width="3"/>
+<text x="369" y="59" fill="#333" font-family="Arial,sans-serif" font-size="12">Posterior: exact curve, simulated dots</text>
+<rect x="328" y="69" width="10" height="10" fill="#a4523e"/>
+<text x="369" y="79" fill="#333" font-family="Arial,sans-serif" font-size="12">Sandwich: simulated squares</text>
+</svg>

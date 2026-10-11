@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=section-spacing">
+  <link rel="canonical" href="https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html">
+  <title>When 95% credible intervals cover 81% · Arya Somu</title>
+  <meta name="description" content="A small example of why Bayesian credible intervals can lose frequentist coverage when the likelihood's variance is wrong.">
+  <meta property="og:title" content="When 95% credible intervals cover 81% · Arya Somu">
+  <meta property="og:description" content="A derivation and reproducible simulation of posterior coverage under model misspecification.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <style>
+    .writing-post__body .math-block { margin: 1.5rem 0; padding: 0.85rem 1rem; overflow-wrap: anywhere; border-left: 2px solid var(--article-accent); background: var(--subtle, rgba(128, 128, 128, 0.07)); font-family: Georgia, serif; font-size: 1.05rem; line-height: 1.6; }
+    .writing-post__body .results-wrap { max-width: 100%; overflow-x: auto; margin: 1.3rem 0; }
+    .writing-post__body table { border-collapse: collapse; min-width: 31rem; width: 100%; font-variant-numeric: tabular-nums; }
+    .writing-post__body th, .writing-post__body td { padding: 0.55rem 0.65rem; border-bottom: 1px solid var(--border); text-align: right; }
+    .writing-post__body th:first-child, .writing-post__body td:first-child { text-align: left; }
+    .writing-post__body th { color: var(--muted); font-family: var(--sans); font-size: 0.75rem; font-weight: 500; }
+    .writing-post__body td { font-family: var(--sans); font-size: 0.85rem; }
+    .writing-post__body figure img { border: 1px solid var(--border); }
+    .writing-post__body .note { color: var(--muted); font-size: 0.9rem; }
+  </style>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="writing-page article-color-blue">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+        <a href="./" aria-current="page">Writing</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main">
+      <article class="writing-post">
+        <header>
+          <p class="writing-post__meta"><time datetime="2026-10-11">October 11, 2026</time> · Statistics</p>
+          <h1>When 95% credible intervals cover 81%</h1>
+          <p class="writing-post__dek">A posterior can locate the right parameter and still report the wrong uncertainty.</p>
+        </header>
+        <div class="writing-post__body">
+          <p>Suppose I report a 95% Bayesian credible interval for a population mean. If I could repeat the data collection thousands of times, how often would that interval contain the mean? Under familiar conditions the answer approaches 95%. A wrong assumption about the observations' variance is enough to break that agreement.</p>
+          <p>The key is to distinguish two distributions. One is the posterior distribution of a parameter <em>given this dataset</em>. The other is the distribution of the estimator <em>across new datasets</em>. They have the same center asymptotically in this example, but different widths.</p>
+
+          <h2>A deliberately wrong likelihood</h2>
+          <p>Let the true observations be independent draws from a normal distribution with mean zero and standard deviation σ. We want the mean, but fit a model that insists the standard deviation is one. Give its mean parameter a wide, proper prior:</p>
+          <div class="math-block" role="math" aria-label="True data: X sub i is Normal zero sigma squared. Fitted model: X sub i given theta is Normal theta one. Prior theta is Normal zero one hundred.">Truth: X<sub>i</sub> ∼ N(0, σ²)<br>Model: X<sub>i</sub> | θ ∼ N(θ, 1)<br>Prior: θ ∼ N(0, 100)</div>
+          <p>The model is misspecified whenever σ differs from one. Still, the value of θ closest to the truth in Kullback–Leibler divergence is zero, so the fitted mean targets the right value. Completing the square gives the exact posterior:</p>
+          <div class="math-block" role="math" aria-label="Theta given X is Normal with mean n X bar divided by n plus 0.01, and variance one divided by n plus 0.01.">θ | X ∼ N(nX̄/(n + 0.01), 1/(n + 0.01)).</div>
+          <p>Its central 95% interval has a half-width of 1.96/√(n + 0.01). Notice what is absent: σ. The data-generating standard deviation cannot affect the width because the fitted likelihood fixed it at one.</p>
+
+          <h2>What repeated sampling sees</h2>
+          <p>Across fresh datasets, the sample mean has variance σ²/n. The posterior mean is only slightly shrunk toward zero by the prior, so its sampling variance is close to σ²/n too. At large n, the posterior variance is close to 1/n. The two agree only when σ = 1.</p>
+          <div class="math-block" role="math" aria-label="Posterior variance is approximately one over n. Sampling variance of sample mean is sigma squared over n.">Posterior variance ≈ 1/n &nbsp; | &nbsp; Sampling variance of X̄ = σ²/n.</div>
+          <p>This is the one-dimensional version of the distinction between inverse curvature, H<sup>−1</sup>, and the sandwich variance, H<sup>−1</sup>JH<sup>−1</sup>, where H is expected negative log-likelihood curvature and J is score variance. Here H = 1 and J = σ². The sandwich describes how the estimate varies across samples; it is not automatically the covariance of the ordinary posterior.</p>
+          <p>For a nearly flat prior and true mean zero, the actual coverage of the nominal 95% posterior interval is:</p>
+          <div class="math-block" role="math" aria-label="Coverage is approximately two times Phi of 1.96 divided by sigma minus one.">Coverage ≈ 2Φ(1.96/σ) − 1.</div>
+          <p>With σ = 1.5, this is 80.9%, rather than 95%. With σ = 2, it falls to 67.3%. If σ is below one, the interval is too wide and overcovers. These are repeated-sampling statements about the pseudo-true mean, not posterior probabilities conditional on any one dataset.</p>
+
+          <h2>Check it with simulation</h2>
+          <p>I drew 50,000 independent datasets of size 100 for each true σ, keeping the fitted variance at one. For each dataset I formed the exact posterior interval and a comparison interval centered on the sample mean with standard error estimated from that dataset. The <a href="credible-intervals-under-misspecification/simulate.py">standard-library Python script</a> fixes the random seed and reproduces the table and figure.</p>
+          <div class="results-wrap">
+            <table>
+              <thead><tr><th scope="col">True σ</th><th scope="col">Posterior interval</th><th scope="col">Exact prediction</th><th scope="col">Estimated sandwich interval</th></tr></thead>
+              <tbody>
+                <tr><td>0.5</td><td>99.99%</td><td>99.99%</td><td>94.70%</td></tr>
+                <tr><td>1.0</td><td>94.94%</td><td>95.00%</td><td>94.70%</td></tr>
+                <tr><td>1.5</td><td>80.68%</td><td>80.87%</td><td>94.64%</td></tr>
+                <tr><td>2.0</td><td>67.34%</td><td>67.29%</td><td>94.80%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure>
+            <img src="credible-intervals-under-misspecification/coverage.svg" width="720" height="400" alt="Line chart showing posterior interval coverage dropping from about 100% to 67% as true standard deviation rises from 0.5 to 2. Estimated sandwich interval coverage stays near 95%.">
+            <figcaption>Exact posterior coverage is the blue curve; dots and squares are the seeded simulations. All intervals were labeled 95%.</figcaption>
+          </figure>
+          <p class="note">The comparison interval uses 1.96 times the sample standard error. Its coverage is about 94.7% at n = 100 because that normal approximation is slightly narrow when σ is estimated; a Student-t critical value would correct this in the normal-data example. Simulation uncertainty is about ±0.2 percentage points for coverage near 95%.</p>
+
+          <h2>What this example does and does not say</h2>
+          <p>The ordinary posterior is internally consistent with the model it was given. It answers a conditional question under a likelihood that has fixed the variance incorrectly. If the intended claim is about repeated-sampling coverage, the variance assumption has to be checked or the uncertainty calculation has to account for its failure.</p>
+          <p>This example is intentionally narrow: independent normal observations, one mean parameter, and a known zero true mean used only for evaluation. It does not establish that a sandwich interval solves every form of misspecification. Dependence, changing distributions, and biased pseudo-true targets need separate treatment. Its useful lesson is more basic: getting the center right does not guarantee getting the uncertainty right.</p>
+
+          <h2>Further reading</h2>
+          <ul>
+            <li><a href="https://anishlk.com/posts/bayesian-misspecification/">Anish Lakkapragada's essay on Bernstein–von Mises and power posteriors</a> prompted this example.</li>
+            <li><a href="https://pure.uva.nl/ws/files/1850322/114737_376240.pdf">Kleijn and van der Vaart (2012)</a> prove a misspecified Bernstein–von Mises theorem and explain why ordinary credible sets need not have nominal frequentist coverage.</li>
+          </ul>
+        </div>
+      </article>
+      <a class="writing-back" href="./">← All writing</a>
+    </main>
+  </div>
+
+  <script src="../site.js"></script>
+</body>
+</html>
