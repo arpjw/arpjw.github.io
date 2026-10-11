@@ -468,7 +468,7 @@ main { margin-top: 1.5rem; }
 .writing-entry time { color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
 .writing-entry p { margin: 0.4rem 0 0; }
 .writing-index-page .writing-site { width: min(100% - 2.5rem, 48rem); }
-.writing-index-page .topbar { max-width: 34rem; margin-inline: auto; }
+.writing-index-page .topbar { max-width: 34rem; }
 .writing-index-page .writing-main { margin-top: 3rem; }
 .writing-index-page .writing-main h1 { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; line-height: 1.2; }
 .writing-index-page .writing-intro { margin-top: 0.45rem; color: var(--muted); font-family: var(--serif); font-size: 0.92rem; }
