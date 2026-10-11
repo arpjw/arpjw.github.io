@@ -479,6 +479,8 @@ main { margin-top: 1.5rem; }
 @media (max-width: 36rem) {
   .writing-index-page .writing-site { width: min(100% - 2.5rem, 48rem); }
   .writing-index-page .writing-main { margin-top: 2.4rem; }
+}
+@media (max-width: 30rem) {
   .writing-index-page .writing-entry { grid-template-columns: 1fr; gap: 0.45rem; padding: 1.4rem 0; }
   .writing-index-page .writing-entry time { padding-top: 0; }
 }
