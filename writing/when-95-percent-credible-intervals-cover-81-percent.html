@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=writing-reading-layout">
+  <link rel="stylesheet" href="../styles.css?v=writing-citations-v1">
   <link rel="canonical" href="https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html">
   <title>When 95% credible intervals cover 81% · Arya Somu</title>
   <meta name="description" content="A small example of why Bayesian credible intervals can lose frequentist coverage when the likelihood's variance is wrong.">
@@ -68,7 +68,7 @@
               <li><a href="#repeated-sampling">What repeated sampling sees</a></li>
               <li><a href="#simulation">Check it with simulation</a></li>
               <li><a href="#limits">What this example says</a></li>
-              <li><a href="#further-reading">Further reading</a></li>
+
             </ul>
           </nav>
         <div class="writing-post__body">
@@ -81,12 +81,12 @@
                 <li><a href="#repeated-sampling">What repeated sampling sees</a></li>
                 <li><a href="#simulation">Check it with simulation</a></li>
                 <li><a href="#limits">What this example says</a></li>
-                <li><a href="#further-reading">Further reading</a></li>
+
               </ul>
             </nav>
           </details>
           <p class="writing-post__lead" id="introduction">A posterior can locate the right parameter and still report the wrong uncertainty.</p>
-          <p>Suppose I report a 95% Bayesian credible interval for a population mean. If I could repeat the data collection thousands of times, how often would that interval contain the mean? Under familiar conditions the answer approaches 95%. A wrong assumption about the observations' variance is enough to break that agreement.</p>
+          <p>Suppose I report a 95% Bayesian credible interval for a population mean. If I could repeat the data collection thousands of times, how often would that interval contain the mean? Under familiar conditions the answer approaches 95%. A wrong assumption about the observations' variance is enough to break that agreement.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-anish" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-anish">Prompted by Anish Lakkapragada, <a href="https://anishlk.com/posts/bayesian-misspecification/">“Bayesian Misspecification”</a>.</span></span></p>
           <p>The key is to distinguish two distributions. One is the posterior distribution of a parameter <em>given this dataset</em>. The other is the distribution of the estimator <em>across new datasets</em>. They have the same center asymptotically in this example, but different widths.</p>
 
           <h2 id="wrong-likelihood">A deliberately wrong likelihood<a class="heading-anchor" href="#wrong-likelihood" aria-label="Link to A deliberately wrong likelihood">#</a></h2>
@@ -99,13 +99,13 @@
           <h2 id="repeated-sampling">What repeated sampling sees<a class="heading-anchor" href="#repeated-sampling" aria-label="Link to What repeated sampling sees">#</a></h2>
           <p>Across fresh datasets, the sample mean has variance σ²/n. The posterior mean is only slightly shrunk toward zero by the prior, so its sampling variance is close to σ²/n too. At large n, the posterior variance is close to 1/n. The two agree only when σ = 1.</p>
           <div class="math-block" role="math" aria-label="Posterior variance is approximately one over n. Sampling variance of sample mean is sigma squared over n.">Posterior variance ≈ 1/n &nbsp; | &nbsp; Sampling variance of X̄ = σ²/n.</div>
-          <p>This is the one-dimensional version of the distinction between inverse curvature, H<sup>−1</sup>, and the sandwich variance, H<sup>−1</sup>JH<sup>−1</sup>, where H is expected negative log-likelihood curvature and J is score variance. Here H = 1 and J = σ². The sandwich describes how the estimate varies across samples; it is not automatically the covariance of the ordinary posterior.</p>
+          <p>This is the one-dimensional version of the distinction between inverse curvature, H<sup>−1</sup>, and the sandwich variance, H<sup>−1</sup>JH<sup>−1</sup>, where H is expected negative log-likelihood curvature and J is score variance. Here H = 1 and J = σ². The sandwich describes how the estimate varies across samples; it is not automatically the covariance of the ordinary posterior.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-kleijn" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-kleijn">Kleijn and van der Vaart, <a href="https://pure.uva.nl/ws/files/1850322/114737_376240.pdf">“The Bernstein–von Mises theorem under misspecification”</a> (2012).</span></span></p>
           <p>For a nearly flat prior and true mean zero, the actual coverage of the nominal 95% posterior interval is:</p>
           <div class="math-block" role="math" aria-label="Coverage is approximately two times Phi of 1.96 divided by sigma minus one.">Coverage ≈ 2Φ(1.96/σ) − 1.</div>
           <p>With σ = 1.5, this is 80.9%, rather than 95%. With σ = 2, it falls to 67.3%. If σ is below one, the interval is too wide and overcovers. These are repeated-sampling statements about the pseudo-true mean, not posterior probabilities conditional on any one dataset.</p>
 
           <h2 id="simulation">Check it with simulation<a class="heading-anchor" href="#simulation" aria-label="Link to Check it with simulation">#</a></h2>
-          <p>I drew 50,000 independent datasets of size 100 for each true σ, keeping the fitted variance at one. For each dataset I formed the exact posterior interval and a comparison interval centered on the sample mean with standard error estimated from that dataset. The <a href="https://github.com/arpjw/credible-intervals-under-misspecification">reproduction repository</a> lets you browse the fixed-seed <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/simulate.py">Python script</a>, <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/results.csv">CSV results</a>, and <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/coverage.svg">figure source</a> on GitHub.</p>
+          <p>I drew 50,000 independent datasets of size 100 for each true σ, keeping the fitted variance at one. For each dataset I formed the exact posterior interval and a comparison interval centered on the sample mean with standard error estimated from that dataset. The fixed-seed code and outputs are browsable in the <a href="https://github.com/arpjw/credible-intervals-under-misspecification">reproduction repository</a>.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-code" aria-label="Citation 3">3</a><span class="writing-citation__note" id="cite-code"><a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/simulate.py">Python script</a>, <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/results.csv">CSV</a>, and <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/coverage.svg">figure source</a>.</span></span></p>
           <div class="results-wrap">
             <table>
               <thead><tr><th scope="col">True σ</th><th scope="col">Posterior interval</th><th scope="col">Exact prediction</th><th scope="col">Estimated sandwich interval</th></tr></thead>
@@ -127,11 +127,6 @@
           <p>The ordinary posterior is internally consistent with the model it was given. It answers a conditional question under a likelihood that has fixed the variance incorrectly. If the intended claim is about repeated-sampling coverage, the variance assumption has to be checked or the uncertainty calculation has to account for its failure.</p>
           <p>This example is intentionally narrow: independent normal observations, one mean parameter, and a known zero true mean used only for evaluation. It does not establish that a sandwich interval solves every form of misspecification. Dependence, changing distributions, and biased pseudo-true targets need separate treatment. Its useful lesson is more basic: getting the center right does not guarantee getting the uncertainty right.</p>
 
-          <h2 id="further-reading">Further reading<a class="heading-anchor" href="#further-reading" aria-label="Link to Further reading">#</a></h2>
-          <ul>
-            <li><a href="https://anishlk.com/posts/bayesian-misspecification/">Anish Lakkapragada's essay on Bernstein–von Mises and power posteriors</a> prompted this example.</li>
-            <li><a href="https://pure.uva.nl/ws/files/1850322/114737_376240.pdf">Kleijn and van der Vaart (2012)</a> prove a misspecified Bernstein–von Mises theorem and explain why ordinary credible sets need not have nominal frequentist coverage.</li>
-          </ul>
         </div>
         </div>
       </article>

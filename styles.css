@@ -515,6 +515,13 @@ html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
 .writing-post__body h3 { margin: 2em 0 0.8em; color: var(--foreground); font-size: 1.3rem; font-weight: 600; }
 .writing-post__body a { color: inherit; text-decoration-color: var(--article-accent); text-underline-offset: 0.17em; }
 .writing-post__body a:hover { color: var(--article-accent); }
+.writing-citation { position: relative; }
+.writing-citation__mark { color: var(--article-accent) !important; font-family: var(--sans); font-size: 0.68em; font-weight: 600; text-decoration: none !important; vertical-align: super; }
+.writing-citation__mark:hover, .writing-citation__mark:focus-visible { text-decoration: underline !important; }
+.writing-citation__note { display: block; max-width: 33rem; margin: 0.3rem 0 0.9rem; color: var(--muted); font-family: var(--sans); font-size: 0.72rem; line-height: 1.45; }
+.writing-citation__note.is-rail { position: absolute; top: 0; width: 10rem; max-width: none; margin: 0; }
+.writing-citation__note a { color: var(--foreground); text-decoration-color: var(--border); overflow-wrap: anywhere; }
+.writing-citation__note a:hover { color: var(--article-accent); }
 .writing-post__body .writing-post__origin { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.85rem; }
 .writing-post__body .heading-anchor { margin-left: 0.35em; color: var(--faint); font: 0.6em var(--sans); text-decoration: none; opacity: 0; }
 .writing-post__body h2:hover .heading-anchor, .writing-post__body .heading-anchor:focus-visible { opacity: 1; }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=writing-citations-v1">
+  <link rel="canonical" href="https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html">
+  <title>The Typical Path of a Favorable Bet · Arya Somu</title>
+  <meta name="description" content="A fixed-seed experiment shows how a favorable repeated bet can raise expected wealth while leaving the median bankroll poorer.">
+  <meta property="og:title" content="The Typical Path of a Favorable Bet · Arya Somu">
+  <meta property="og:description" content="A fixed-seed experiment shows how a favorable repeated bet can raise expected wealth while leaving the median bankroll poorer.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <style>
+    .writing-post__body .math-block { margin: 1.5rem 0; padding: 0.85rem 1rem; overflow-wrap: anywhere; border-left: 2px solid var(--article-accent); background: var(--subtle, rgba(128, 128, 128, 0.07)); font-size: 1.05rem; }
+    .writing-post__body .results-wrap { max-width: 100%; overflow-x: auto; margin: 1.3rem 0; }
+    .writing-post__body table { border-collapse: collapse; min-width: 36rem; width: 100%; font-variant-numeric: tabular-nums; }
+    .writing-post__body th, .writing-post__body td { padding: 0.55rem 0.65rem; border-bottom: 1px solid var(--border); text-align: right; }
+    .writing-post__body th:first-child, .writing-post__body td:first-child { text-align: left; }
+    .writing-post__body th { color: var(--muted); font-family: var(--sans); font-size: 0.75rem; font-weight: 500; }
+    .writing-post__body td { font-family: var(--sans); font-size: 0.85rem; }
+    .writing-post__body .note { color: var(--muted); font-size: 0.9rem; }
+  </style>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="writing-page writing-article-page article-color-rust">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+        <a href="./" aria-current="page">Writing</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main" id="top">
+      <article class="writing-post">
+        <header class="writing-post__header">
+          <h1>The Typical Path of a Favorable Bet</h1>
+          <p class="writing-post__meta">Arya Somu · Finance &amp; Probability<br><time datetime="2026-09-18">September 18, 2026</time></p>
+        </header>
+        <div class="writing-post__content">
+          <nav class="writing-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ul>
+              <li><a href="#introduction">Introduction</a></li>
+              <li><a href="#two-averages">Two averages of the same bet</a></li><li><a href="#experiment">A small experiment</a></li><li><a href="#interpretation">What the result does and does not say</a></li>
+            </ul>
+          </nav>
+        <div class="writing-post__body">
+          <details class="writing-toc-mobile">
+            <summary>In this article</summary>
+            <nav aria-label="On this page"><ul><li><a href="#introduction">Introduction</a></li><li><a href="#two-averages">Two averages of the same bet</a></li><li><a href="#experiment">A small experiment</a></li><li><a href="#interpretation">What the result does and does not say</a></li></ul></nav>
+          </details>
+          <p class="writing-post__lead" id="introduction">A favorable bet can make money on average while leaving most people who take it poorer.</p>
+          <p>That sounds like a statistical trick. It is really a question about what we mean by an average, and about what happens when capital has to survive one outcome before it can be used in the next. To see it, imagine a deliberately generous wager: it pays one dollar of profit for every dollar staked when it wins, loses the stake otherwise, and wins 55% of the time. The probability is known. There are no fees. We will repeat it 100 times, staking the same fraction of whatever wealth remains after each result.</p>
+          <p>The bet has an edge at every round. Whether the <em>sequence</em> treats a bankroll well depends on the size of the stake.</p>
+
+          <h2 id="two-averages">Two averages of the same bet<a class="heading-anchor" href="#two-averages" aria-label="Link to Two averages of the same bet">#</a></h2>
+          <p>If the stake fraction is <em>f</em>, a win multiplies wealth by 1 + <em>f</em>, and a loss multiplies it by 1 − <em>f</em>. After one round, expected wealth is multiplied by 0.55(1 + <em>f</em>) + 0.45(1 − <em>f</em>) = 1 + 0.10<em>f</em>. Raise this to the hundredth power for expected wealth after 100 independent rounds. By that measure, a larger stake always looks better within this model.</p>
+          <p>But a person does not receive the average of thousands of parallel bankrolls. They live one path. The quantity that adds across rounds on that path is log wealth:</p>
+          <div class="math-block" role="math" aria-label="Expected log growth per round equals 0.55 times log of one plus f, plus 0.45 times log of one minus f.">g(f) = 0.55 log(1 + f) + 0.45 log(1 − f).</div>
+          <p>Maximizing this expression gives <em>f</em> = 0.10. This is the familiar proportional betting result associated with John Kelly's growth criterion.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-kelly" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-kelly">John L. Kelly Jr., <a href="https://onlinelibrary.wiley.com/doi/10.1002/j.1538-7305.1956.tb03809.x">“A New Interpretation of Information Rate”</a>, <em>Bell System Technical Journal</em> (1956).</span></span> It is a result about a particular objective under a particular model, not a universal instruction to stake 10% of wealth.</p>
+
+          <h2 id="experiment">A small experiment<a class="heading-anchor" href="#experiment" aria-label="Link to A small experiment">#</a></h2>
+          <p>I generated 50,000 independent paths of 100 wins and losses with a fixed random seed. Each path was reused for four stake fractions, so differences across columns are caused by the stake rule rather than by different lucky draws. Initial wealth is one. The code and exact CSV output are available in the <a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet">experiment repository</a>.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-experiment" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-experiment"><a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet/blob/main/simulate.py">Simulation code</a> and <a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet/blob/main/results.csv">results.csv</a>. Python standard library; seed 20261011; run October 11, 2026.</span></span></p>
+          <div class="results-wrap">
+            <table>
+              <thead><tr><th scope="col">Stake fraction</th><th scope="col">Expected wealth, exact</th><th scope="col">Median wealth, simulated</th><th scope="col">Paths below start</th></tr></thead>
+              <tbody>
+                <tr><td>5%</td><td>1.65</td><td>1.46</td><td>24.0%</td></tr>
+                <tr><td>10%</td><td>2.70</td><td>1.65</td><td>30.6%</td></tr>
+                <tr><td>25%</td><td>11.81</td><td>0.51</td><td>62.1%</td></tr>
+                <tr><td>50%</td><td>131.50</td><td>0.0001</td><td>95.6%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">The expected wealth column is an exact model calculation; the median and loss frequencies are simulated. At 50,000 paths, the largest approximate Monte Carlo margin for a reported frequency is about ±0.4 percentage points at 95% confidence. Each stake fraction sees the same outcome paths.</p>
+          <p>The 25% rule makes the contrast concrete. Its expected ending wealth is almost twelve times the start. Yet the median ending wealth is about half the start, and 62% of paths finish below one. The high expectation is carried by a minority of extremely successful paths. At 50%, the gap is extreme: expected wealth exceeds 131, while the median path ends near zero.</p>
+
+          <h2 id="interpretation">What the result does and does not say<a class="heading-anchor" href="#interpretation" aria-label="Link to What the result does and does not say">#</a></h2>
+          <p>There is no contradiction. Arithmetic expectation weights a rare, enormous bankroll in full. Median wealth describes the middle path. Expected log growth asks how a repeated multiplicative process tends to compound. They answer different questions. Even the 10% rule, which maximizes expected log growth here, loses money over 100 rounds in about 31% of simulated paths. A growth optimum is no promise of a good finite run.</p>
+          <p>The experiment is intentionally easier than finance. Its 55% chance is known and stable, outcomes are independent, and odds never change. A real edge has to be estimated; its estimate can be wrong. Prices, fees, limits, liquidity, dependence, and the ability to keep betting all matter. None of those appear here, and this is not a backtest or evidence that any asset or market offers this wager. The useful habit is to ask for the distribution of paths alongside an expected return, especially when the position size changes what remains available for the next decision.</p>
+          <p class="writing-post__origin">Filed under <time datetime="2026-09-18">September 18, 2026</time>. Experiment run and first published <time datetime="2026-10-11">October 11, 2026</time>.</p>
+        </div>
+        </div>
+      </article>
+      <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
+    </main>
+  </div>
+
+  <script src="../site.js"></script>
+  <script src="writing.js"></script>
+</body>
+</html>

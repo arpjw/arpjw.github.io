@@ -1,4 +1,23 @@
 (function () {
+  var body = document.querySelector('.writing-post__body');
+  var citations = document.querySelectorAll('.writing-citation');
+  function positionCitations() {
+    citations.forEach(function (citation) {
+      var note = citation.querySelector('.writing-citation__note');
+      if (!note) return;
+      if (window.matchMedia('(max-width: 68rem)').matches) {
+        note.classList.remove('is-rail');
+        note.style.removeProperty('left');
+      } else if (body) {
+        note.classList.add('is-rail');
+        note.style.left = (body.getBoundingClientRect().right - citation.getBoundingClientRect().left + 36) + 'px';
+      }
+    });
+  }
+  window.addEventListener('resize', positionCitations);
+  positionCitations();
+  if (document.fonts) document.fonts.ready.then(positionCitations);
+
   var toc = document.querySelector('.writing-toc');
   if (!toc) return;
 

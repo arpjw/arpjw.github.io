@@ -13,7 +13,10 @@ To publish a post:
    the shared `writing-post` classes for the title, reading column, section
    navigation, and mobile layout. Give each section a stable ID and add it to
    both tables of contents. `writing/writing.js` marks the current section in
-   the desktop guide.
+   the desktop guide. Put source references beside the sentence they support
+   with a `.writing-citation` marker and `.writing-citation__note`. The note
+   appears in the right margin on wide screens and inline on smaller screens.
+   Give each note a unique ID, and link the marker to it.
    Keep `writing-page writing-article-page` on `<body>`, and optionally add
    `article-color-blue` or `article-color-rust` to choose an accent. The default
    is teal.
