@@ -128,7 +128,6 @@
     var galleryStatus = gallery.querySelector('[data-gallery-status]');
     var previousButton = gallery.querySelector('.photo-gallery__arrow--previous');
     var nextButton = gallery.querySelector('.photo-gallery__arrow--next');
-    var autoplayButton = gallery.querySelector('.photo-gallery__autoplay');
     var caption = gallery.querySelector('figcaption');
     var dots = gallery.querySelector('.photo-gallery__dots');
     var dotButtons = photos.map(function (photo, index) {
@@ -147,11 +146,7 @@
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     var autoplayPaused = reducedMotion.matches;
 
-    function updateAutoplayButton() {
-      var label = autoplayPaused ? 'Play slideshow' : 'Pause slideshow';
-      autoplayButton.setAttribute('aria-label', label);
-      autoplayButton.title = label;
-      autoplayButton.classList.toggle('is-paused', autoplayPaused);
+    function updateCaptionAnnouncement() {
       caption.setAttribute('aria-live', autoplayPaused ? 'polite' : 'off');
     }
 
@@ -172,7 +167,7 @@
     function pauseAutoplay() {
       autoplayPaused = true;
       stopAutoplay();
-      updateAutoplayButton();
+      updateCaptionAnnouncement();
     }
 
     startGalleryAutoplay = scheduleAutoplay;
@@ -198,14 +193,8 @@
 
     previousButton.addEventListener('click', function () { pauseAutoplay(); showPhoto(galleryIndex - 1); });
     nextButton.addEventListener('click', function () { pauseAutoplay(); showPhoto(galleryIndex + 1); });
-    autoplayButton.addEventListener('click', function () {
-      autoplayPaused = !autoplayPaused;
-      updateAutoplayButton();
-      scheduleAutoplay();
-    });
-    gallery.addEventListener('focusin', function (event) {
-      if (event.target !== autoplayButton) pauseAutoplay();
-    });
+    galleryImage.addEventListener('click', pauseAutoplay);
+    gallery.addEventListener('focusin', pauseAutoplay);
     document.addEventListener('visibilitychange', scheduleAutoplay);
     window.addEventListener('pagehide', stopAutoplay, { once: true });
     reducedMotion.addEventListener('change', function (event) {
@@ -235,7 +224,7 @@
       showPhoto(galleryIndex + (distance < 0 ? 1 : -1));
     }, { passive: true });
     showPhoto(Math.floor(Math.random() * photos.length));
-    updateAutoplayButton();
+    updateCaptionAnnouncement();
     if (!splash) scheduleAutoplay();
   }
 
