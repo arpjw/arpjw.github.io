@@ -20,8 +20,12 @@ To publish a post:
    Keep `writing-page writing-article-page` on `<body>`, and optionally add
    `article-color-blue` or `article-color-rust` to choose an accent. The default
    is teal.
-3. Add a matching entry at the top of `.writing-list` in `writing/index.html`, then
-   remove the "No posts yet" paragraph when publishing the first post.
+3. Add a matching entry to `.writing-list` in `writing/index.html` and an item
+   to `writing/feed.xml`. Keep each RSS `<guid>` equal to the article's canonical
+   URL, and set `<pubDate>` to its actual publication time on this site in RFC
+   822 format. The Writing index may use an editorial date; the feed date should
+   tell subscribers when the article became available. Remove the "No posts yet"
+   paragraph when publishing the first post.
 4. Preview the site locally, then commit and push when ready. The post will appear
    at `https://aryasomu.com/writing/your-post-slug.html` after GitHub Pages updates.
 

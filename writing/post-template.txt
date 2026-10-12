@@ -8,6 +8,7 @@
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css">
   <link rel="canonical" href="https://aryasomu.com/writing/your-post-slug.html">
+  <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>Your post title · Arya Somu</title>
   <meta name="description" content="A short description of your post.">
   <meta property="og:title" content="Your post title · Arya Somu">

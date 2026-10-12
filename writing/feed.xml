@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arya Somu · Writing</title>
+    <link>https://aryasomu.com/writing/</link>
+    <description>Notes and essays by Arya Somu, published on aryasomu.com.</description>
+    <language>en-us</language>
+    <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Typical Path of a Favorable Bet</title>
+      <link>https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html</guid>
+      <pubDate>Sun, 11 Oct 2026 23:59:27 GMT</pubDate>
+      <description>A fixed-seed experiment shows how a favorable repeated bet can raise expected wealth while leaving the median bankroll poorer. Filed under September 18, 2026; first published October 11, 2026.</description>
+    </item>
+    <item>
+      <title>The Epistemic Century</title>
+      <link>https://aryasomu.com/writing/the-epistemic-century.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/the-epistemic-century.html</guid>
+      <pubDate>Sun, 11 Oct 2026 23:50:46 GMT</pubDate>
+      <description>How AI could change the institutions that generate, test, fund, and act on claims. Originally published on Substack July 9, 2026; added to this site October 11, 2026.</description>
+    </item>
+    <item>
+      <title>When 95% credible intervals cover 81%</title>
+      <link>https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html</guid>
+      <pubDate>Sun, 11 Oct 2026 23:22:39 GMT</pubDate>
+      <description>A derivation and reproducible simulation of posterior coverage under model misspecification.</description>
+    </item>
+  </channel>
+</rss>
