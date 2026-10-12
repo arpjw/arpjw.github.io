@@ -153,3 +153,6 @@ figcaption a { color: var(--body); }
   .pair, .task-grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) { .expand { transition: none; } }
+
+/* Completed three-seed mechanism study */
+.mechanism-table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:620px}.mechanism-table caption{text-align:left;padding:12px 0;font-weight:600}.mechanism-table th,.mechanism-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line,#d7d5cf)}.mechanism-trajectory{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line,#d7d5cf);font-size:.86rem}.historical-boundary{margin-top:80px;padding-top:28px;border-top:1px solid var(--line,#d7d5cf)}@media(max-width:650px){.mechanism-trajectory{grid-template-columns:1fr 1fr;gap:8px}.mechanism-table{font-size:.82rem}}

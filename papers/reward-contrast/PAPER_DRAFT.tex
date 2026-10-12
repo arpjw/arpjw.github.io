@@ -19,19 +19,19 @@
 \usepackage{microtype}
 \usepackage{xurl}
 \usepackage[colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
-\hypersetup{pdftitle={Reward variation without demonstrated token savings: an audited exploratory study},pdfauthor={Arya Somu}}
+\hypersetup{pdftitle={Reward variation without demonstrated token savings: audited fixed-reward studies},pdfauthor={Arya Somu}}
 \setlength{\emergencystretch}{2em}
-\title{Reward variation without demonstrated token savings:\\an audited exploratory study}
+\title{Reward variation without demonstrated token savings:\\audited fixed-reward studies}
 \author{Arya Somu}
-\date{Working paper draft: October 10, 2026}
+\date{October 11, 2026}
 \begin{document}
 \maketitle
 
-The exploratory fixed-reward comparison is complete and independently audited. It found a small, uncertain response without a token-cost reduction. This working paper preserves the mathematical derivations and all failed attempts; adaptive reward superiority and generalization remain unestablished. Public release remains subject to review.
+Two fixed-reward studies are complete and independently audited: a historical one-seed development contrast and a separately frozen three-seed mechanism intervention. Neither meets its registered practical token-response criterion. This paper preserves the derivations, negative findings and recovery history. Adaptive reward superiority and generalization remain unestablished. The scientific source and records for both completed studies accompany the versioned research release.
 
 \begin{abstract}
 
-We study whether reinforcement learning with a configurable token-cost penalty can steer a small coding model toward different success-cost preferences. The task is simulated expression repair, with restricted candidate selection and hidden-example scoring. We derive an adaptive penalty update relative to a fixed initial policy and distinguish its ideal constrained objective from the finite-sample LoRA training procedure. An independently audited, one-seed fixed-reward continuation compares success-only reward with success minus generated-token cost divided by 1,024. Both arms receive 64 groups of four fresh trajectories. On 32 reused development tasks with two matched samples each, the cost-penalty arm scores 54/64 versus 52/64 while averaging 1,567.89 versus 1,556.69 generated tokens. The paired cost difference is +11.20 tokens (descriptive 95 percent task interval: -65.09 to +88.34); the accuracy difference is +3.125 percentage points (-6.25 to +14.06). Thus this horizon does not demonstrate a token-cost reduction or a reliable accuracy gain. Retrospective reconstruction finds 59 penalty updates versus 30 success-only updates: length variation activates 33 penalty groups with homogeneous success. Every active update is gradient-clipped. Identical first-group trajectories illustrate how reward variation can activate learning without guaranteeing later token savings. Completed earlier pilots include a fixed/adaptive tie and failed sensitivity diagnostics. Encrypted recovery and strict deterministic restart qualification enabled collection after two historical interruptions; the reused control has different determinism settings. One seed, repeatedly inspected development data and this execution difference limit interpretation. A prospective matched multi-seed held-out study is required for adaptive-steering or generalization claims.
+We study how a fixed token-cost penalty changes learning support and final behavior in a small coding model. A mathematical derivation separates an ideal adaptive preference controller from the implemented leave-one-out policy-gradient estimator, LoRA parameterization and Adam optimizer. An earlier audited one-seed development comparison produced more penalty updates but no token savings. We then froze a separate three-arm mechanism study with fresh controls, three paired training seeds and 96 previously untouched synthetic repair tasks. Nine single-A40 workers trained Qwen3-4B-Instruct-2507 adapters for 64 groups of four fresh trajectories each. Arms used success-only reward (A), success minus tokens/1,024 (B), or the same penalty with a complete optimizer skip on homogeneous-success groups (C). Each final policy generated two samples per task. The primary B-C contrast was -29.56 tokens (-1.80\% relative to C; descriptive 95\% crossed seed/task interval -76.66 to +15.48) and +3.99 accuracy percentage points (-0.52 to +8.51). B used fewer mean tokens in each seed, but the interval crossed zero and the registered 10\% promising-response criterion was not met. B-A was -16.15 tokens (-58.62 to +25.32). Across three seeds, A, B and C took 96, 174 and 95 optimizer updates, respectively; all 365 active updates were clipped. C skipped 97 homogeneous-success groups. Its intervention changes update support, Adam moments and future trajectories, so the endpoint contrast does not isolate a single unbiased cost-gradient contribution. All nine complete terminal archives passed streamed hash/size verification and independent frozen-source CPU audits. Three seeds, a restricted synthetic task language, frequent generation ceilings and final-only evaluation limit interpretation. The study supplies a reproducible mechanism intervention and a negative practical decision, without establishing absence of a small effect, adaptive superiority or repository-level coding generalization.
 
 \end{abstract}
 \section{Introduction}
@@ -42,12 +42,12 @@ Model capability is often reported independently of inference cost. For a deploy
 
 We separate three questions: whether the numerical estimator is faithful to the sampled policy; whether a fixed cost preference produces an observable behavioral response; and whether adaptive preferences steer that response on untouched tasks across training seeds. Each requires different evidence. Infrastructure correctness and improved prompting alone do not answer the final question.
 
-Our contribution is a transparent mathematical account and an audited exploratory finding, including failed diagnostics and interruptions. We do not claim a new reward algorithm or a superior coding policy. REINFORCE-style language-model optimization has prior empirical support in other alignment settings~\cite{rloo}. Work on length penalties also identifies optimization and sparse-signal issues~\cite{dler}; its tasks and training recipe differ from ours. Those results motivate examining the estimator and optimizer, not transferring their reported gains to this experiment.
+Our contribution is a transparent mathematical account, an audited one-seed exploratory contrast and a separately frozen three-seed optimizer intervention, including failed diagnostics and interruptions. We do not claim a new reward algorithm or a superior coding policy. REINFORCE-style language-model optimization has prior empirical support in other alignment settings~\cite{rloo}. Work on length penalties also identifies optimization and sparse-signal issues~\cite{dler}; its tasks and training recipe differ from ours. Those results motivate examining the estimator and optimizer, not transferring their reported gains to this experiment.
 
 \section{Objective and adaptive update}
 \label{sec:objective}
 
-This section supplies the complete interior derivation of the controller adapted from \href{https://anishlk.com/swe-2-extended/}{Lakkapragada}. It is an ideal policy-space construction. The current exploratory training run tests two \emph{fixed} utilities; an adaptive experiment remains prospective.
+This section supplies the complete interior derivation of the controller adapted from \href{https://anishlk.com/swe-2-extended/}{Lakkapragada}. It is an ideal policy-space construction. The empirical studies test fixed utilities and a masked optimizer intervention; an adaptive-controller experiment remains prospective.
 
 \subsection{Reader's guide and mathematical prerequisites}
 
@@ -295,7 +295,7 @@ This is a local necessary condition, not an initialization estimator or global g
 \section{Task, policy and training}
 \label{sec:training}
 
-The current exploratory configuration uses pinned Qwen3-4B-Instruct-2507 weights and rank-eight LoRA over attention q/k/v/o projections. The model receives candidate expression repairs and visible input/output constraints. The restricted evaluator checks hidden cases; generated Python is never executed. Constrained answer formatting is not evidence of learned repository-level repair.
+The historical exploratory configuration and the new mechanism study use pinned Qwen3-4B-Instruct-2507 weights and rank-eight LoRA over attention q/k/v/o projections. The model receives candidate expression repairs and visible input/output constraints. The restricted evaluator checks hidden cases; generated Python is never executed. Constrained answer formatting is not evidence of learned repository-level repair.
 
 More explicitly, task $x$ supplies four predefined candidate functions $f_{x,a}$, a target function $f_x^*$, and a nonempty hidden-input set $\mathcal H_x$. If the sampled answer selects candidate $a$, the scoring rule is
 \begin{equation}
@@ -525,7 +525,7 @@ One can verify both dimensions and the chain rule by perturbing the matrices. Us
        +\langle\kappa B^\top G_W,dA\rangle_F.
 \end{align}
 The coefficients of $dB$ and $dA$ are their gradients. Thus $G_WA^\top$ has shape $d_{\mathrm{out}}\times r$ and $B^\top G_W$ has shape $r\times d_{\mathrm{in}}$, matching their parameters. Because $W_0$ is frozen, it receives no optimizer update even though the computation uses it.
-For zero-initialized $B$, the initial effective weight equals $W_0$ and the first $A$ gradient is zero, while the $B$ gradient can be nonzero. Both arms start from the same archived adapter. LoRA and attention dropout are zero; the CUDA backward pass enables activation checkpointing without adding stochastic dropout.
+For zero-initialized $B$, the initial effective weight equals $W_0$ and the first $A$ gradient is zero, while the $B$ gradient can be nonzero. All arms within each study start from the same archived adapter. LoRA and attention dropout are zero; the CUDA backward pass enables activation checkpointing without adding stochastic dropout.
 
 Let $g_t=\nabla_\theta\mathcal L_t$ evaluated at $\theta_{t-1}$ and clip at unit norm:
 \begin{equation}
@@ -579,7 +579,7 @@ Nonfinite losses, gradients or saved states fail the workload. Zero measured fin
 \section{Evaluation and evidence}
 \label{sec:evaluation}
 
-The exploratory evaluation fixes $N=32$ development tasks and $M=2$ matched samples per task. It evaluates only the final adapter, with no intermediate performance-based checkpoint selection. The base and completed success-only evaluation are reused from the audited historical recovery. The newly trained token-penalty arm completed its final matched development evaluation; all three sets of 64 records were reconstructed by the independent audit. No sealed final-test task is used.
+The historical exploratory evaluation fixes $N=32$ development tasks and $M=2$ matched samples per task. It evaluates only the final adapter, with no intermediate performance-based checkpoint selection. The base and completed success-only evaluation are reused from the audited historical recovery. The newly trained token-penalty arm completed its final matched development evaluation; all three sets of 64 records were reconstructed by the independent audit. No sealed final-test task was used in that historical comparison. Section~\ref{sec:mechanism} reports the separate 96-task final evaluation and its crossed seed/task analysis.
 
 \subsection{Paired task means and utility contrasts}
 
@@ -685,7 +685,7 @@ This is grounds for discussing a separately approved study. It is not an automat
 
 Independent audits recompute $S,C,R_i,A_i$, replay discrepancies, Equation~\eqref{eq:lossgate}, adapter changes and all paired contrasts from frozen source and complete records. They validate completeness and provenance before analysis. Partial arms or qualification trajectories do not substitute for the planned final evaluation. Section~\ref{sec:recovery} specifies the exact state and off-Pod evidence requirements.
 
-\section{Results available at this draft}
+\section{Historical exploratory results}
 
 \begin{center}
 \small
@@ -866,25 +866,306 @@ title={Reasoning ceiling},title style={font=\small},nodes near coords]
 \end{figure}
 % END GENERATED MEASURED FIGURES
 
-\section{Continuation and prospective confirmation}
+\section{Historical continuation and qualification}
 
-The \href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/REWARD_CONTINUATION.md}{continuation protocol} reuses the verified initial/control evidence and restarts the missing cost-penalty arm from its original initialization. Operational checkpoints every eight groups preserve adapter, optimizer and random state. Actual CUDA resume equivalence must pass before scientific training. The result is labeled a continuation, with one training seed and reused development data. The first continuation failed exact recovery qualification despite identical saved sample rows, with tiny differences in updated adapter and optimizer tensors. A second attempt enables strict deterministic CUDA algorithms before model loading; the exact equality gate remains unchanged. This operational change differs from the retained historical control's execution controls and must be disclosed when interpreting the reused-control comparison. The second attempt passed exact recovery qualification, completed all 64 scientific groups and 64 final evaluation records, and passed an independent Python 3.12 audit using its collected frozen source. The collector and a separate local stream restore verified the entire 1,025,274,422-byte encrypted archive before the final closeout audit. Exact GPU deletion was confirmed by independent provider inventory. These checks establish retained evidence integrity and repeatability for the tested restart; they do not establish a learning benefit.
+The \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_CONTINUATION.md}{continuation protocol} reuses the verified initial/control evidence and restarts the missing cost-penalty arm from its original initialization. Operational checkpoints every eight groups preserve adapter, optimizer and random state. Actual CUDA resume equivalence must pass before scientific training. The result is labeled a continuation, with one training seed and reused development data. The first continuation failed exact recovery qualification despite identical saved sample rows, with tiny differences in updated adapter and optimizer tensors. A second attempt enables strict deterministic CUDA algorithms before model loading; the exact equality gate remains unchanged. This operational change differs from the retained historical control's execution controls and must be disclosed when interpreting the reused-control comparison. The second attempt passed exact recovery qualification, completed all 64 scientific groups and 64 final evaluation records, and passed an independent Python 3.12 audit using its collected frozen source. The collector and a separate local stream restore verified the entire 1,025,274,422-byte encrypted archive before the final closeout audit. Exact GPU deletion was confirmed by independent provider inventory. These checks establish retained evidence integrity and repeatability for the tested restart; they do not establish a learning benefit.
 
-This contrast did not meet the frozen promising-response rule. A separate prospective mechanism proposal tests whether homogeneous-success cost advantages contribute to a reproducible token response. It calls for fresh matched controls, identical deterministic runtimes, three new training seeds and untouched evaluation tasks. One diagnostic arm masks homogeneous-success groups; this changes the estimator and is explicitly an optimizer intervention, not an unbiased gradient of the original utility. The proposal is unexecuted and requires its own reviewed budget, completed runtime gates and protocol freeze. Adaptive-controller comparisons remain a later possibility. No final-test outcome may select reward scales, prompts, seeds, horizons or checkpoints, and the completed run is not extended.
+This historical contrast did not meet the frozen promising-response rule. The separately approved and frozen mechanism study below tests the resulting homogeneous-success support hypothesis with fresh controls and a common deterministic runtime. It does not implement the adaptive controller. No final outcome selected reward scales, prompts, seeds, horizons or checkpoints.
+
+
+\section{Matched three-seed mechanism study}
+\label{sec:mechanism}
+
+The earlier development result suggested an estimator-support hypothesis: a token penalty can create nonzero advantages in groups whose success indicators are tied. That observation motivated a separately approved experiment, frozen before its final tasks were evaluated. The nine-worker study completed on October 11, 2026 (Pacific time). It did not reuse the historical trained control or pool its outcomes with the one-seed development contrast. The intervention and primary endpoint were chosen from development evidence; the new final set remained untouched during preparation and training.
+
+% BEGIN ADDED VISUAL: flow
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+ every node/.style={font=\footnotesize,align=center},
+ stage/.style={draw,text width=3.9cm,minimum height=2.8cm,inner sep=5pt}]
+\node[stage] (freeze) at (0,0)
+ {\textbf{Freeze inputs}\\512 training tasks\\96 untouched final tasks\\One common initial adapter};
+\node[stage] (qualify) at (5.1,0)
+ {\textbf{Qualify all nine}\\Two nonzero CUDA updates\\Exact save/reload equality\\Complete skip probe};
+\node[stage] (train) at (10.2,0)
+ {\textbf{Train nine policies}\\Three arms $\times$ three seeds\\64 groups $\times$ four samples\\Fresh optimizer per worker};
+\node[stage] (evaluate) at (10.2,-4.0)
+ {\textbf{Evaluate final policies}\\96 tasks $\times$ two samples\\192 records per worker\\One initial-policy reference};
+\node[stage] (archive) at (5.1,-4.0)
+ {\textbf{Verify full archives}\\Encrypted size/hash readback\\Exact worker deletion\\Independent inventory check};
+\node[stage] (audit) at (0,-4.0)
+ {\textbf{Audit and compare}\\Nine frozen-source CPU audits\\Stream actual tensor hashes\\Primary B-C and cleanup};
+\draw[->,thick] (freeze.east) -- (qualify.west);
+\draw[->,thick] (qualify.east) -- (train.west);
+\draw[->,thick] (train.south) -- (evaluate.north);
+\draw[->,thick] (evaluate.west) -- (archive.east);
+\draw[->,thick] (archive.west) -- (audit.east);
+\node[font=\scriptsize,text width=14.4cm,inner sep=0pt] at (5.1,-6.1)
+ {During training and evaluation, each completed group/task/checkpoint waits for a verified encrypted recovery acknowledgement before dependent work continues.};
+\end{tikzpicture}
+\caption{Executed study flow. The final tasks supply evaluation evidence only; they do not select training settings or intermediate checkpoints. Qualification updates are discarded before scientific training. Source: frozen registration, runtime and all nine verified audit/closeout receipts, October 11, 2026.}
+\label{fig:mechanism-flow}
+\end{figure}
+
+% END ADDED VISUAL: flow
+
+\subsection{Registered task split, allocation and training recipe}
+
+The registered generator produced 512 training tasks and 96 final tasks across four expression families: bounded affine, floor composition, modular composition and nested absolute expressions. Each problem supplied four candidate repairs and four visible input/output constraints, followed by scoring on 40 hidden cases. Each visible constraint left two candidates plausible, while the combined constraints identified the target candidate. Candidate semantic identities on the registered finite domain were disjoint from all historical tier-three partitions and from candidates in other new tasks. This is an outcome-blind exclusion rule, not evidence of transfer beyond the restricted language. Generation seeds were 2026101101 and 2026101102 for training and final tasks. The final set contained 24 tasks per family.
+
+Each training seed selected 16 tasks per family from the training pool and shuffled the resulting 64-task schedule. Seeds 103, 211 and 307 were crossed with arms A, B and C. Within each seed block, all arms used the same task schedule and sample-seed rule, but generated their own fresh trajectories under their evolving policies. For one-based group $k$ and zero-based sample $i$, the training seed was $10^6s+1000k+10i$. A group contained four trajectories from one task, sampled before any update. Each worker saw 256 scientific training trajectories; the cohort therefore contained 576 groups and 2,304 training trajectories. The common horizon was 64 groups, not 64 guaranteed optimizer steps.
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+Setting & Frozen implementation \\
+\midrule
+Backbone & Qwen3-4B-Instruct-2507, revision \nolinkurl{cdbee75f17c01a7cc42f958dc650907174af0554}; base weights frozen \\
+Adapter & Identical archived initial adapter in every worker; LoRA rank 8, alpha 16, scale 2, on attention q/k/v/o projections; zero dropout \\
+Precision and hardware & Float32 CUDA, one NVIDIA A40 per worker; no quantization and no model execution on the Mac \\
+Generation & Compact reasoning prompt, temperature 0.7, full categorical sampling; at most 2,048 scratch tokens plus one constrained answer token \\
+Objective & Detached leave-one-out advantages; summed scratch-plus-answer log likelihood; no token-length normalization of the likelihood loss \\
+Optimizer & AdamW with zero weight decay, learning rate $10^{-5}$, betas $(0.9,0.999)$, epsilon $10^{-8}$; clip gradient norm at 1 \\
+Regularization & No additional KL-reference loss, entropy bonus or adaptive penalty controller in this study \\
+Runtime & Python 3.12.3, PyTorch 2.8.0+cu128, Transformers 4.57.3, PEFT 0.18.0; CUDA 12.8; common manifests and strict deterministic algorithms \\
+Checkpoints & Group 0/8/16/24/32/40/48/56/64, including adapter, optimizer and random state; operational recovery only \\
+\bottomrule
+\end{tabularx}
+\caption{Executed training recipe. Prompt construction is inherited from the frozen compact-prompt policy wrapper. The common initialization is reloaded after qualification; qualification updates do not enter scientific training.}
+\label{tab:mechanism-recipe}
+\end{table}
+
+The sampling policy and differentiated policy use temperature-adjusted likelihoods. The stop event and constrained answer distribution are described in Section~\ref{sec:training}. Cost counts generated scratch and answer tokens, with a maximum of 2,049; prompt tokens, backward computation, archive transfers and provider spending are excluded from that scientific cost endpoint. A constant learning rate is used. Activation checkpointing reduces memory usage in the backward pass. No intermediate checkpoint is evaluated to choose an endpoint, and no final outcome changes the prompt, reward scale, horizon or seed allocation.
+
+\subsection{Three arms and the meaning of a complete mask}
+
+For a four-trajectory group, the rewards and raw advantages are
+\begin{align}
+ R^{(A)}_i&=S_i,& R^{(B)}_i=R^{(C)}_i&=S_i-C_i/1024,\\
+ A_i^{(a)}&=R_i^{(a)}-\frac13\sum_{j\ne i}R_j^{(a)}
+            =\frac43(R_i^{(a)}-\overline R^{(a)}).
+\end{align}
+Let $M_k=\mathbf1\{\min_i S_i<\max_i S_i\}$ indicate a mixed-success group. Arm C replaces its raw advantage by $\widetilde A_i^{(C)}=M_kA_i^{(C)}$. Its recorded raw rewards and raw advantages are preserved even when masked. When all four answers are correct \emph{or} all four are incorrect, the group performs no backward pass and no optimizer step. Parameters, Adam moments and optimizer counters do not advance through a zero-gradient call. The engineering probe separately checks exact preservation of adapter, nonempty optimizer state and RNG during this skip; drawing the four scientific trajectories still consumes sampling randomness. Arms A and B also skip any exactly tied reward group under the shared implementation.
+
+The intervention is not an unbiased estimator of the original penalty objective. If $h_i=\nabla_\theta\log\pi_\theta(y_i\mid x)$ and $\widehat g_B=\frac14\sum_i A_i^{(B)}h_i$, the masked estimator has the form $\widehat g_C=M_k\widehat g_B$ on a hypothetical common group. In general,
+\begin{equation}
+ \E[M_k\widehat g_B]=\E[\widehat g_B]-\E[(1-M_k)\widehat g_B],
+\end{equation}
+and the removed term need not vanish. Once updates differ, B and C sample different trajectories and carry different Adam histories. B-C consequently estimates the final-policy effect of this entire registered optimizer intervention at a common rollout horizon. It does not hold optimizer-step count, trajectory distribution or moment history fixed.
+
+\subsection{Qualification, evaluation and paired uncertainty}
+
+All nine workers had to pass two actual nonzero CUDA updates with exact uninterrupted versus save/reload agreement before the cohort could release scientific training. A synthetic homogeneous-success probe, using nonempty Adam state, tested both all-correct and all-incorrect optimizer skips without producing scientific task records. Package manifests had to match. Every worker then reloaded the same initial adapter and a fresh optimizer. The replay and loss tolerances in Section~\ref{sec:training} stayed unchanged: 0.10 maximum and 0.02 mean scratch discrepancy, 0.02 answer discrepancy in nats, finite gradients, and the recorded loss reconstruction bound. These checks qualify the tested execution path; the later CPU audit binds the actual checkpoint hashes and reconstructs records without rerunning a model.
+
+Only the final group-64 policy was evaluated. Each worker sampled the same 96 final tasks twice, giving 192 records per worker and 1,728 final trained-policy records overall. Evaluation used $48103107+100j+10m$ for zero-based task $j$ and sample $m$, shared across arms and training seeds. A-seed103 additionally reloaded the original adapter and produced one 192-record initial-policy reference with the same tasks and evaluation seeds. That reference is a single measurement, never nine independent baseline runs or a source of training feedback.
+
+The primary contrast was B-C mean generated tokens, with solve-rate difference reported alongside it. B-A and C-A were secondary. Write $Y_{a,s,f,j,m}$ for cost or success at arm $a$, training seed $s$, family $f$, within-family task $j$ and sample $m$. The endpoint averages three seeds, four equally sized families, 24 tasks per family and two samples:
+\begin{equation}
+ \widehat\Delta_{a-b,Y}=\frac1{3\cdot4\cdot24\cdot2}
+ \sum_{s=1}^3\sum_{f=1}^4\sum_{j=1}^{24}\sum_{m=1}^2
+   (Y_{a,s,f,j,m}-Y_{b,s,f,j,m}).
+\end{equation}
+The frozen bootstrap uses 10,000 replicates and seed 8601. Each replicate resamples three paired training-seed blocks with replacement and, separately, 24 task clusters with replacement within each family. The same seed and task draws apply to every arm, retaining both samples. Percentile endpoints are the 2.5\% and 97.5\% quantiles. These are descriptive crossed seed/task intervals. With only three training seeds, they do not supply precise population seed uncertainty. Repeated evaluations of the same 96 tasks do not create 576 distinct tasks per arm. Secondary intervals are not adjusted for multiple comparisons and do not establish an accuracy-noninferiority claim.
+
+The registered promising-cost-response rule required all three conditions: at least a 10\% B-C relative token reduction, an entirely negative token interval, and a negative B-C token difference in every training seed. This was a practical decision rule, not a guarantee of calibrated statistical significance or a trigger for an automatic extension.
+
+\subsection{Final outcomes and the registered decision}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+Arm & Successes & Solve rate & Mean tokens & Updates & Ceiling hits \\
+\midrule
+A & 439/576 & 76.22\% & 1625.20 & 96 & 242/576 \\
+B & 442/576 & 76.74\% & 1609.05 & 174 & 245/576 \\
+C & 419/576 & 72.74\% & 1638.62 & 95 & 255/576 \\
+\bottomrule
+\end{tabular}
+\caption{Trained-policy endpoints over three seeds, each evaluated on the same 96 tasks with two samples. Updates sum three 64-group runs; ceiling hits mean 2,049 generated tokens. Denominators are repeated task/sample slots, not independent unique tasks.}
+\label{tab:mechanism-arms}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Arm & Seed & Successes & Mean tokens & Updates & Masked groups & Ceiling hits \\
+\midrule
+A & 103 & 145/192 & 1633.23 & 29 & 0 & 85/192 \\
+A & 211 & 145/192 & 1614.31 & 28 & 0 & 81/192 \\
+A & 307 & 149/192 & 1628.07 & 39 & 0 & 76/192 \\
+B & 103 & 146/192 & 1594.17 & 61 & 0 & 83/192 \\
+B & 211 & 142/192 & 1616.01 & 57 & 0 & 87/192 \\
+B & 307 & 154/192 & 1616.98 & 56 & 0 & 75/192 \\
+C & 103 & 137/192 & 1644.45 & 31 & 33 & 86/192 \\
+C & 211 & 138/192 & 1625.19 & 27 & 37 & 85/192 \\
+C & 307 & 144/192 & 1646.21 & 37 & 27 & 84/192 \\
+\bottomrule
+\end{tabular}
+\caption{All nine registered workers, with no dropped seed or selected checkpoint. Every worker completed 64 groups and 192 final evaluation records.}
+\label{tab:mechanism-workers}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Contrast & $\Delta$ tokens & Descriptive interval & $\Delta$ accuracy (pp) & Descriptive interval (pp) \\
+\midrule
+B-A & -16.15 & [-58.62, +25.32] & +0.52 & [-4.34, +4.86] \\
+B-C & -29.56 & [-76.66, +15.48] & +3.99 & [-0.52, +8.51] \\
+C-A & +13.41 & [-12.00, +40.84] & -3.47 & [-6.42, -0.69] \\
+\bottomrule
+\end{tabular}
+\caption{Registered primary B-C and secondary contrasts. Accuracy is in percentage points; intervals are descriptive 95\% crossed seed/task bootstrap intervals. Negative token differences favor the first arm.}
+\label{tab:mechanism-contrasts}
+\end{table}
+
+The primary B-C mean difference was -29.564236 tokens, or -1.804218\% relative to C. Its descriptive interval, [-76.662413, +15.480469], includes zero. B-C accuracy was +3.993056 percentage points, with interval [-0.520833, +8.506944]. The per-seed token differences were -50.281250, -9.187500 and -29.223958 for seeds 103, 211 and 307. Directional agreement satisfied the third decision condition; the 10\% magnitude and entirely negative interval conditions failed. The registered promising-cost-response flag was therefore false. This is a negative practical decision and an uncertain small effect, not evidence that every possible benefit is absent.
+
+B-A averaged -16.151042 tokens and +0.520833 accuracy percentage points, with both intervals spanning zero. C-A averaged +13.413194 tokens and -3.472222 accuracy percentage points. Its secondary accuracy interval [-6.423611, -0.694444] lies below zero, but this is an unadjusted descriptive contrast in a small study; it is not a broad claim that masking universally harms accuracy. The initial-policy reference scored 144/192 (75.00\%) at 1,624.265625 mean tokens, with 85 ceiling hits. The trained A, B and C means were 76.22\%, 76.74\% and 72.74\%. No independent multi-seed initial-policy uncertainty is available, so these baseline comparisons remain descriptive.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=.86\linewidth,height=5cm,xmin=-85,xmax=50,ymin=.5,ymax=3.5,
+ xlabel={Mean generated-token difference (first arm minus second)},
+ ytick={1,2,3},yticklabels={C-A,B-A,B-C},ylabel={Registered contrast},
+ grid=none,tick label style={font=\small}]
+\addplot[gray,dashed] coordinates {(0,.5) (0,3.5)};
+\fill[black] (axis cs:-76.662413,2.98) rectangle (axis cs:15.480469,3.02);
+\fill[black] (axis cs:-58.623177,1.98) rectangle (axis cs:25.320486,2.02);
+\fill[black] (axis cs:-12.000043,.98) rectangle (axis cs:40.840495,1.02);
+\addplot[only marks,mark=*,black,mark options={fill=black,draw=black}]
+ coordinates {(-29.564236,3) (-16.151042,2) (13.413194,1)};
+\end{axis}
+\end{tikzpicture}
+\caption{Mean final-token contrasts and descriptive 95\% crossed seed/task intervals from the frozen 10,000-replicate analysis. Points are means; horizontal lines are intervals; the dashed line is zero. Every token interval crosses zero. Source: all nine independently audited group-64 evaluations, October 11, 2026.}
+\label{fig:mechanism-contrasts}
+\end{figure}
+
+% BEGIN ADDED VISUAL: seed-results
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{.48\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=\linewidth,height=5.2cm,ybar,bar width=15pt,
+ symbolic x coords={103,211,307},xtick=data,ymin=-60,ymax=5,
+ xlabel={Paired training seed},ylabel={B-C mean token difference},
+ title={Token cost},nodes near coords,
+ every node near coord/.append style={font=\scriptsize},
+ tick label style={font=\small},enlarge x limits=.25]
+\addplot[draw=black,fill=black!20] coordinates {(103,-50.281250) (211,-9.187500) (307,-29.223958)};
+\end{axis}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}{.48\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=\linewidth,height=5.2cm,ybar,bar width=15pt,
+ symbolic x coords={103,211,307},xtick=data,ymin=0,ymax=6.5,
+ xlabel={Paired training seed},ylabel={B-C solve-rate difference (pp)},
+ title={Accuracy},nodes near coords,
+ every node near coord/.append style={font=\scriptsize},
+ tick label style={font=\small},enlarge x limits=.25]
+\addplot[draw=black,fill=black!20] coordinates {(103,4.687500) (211,2.083333) (307,5.208333)};
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\caption{Primary B-C endpoints separately for each training seed. Each bar compares two final policies on the same 96 tasks and two evaluation samples per task. Negative tokens and positive accuracy favor B. Bars are observed point differences, with no per-seed uncertainty bars; the registered pooled descriptive intervals remain in Figure~\ref{fig:mechanism-contrasts}. Directional agreement across three seeds does not imply a calibrated population effect or satisfaction of the 10\% practical rule. Source: all nine frozen independent audits, October 11, 2026.}
+\label{fig:mechanism-seeds}
+\end{figure}
+
+% END ADDED VISUAL: seed-results
+
+\subsection{Measured update support, ceilings and interpretation}
+
+Across 192 training groups per arm, A updated on 96 mixed-success groups and skipped 96 homogeneous groups (88 all-correct, eight all-incorrect). B updated on 174 groups: 91 mixed-success and 83 homogeneous-success groups; 18 homogeneous groups had exactly tied token costs and were skipped. C updated on its 95 mixed-success groups and masked 97 homogeneous groups (87 all-correct and ten all-incorrect). Thus B took more updates than either A or C, without meeting the final token-response criterion. B's 83 homogeneous updates are reconstructed on B's own trajectories; they are not 83 common groups rescued relative to C, because the policies diverge.
+
+Every one of the 365 active updates had a raw gradient norm above one and was clipped. This count is a retrospective diagnostic from saved metrics, not an experimental manipulation of clipping. Final ceiling hits were 242/576 for A, 245/576 for B and 255/576 for C (42.01\%, 42.53\% and 44.27\%). Frequent ceiling hits constrain how token-length changes can appear, but neither the ceiling counts nor universal clipping identify the cause of the endpoint. Changing the ceiling, reward scale, optimizer or training horizon after inspecting these outcomes would define a new experiment. There is no checkpoint performance curve: saved intermediate checkpoints serve recovery, and only final policies were evaluated.
+
+% BEGIN ADDED VISUAL: update-support
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=.85\linewidth,height=6cm,ybar stacked,bar width=34pt,
+ symbolic x coords={A,B,C},xtick=data,ymin=0,ymax=210,
+ xlabel={Reward arm},ylabel={Training groups across three seeds},
+ title={Equal rollout exposure, unequal optimizer work},
+ enlarge x limits=.3,tick label style={font=\small},
+ legend style={at={(.5,-.25)},anchor=north,font=\footnotesize,legend columns=1}]
+\addplot[draw=black,fill=black!20] coordinates {(A,96) (B,91) (C,95)};
+\addlegendentry{Mixed-success update}
+\addplot[draw=black,fill=black!70] coordinates {(A,0) (B,83) (C,0)};
+\addlegendentry{Homogeneous-success update}
+\addplot[draw=black,fill=white] coordinates {(A,96) (B,18) (C,97)};
+\addlegendentry{Skipped group (reward tie or C mask)}
+\end{axis}
+\end{tikzpicture}
+\caption{Update support over 192 groups per arm (three runs of 64 groups). A takes 96 updates, B 174 and C 95; the remaining groups still generate four trajectories each. A and B skips are exact reward ties, whereas C's 97 skips are homogeneous-success masks. The 83 B homogeneous updates occur on B's own evolving trajectories, not shared groups that can be counted as rescued relative to C. Source: 576 independently audited training-group metrics, October 11, 2026.}
+\label{fig:mechanism-update-support}
+\end{figure}
+
+% END ADDED VISUAL: update-support
+
+\subsection{Recovery history, resource accounting and audit boundary}
+
+The first nine-worker provisioning attempt failed before model execution: eight create requests failed and one created worker failed SSH readiness. Its verified failure metadata, deletion receipt and accounting were preserved; no scientific run from that attempt enters the comparison. A separately approved second cohort supplied all nine completed workers. Each group, task and checkpoint had to receive an encrypted off-Pod size/hash acknowledgement bound to the exact worker, freeze, sequence and manifest before dependent work continued. Three shared transfer slots prioritized recovery over terminal collection. Full terminal archives were verified before early deletion; independent immutable workload and deletion guards stayed in force. Ordinary workload/deletion limits were 19.5/20.25 hours after creation, and the reference worker's were 27.3/28.05 hours.
+
+Three workers required additional terminal archive attempts after transfer or verification failures. Scoped approvals increased only their attempted-transfer reservations within the original 20-billion-byte evidence ceiling; there was no replacement worker, retraining, horizon extension, gate relaxation or extra storage purchase. Failed attempt evidence and the prior ledger were retained. All nine terminal archives ultimately passed full byte-count and SHA-256 readback. The finalizer selectively restored bounded text and streamed the actual hashes of 25 tensor members per worker without storing a model on the Mac. Independent Python 3.12 audits from each collected frozen source reconstructed rewards, advantages, masks, update counts, replay/loss checks, paired identities, checkpoint bindings and final outcomes. All nine complete audits were required for the comparison; a recovery snapshot alone would have remained explicitly incomplete.
+
+The conservative cumulative GPU/disk plus storage-reserve estimate was \$99.79561 under the approved \$131 cap, including \$1.01185 carried from the failed first attempt. The nominal aggregate billed worker lifetime was 163.79190 single-GPU hours; summed GPU-hours are distinct from elapsed wall time. Posted provider billing for the second cohort was \$97.23842 at closeout and could lag; it excludes the separately carried first-attempt estimate. Scientific token cost is a different quantity. Independent inventory confirmed all study workers absent, all 30 study services were disabled and unloaded, detached deadline processes were absent, and only the temporary study credential copy was removed. Historical evidence, original credentials and encrypted objects were preserved. The old API-caller/support investigation remains unresolved and is not attributed to this completed cohort.
+
+The study freeze was \nolinkurl{67301c1aadbecb08ce230bbc0db6d736da73cfa9163e2230a9f9d267272ca324}. The public scientific-input manifest binds the raw records and frozen source to their original hashes. The original registration, generator provenance and all failed evidence are retained. The reviewed public subset contains the completed scientific records and CPU reconstruction tools; full model tensors and operational records remain private.
+
+% BEGIN ADDED VISUAL: final-endpoints
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=.88\linewidth,height=7cm,xmin=1585,xmax=1658,ymin=70,ymax=82,
+ xlabel={Mean generated tokens per final completion},ylabel={Final solve rate (\%)},
+ title={All nine final-policy endpoints},xtick={1590,1600,1610,1620,1630,1640,1650},tick label style={font=\small},
+ legend style={at={(.5,-.2)},anchor=north,font=\footnotesize,legend columns=2}]
+\addplot[only marks,mark=o,mark size=2.5pt,black,mark options={draw=black,fill=white},point meta=explicit symbolic,nodes near coords,every node near coord/.append style={font=\scriptsize,anchor=south west}] coordinates {(1633.229167,75.520833) [103] (1614.312500,75.520833) [211] (1628.072917,77.604167) [307]};\addlegendentry{A: success only}
+\addplot[only marks,mark=triangle*,mark size=2.5pt,black,mark options={draw=black,fill=black},point meta=explicit symbolic,nodes near coords,every node near coord/.append style={font=\scriptsize,anchor=south west}] coordinates {(1594.171875,76.041667) [103] (1616.005208,73.958333) [211] (1616.984375,80.208333) [307]};\addlegendentry{B: full penalty}
+\addplot[only marks,mark=square*,mark size=2.5pt,black,mark options={draw=black,fill=black!35},point meta=explicit symbolic,nodes near coords,every node near coord/.append style={font=\scriptsize,anchor=south west}] coordinates {(1644.453125,71.354167) [103] (1625.192708,71.875000) [211] (1646.208333,75.000000) [307]};\addlegendentry{C: homogeneous mask}
+\addplot[only marks,mark=diamond,mark size=3pt,black,mark options={draw=black,fill=white}]
+ coordinates {(1624.265625,75)};\addlegendentry{Single initial reference}
+\end{axis}
+\end{tikzpicture}
+\caption{Final generated-token cost and solve rate for every arm/seed, with seed labels beside the points. Each trained-policy point uses 192 matched evaluation records on 96 final tasks. The diamond is the one 192-record initial-policy reference, not three independent baselines. Lower token cost and higher solve rate are preferred. Points are not connected: these are final observed policies, not an estimated Pareto frontier, training trajectories or confidence regions. Source: all nine frozen independent audits and the registered initial reference, October 11, 2026.}
+\label{fig:mechanism-endpoints}
+\end{figure}
+
+% END ADDED VISUAL: final-endpoints
 
 \section{Limitations}
 
-The synthetic candidate-selection task is a limited proxy for coding. The current development split has been inspected repeatedly during model, prompt and reward design. One seed cannot quantify optimization variability. Tokens measure generated length, not wall-clock cost or total provider spending. Reasoning ceilings and constrained readout change the action space. An arbitrary initial penalty is not a measured Pareto tangent. A future adaptive effect at one effort condition does not establish an entire Pareto frontier.
+The synthetic candidate-selection task is a limited proxy for coding. The historical one-seed development split was inspected repeatedly and has a runtime difference between its retained control and continuation. The new mechanism study addresses those specific weaknesses with fresh controls, matched deterministic runtimes, three seeds and a previously untouched final set; it remains motivated by the earlier development result and confined to four familiar expression families. Semantic exclusion on a finite domain does not establish repository-level repair or out-of-language generalization. Three seeds give limited information about optimizer variability, and the descriptive crossed bootstrap is not a precision guarantee or a multiple-testing correction.
 
-Two cloud interruptions required a missing-arm continuation; the fixed-reward comparison is now complete. An October 9 provider reply attributes both deletions to account API-key requests through the API/SDK, ruling out provider infrastructure, machine issues, balance exhaustion and template TTL. The responsible key and calling process remain unidentified. The user authorized disabling all previously active API keys and resuming through fresh isolated study access. The \href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/REWARD_CONTINUATION_RUN.md}{continuation run log} records its approved \$10 cap, credential mitigation and completed continuation. The support investigation remains open. Recovery and numerical validation support evidence integrity but do not establish a performance improvement.
+The initial reference is measured once. The arms share final tasks and sample seeds; their 576 records per arm are repeated observations on 96 tasks. Only group-64 policies are evaluated. A common rollout horizon leaves unequal optimizer-step counts and Adam histories. In particular, the C mask tests a complete optimizer intervention and cannot identify a pure cost-gradient contribution while holding everything else fixed. Universal clipping and frequent token ceilings are measured diagnostics, not experimentally isolated explanations. Tokens measure generated length, not total computation or provider spending. The registered negative decision does not prove zero effect or justify another automatic run. Neither completed study establishes an adaptive-controller advantage or a Pareto frontier.
+
+Two cloud interruptions required a missing-arm continuation; the fixed-reward comparison is now complete. An October 9 provider reply attributes both deletions to account API-key requests through the API/SDK, ruling out provider infrastructure, machine issues, balance exhaustion and template TTL. The responsible key and calling process remain unidentified. The user authorized disabling all previously active API keys and resuming through fresh isolated study access. The \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_CONTINUATION_RUN.md}{continuation run log} records its approved \$10 cap, credential mitigation and completed continuation. The support investigation remains open. Recovery and numerical validation support evidence integrity but do not establish a performance improvement.
 
 \section{Reproducibility and release}
 
-The public research release, \href{https://github.com/arpjw/reward-function/tree/research-v1.0.1}{\texttt{arpjw/reward-function}, version \texttt{research-v1.0.1}}, contains the protocols, derivations, frozen implementation, raw scientific records and source/evidence hashes needed to reconstruct the recorded analysis. The post hoc analysis script checks each used raw input against the public evidence manifest and reconstructs rewards, advantages, update categories and evaluation endpoints on CPU without loading a model. A release manifest distinguishes byte-preserved scientific inputs from report copies sanitized for public presentation. The \href{https://aryasomu.com/papers/reward-contrast/}{website companion} presents the measured plots, group inspector and four fixed-rule development example pairs. Full recorded training and evaluation traces are available in the public scientific subset. No checkpoint performance trajectories or training-seed variability plots are available from this one-seed final-only evaluation. Larger adapter, optimizer and RNG tensors, complete encrypted operational archives, private account records and original Git history remain private. The public analysis reconstruction is distinct from the historical full tensor/restart audit; it does not claim that readers can regenerate that audit from the public subset alone. No prospective sealed final-test data are included.
+The versioned public release, \href{https://github.com/arpjw/reward-function/tree/research-v1.1.0}{\texttt{arpjw/reward-function}, \texttt{research-v1.1.0}}, contains the paper, derivations, historical development evidence and the completed nine-worker mechanism study. The \href{https://aryasomu.com/papers/reward-contrast/}{website visualizer} reports both studies separately and links to this same version. Earlier immutable releases remain available for the historical record.
+
+For the mechanism study, the \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_MECHANISM_METHOD.md}{executed method}, \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_MECHANISM_RESULTS.md}{result report}, \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/baselines/reward-mechanism-2026-10-11/README.md}{scientific evidence package} and \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/analyze_reward_mechanism_public.py}{CPU reconstruction program} provide the registration, original generator, frozen scientific source/configuration, complete recorded training/evaluation trajectories, per-group metrics and independent audit receipts. Compressed record members retain their original decompressed bytes; the \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/baselines/reward-mechanism-2026-10-11/SCIENTIFIC_INPUTS.json}{scientific-input manifest} records their SHA-256 and size. No task is regenerated for publication. Public analysis independently reconstructs scoring, reward/advantage and mask arithmetic, update support, numerical gates, paired identities, final endpoints and the registered bootstrap without a model or account credentials.
+
+The \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/PUBLIC_SCOPE.md}{public scope statement} distinguishes this CPU reconstruction from the execution-time CUDA save/reload test and the private full archive/tensor audit. Public checkpoint metadata and recorded tensor hashes bind the retained audit receipts; readers cannot independently rehash absent model/optimizer/RNG tensors from the public subset. Credentials, provider account/support records, cloud-control receipts and full encrypted operational archives are excluded. The public file manifest binds the released source, records, paper and derived figures to their reviewed bytes.
 
 \section{Conclusion}
 
-In this completed exploratory setting, adding a token penalty creates advantage variation in otherwise tied groups and results in more optimizer updates, while failing to demonstrate token savings at the registered horizon. The penalty scores two more of 64 completions correctly and uses 11.20 more tokens on average; both principal descriptive task intervals include zero. The identical first group demonstrates an estimator mechanism, and the full records show persistent ceilings and universal clipping of active updates. These observations motivate a distinct prospective mechanism study, but they neither identify the cause of the endpoint nor establish adaptive reward superiority. The result is bounded by one seed, a reused inspected development split and a runtime difference. Mathematical derivations, negative findings, exact recovery qualification and retained evidence support a reproducible account of what was tested, rather than a guarantee of behavioral steering.
+The historical development study showed that token penalties can activate otherwise tied groups without demonstrating token savings. The subsequent matched three-seed mechanism study preserved that update-support distinction: the full penalty arm took 174 updates versus 96 for success-only and 95 for the homogeneous-success mask. On previously untouched final tasks, full penalty used 29.56 fewer tokens than the masked arm, with the same direction in all three seeds, but its descriptive interval crossed zero and its 1.80\% reduction failed the registered 10\% promising-response rule. The penalty-versus-success-only token interval also crossed zero. The completed result therefore supports a bounded report of the tested mechanism and a negative practical decision; it does not demonstrate a useful token-saving method or prove that a small effect is absent.
+
+Fresh controls, common deterministic execution, complete encrypted archives and nine independent frozen-source audits strengthen the evidence boundary relative to the earlier continuation. Three seeds, synthetic candidate selection, clipping, ceilings and an intervention that changes Adam history still limit causal and generalization claims. An adaptive controller remains untested in this completed mechanism study. The mathematical derivations, measured endpoints and retained failures explain what was tested and what remains uncertain.
 
 \appendix
 \section{Full gradient through computation history}
@@ -954,9 +1235,9 @@ The mathematical statements in this draft have distinct scopes:
  \item Equation~\eqref{eq:loo} is conditionally unbiased under independent current-policy samples, fixed penalty and exact scores. Clipping, Adam, finite precision and a changing penalty prevent interpreting every parameter update as that ideal expectation.
  \item Equations~\eqref{eq:replaygates}--\eqref{eq:lossgate} and the exact restart check are implemented numerical gates. Passing them supports evidence integrity, not a success-cost improvement.
  \item Equation~\eqref{eq:bootstrapinterval} describes the frozen one-seed development analysis. It does not quantify training-seed variation or remove repeated development selection.
- \item The fixed-reward development comparison is complete and independently audited. Its cost and accuracy differences are small or uncertain. A reliable reward response, an adaptive-rule advantage and a Pareto-frontier claim require increasingly broader empirical evidence; none of those stronger claims is established here.
+ \item The fixed-reward development comparison and the matched three-seed mechanism study are complete and independently audited. Neither meets its registered practical token-response rule. The mechanism study uses a separate crossed seed/task analysis and tests a masked optimizer intervention rather than the ideal unbiased penalty gradient. A reliable reward response, an adaptive-rule advantage and a Pareto-frontier claim require increasingly broader empirical evidence; none of those stronger claims is established here.
 \end{enumerate}
-The full derivation and experiment-specific qualifications are also preserved in \href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/MATH.md}{MATH.md}, the \href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/CAPABILITY_RL_METHOD.md}{historical RL method}, the \href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/REWARD_CONTRAST_METHOD.md}{fixed-contrast protocol} and the \href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/REWARD_CONTINUATION_RUN.md}{current run log}. Preparation status in a historical protocol is not a current execution receipt.
+The full derivation and experiment-specific qualifications are also preserved in \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/MATH.md}{MATH.md}, the \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/CAPABILITY_RL_METHOD.md}{historical RL method}, the \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_CONTRAST_METHOD.md}{fixed-contrast protocol} and the \href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_CONTINUATION_RUN.md}{historical continuation run log}. Preparation status in a historical protocol is not a current execution receipt.
 
 \begin{thebibliography}{99}
 \bibitem{rloo} Arash Ahmadian et al.
@@ -977,9 +1258,9 @@ The full derivation and experiment-specific qualifications are also preserved in
 \bibitem{qwen} Qwen.
 \href{https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507}{Qwen3-4B-Instruct-2507 model card}.
 \bibitem{evidence} Project evidence:
-\href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/CAPABILITY_CUDA_RESULTS.md}{CUDA pilot},
-\href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/COMPACT_REWARD_RESULTS.md}{compact diagnostic},
-\href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/REWARD_GEOMETRY_DIAGNOSIS.md}{reward geometry}, and
-\href{https://github.com/arpjw/reward-function/blob/research-v1.0.1/docs/REWARD_CONTRAST_RETRY_INTERRUPTION.md}{recovered retry}.
+\href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/CAPABILITY_CUDA_RESULTS.md}{CUDA pilot},
+\href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/COMPACT_REWARD_RESULTS.md}{compact diagnostic},
+\href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_GEOMETRY_DIAGNOSIS.md}{reward geometry}, and
+\href{https://github.com/arpjw/reward-function/blob/research-v1.1.0/docs/REWARD_CONTRAST_RETRY_INTERRUPTION.md}{recovered retry}.
 \end{thebibliography}
 \end{document}

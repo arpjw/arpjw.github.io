@@ -1,28 +1,82 @@
 {
-  "research_source_commit": "20c9a2c0a33ab2608566720c07a54350a7de4910",
-  "scope": "Public manuscript, derived diagnostics, recorded examples and figures; links to versioned public frozen source and raw scientific records. Model/optimizer/RNG tensors and full operational archive remain private.",
-  "future_test_data_included": false,
-  "raw_example_traces_preserved": 8,
+  "version": "research-v1.1.0",
+  "public_repository": "https://github.com/arpjw/reward-function",
   "files": {
     "LICENSE.md": {
       "bytes": 568,
       "sha256": "c743ccc4962f34b09a7b606e7fd1d8ebfbdc7d50f2d75b11189c32380643e3c4"
     },
     "PAPER_DRAFT.pdf": {
-      "bytes": 204053,
-      "sha256": "39864f35e8002846044a9b6ad32ea439b3914c325d1eeead0193d0b2f6476cc7"
+      "bytes": 247319,
+      "sha256": "9d7d50e80e44ef7fc007c4b21b6128a403587fde19ef2eacb925ff8fd7876376"
     },
-    "PAPER_DRAFT.tex": {
-      "bytes": 85702,
-      "sha256": "c9c7a43dbb9eb882ee71a16987631c6a06621135d348127dbbf47e4116dcaf5c"
+    "index.html": {
+      "bytes": 354914,
+      "sha256": "25133553199458121956ecea8167418b61a95a5b75a502d2b36b2cd8f66e8a6d"
+    },
+    "final-outcomes.svg": {
+      "bytes": 30151,
+      "sha256": "014ade2432e3e00b82c0e8709308d97abf992cc5ffb3890890733f13370ddfe7"
+    },
+    "mechanism-explore.js": {
+      "bytes": 1878,
+      "sha256": "0659878577f3c4d3869e680679f49fe6ceccf66c0b65be800a8418e8c8873009"
+    },
+    "styles.css": {
+      "bytes": 13548,
+      "sha256": "ff0508217fbdaee78109f5cb3faf1d3690cae802308f25586d2d41b9655dca03"
     },
     "clipping-and-ceilings.png": {
       "bytes": 116437,
       "sha256": "424f0295449d4655f20fa837e69d349ed7f8d76bb47a5126cffa9f66cf625b23"
     },
+    "reward-continuation-analysis.json": {
+      "bytes": 123664,
+      "sha256": "934112c01b2d641ebd5500dcb9db41a75c106685513d616ce8b1cdc2a33c0c21"
+    },
     "clipping-and-ceilings.svg": {
       "bytes": 40991,
       "sha256": "8e1abf06d608956f2fb14069170a5352d86e99d14f38eb6822d94cb9012b7c30"
+    },
+    "final-outcomes.png": {
+      "bytes": 113461,
+      "sha256": "87fdd3c958e9665153b4897f2a8c18970580b257a2744110d9ef56d2c8f4df5c"
+    },
+    "mechanism-analysis.json": {
+      "bytes": 441304,
+      "sha256": "c6a97b64b14cd6d55fd020e681181d7e4b7b3fafda8383cd69d14a6330c3b946"
+    },
+    "PAPER_DRAFT.tex": {
+      "bytes": 114576,
+      "sha256": "2e3e2917d8032c3f95a83cdf898e9683667263aa6aa6a86976b314b1cf3a714c"
+    },
+    "mechanism-support-endpoints.svg": {
+      "bytes": 31246,
+      "sha256": "9e2dd85c74e56c17de3e01fa4bf6f638c30cde34c45eafb0c0f4ce0889848c26"
+    },
+    "mechanism-seeds.png": {
+      "bytes": 72499,
+      "sha256": "8f8e2378b5a7aef62cc335d1597aca7353ae2f195296c12d70f128e3aa412e60"
+    },
+    "mechanism-contrasts.svg": {
+      "bytes": 24105,
+      "sha256": "72aa92cf1ea0c9f263cc3f99f2fa020ef98192fdc9fe03d8bb5d747a1977fd10"
+    },
+    "update-support.svg": {
+      "bytes": 29097,
+      "sha256": "4410b71470d90afa1d89d389c5496631cb899a1a4e5f986db039a3cb8df4e5aa"
+    },
+    "update-support.png": {
+      "bytes": 116376,
+      "sha256": "3634f47ae799196c743e2801992a6232596d111c219d15e44919e9a76fe8a347"
+    },
+    "mechanism-contrasts.png": {
+      "bytes": 55388,
+      "sha256": "08562501652dabc26697f3c7d3e055247ce73d73cbb528f8634a3af0fe93cd3e"
+    },
+    "mechanism-seeds.svg": {
+      "bytes": 20092,
+      "sha256": "0324679718a419c0d8cb66062e91f340ef6add6c8a2475e37f0941f39af7f953"
     },
     "diagnostics.md": {
       "bytes": 6941,
@@ -32,49 +86,9 @@
       "bytes": 2922,
       "sha256": "e91d71a35e153551a07d0aa16ab8642efccc004858ff5973848836caa1604614"
     },
-    "final-outcomes.png": {
-      "bytes": 113461,
-      "sha256": "87fdd3c958e9665153b4897f2a8c18970580b257a2744110d9ef56d2c8f4df5c"
-    },
-    "final-outcomes.svg": {
-      "bytes": 30151,
-      "sha256": "014ade2432e3e00b82c0e8709308d97abf992cc5ffb3890890733f13370ddfe7"
-    },
-    "index.html": {
-      "bytes": 112234,
-      "sha256": "563257779e5d6f2795f22545c99388f09006bc97072052a5b9276294cf56cc1e"
-    },
-    "reward-continuation-analysis.json": {
-      "bytes": 123664,
-      "sha256": "934112c01b2d641ebd5500dcb9db41a75c106685513d616ce8b1cdc2a33c0c21"
-    },
-    "styles.css": {
-      "bytes": 12856,
-      "sha256": "9b7841322bd907d2296c99c0a37534d1b5036492f06f7f3d205bf4bd3e9ac93c"
-    },
-    "update-support.png": {
-      "bytes": 116376,
-      "sha256": "3634f47ae799196c743e2801992a6232596d111c219d15e44919e9a76fe8a347"
-    },
-    "update-support.svg": {
-      "bytes": 29097,
-      "sha256": "4410b71470d90afa1d89d389c5496631cb899a1a4e5f986db039a3cb8df4e5aa"
+    "mechanism-support-endpoints.png": {
+      "bytes": 95048,
+      "sha256": "7f38474a1d995b5745d47fde97a8e608447c1d29ee320554b8d0a0e2c440066e"
     }
-  },
-  "presentation_version": 2,
-  "presentation_checks": {
-    "all_128_group_records_unchanged": true,
-    "all_8_reasoning_traces_unchanged": true,
-    "scientific_figures_unchanged": true,
-    "pdf_and_tex_unchanged": false,
-    "desktop_mobile_light_dark_verified": false,
-    "group_controls_and_example_expansion_verified": true,
-    "paper_public_availability_updated": true,
-    "desktop_mobile_public_links_verified": true,
-    "browser_console_errors": 0,
-    "canonical_repo_links_updated": true
-  },
-  "public_repository": "https://github.com/arpjw/reward-function",
-  "public_release": "research-v1.0.1",
-  "public_commit": "58bece2670440e32c08c5c72af56a9d7164e8919"
+  }
 }
