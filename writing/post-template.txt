@@ -57,18 +57,18 @@
               <li><a href="#first-section">First section</a></li>
             </ul>
           </nav>
-        <div class="writing-post__body">
-          <details class="writing-toc-mobile">
-            <summary>In this article</summary>
-            <nav aria-label="On this page"><ul><li><a href="#introduction">Introduction</a></li><li><a href="#first-section">First section</a></li></ul></nav>
-          </details>
-          <p class="writing-post__lead" id="introduction">A sentence that introduces the piece.</p>
-          <p>Write your first paragraph here.</p>
-          <h2 id="first-section">First section<a class="heading-anchor" href="#first-section" aria-label="Link to First section">#</a></h2>
-          <p>Continue writing here.</p>
-          <blockquote><p>An optional passage to call out.</p></blockquote>
-          <p>End with a final thought.</p>
-        </div>
+          <div class="writing-post__body">
+            <details class="writing-toc-mobile">
+              <summary>In this article</summary>
+              <nav aria-label="On this page"><ul><li><a href="#introduction">Introduction</a></li><li><a href="#first-section">First section</a></li></ul></nav>
+            </details>
+            <p class="writing-post__lead" id="introduction">A sentence that introduces the piece.</p>
+            <p>Write your first paragraph here. Put a source note beside the claim it supports.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-first-source" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-first-source">Author, <a href="https://example.com/source">Source title</a> (year).</span></span></p>
+            <h2 id="first-section">First section<a class="heading-anchor" href="#first-section" aria-label="Link to First section">#</a></h2>
+            <p>Continue writing here.</p>
+            <blockquote><p>An optional passage to call out.</p></blockquote>
+            <p>End with a final thought.</p>
+          </div>
         </div>
       </article>
       <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
