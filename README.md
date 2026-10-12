@@ -27,7 +27,8 @@ To publish a post:
    actual publication time on this site in RFC 822 format. The Writing index may
    use an editorial date; the feed date should tell subscribers when the article
    became available. Remove the "No posts yet" paragraph when publishing the
-   first post.
+   first post. Add a `Cite this essay` block at the end of the article with a
+   unique BibTeX key, its title, author, year, and canonical URL.
 4. Preview the site locally, then commit and push when ready. The post will appear
    at `https://aryasomu.com/writing/your-post-slug.html` after GitHub Pages updates.
 

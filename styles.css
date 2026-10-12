@@ -523,6 +523,12 @@ html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
 .writing-post__body figure { margin: 2.5rem 0; }
 .writing-post__body figure img { display: block; width: 100%; height: auto; }
 .writing-post__body figcaption { margin-top: 0.65rem; color: var(--muted); font-family: var(--sans); font-size: 0.78rem; line-height: 1.5; }
+.writing-post__cite { width: min(100%, 43rem); margin: 4rem auto 0; font-family: var(--sans); }
+.writing-post__cite-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.writing-post__cite h2 { margin: 0; color: var(--foreground); font-size: 1rem; font-weight: 400; }
+.writing-post__copy { padding: 0; border: 0; background: none; color: var(--muted); font-size: 0.75rem; cursor: pointer; text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 0.2em; white-space: nowrap; }
+.writing-post__copy:hover, .writing-post__copy:focus-visible { color: var(--foreground); }
+.writing-post__cite pre { margin: 1rem 0 0; padding: 1rem 0; border-block: 1px solid var(--border); color: var(--body); font: 0.76rem/1.7 var(--mono); overflow-wrap: anywhere; white-space: pre-wrap; }
 .writing-post__footer { display: flex; justify-content: space-between; gap: 1rem; width: min(100%, 43rem); margin: 6rem auto 0; padding-top: 1.2rem; border-top: 1px solid var(--border); }
 .writing-post__footer a { color: var(--muted); font-family: var(--sans); font-size: 0.84rem; text-decoration: none; }
 .writing-post__footer a:hover { color: var(--foreground); }
