@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>What should an AI ask when every explanation fits?</title>
+      <link>https://aryasomu.com/writing/what-should-an-ai-ask.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/what-should-an-ai-ask.html</guid>
+      <pubDate>Wed, 14 Oct 2026 21:46:00 GMT</pubDate>
+      <description>A conversational account of exact causal experiment choice, locked model tests, and what changed when an agent received an exact-risk calculator.</description>
+    </item>
+    <item>
       <title>The Typical Path of a Favorable Bet</title>
       <link>https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html</guid>

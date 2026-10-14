@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=writing-bibtex-v1">
+  <link rel="canonical" href="https://aryasomu.com/writing/what-should-an-ai-ask.html">
+  <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
+  <title>What should an AI ask when every explanation fits? · Arya Somu</title>
+  <meta name="description" content="A small causal experiment asks language models to choose the observation that helps answer a future question, with exact mathematics and an auditable negative result.">
+  <meta property="og:title" content="What should an AI ask when every explanation fits? · Arya Somu">
+  <meta property="og:description" content="A small causal experiment asks language models to choose the observation that helps answer a future question.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/what-should-an-ai-ask.html">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <style>
+    .writing-post__body .math-block { margin: 1.5rem 0; padding: 0.85rem 1rem; overflow-wrap: anywhere; border-left: 2px solid var(--article-accent); background: var(--subtle, rgba(128, 128, 128, 0.07)); font-family: Georgia, serif; font-size: 1.05rem; line-height: 1.6; }
+    .writing-post__body .results-wrap { max-width: 100%; overflow-x: auto; margin: 1.3rem 0; }
+    .writing-post__body table { border-collapse: collapse; min-width: 32rem; width: 100%; font-variant-numeric: tabular-nums; }
+    .writing-post__body th, .writing-post__body td { padding: 0.55rem 0.65rem; border-bottom: 1px solid var(--border); text-align: right; }
+    .writing-post__body th:first-child, .writing-post__body td:first-child { text-align: left; }
+    .writing-post__body th { color: var(--muted); font-family: var(--sans); font-size: 0.75rem; font-weight: 500; }
+    .writing-post__body td { font-family: var(--sans); font-size: 0.85rem; }
+    .writing-post__body .note { color: var(--muted); font-size: 0.9rem; }
+  </style>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="writing-page writing-article-page article-color-blue">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="./" aria-current="page">Writing</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main" id="top">
+      <article class="writing-post">
+        <header class="writing-post__header">
+          <h1>What should an AI ask when every explanation fits?</h1>
+          <p class="writing-post__meta">Arya Somu <span aria-hidden="true">·</span> Causal inference<br><time datetime="2026-10-14">October 14, 2026</time></p>
+        </header>
+        <div class="writing-post__content">
+          <nav class="writing-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ul>
+              <li><a href="#introduction">The question</a></li>
+              <li><a href="#same-data">Same data, different causes</a></li>
+              <li><a href="#right-information">Information for the right question</a></li>
+              <li><a href="#models">Let the models choose</a></li>
+              <li><a href="#calculator">Handing over a calculator</a></li>
+              <li><a href="#takeaway">What I take from it</a></li>
+            </ul>
+          </nav>
+          <div class="writing-post__body">
+            <details class="writing-toc-mobile">
+              <summary>In this article</summary>
+              <nav aria-label="On this page"><ul>
+                <li><a href="#introduction">The question</a></li>
+                <li><a href="#same-data">Same data, different causes</a></li>
+                <li><a href="#right-information">Information for the right question</a></li>
+                <li><a href="#models">Let the models choose</a></li>
+                <li><a href="#calculator">Handing over a calculator</a></li>
+                <li><a href="#takeaway">What I take from it</a></li>
+              </ul></nav>
+            </details>
+            <p class="writing-post__lead" id="introduction">Suppose every explanation fits what you have seen. You can run one experiment. Which one do you choose?</p>
+            <p>That question is more interesting to me than asking a model to recite the definition of an intervention. If I have several possible causal stories, I want the experiment that helps with the decision I actually face. An experiment can be illuminating in general and nearly useless for one particular prediction.</p>
+            <p>I built a small benchmark where that distinction is exact, then gave it to open language models. The task has only three binary variables, fully specified candidate worlds, and one experiment to choose. The smallness is deliberate: we can calculate the value of every possible choice without guessing whether the grader got the causal answer right. The full derivation, locked protocols, and saved responses are in the <a href="../papers/choosing-experiments-causal-prediction.pdf">technical paper</a> and <a href="https://github.com/arpjw/causal-interventions">public repository</a>.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-paper" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-paper">Arya Somu, <a href="../papers/choosing-experiments-causal-prediction.pdf">“Choosing Experiments for Causal Prediction”</a> (2026), with <a href="https://github.com/arpjw/causal-interventions">source, frozen cases, and result ledgers</a>.</span></span></p>
+
+            <h2 id="same-data">Same data, different causes<a class="heading-anchor" href="#same-data" aria-label="Link to Same data, different causes">#</a></h2>
+            <p>Call the three variables X, Y, and Z. I start with one positive joint distribution over their eight possible assignments. A candidate world chooses a causal order, such as X then Y then Z, and gets every conditional probability by factorizing that same joint distribution. The chain rule guarantees that every world gives precisely the same observational probabilities. Even unlimited passive samples would not separate them.</p>
+            <div class="math-block" role="math" aria-label="For every candidate world w, the observational distribution p sub w of x y z equals the same p of x y z.">For every candidate world w: &nbsp; p<sub>w</sub>(x, y, z) = p(x, y, z).</div>
+            <p>An intervention changes the calculation. If I set Y to zero, I remove the factor that normally generates Y and propagate the fixed value through the remaining factors. Different orders can now predict different outcomes. This is the truncated-factorization idea behind causal intervention calculus.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-pearl" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-pearl">Judea Pearl, <a href="https://proceedings.mlr.press/r0/pearl95a.html">“A causal calculus for statistical research”</a> (1995).</span></span></p>
+            <p>The question I hold back is the chance that Z equals one if X is set to one. The model may experiment with X set to zero, Y set to zero, or Y set to one. It cannot simply run the held-out intervention. After one experimental observation, how much uncertainty about that held-out chance remains?</p>
+
+            <h2 id="right-information">Information for the right question<a class="heading-anchor" href="#right-information" aria-label="Link to Information for the right question">#</a></h2>
+            <p>Let q<sub>w</sub> be the held-out probability in world w and b(w) our prior weight on that world. If H is binary entropy, the initial excess log-loss risk from not knowing the world is:</p>
+            <div class="math-block" role="math" aria-label="Risk of belief b equals entropy of the weighted mean query probability, minus the weighted mean of the per-world entropies.">R(b) = H(∑<sub>w</sub> b(w)q<sub>w</sub>) − ∑<sub>w</sub> b(w)H(q<sub>w</sub>).</div>
+            <p>For an experiment a, I enumerate each possible outcome o, update the world weights by Bayes' rule, and average the remaining risk. Lower expected risk means a better experiment for this query.</p>
+            <div class="math-block" role="math" aria-label="Expected risk after action a equals the sum over outcomes o of outcome probability times posterior risk. Initial risk minus expected action risk equals mutual information between a future query outcome and the experiment outcome.">R<sub>a</sub>(b) = ∑<sub>o</sub> P(o | a)R(b<sub>a,o</sub>)<br>R(b) − R<sub>a</sub>(b) = I(T; O<sub>a</sub>).</div>
+            <p>The second line is the useful surprise. T is a hypothetical future draw from the held-out intervention, and O<sub>a</sub> is the experiment's observation. Conditional on the causal world, they are independent draws. Under that convention, the expected reduction in query risk is exactly their mutual information. I checked the identity by an independent joint-table calculation for all 3,150 locked v3-v5 action values, with maximum numerical discrepancy 3.11 × 10<sup>−16</sup> nats.</p>
+            <p>This is <em>information about the answer I need</em>, not necessarily information about the entire causal world. Imagine the world contains two unrelated hidden bits, U and V, while the future question is only about U. An experiment that reveals V perfectly is excellent for learning the world and worthless for that question. A noisy glimpse of U can be much more valuable.</p>
+
+            <h2 id="models">Let the models choose<a class="heading-anchor" href="#models" aria-label="Link to Let the models choose">#</a></h2>
+            <p>The first benchmark versions taught me to be careful with the score itself. When I graded a realized forecast after one sampled outcome, the random-to-oracle difference could be tiny relative to outcome noise. For the later versions I switched to the exact expected risk above. I also balanced which semantic action was best and, in v4, shuffled the displayed A/B/C labels so a familiar action name would not do the work.</p>
+            <p>On v3's 300 informative cases, unaided 32B, 72B, and 235B conditions all selected the same semantic action, <code>do(Y=0)</code>, on every case. Each hit the optimum 100 times, matching its balanced share. V4 made the labels opaque. Its registered 235B thinking condition was optimal in 102 of 300 informative cases. Its mean risk minus a uniform random choice was <strong>+0.001509 nats</strong>, with a 95% case-bootstrap interval from −0.001350 to +0.004370. Negative would have favored the model; this interval does not establish an improvement.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-v4" aria-label="Citation 3">3</a><span class="writing-citation__note" id="cite-v4">Locked <a href="https://github.com/arpjw/causal-interventions/blob/main/docs/ACTION_V3_RESULTS.md">v3</a> and <a href="https://github.com/arpjw/causal-interventions/blob/main/docs/ACTION_V4_RESULTS.md">v4</a> reports, with complete response ledgers and verifier code in the repository.</span></span></p>
+            <p>One control makes the gap more concrete. When the 32B model received the exact numerical risk of each displayed action, it picked the optimum in all 300 v4 informative cases. That is a test of selecting from supplied values. It is not evidence that the model calculated those values itself.</p>
+
+            <h2 id="calculator">Handing over a calculator<a class="heading-anchor" href="#calculator" aria-label="Link to Handing over a calculator">#</a></h2>
+            <p>I tried one more diagnostic on 150 fresh cases. One 32B condition had to write out intermediate numbers: the query probability in each world, an experiment likelihood, a posterior, and the risks of all three actions. Another could ask an exact-risk calculator for up to three named actions before choosing. The calculator returned values computed from the public causal specification, not a hidden answer key.</p>
+            <div class="results-wrap">
+              <table>
+                <thead><tr><th scope="col">V5 condition</th><th scope="col">Mean risk</th><th scope="col">Minus random</th><th scope="col">Optimal / 150</th></tr></thead>
+                <tbody>
+                  <tr><td>32B raw numerical stages</td><td>0.141043</td><td>+0.015592</td><td>7</td></tr>
+                  <tr><td>32B exact-risk calculator agent</td><td>0.115679</td><td>−0.009773</td><td>76</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The calculator agent's risk was 0.025365 nats lower than the raw-stage condition on the same cases. That paired contrast was specified as descriptive, rather than the v5 confirmatory test. The raw-stage model chose <code>STOP</code> in 134 of 150 cases; its reported action risks had a mean absolute error of 0.538 nats among 148 numerically valid risk objects.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-v5" aria-label="Citation 4">4</a><span class="writing-citation__note" id="cite-v5">The <a href="https://github.com/arpjw/causal-interventions/blob/main/docs/ACTION_V5_RESULTS.md">v5 report</a> gives the intervals, stage errors, pretest output-cap amendment, and independent replay of both complete 150-case ledgers.</span></span></p>
+            <p>The improvement did not make the agent a careful tool user. It requested A and then B on <em>every</em> case, never requested C, and still chose C 102 times. A simple rule that selected the lower of the two values it actually requested would have beaten its observed mean risk. So the result says that access to exact calculations helped this system; it does not say that the model learned to compute exact causal risks or to use the tool optimally.</p>
+
+            <h2 id="takeaway">What I take from it<a class="heading-anchor" href="#takeaway" aria-label="Link to What I take from it">#</a></h2>
+            <p>The most durable part of this project may be the distinction between learning everything and learning what matters for a question. The identity R(b) − R<sub>a</sub>(b) = I(T; O<sub>a</sub>) makes that distinction measurable. It also lets the benchmark audit a model's experiment choice without sampling a lucky or unlucky experimental outcome.</p>
+            <p>The model results are narrower. On these small, synthetic, fully specified tasks, the registered unaided tests did not show reliable better-than-random action choice. Supplying exact risks produced a strong selection control, and a calculator helped in the fresh diagnostic, but the agent's fixed request pattern shows how far that is from a general solution. The planned v5 comparison between short and long 235B thinking budgets was not run: a development-only throughput check could not support complete coverage within the budget. I would rather leave that question open than turn an eight-case pilot into a result.</p>
+            <p>The <a href="../papers/choosing-experiments-causal-prediction.pdf">paper</a> has the proof and full limitations. The <a href="https://github.com/arpjw/causal-interventions">repository</a> has all public ledgers and a CPU-only verifier; the <a href="https://github.com/arpjw/causal-interventions/releases/tag/research-v1.1.0">versioned release</a> fixes the exact paper and code discussed here. From a fresh clone, <code>python3 repro/verify_public_release.py --full</code> checks 14 complete v2-v5 test ledgers without downloading a model. That replays the published observations. New model calls would be a new experiment.</p>
+          </div>
+        </div>
+        <section class="writing-post__cite" aria-labelledby="cite-this-essay">
+          <div class="writing-post__cite-header">
+            <h2 id="cite-this-essay">Cite this essay</h2>
+            <button class="writing-post__copy" type="button">Copy BibTeX</button>
+          </div>
+          <pre><code>@misc{somu2026whatshouldanaiask,
+  title  = {What should an AI ask when every explanation fits?},
+  author = {Somu, Arya},
+  year   = {2026},
+  url    = {https://aryasomu.com/writing/what-should-an-ai-ask.html}
+}</code></pre>
+        </section>
+      </article>
+      <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
+    </main>
+  </div>
+
+  <script src="../site.js"></script>
+  <script src="writing.js"></script>
+  <script src="citations.js"></script>
+</body>
+</html>
