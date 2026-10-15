@@ -391,6 +391,8 @@ main { margin-top: 1.5rem; }
 .tarot-project .release-row a:hover, .tarot-project .release-row a:focus-visible { color: #1646c0; }
 .research-section { margin-top: var(--work-section-gap); }
 .research-section > h2,
+.research-section > h1,
+.research-paper h3,
 .research-paper h4 {
   margin: 0;
   color: var(--foreground);
@@ -426,10 +428,16 @@ main { margin-top: 1.5rem; }
 .research-group[open] > summary::after { transform: rotate(225deg); }
 .research-group > summary:hover,
 .research-group > summary:focus-visible { color: var(--foreground); }
+.research-group > summary h2,
 .research-group > summary h3 { margin: 0; font: inherit; }
+.research-count { margin-left: auto; color: var(--faint); white-space: nowrap; }
 .research-paper { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+.research-paper h4 a { text-decoration: none; }
+.research-paper h4 a:hover,
+.research-paper h4 a:focus-visible { text-decoration: underline; text-underline-offset: 0.18em; }
 .research-paper p { margin: 0.5rem 0 0; }
 .research-paper .research-authors { color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
+.research-year { display: block; margin-top: 0.3rem; color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
 .research-authors a { text-decoration-color: var(--border); text-underline-offset: 0.18em; }
 .research-paper > a,
 .research-links { margin-top: 0.7rem; font-family: var(--sans); font-size: 0.78rem; }
@@ -437,6 +445,12 @@ main { margin-top: 1.5rem; }
 .research-links a { text-decoration-color: var(--border); text-underline-offset: 0.18em; }
 .research-paper a:hover,
 .research-paper a:focus-visible { color: var(--foreground); }
+.work-page:not(.research-archive-page) .research-paper { padding: 0.9rem 0; }
+.work-page:not(.research-archive-page) .research-links { margin-top: 0.4rem; }
+.research-archive-link { margin: 0.85rem 0 0; color: var(--muted); font-family: var(--sans); font-size: 0.78rem; }
+.research-archive-link a { text-decoration-color: var(--border); text-underline-offset: 0.18em; }
+.research-archive-page .research-section { margin-top: 0; }
+.research-archive-page .research-paper { scroll-margin-top: 1rem; }
 .work-site .socials { margin-top: 4rem; }
 
 /* Writing */
