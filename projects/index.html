@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=projects-index">
+  <link rel="stylesheet" href="../styles.css?v=projects-chapters-v1">
   <link rel="canonical" href="https://aryasomu.com/projects/">
   <title>Projects · Arya Somu</title>
   <meta name="description" content="Selected projects by Arya Somu.">
@@ -49,43 +49,58 @@
       <h1>Projects</h1>
       <p class="projects-intro">Small projects, experiments, and other things I've built.</p>
 
-      <div class="projects-list" aria-label="Projects">
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/grokking" target="_blank" rel="noopener noreferrer">Grokking ↗</a></h2>
-          <p>A small transformer experiment replicating delayed generalization on modular arithmetic.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/yolk" target="_blank" rel="noopener noreferrer">Yolk ↗</a></h2>
-          <p>An OCaml e-graph engine for equality saturation, relational matching, and DAG-aware extraction.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/minos" target="_blank" rel="noopener noreferrer">Minos ↗</a></h2>
-          <p>An OCaml type inference engine with row polymorphism and an interactive browser playground.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/skew" target="_blank" rel="noopener noreferrer">Skew ↗</a></h2>
-          <p>A typed OCaml language for composing and pricing financial contracts.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/exchange-in-a-box" target="_blank" rel="noopener noreferrer">Exchange in a Box ↗</a></h2>
-          <p>A deterministic OCaml simulator for limit order books, routing, and market microstructure.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/velocity" target="_blank" rel="noopener noreferrer">Velocity ↗</a></h2>
-          <p>A shadow-mode research project testing whether prediction market moves lead related equities.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/crucible" target="_blank" rel="noopener noreferrer">Crucible ↗</a></h2>
-          <p>An adversarial agent framework for reviewing systematic trading decisions.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer">Xenith ↗</a></h2>
-          <p>A Rust library for syncing state across chains while making divergence explicit.</p>
-        </article>
-        <article class="projects-entry">
-          <h2><a href="https://github.com/arpjw/auric" target="_blank" rel="noopener noreferrer">Auric ↗</a></h2>
-          <p>A Solidity learning project combining an ERC-20 token, vesting, and a constant-product AMM.</p>
-        </article>
+      <div class="projects-list">
+        <section class="projects-chapter" aria-labelledby="projects-models">
+          <h2 class="projects-chapter-label" id="projects-models">Models &amp; language</h2>
+          <div class="projects-chapter-entries">
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/grokking" target="_blank" rel="noopener noreferrer">Grokking ↗</a></h3>
+              <p>A small transformer experiment replicating delayed generalization on modular arithmetic.</p>
+            </article>
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/yolk" target="_blank" rel="noopener noreferrer">Yolk ↗</a></h3>
+              <p>An OCaml e-graph engine for equality saturation, relational matching, and DAG-aware extraction.</p>
+            </article>
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/minos" target="_blank" rel="noopener noreferrer">Minos ↗</a></h3>
+              <p>An OCaml type inference engine with row polymorphism and an interactive browser playground.</p>
+            </article>
+          </div>
+        </section>
+        <section class="projects-chapter" aria-labelledby="projects-markets">
+          <h2 class="projects-chapter-label" id="projects-markets">Markets</h2>
+          <div class="projects-chapter-entries">
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/skew" target="_blank" rel="noopener noreferrer">Skew ↗</a></h3>
+              <p>A typed OCaml language for composing and pricing financial contracts.</p>
+            </article>
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/exchange-in-a-box" target="_blank" rel="noopener noreferrer">Exchange in a Box ↗</a></h3>
+              <p>A deterministic OCaml simulator for limit order books, routing, and market microstructure.</p>
+            </article>
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/velocity" target="_blank" rel="noopener noreferrer">Velocity ↗</a></h3>
+              <p>A shadow-mode research project testing whether prediction market moves lead related equities.</p>
+            </article>
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/crucible" target="_blank" rel="noopener noreferrer">Crucible ↗</a></h3>
+              <p>An adversarial agent framework for reviewing systematic trading decisions.</p>
+            </article>
+          </div>
+        </section>
+        <section class="projects-chapter" aria-labelledby="projects-crypto">
+          <h2 class="projects-chapter-label" id="projects-crypto">Crypto</h2>
+          <div class="projects-chapter-entries">
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer">Xenith ↗</a></h3>
+              <p>A Rust library for syncing state across chains while making divergence explicit.</p>
+            </article>
+            <article class="projects-entry">
+              <h3><a href="https://github.com/arpjw/auric" target="_blank" rel="noopener noreferrer">Auric ↗</a></h3>
+              <p>A Solidity learning project combining an ERC-20 token, vesting, and a constant-product AMM.</p>
+            </article>
+          </div>
+        </section>
       </div>
     </main>
 
