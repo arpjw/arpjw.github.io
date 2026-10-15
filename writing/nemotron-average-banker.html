@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=writing-bibtex-v1">
+  <link rel="canonical" href="https://aryasomu.com/writing/nemotron-average-banker.html">
+  <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
+  <title>I post-trained Nemotron 4B into an Average Banker · Arya Somu</title>
+  <meta name="description" content="A one-epoch adapter lifted Nemotron from 42.5% to 84.9% accuracy on BANKING77's official intent test. What did it actually learn?">
+  <meta property="og:title" content="I post-trained Nemotron 4B into an Average Banker · Arya Somu">
+  <meta property="og:description" content="A small adapter, 77 banking-support intents, and a benchmark result with a deliberately narrow claim.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/nemotron-average-banker.html">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <style>
+    .writing-post__body .nemotron-figure { margin: 1.7rem 0 2rem; }
+    .writing-post__body .nemotron-figure img { display: block; width: 100%; height: auto; border-radius: 0.45rem; }
+    .writing-post__body .nemotron-figure figcaption { margin-top: 0.55rem; color: var(--muted); font-family: var(--sans); font-size: 0.82rem; line-height: 1.5; }
+    .writing-post__body .nemotron-figure img.figure-dark { display: none; }
+    html.dark .writing-post__body .nemotron-figure img.figure-light { display: none; }
+    html.dark .writing-post__body .nemotron-figure img.figure-dark { display: block; }
+    .writing-post__body .nemotron-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin: 1.55rem 0; }
+    .writing-post__body .nemotron-flow div { padding: 0.85rem; border: 1px solid var(--border); border-top: 2px solid var(--article-accent); border-radius: 0.3rem; }
+    .writing-post__body .nemotron-flow strong { display: block; color: var(--article-accent); font-family: var(--sans); font-size: 1.05rem; }
+    .writing-post__body .nemotron-flow span { color: var(--muted); font-family: var(--sans); font-size: 0.76rem; line-height: 1.4; }
+    .writing-post__body .nemotron-note { color: var(--muted); font-size: 0.9rem; }
+    @media (max-width: 650px) { .writing-post__body .nemotron-flow { grid-template-columns: 1fr; } }
+  </style>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="writing-page writing-article-page article-color-rust">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="../projects/">Projects</a>
+        <a href="./" aria-current="page">Writing</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main" id="top">
+      <article class="writing-post">
+        <header class="writing-post__header">
+          <h1>I post-trained Nemotron 4B into an Average Banker</h1>
+          <p class="writing-post__meta">Arya Somu <span aria-hidden="true">·</span> Machine learning<br><time datetime="2026-10-15">October 15, 2026</time></p>
+        </header>
+        <div class="writing-post__content">
+          <nav class="writing-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ul>
+              <li><a href="#introduction">A very small job</a></li>
+              <li><a href="#false-start">A false start</a></li>
+              <li><a href="#one-job">Give it one job</a></li>
+              <li><a href="#what-changed">What changed</a></li>
+              <li><a href="#official-test">The official test</a></li>
+              <li><a href="#limits">What the title leaves out</a></li>
+            </ul>
+          </nav>
+          <div class="writing-post__body">
+            <details class="writing-toc-mobile">
+              <summary>In this article</summary>
+              <nav aria-label="On this page"><ul>
+                <li><a href="#introduction">A very small job</a></li>
+                <li><a href="#false-start">A false start</a></li>
+                <li><a href="#one-job">Give it one job</a></li>
+                <li><a href="#what-changed">What changed</a></li>
+                <li><a href="#official-test">The official test</a></li>
+                <li><a href="#limits">What the title leaves out</a></li>
+              </ul></nav>
+            </details>
+            <p class="writing-post__lead" id="introduction">I taught a small language model to sort banking-support requests. It got 84.9% of the official test right. I would still keep it away from the counter.</p>
+            <p>I gave NVIDIA's 4B Nemotron model a small job: read a customer's question and choose one of 77 possible reasons they might be asking. Before training, it chose the right label for 42.5% of the official test questions. After one short adapter run, it got 84.9% right. The model and its terms are published by <a href="https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct">NVIDIA</a>.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-model" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-model">NVIDIA, <a href="https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct">Nemotron-Mini-4B-Instruct model card</a>. This independent experiment used pinned revision <code>791833e</code>.</span></span></p>
+            <p>That is the entire claim behind the title. “Average banker” is a joke, not a comparison with a person. No human bankers were tested. The model did not move money, resolve disputes, or decide what advice to give a customer. It sorted short requests into the labels of a public benchmark.</p>
+
+            <h2 id="false-start">A small false start<a class="heading-anchor" href="#false-start" aria-label="Link to A small false start">#</a></h2>
+            <p>I began with a different task. I wrote fictional financial snippets and asked Nemotron to extract numbers, calculate differences or growth, and return strict JSON with supporting evidence. The first data generator had leakage: an identifier revealed where an example came from. I discarded those results, corrected the generator, and started again.</p>
+            <p>The corrected one-epoch adapter returned valid JSON for all 400 development questions. It answered 168 exactly. On the 320 questions with a numeric answer, only 105 numeric values were correct. A deterministic parser operating on the same document and question solved all 400. The model had learned much more about the answer format than about arithmetic. I did not evaluate the held-out synthetic test or robustness split.</p>
+            <figure class="nemotron-figure">
+              <img class="figure-light" src="nemotron-average-banker/synthetic-limits-light.svg" width="900" height="380" alt="On the corrected synthetic development set, the adapter returned valid JSON for 400 of 400 questions, exact answers for 168 of 400, and correct numeric values for 105 of 320 answerable questions.">
+              <img class="figure-dark" src="nemotron-average-banker/synthetic-limits-dark.svg" width="900" height="380" alt="On the corrected synthetic development set, the adapter returned valid JSON for 400 of 400 questions, exact answers for 168 of 400, and correct numeric values for 105 of 320 answerable questions.">
+              <figcaption>Corrected synthetic development data only. The numeric row uses the 320 answerable questions; the other rows use all 400.</figcaption>
+            </figure>
+            <p>That result forced a better question. If a small adapter was going to change Nemotron's behavior, what job could I measure without confusing a good-looking answer with a good answer?</p>
+
+            <h2 id="one-job">Give it one job<a class="heading-anchor" href="#one-job" aria-label="Link to Give it one job">#</a></h2>
+            <p><a href="https://github.com/PolyAI-LDN/task-specific-datasets">BANKING77</a> contains short banking-support queries assigned to 77 intent labels. A request to activate a card is different from one about a card payment that was declined. A pending transfer is different from a transfer that never arrived. Some labels are close enough that a wrong choice would matter in a real support queue.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-banking77" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-banking77">PolyAI's <a href="https://github.com/PolyAI-LDN/task-specific-datasets">BANKING77 dataset</a>, described by Casanueva and colleagues in <a href="https://aclanthology.org/2020.nlp4convai-1.5/">“Efficient Intent Detection with Dual Sentence Encoders”</a> (2020), CC BY 4.0.</span></span></p>
+            <p>I took 2,308 examples from the publisher's training set, capped at 30 per intent, and held out 1,993 more for development. I grouped normalized duplicates so repeated text would not quietly cross that boundary. The publisher's 3,080 official test queries stayed sealed until the training recipe and checkpoint choice were fixed.</p>
+            <div class="nemotron-flow" role="img" aria-label="Experiment path: train one adapter on 2,308 examples; choose the checkpoint using 1,993 development examples; evaluate it once on 3,080 official test examples.">
+              <div><strong>2,308</strong><span>capped training queries</span></div>
+              <div><strong>1,993</strong><span>development queries for checkpoint choice</span></div>
+              <div><strong>3,080</strong><span>official queries, opened once afterward</span></div>
+            </div>
+            <p>The model trained for one epoch on a single RTX 4090. I used QLoRA: the original model stayed quantized while a small rank-16 adapter learned the task. The run took 289 optimizer steps and about 19.5 minutes of training time. Downloading the model, checking the environment, evaluating both versions, and exporting artifacts took longer than training itself.</p>
+            <p>For each query, the model had to choose exactly one label from the same full list of 77. In the main comparison, untouched Nemotron and the adapter used the same prompt and a decoder that could emit only valid labels. Otherwise, a tuned model can look better merely by learning how to spell the answer.</p>
+
+            <h2 id="what-changed">What changed<a class="heading-anchor" href="#what-changed" aria-label="Link to What changed">#</a></h2>
+            <p>On development, untouched Nemotron got 813 of 1,993 questions right, or 40.8%. The adapter got 1,655 right, or 83.0%. Macro-F1, which gives each intent equal weight, rose from 0.399 to 0.830. The predeclared development gate passed, so I selected that completed one-epoch checkpoint before opening the official test.</p>
+            <p>One development example asked how to activate a card. The base model called it <code>card_acceptance</code>; the adapter chose <code>activate_my_card</code>. Another asked about the number of currencies a customer could hold. The adapter moved it to <code>fiat_currency_support</code>. These examples explain the gain, but I selected them after seeing the development errors. They are illustrations, not an independent test.</p>
+            <p>The errors did not vanish. “The top-up did not go through” moved from the correct <code>top_up_failed</code> to <code>pending_top_up</code>. The model also confused some transfer charges with transfer fees and some unrecognized withdrawals with pending withdrawals. A label can be nearly right in language and wrong for the customer.</p>
+            <p>There was a humbling CPU comparison too. A TF-IDF logistic classifier trained on the same examples scored 0.829 macro-F1 on development, almost identical to the adapter's 0.830. The experiment was about improving Nemotron over its own baseline. It did not show that a neural adapter was the cheapest or best way to build this particular classifier.</p>
+
+            <h2 id="official-test">The official test<a class="heading-anchor" href="#official-test" aria-label="Link to The official test">#</a></h2>
+            <p>Once the checkpoint was fixed, I ran the untouched model and the adapter once each on all 3,080 official test questions. The adapter got 2,614 right, or 84.9%. The untouched model got 1,310 right, or 42.5%. Macro-F1 rose from 0.413 to 0.844. The paired macro-F1 gain was 0.431, with a 95% group-bootstrap interval of 0.415 to 0.449.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-results" aria-label="Citation 3">3</a><span class="writing-citation__note" id="cite-results">Arya Somu, <a href="https://github.com/arpjw/nemotron/blob/main/results/BANKING77.md">BANKING77 result report</a> (2026). The local evidence archive holds the predictions, hashes, and one-run receipts.</span></span></p>
+            <figure class="nemotron-figure">
+              <img class="figure-light" src="nemotron-average-banker/macro-f1-light.svg" width="900" height="370" alt="Macro-F1 on development rose from 0.399 for untouched Nemotron to 0.830 for the adapter. On the 3,080-query official test it rose from 0.413 to 0.844.">
+              <img class="figure-dark" src="nemotron-average-banker/macro-f1-dark.svg" width="900" height="370" alt="Macro-F1 on development rose from 0.399 for untouched Nemotron to 0.830 for the adapter. On the 3,080-query official test it rose from 0.413 to 0.844.">
+              <figcaption>Macro-F1 gives each of the 77 intents equal weight. Both conditions used the same taxonomy-constrained decoder. The official paired gain was 0.431, 95% group-bootstrap interval [0.415, 0.449].</figcaption>
+            </figure>
+            <p>The gain was spread across labels. All 77 intents had higher F1 on the official test after adaptation. At a per-intent F1 of 0.8 or better, the count rose from six intents for the base to 55 for the adapter. This is a descriptive look at the already-scored test, not another selection rule.</p>
+            <figure class="nemotron-figure">
+              <img class="figure-light" src="nemotron-average-banker/intent-coverage-light.svg" width="900" height="410" alt="Empirical curve showing how many of the 77 official test intents achieve at least each F1 threshold. At 0.8, six base intents and 55 adapter intents meet the threshold.">
+              <img class="figure-dark" src="nemotron-average-banker/intent-coverage-dark.svg" width="900" height="410" alt="Empirical curve showing how many of the 77 official test intents achieve at least each F1 threshold. At 0.8, six base intents and 55 adapter intents meet the threshold.">
+              <figcaption>Each curve counts intents at or above an F1 threshold on the fixed official test. This is an empirical distribution of 77 class scores, not a learning curve. <a href="https://github.com/arpjw/nemotron/blob/main/results/BANKING77_PER_CLASS.json">Aggregate per-class scores</a> provide the figure data.</figcaption>
+            </figure>
+            <p>The constrained score is the main result. I also let the models answer without the label constraint to see how often they broke the required format. The base produced 396 malformed answers; the adapter produced five. That is a useful format improvement, but it is separate from the apples-to-apples constrained score.</p>
+            <p>An audit flagged five official queries for overlap or conflicting labels: three matched the capped train or development material and two belonged to a conflicting-label group within the test. I kept all 3,080 in the primary result. Excluding those five only as a sensitivity check barely moved the macro-F1 gain, from 0.431 to 0.4313. The audit did not cover unused publisher training rows, so it cannot rule out every possible overlap.</p>
+            <p>Both inference receipts cover every official row. I saved the selected adapter and both prediction files, checked their hashes, and replayed the evaluation locally. Every row outcome matched. I made no checkpoint or decoding change after seeing the official result.</p>
+
+            <h2 id="limits">What the title leaves out<a class="heading-anchor" href="#limits" aria-label="Link to What the title leaves out">#</a></h2>
+            <p>BANKING77 is a public benchmark from 2020. I cannot verify that it was absent from Nemotron's pretraining. This is one training seed, one benchmark, and a fixed list of labels. The interval above measures variation from resampling groups in that test set. It does not measure how well another training run or an unfamiliar bank's requests would fare.</p>
+            <p>The model was required to choose a label even if a request did not belong to any of the 77. I did not test rejection of out-of-scope questions, calibrated confidence, investment analysis, accounting judgment, or safe customer-facing advice. Getting 84.9% right also means getting 466 official questions wrong.</p>
+            <p>The GPU bill was small relative to the $100 of Runpod credit available for the experiment. Based on quoted GPU and disk rates and elapsed time, this BANKING77 pod cost about $2.03; the earlier synthetic pilot was estimated at $1.22. That is about $3.25 combined, not a final provider bill. I exported the artifacts and verified the GPU pod was deleted.</p>
+            <p>What changed was specific but real: a short adapter run made Nemotron much better at assigning BANKING77's support labels under the same decoder used for its baseline. The synthetic false start showed the other side of the lesson. A model can learn the shape of an answer long before it learns the work the answer is supposed to represent.</p>
+            <p class="nemotron-note">The <a href="https://github.com/arpjw/nemotron">source, protocol, and aggregate results</a> accompany this article. The trained adapter, <a href="https://huggingface.co/arpjw/Nemotron-Mini-4B-Banking">Nemotron Mini 4B Banking</a>, has a separate model page. BANKING77 remains under PolyAI's CC BY 4.0 terms with attribution. The base checkpoint has separate NVIDIA terms. No model weights or adapter are part of this source release. Original article text © 2026 Arya Somu, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+          </div>
+        </div>
+        <section class="writing-post__cite" aria-labelledby="cite-this-essay">
+          <div class="writing-post__cite-header">
+            <h2 id="cite-this-essay">Cite this essay</h2>
+            <button class="writing-post__copy" type="button">Copy BibTeX</button>
+          </div>
+          <pre><code>@misc{somu2026nemotronbanker,
+  title  = {I post-trained Nemotron 4B into an Average Banker},
+  author = {Somu, Arya},
+  year   = {2026},
+  url    = {https://aryasomu.com/writing/nemotron-average-banker.html}
+}</code></pre>
+        </section>
+      </article>
+      <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
+    </main>
+  </div>
+  <script src="../site.js"></script>
+  <script src="writing.js"></script>
+  <script src="citations.js"></script>
+</body>
+</html>
