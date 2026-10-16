@@ -465,7 +465,7 @@ main { margin-top: 1.5rem; }
 .research-group > summary:focus-visible { color: var(--foreground); }
 .research-group > summary h2,
 .research-group > summary h3 { margin: 0; font: inherit; }
-.research-count { margin-left: auto; color: var(--faint); white-space: nowrap; }
+.research-count { margin-left: auto; color: var(--faint); text-align: right; }
 .research-paper { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
 .research-paper h4 a { text-decoration: none; }
 .research-paper h4 a:hover,
