@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>I taught Nemotron to flip graph edges. A small search still wins.</title>
+      <link>https://aryasomu.com/writing/nemotron-graph-repair.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/nemotron-graph-repair.html</guid>
+      <pubDate>Sat, 17 Oct 2026 04:28:39 +0000</pubDate>
+      <description>A Nemotron 4B adapter learned useful local moves on two small book-graph repair tasks. Exact CPU search remained stronger, and no new Ramsey bound was found.</description>
+    </item>
+    <item>
       <title>I post-trained Nemotron 4B into an Average Banker</title>
       <link>https://aryasomu.com/writing/nemotron-average-banker.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/nemotron-average-banker.html</guid>
