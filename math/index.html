@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=math-v1">
+  <link rel="canonical" href="https://aryasomu.com/math/">
+  <title>Math · Arya Somu</title>
+  <meta name="description" content="Mathematics papers and short notes by Arya Somu.">
+  <meta property="og:title" content="Math · Arya Somu">
+  <meta property="og:description" content="Mathematics papers and short notes by Arya Somu.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aryasomu.com/math/">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Math · Arya Somu">
+  <meta name="twitter:description" content="Mathematics papers and short notes by Arya Somu.">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="math-page">
+  <div class="site math-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="./" aria-current="page">Math</a>
+        <a href="../writing/">Writing</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="math-main">
+      <h1>Math</h1>
+      <p class="math-intro">Papers, short notes, and useful tricks.</p>
+
+      <section class="math-section" aria-labelledby="math-papers">
+        <h2 id="math-papers">Papers</h2>
+        <article class="math-paper" id="greedy-variance">
+          <h3>Sharp Variance Bounds for Random Greedy Independent Sets in Split Graphs and Cographs</h3>
+          <p class="math-meta">Arya Somu · Proposition · Draft</p>
+          <p>Exact maximum variance bounds for random-order greedy independent-set size on split graphs and cographs, with a unique extremizer in each class. The draft also gives a stability result and a counterexample for general graphs. Independent proof review and a broader prior-art assessment remain open.</p>
+          <div class="math-links">
+            <a href="../papers/greedy-variance.pdf" target="_blank" rel="noopener noreferrer">Read proposition (PDF)</a>
+            <a href="../papers/greedy-variance-bundle.zip" download>Source and exact checks</a>
+          </div>
+        </article>
+      </section>
+
+      <section class="math-section" aria-labelledby="math-notes">
+        <h2 id="math-notes">Notes &amp; tricks</h2>
+        <article class="math-note" id="indicator-variance">
+          <h3>Variance of a count</h3>
+          <p>When a random quantity counts events, write it as a sum of indicators. The variance then separates into individual uncertainty and pairwise dependence.</p>
+          <div class="math-formula" role="math" aria-label="Variance of X equals the sum of p sub v times one minus p sub v, plus twice the sum over pairs u less than v of the probability both indicators equal one minus p sub u times p sub v.">Var(X) = ∑<sub>v</sub> p<sub>v</sub>(1 − p<sub>v</sub>) + 2∑<sub>u&lt;v</sub> [P(I<sub>u</sub> = I<sub>v</sub> = 1) − p<sub>u</sub>p<sub>v</sub>]</div>
+          <p>Here X = ∑<sub>v</sub> I<sub>v</sub> and p<sub>v</sub> = P(I<sub>v</sub> = 1). The pairwise terms vanish only when the indicators are pairwise independent.</p>
+        </article>
+        <article class="math-note" id="tail-sum">
+          <h3>The tail-sum trick</h3>
+          <p>For any nonnegative integer-valued random variable X, count one unit for every threshold X reaches:</p>
+          <div class="math-formula" role="math" aria-label="Expected value of X equals the sum from k equals one to infinity of the probability that X is at least k.">E[X] = ∑<sub>k≥1</sub> P(X ≥ k).</div>
+          <p>For each outcome, X = ∑<sub>k≥1</sub> 1{X ≥ k}. Taking expectations gives the identity. It is often easier to bound the chance of reaching each threshold than to find the full distribution.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="socials" aria-label="Social links">
+      <a href="mailto:asomu@ucsd.edu" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+      <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286ZM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124ZM7.119 20.452H3.555V9h3.564v11.452ZM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0Z"/></svg></a>
+      <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+      <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer" aria-label="X" title="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/></svg></a>
+      <a href="https://aryasomu.substack.com/" target="_blank" rel="noopener noreferrer" aria-label="Substack" title="Substack"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16M4 9h16M6 13h12v8l-6-3.5L6 21v-8Z"/></svg></a>
+    </footer>
+  </div>
+
+  <script src="../site.js"></script>
+</body>
+</html>
