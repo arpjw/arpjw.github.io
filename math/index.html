@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=math-v1">
+  <link rel="stylesheet" href="../styles.css?v=math-notes-v2">
   <link rel="canonical" href="https://aryasomu.com/math/">
   <title>Math · Arya Somu</title>
   <meta name="description" content="Mathematics papers and short notes by Arya Somu.">
@@ -94,6 +94,60 @@
           <p>For any nonnegative integer-valued random variable X, count one unit for every threshold X reaches:</p>
           <div class="math-formula" role="math" aria-label="Expected value of X equals the sum from k equals one to infinity of the probability that X is at least k.">E[X] = ∑<sub>k≥1</sub> P(X ≥ k).</div>
           <p>For each outcome, X = ∑<sub>k≥1</sub> 1{X ≥ k}. Taking expectations gives the identity. It is often easier to bound the chance of reaching each threshold than to find the full distribution.</p>
+        </article>
+        <article class="math-note" id="signed-hypercube">
+          <h3>A signed hypercube with only two eigenvalues</h3>
+          <p>Hao Huang's proof of the sensitivity conjecture starts by giving some hypercube edges weight −1. The signed adjacency matrices are built recursively:</p>
+          <div class="math-formula" role="math" aria-label="A sub one is the matrix with rows zero, one and one, zero. A sub n is the block matrix with rows A sub n minus one, I and I, negative A sub n minus one.">
+            A<sub>1</sub> = <span class="math-matrix"><span>0</span><span>1</span><span>1</span><span>0</span></span>, &nbsp; A<sub>n</sub> = <span class="math-matrix"><span>A<sub>n−1</sub></span><span>I</span><span>I</span><span>−A<sub>n−1</sub></span></span>.
+          </div>
+          <p>The negative block cancels the cross terms when the matrix is squared. Induction gives:</p>
+          <div class="math-formula" role="math" aria-label="A sub n squared equals n times the identity. Its eigenvalues are positive and negative square root of n.">A<sub>n</sub><sup>2</sup> = nI, &nbsp; λ(A<sub>n</sub>) ∈ {−√n, √n}.</div>
+          <p>Since the trace is zero, each eigenvalue occupies half the spectrum. Keep any set of more than half the hypercube's vertices. Eigenvalue interlacing forces the corresponding principal submatrix to have an eigenvalue at least √n. Its maximum absolute row sum bounds that eigenvalue, so some retained vertex has at least √n retained neighbors.</p>
+          <p>The useful move is to preserve where a matrix is nonzero while choosing signs that force a simple spectrum. This construction helped settle the sensitivity conjecture in 2019.</p>
+          <div class="math-links"><a href="https://arxiv.org/pdf/1907.00847" target="_blank" rel="noopener noreferrer">Huang · Original proof (PDF)</a></div>
+        </article>
+        <article class="math-note" id="block-matrix-derivative">
+          <h3>A derivative in the corner of a matrix</h3>
+          <p>For a scalar function f analytic near the spectrum of A, its matrix function has a directional derivative L<sub>f</sub>(A, E) = d/dt f(A + tE)|<sub>t=0</sub>. Place E in the upper-right block of a larger matrix:</p>
+          <div class="math-formula" role="math" aria-label="Applying f to the block matrix with rows A, E and zero, A gives the block matrix with rows f of A, L sub f of A and E and zero, f of A.">
+            f(<span class="math-matrix"><span>A</span><span>E</span><span>0</span><span>A</span></span>) = <span class="math-matrix"><span>f(A)</span><span>L<sub>f</sub>(A, E)</span><span>0</span><span>f(A)</span></span>.
+          </div>
+          <p>The derivative appears in the same corner. The upper-right block of the kth power is ∑<sub>j=0</sub><sup>k−1</sup> A<sup>j</sup>EA<sup>k−1−j</sup>, exactly the derivative of A<sup>k</sup>. Power series extend the identity to analytic functions.</p>
+          <p>Squaring gives AE + EA, correctly accounting for noncommutativity. For the matrix exponential:</p>
+          <div class="math-formula" role="math" aria-label="L sub exp of A and E equals the integral from zero to one of e to the power one minus s times A, times E, times e to the power s A, with respect to s.">L<sub>exp</sub>(A, E) = ∫<sub>0</sub><sup>1</sup> e<sup>(1−s)A</sup>E e<sup>sA</sup> ds.</div>
+          <p>This turns differentiation into function evaluation, useful for sensitivity analysis and optimization involving matrix functions. Exploiting the block structure reduces the overhead of the larger matrix.</p>
+          <div class="math-links"><a href="https://eprints.maths.manchester.ac.uk/1218/1/alhi09.pdf" target="_blank" rel="noopener noreferrer">Al-Mohy and Higham · Section 2 (PDF)</a></div>
+        </article>
+        <article class="math-note" id="wiedemann-recurrence">
+          <h3>A sparse linear system hidden in a scalar sequence</h3>
+          <p>Wiedemann's algorithm solves linear systems over finite fields using matrix-vector products. Given an invertible n × n matrix A and a vector b, choose a random vector u and record:</p>
+          <div class="math-formula" role="math" aria-label="s sub k equals u transpose times A to the kth power times b.">s<sub>k</sub> = u<sup>T</sup>A<sup>k</sup>b.</div>
+          <p>The scalar sequence obeys a linear recurrence. Berlekamp–Massey recovers its shortest recurrence from the first 2n terms. A projection can miss factors, so the resulting polynomial must be checked and additional projections may be needed.</p>
+          <p>Once a polynomial p(t) = t<sup>d</sup> + c<sub>d−1</sub>t<sup>d−1</sup> + ⋯ + c<sub>1</sub>t + c<sub>0</sub>, with c<sub>0</sub> ≠ 0, is verified to satisfy p(A)b = 0, the solution to Ax = b follows:</p>
+          <div class="math-formula" role="math" aria-label="x equals negative c sub zero inverse times the quantity A to the power d minus one plus c sub d minus one times A to the power d minus two, continuing to c sub one times the identity, applied to b.">x = −c<sub>0</sub><sup>−1</sup>(A<sup>d−1</sup> + c<sub>d−1</sub>A<sup>d−2</sup> + ⋯ + c<sub>1</sub>I)b.</div>
+          <p>Multiplying by A recovers b directly from the polynomial identity. The trick compresses matrix dynamics into a recurrence, then uses it to apply an inverse without storing a dense inverse or factorization.</p>
+          <div class="math-links"><a href="https://www.csd.uwo.ca/~mmorenom/CS424/Ressources/WIEDEMANN-IEEE-1986.pdf" target="_blank" rel="noopener noreferrer">Wiedemann · Original algorithm (PDF)</a></div>
+        </article>
+        <article class="math-note" id="macmahon-permanent">
+          <h3>A permanent inside a reciprocal determinant</h3>
+          <p>The permanent is the determinant's permutation sum with every sign replaced by a plus. For a 0/1 bipartite adjacency matrix, it counts perfect matchings. MacMahon's Master Theorem gives an unexpected way to encode it:</p>
+          <div class="math-formula" role="math" aria-label="The permanent of A is the coefficient of x sub one through x sub n in one divided by the determinant of I minus X A.">perm(A) = [x<sub>1</sub>⋯x<sub>n</sub>] 1/det(I − XA).</div>
+          <p>Here X = diag(x<sub>1</sub>, …, x<sub>n</sub>), and the brackets extract a coefficient from the formal power series. For a 2 × 2 matrix A with rows (a, b) and (c, d), the denominator is:</p>
+          <div class="math-formula" role="math" aria-label="The determinant of I minus X A equals one minus a x minus d y plus the quantity a d minus b c times x y.">det(I − XA) = 1 − ax − dy + (ad − bc)xy.</div>
+          <p>The coefficient of xy in its reciprocal is ad + bc. Taking the reciprocal converts the signed determinant information into unsigned permutation counts.</p>
+          <p>This is useful for translating counting problems into generating functions. It does not make general permanent computation easy: extracting the multivariate coefficient carries the difficulty.</p>
+          <div class="math-links"><a href="https://www.math.ucla.edu/~pak/papers/qmm7.pdf" target="_blank" rel="noopener noreferrer">Konvalinka and Pak · Theorem 1.1 (PDF)</a></div>
+        </article>
+        <article class="math-note" id="finite-field-selection">
+          <h3>Finite-field powers as selection switches</h3>
+          <p>Over the field 𝔽<sub>p</sub>, for prime p, x<sup>p−1</sup> equals 0 when x = 0 and 1 otherwise. Exponentiation becomes a selection switch. Combined with Chevalley–Warning, this proves that any 2p − 1 integers contain exactly p entries whose sum is divisible by p.</p>
+          <p>Given the integers a<sub>i</sub>, impose two equations over 𝔽<sub>p</sub>:</p>
+          <div class="math-formula" role="math" aria-label="The sum from i equals one to two p minus one of x sub i to the power p minus one equals zero, and the sum over the same indices of a sub i times x sub i to the power p minus one equals zero, in the field with p elements.">∑<sub>i=1</sub><sup>2p−1</sup> x<sub>i</sub><sup>p−1</sup> = 0, &nbsp; ∑<sub>i=1</sub><sup>2p−1</sup> a<sub>i</sub>x<sub>i</sub><sup>p−1</sup> = 0.</div>
+          <p>The sum of their degrees is at most 2p − 2, smaller than the number of variables. Chevalley–Warning says the number of solutions is divisible by p. Since the all-zero solution exists, it cannot be the only one.</p>
+          <p>In a nonzero solution, the number of selected indices is a positive multiple of p. There are fewer than 2p indices, so exactly p are selected. The second equation gives their zero sum.</p>
+          <p>The reusable move is to encode selection using powers, then force existence through divisibility of the solution count.</p>
+          <div class="math-links"><a href="https://www.tau.ac.il/~nogaa/PDFS/egz1.pdf" target="_blank" rel="noopener noreferrer">Alon and Dubiner · Section 2.2 (PDF)</a></div>
         </article>
       </section>
     </main>
