@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../styles.css?v=writing-volumes-v1">
   <link rel="canonical" href="https://aryasomu.com/writing/your-post-slug.html">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>Your post title · Arya Somu</title>
@@ -47,7 +47,7 @@
       <article class="writing-post">
         <header class="writing-post__header">
           <h1>Your post title</h1>
-          <p class="writing-post__meta">Arya Somu · Essay<br><time datetime="2026-10-03">October 3, 2026</time></p>
+          <p class="writing-post__meta">Arya Somu · Essay<br><span class="writing-post__volume">Volume I</span></p>
         </header>
         <div class="writing-post__content">
           <nav class="writing-toc" aria-label="On this page">

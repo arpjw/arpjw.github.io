@@ -14,3 +14,9 @@ has approved for publication.
 Keep the navigation's Writing link pointed at `/writing/`. Keep the homepage
 Substack button pointed at Arya's Substack. The Writing index footer uses the
 RSS feed instead.
+
+Display Roman-numeral volume labels instead of publication dates on the Writing
+index and in every article header. Keep existing volume assignments fixed and
+assign the next unused volume after pulling the latest index. Use the same label
+on both surfaces. Keep actual publication timestamps in RSS and factual dates
+in research text and citations.

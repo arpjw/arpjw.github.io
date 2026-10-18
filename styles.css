@@ -481,14 +481,14 @@ main { margin-top: 1.5rem; }
 .writing-entry h2 { margin: 0; font-size: 1rem; font-weight: 400; }
 .writing-entry h2 a { color: var(--foreground); text-decoration: none; }
 .writing-entry h2 a:hover, .writing-entry h2 a:focus-visible { text-decoration: underline; text-underline-offset: 0.16em; }
-.writing-entry time { color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
+.writing-entry .writing-entry__volume { color: var(--faint); font-family: var(--sans); font-size: 0.75rem; }
 .writing-entry p { margin: 0.4rem 0 0; }
 .writing-index-page .writing-main { margin-top: 3rem; }
 .writing-index-page .writing-main h1 { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; line-height: 1.2; }
 .writing-index-page .writing-intro { margin-top: 0.45rem; color: var(--muted); font-family: var(--serif); font-size: 0.92rem; }
 .writing-index-page .writing-list { margin-top: 2.3rem; border-top: 0; }
 .writing-index-page .writing-entry { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 1.5rem; align-items: start; padding: 1.7rem 0; }
-.writing-index-page .writing-entry time { padding-top: 0.15rem; color: var(--muted); font-size: 0.84rem; line-height: 1.4; white-space: nowrap; }
+.writing-index-page .writing-entry .writing-entry__volume { padding-top: 0.15rem; color: var(--muted); font-size: 0.84rem; line-height: 1.4; white-space: nowrap; }
 .writing-index-page .writing-entry h2 { font-size: 1.18rem; line-height: 1.4; }
 .writing-index-page .writing-entry p { margin-top: 0.38rem; color: var(--muted); font-family: var(--sans); font-size: 0.84rem; line-height: 1.4; }
 @media (max-width: 36rem) {
@@ -496,7 +496,7 @@ main { margin-top: 1.5rem; }
 }
 @media (max-width: 30rem) {
   .writing-index-page .writing-entry { grid-template-columns: 1fr; gap: 0.45rem; padding: 1.4rem 0; }
-  .writing-index-page .writing-entry time { padding-top: 0; }
+  .writing-index-page .writing-entry .writing-entry__volume { padding-top: 0; }
 }
 .writing-article-main { margin-top: 3.5rem; }
 .writing-page { --article-accent: #286f78; }
@@ -511,7 +511,7 @@ html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
 .writing-post__header { max-width: 72rem; margin: clamp(4.5rem, 9vw, 9rem) auto clamp(5rem, 8vw, 8rem); text-align: center; }
 .writing-post h1 { margin: 0 auto; color: var(--foreground); font-family: Baskerville, 'Iowan Old Style', Georgia, serif; font-size: clamp(3.5rem, 8vw, 7.5rem); font-weight: 400; letter-spacing: -0.035em; line-height: 0.98; text-wrap: balance; }
 .writing-post__meta { margin: 3.25rem 0 0; color: var(--foreground); font-family: var(--sans); font-size: 0.9rem; line-height: 1.8; }
-.writing-post__meta time { display: block; color: var(--muted); }
+.writing-post__meta .writing-post__volume { display: block; color: var(--muted); }
 .writing-post__content { display: grid; grid-template-columns: minmax(10rem, 14rem) minmax(0, 43rem) minmax(0, 10rem); column-gap: clamp(1.5rem, 3vw, 3rem); justify-content: center; align-items: start; }
 .writing-toc { position: sticky; top: 6rem; align-self: start; max-height: calc(100dvh - 7rem); overflow-y: auto; font-family: var(--sans); font-size: 0.79rem; line-height: 1.45; }
 .writing-toc p { margin: 0 0 1.2rem; color: var(--faint); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; }

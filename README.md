@@ -10,7 +10,7 @@ a separate external link.
 To publish a post:
 
 1. Copy `writing/post-template.txt` to `writing/your-post-slug.html`.
-2. Replace the title, description, date, canonical URL, and article text. Keep
+2. Replace the title, description, volume label, canonical URL, and article text. Keep
    the shared `writing-post` classes for the title, reading column, section
    navigation, and mobile layout. Give each section a stable ID and add it to
    both tables of contents. `writing/writing.js` marks the current section in
@@ -24,9 +24,13 @@ To publish a post:
 3. Add a matching entry to `.writing-list` in `writing/index.html`, an item
    to `writing/feed.xml`, and the canonical URL to `sitemap.xml`. Keep each RSS
    `<guid>` equal to the article's canonical URL, and set `<pubDate>` to its
-   actual publication time on this site in RFC 822 format. The Writing index may
-   use an editorial date; the feed date should tell subscribers when the article
-   became available. Remove the "No posts yet" paragraph when publishing the
+   actual publication time on this site in RFC 822 format. Visible publication
+   labels use Roman-numeral volumes instead of dates. Keep the same volume on
+   the Writing index and the article header. Existing volumes follow the original
+   editorial date order and remain fixed; assign each new article the next unused
+   volume after checking the latest index. Keep the index newest-first. RSS dates
+   still record when the article became available, and research/citation dates
+   retain their factual meaning. Remove the "No posts yet" paragraph when publishing the
    first post. Add a `Cite this essay` block at the end of the article with a
    unique BibTeX key, its title, author, year, and canonical URL.
 4. Preview the site locally, then commit and push when ready. The post will appear
@@ -54,7 +58,7 @@ Example index entry:
 
 ```html
 <article class="writing-entry">
-  <time datetime="2026-10-03">Oct 3, 2026</time>
+  <span class="writing-entry__volume">Volume I</span>
   <div class="writing-entry__content">
     <h2><a href="your-post-slug.html">Your post title</a></h2>
     <p>Arya Somu</p>
