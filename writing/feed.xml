@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>How many independent forecasts are in a crowd?</title>
+      <link>https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd.html</guid>
+      <pubDate>Sun, 18 Oct 2026 15:01:49 +0000</pubDate>
+      <description>A frozen synthetic study of shared evidence, scalar pooling failure, and learning source groups from resolved forecasts.</description>
+    </item>
+    <item>
       <title>I taught Nemotron to flip graph edges. A small search still wins.</title>
       <link>https://aryasomu.com/writing/nemotron-graph-repair.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/nemotron-graph-repair.html</guid>

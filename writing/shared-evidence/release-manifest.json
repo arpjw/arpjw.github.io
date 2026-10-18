@@ -1,0 +1,22 @@
+{
+  "article_source_sha256": "2814c207fab673259a0f6478499f4dca1086af8d5bc8260f7cb04a2cc47c168e",
+  "public_assets": {
+    "writing/shared-evidence/figures/group_decision_disagreement.svg": "82ac6f86115638674b9187ce1f9ddb300e75a10f9b7d14455311968378032706",
+    "writing/shared-evidence/figures/group_oracle_regret.svg": "d53626d419257e079ceb16a8f4967055bf052ef7b705dc038822400b9ddd2b2b",
+    "writing/shared-evidence/figures/source_inference_regret.svg": "485317f16b3d0a8e20e29ce116344230b2e0513e3a247cbf3041c249851b3ca9",
+    "writing/shared-evidence/index.html": "0bbfb3ae564f761eff0142964fd59bb839ab337140d9b15fdca1168c6e62d7b2",
+    "writing/shared-evidence/production-primary-v1-analysis.json": "79fbae86837d4ec5cfa097440ff5de792f3a13877411b43edcb431386d68800b",
+    "writing/shared-evidence/production-primary-v1.manifest.json": "afd6f762fd2bcde9798fde9358b56027257e91ce46fabc905661a53523fce552",
+    "writing/shared-evidence/research_protocol.txt": "0d9a844b9b3f188fea1aba77997bdf0f1bde045008b2ba6e7876d102753176d3",
+    "writing/shared-evidence/source-inference-suite-v1.json": "b19c485cd28037f8de9914d6560e5d03891ef40b0382dd4e41320a46d5a681c3",
+    "writing/shared-evidence/source-inference-suite-v1.lock.json": "67c8cd2c92cbddc4f82aedb39cabdb4ad0ad9493ed9348d95ec64ba1d6dfafe1",
+    "writing/shared-evidence/source_inference_figure_manifest.json": "70b0fae0924edb6a0053347accf95d5dfe162f951a6e3f6bffcf4c38b62bb823",
+    "writing/shared-evidence/source_inference_protocol.txt": "22b7be3d7d2aa4d383d042e54764c328c0d09a8a255c0f73dcfdbd8fc620a80d",
+    "writing/shared-evidence/source_inference_validation_report.txt": "5e1706754ea6c93dd78f3cd2316bfd395faafc4fa1fa00d61374b027bb8aa30f",
+    "writing/shared-evidence/stress-groups-m5000-v1-signs.json": "c65f96548388bf994b4db941624903f8247c13a7ebd7f47423e8278f81f0ca91",
+    "writing/shared-evidence/stress-suite-v1.json": "e07bd3e53a2084e12a7020bab2892e67142d223985927736d74c3d56cfd09d12",
+    "writing/shared-evidence/stress-suite-v1.lock.json": "25c5f13ec08251d091d14dc12f394885a3e3653046e01c37b7c761e1871455b0",
+    "writing/shared-evidence/stress_protocol.txt": "658dd15511a03902de6c3057b0f60d509719e83f9dbae9596fc6f287129c5cc3"
+  },
+  "schema_version": 1
+}
