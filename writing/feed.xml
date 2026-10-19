@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>The promise of a green light</title>
+      <link>https://aryasomu.com/writing/the-promise-of-a-green-light.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/the-promise-of-a-green-light.html</guid>
+      <pubDate>Mon, 19 Oct 2026 00:41:00 +0000</pubDate>
+      <description>Four traffic-light controllers reveal the difference between avoiding a conflict, guaranteeing progress, and deciding who waits. Includes an interactive model and recorded walkthrough.</description>
+    </item>
+    <item>
       <title>Molecular origami</title>
       <link>https://aryasomu.com/writing/molecular-origami.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/molecular-origami.html</guid>

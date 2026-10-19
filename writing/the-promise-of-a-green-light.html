@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=writing-volumes-v1">
+  <link rel="canonical" href="https://aryasomu.com/writing/the-promise-of-a-green-light.html">
+  <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
+  <title>The promise of a green light · Arya Somu</title>
+  <meta name="description" content="Four traffic-light controllers reveal the difference between avoiding a conflict, guaranteeing progress, and deciding who waits.">
+  <meta property="og:title" content="The promise of a green light · Arya Somu">
+  <meta property="og:description" content="Four traffic-light controllers reveal the difference between avoiding a conflict, guaranteeing progress, and deciding who waits.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/the-promise-of-a-green-light.html">
+  <meta property="article:published_time" content="2026-10-19T00:41:00+00:00">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+<link rel="stylesheet" href="traffic/article.css">
+</head>
+<body class="writing-page writing-article-page">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="../math/">Math</a>
+        <a href="./" aria-current="page">Writing</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main" id="top">
+      <article class="writing-post">
+        <header class="writing-post__header">
+          <h1>The promise of a green light</h1>
+          <p class="writing-post__meta">Arya Somu · Systems<br><span class="writing-post__volume">Volume IX</span></p>
+        </header>
+        <div class="writing-post__content">
+          <nav class="writing-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ul><li><a href="#introduction">Introduction</a></li><li><a href="#first-promise">The first promise</a></li><li><a href="#waiting-forever">Waiting forever</a></li><li><a href="#take-turns">A checkable promise</a></li><li><a href="#try-it">Change the promise</a></li><li><a href="#outside-the-model">Outside the model</a></li></ul>
+          </nav>
+          <div class="writing-post__body">
+            <details class="writing-toc-mobile">
+              <summary>In this article</summary>
+              <nav aria-label="On this page"><ul><li><a href="#introduction">Introduction</a></li><li><a href="#first-promise">The first promise</a></li><li><a href="#waiting-forever">Waiting forever</a></li><li><a href="#take-turns">A checkable promise</a></li><li><a href="#try-it">Change the promise</a></li><li><a href="#outside-the-model">Outside the model</a></li></ul></nav>
+            </details>
+            <p class="writing-post__lead" id="introduction">A green light is a small promise about what everyone else has been told.</p>
+<p>When a light changes, we usually think about the car in front of us. We rarely think about the controller inside the cabinet at the corner. Somewhere in that box, a decision has been made about which traffic can move and which traffic has to wait. We act on it without reading the program.</p>
+<p>I wanted to understand what it would mean to prove that this decision works. The answer gets interesting before the intersection gets complicated. A controller can avoid conflicting greens perfectly and still leave everyone stranded. It can keep traffic moving and still neglect one road forever.</p>
+<p>So I built a small intersection with four controllers, along with a program that checks every state each controller can reach. The exercise separates three questions that are easy to compress into one: can something bad happen, will something useful happen, and how should the available time be divided?</p>
+
+<figure class="traffic-media">
+  <video controls playsinline preload="metadata" poster="traffic/experiment-poster.png" aria-label="Recorded walkthrough of four traffic signal controllers" width="1280" height="900">
+    <source src="traffic/experiment.mp4" type="video/mp4">
+    <source src="traffic/experiment.webm" type="video/webm">
+    <track kind="captions" src="traffic/experiment.vtt" srclang="en" label="English" default>
+    Your browser cannot play this recording. <a href="traffic/experiment.webm">Download the video</a> or read the transcript below.
+  </video>
+  <figcaption>A recording of the working model. The four controllers share the same intersection. The lights and the guarantees change.</figcaption>
+</figure>
+<details class="traffic-transcript"><summary>Video transcript</summary><p>Both green: the controller reaches conflicting greens in one step. Always red: neither road moves, although the conflicting-green check passes. North priority: continuous north–south demand holds green indefinitely while east–west waits. Take turns: the controller cycles through green, yellow, and red clearance for each road. The exhaustive check finds 14 reachable states and a maximum of 10 ticks to green for either road. Changing the north green to eight ticks raises the east–west bound to 14 ticks.</p></details>
+
+<h2 id="first-promise">The first promise<a class="heading-anchor" href="#first-promise" aria-label="Link to The first promise">#</a></h2>
+<p>Start with two roads crossing at right angles. Allow only straight-through traffic. Treat north–south as one movement and east–west as another. There are no turns or pedestrians yet, and the lights change together at discrete ticks. This is a deliberately small model, not a reconstruction of a particular junction.</p>
+<p>The first requirement is easy to state: the two crossing movements must never both have green. The first controller breaks that rule immediately. It begins with both roads stopped and then gives both roads green. A single step exposes the failure.</p>
+<p>Now replace it with a controller that keeps everything red. The same requirement holds for its entire lifetime. There is no moment at which the crossing movements have green together. There is also no moment at which anyone is invited to move.</p>
+<p>This is the distinction between <em>safety</em> and <em>liveness</em> in program verification. A safety property rules out an unwanted event. A liveness property requires eventual progress. Neither implies the other.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-lamport" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-lamport">Leslie Lamport, <a href="https://lamport.azurewebsites.net/pubs/proving.pdf">“Proving the Correctness of Multiprocess Programs”</a> (1977), sections II–III.</span></span> For this model, I use “safety” narrowly: no conflicting greens. It is not yet a claim that vehicles cannot collide.</p>
+
+<h2 id="waiting-forever">A road can wait forever<a class="heading-anchor" href="#waiting-forever" aria-label="Link to A road can wait forever">#</a></h2>
+<p>The third controller sounds more reasonable. Let north–south keep green while its detector reports traffic. Once the demand disappears, move through yellow and red clearance, then serve east–west.</p>
+<p>The failure is a busy north–south road. Its detector can remain active indefinitely. East–west can have a car waiting the entire time, and the rule still never gives it a turn. The signals avoid conflicting greens. The system is active. One road is being ignored.</p>
+<p>A short animation cannot establish that something will wait forever. It can only show that it has waited so far. But the program can find a state that returns to itself: north green, its minimum countdown finished, north demand still present. Repeat that input and the same state repeats without end. That loop is an infinite counterexample described in a finite space.</p>
+<p>Actual actuated signal control has more structure than this intentionally defective rule. For example, maximum-green timing limits an extension in the presence of conflicting demand. The FHWA timing manual discusses this alongside minimum green, detector calls, and other timing parameters.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-timing" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-timing">FHWA, <a href="https://ops.fhwa.dot.gov/publications/fhwahop08024/chapter5.htm">Traffic Signal Timing Manual, chapter 5</a> (2008, archived), sections 5.2–5.3. Used for the control concepts, not current timing recommendations.</span></span></p>
+
+<h2 id="take-turns">A promise we can check<a class="heading-anchor" href="#take-turns" aria-label="Link to A promise we can check">#</a></h2>
+<p>The fourth controller follows a fixed cycle. North–south gets four green ticks, two yellow ticks, and one tick with both roads red. East–west then gets the same sequence. A full cycle takes fourteen ticks. These numbers make the example easy to inspect; they are not recommended traffic timings, and a tick has no assigned duration in seconds.</p>
+<figure class="traffic-media"><img src="traffic/cycle.svg" width="1000" height="330" alt="A fourteen-tick cycle: north green for four ticks, north yellow for two, red clearance for one, east green for four, east yellow for two, and red clearance for one. The sequence repeats." loading="lazy"><figcaption>The two clearance intervals show identical red lights, but have different successors. The controller has to remember whose turn comes next.</figcaption></figure>
+<p>There are two ways to inspect the guarantee. The short mathematical argument starts at the initial state: at most one road is green. Every permitted transition preserves that fact. Repeating a transition cannot introduce a conflicting green if none of the transitions can introduce one.</p>
+<p>Progress has its own argument. Every countdown is finite, every completed phase advances to the next, and the clock keeps ticking. The controller therefore returns to both green phases. Starting at a tick boundary, the longest wait for north–south green is its own yellow and clearance, all of east–west's green, and east–west's yellow and clearance: 2 + 1 + 4 + 2 + 1 = 10 ticks. The other road has the same bound.</p>
+<p>The executable check reaches the same conclusion by exploring the complete graph. It visits all fourteen reachable states and all four detector-input combinations at each state, giving 56 input-labeled transitions. For this controller, the inputs do not change the next state. The checker still considers them.</p>
+<p>To check progress, it looks for a reachable loop that avoids a road's green. If such a loop exists, it supplies a counterexample. If none exists, it calculates the longest path to green. The animation and checker use the same transition function; the arithmetic above provides a separate way to inspect the result.</p>
+<div class="traffic-table-wrap"><table class="traffic-table"><caption>Default settings, complete state graph</caption><thead><tr><th>Controller</th><th>No conflicting greens</th><th>Both roads get green</th></tr></thead><tbody><tr><td>Both green</td><td>Fails</td><td>Yes, unsafely</td></tr><tr><td>Always red</td><td>Passes</td><td>No</td></tr><tr><td>North priority</td><td>Passes</td><td>Not guaranteed</td></tr><tr><td>Take turns</td><td>Passes</td><td>Within 10 ticks</td></tr></tbody></table></div>
+
+<h2 id="try-it">Change the promise<a class="heading-anchor" href="#try-it" aria-label="Link to Change the promise">#</a></h2>
+<p>Try increasing north–south green from four ticks to eight. The no-conflicting-green property still holds. Both roads still get a turn. But east–west's longest wait for another green increases from ten ticks to fourteen.</p>
+<p>The two proofs have survived a change that makes someone's experience worse. That is where “works” becomes a question about objectives. Equal green time, more time for the busier road, and a short maximum wait are different choices. An optimization program needs to be told which objective matters and which constraints it must respect.</p>
+<div class="traffic-demo-wrap"><iframe src="traffic/" title="Interactive traffic-light experiment: choose a controller and check its guarantees" loading="lazy" height="1220"></iframe></div>
+<p class="traffic-note"><a href="traffic/" target="_blank" rel="noopener">Open the experiment in its own window</a>. The page works with a keyboard and starts paused. On a small screen, the separate window gives the controls more room.</p>
+<p>Even the ten-tick guarantee needs careful wording. It bounds time until a green opportunity. It does not bound how long a particular driver waits in a queue. A road can receive green regularly while more traffic arrives than it can discharge. Our model has no queue lengths, vehicle speeds, or downstream blockage, so it cannot answer that question.</p>
+
+<h2 id="outside-the-model">The cabinet outside the model<a class="heading-anchor" href="#outside-the-model" aria-label="Link to The cabinet outside the model">#</a></h2>
+<p>A real intersection adds another gap: the state in the program and the signal displayed on the street are different things. Lamps, wiring, power, and other equipment have to carry out the decision.</p>
+<p>Signal cabinets include malfunction monitoring equipment, often called a conflict monitor or malfunction management unit. It looks for conditions such as incompatible signal indications and improper voltages. A detected fault can trigger a fallback such as flashing operation. The FHWA's cabinet overview describes this monitoring alongside the controller itself.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-cabinet" aria-label="Citation 3">3</a><span class="writing-citation__note" id="cite-cabinet">FHWA, <a href="https://ops.fhwa.dot.gov/publications/fhwahop23041/fhwahop23041.pdf">Traffic Signal Program Handbook</a> (2023), printed pp. 100 and 113–114.</span></span></p>
+<p>That extra layer matters because a proof about commanded colors cannot, by itself, establish what a damaged output circuit displays. Nor does a proof about colors establish that the crossing is empty. A vehicle may still be clearing it; a pedestrian may be crossing; a driver may disregard a signal. Clearance timing and physical behavior require a richer model and evidence about the actual site.</p>
+<p>I have not established that the intersection near my house, or any particular deployed controller, has been formally verified. What this small example provides is a way to ask a more precise question. Which unwanted event has been ruled out? What progress is guaranteed? Under which assumptions?</p>
+<p>The next green light will still look ordinary. Behind it is a chain of decisions about permitted movements, waiting, timing, and failure. Understanding even a small part of that chain makes the promise more specific, and easier to examine.</p>
+<p class="traffic-note">The <a href="https://github.com/arpjw/traffic">source repository</a> contains the model, exhaustive checker, tests, recording script, and assumptions. The <a href="traffic/verification.json">machine-readable report</a> records the default results. This is an executable explainer, with no claim of a new research result.</p>
+
+          </div>
+        </div>
+      <section class="writing-post__cite" aria-labelledby="cite-this-essay">
+<div class="writing-post__cite-header"><h2 id="cite-this-essay">Cite this essay</h2><button class="writing-post__copy" type="button">Copy BibTeX</button></div>
+<pre><code>@misc{somu2026greenlight,
+  title  = {The promise of a green light},
+  author = {Somu, Arya},
+  year   = {2026},
+  url    = {https://aryasomu.com/writing/the-promise-of-a-green-light.html}
+}</code></pre></section>
+      </article>
+      <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
+    </main>
+  </div>
+
+  <script src="../site.js"></script>
+  <script src="writing.js"></script>
+  <script src="citations.js"></script>
+  <script src="traffic/article.js"></script>
+</body>
+</html>

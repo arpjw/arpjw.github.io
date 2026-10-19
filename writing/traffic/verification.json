@@ -1,0 +1,174 @@
+{
+  "scope": "Exhaustive finite-state check of a teaching model, not field equipment or collision freedom.",
+  "assumptions": [
+    "Atomic transitions",
+    "A tick always occurs",
+    "Displayed signals equal model outputs",
+    "Two incompatible through movements only",
+    "All detector input sequences allowed"
+  ],
+  "controllers": [
+    {
+      "mode": "conflict",
+      "config": {
+        "northGreen": 4,
+        "eastGreen": 4,
+        "yellow": 2,
+        "clearance": 1
+      },
+      "reachableStates": 2,
+      "inputTransitions": 8,
+      "noConflictingGreens": false,
+      "conflictTrace": [
+        {
+          "from": "STOP:1",
+          "to": "BOTH:1",
+          "input": {
+            "north": false,
+            "east": false
+          }
+        }
+      ],
+      "north": {
+        "guaranteed": true,
+        "maxTicksToGreen": 1,
+        "witness": null
+      },
+      "east": {
+        "guaranteed": true,
+        "maxTicksToGreen": 1,
+        "witness": null
+      }
+    },
+    {
+      "mode": "all-red",
+      "config": {
+        "northGreen": 4,
+        "eastGreen": 4,
+        "yellow": 2,
+        "clearance": 1
+      },
+      "reachableStates": 1,
+      "inputTransitions": 4,
+      "noConflictingGreens": true,
+      "conflictTrace": null,
+      "north": {
+        "guaranteed": false,
+        "maxTicksToGreen": null,
+        "witness": {
+          "prefix": [],
+          "cycle": [
+            {
+              "from": "STOP:1",
+              "to": "STOP:1",
+              "input": {
+                "north": false,
+                "east": false
+              }
+            }
+          ]
+        }
+      },
+      "east": {
+        "guaranteed": false,
+        "maxTicksToGreen": null,
+        "witness": {
+          "prefix": [],
+          "cycle": [
+            {
+              "from": "STOP:1",
+              "to": "STOP:1",
+              "input": {
+                "north": false,
+                "east": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "mode": "priority",
+      "config": {
+        "northGreen": 4,
+        "eastGreen": 4,
+        "yellow": 2,
+        "clearance": 1
+      },
+      "reachableStates": 14,
+      "inputTransitions": 56,
+      "noConflictingGreens": true,
+      "conflictTrace": null,
+      "north": {
+        "guaranteed": true,
+        "maxTicksToGreen": 10,
+        "witness": null
+      },
+      "east": {
+        "guaranteed": false,
+        "maxTicksToGreen": null,
+        "witness": {
+          "prefix": [
+            {
+              "from": "N_GREEN:4",
+              "to": "N_GREEN:3",
+              "input": {
+                "north": false,
+                "east": false
+              }
+            },
+            {
+              "from": "N_GREEN:3",
+              "to": "N_GREEN:2",
+              "input": {
+                "north": false,
+                "east": false
+              }
+            },
+            {
+              "from": "N_GREEN:2",
+              "to": "N_GREEN:1",
+              "input": {
+                "north": false,
+                "east": false
+              }
+            }
+          ],
+          "cycle": [
+            {
+              "from": "N_GREEN:1",
+              "to": "N_GREEN:1",
+              "input": {
+                "north": true,
+                "east": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "mode": "cycle",
+      "config": {
+        "northGreen": 4,
+        "eastGreen": 4,
+        "yellow": 2,
+        "clearance": 1
+      },
+      "reachableStates": 14,
+      "inputTransitions": 56,
+      "noConflictingGreens": true,
+      "conflictTrace": null,
+      "north": {
+        "guaranteed": true,
+        "maxTicksToGreen": 10,
+        "witness": null
+      },
+      "east": {
+        "guaranteed": true,
+        "maxTicksToGreen": 10,
+        "witness": null
+      }
+    }
+  ]
+}

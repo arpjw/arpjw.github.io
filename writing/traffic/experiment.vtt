@@ -1,0 +1,16 @@
+WEBVTT
+
+00:00:00.080 --> 00:00:05.687
+Both green: one step exposes conflicting permission to cross.
+
+00:00:05.687 --> 00:00:11.987
+Always red: the conflicting-green check passes, but neither road gets a turn.
+
+00:00:11.987 --> 00:00:20.400
+North priority: a repeating north-green state can leave east–west waiting forever.
+
+00:00:20.400 --> 00:00:33.324
+Take turns: finite green, yellow and clearance intervals give both roads a turn.
+
+00:00:33.324 --> 00:00:39.378
+More north green changes the tradeoff: east–west now waits up to 14 ticks for green.
