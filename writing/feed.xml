@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Molecular origami</title>
+      <link>https://aryasomu.com/writing/molecular-origami.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/molecular-origami.html</guid>
+      <pubDate>Mon, 19 Oct 2026 00:37:00 +0000</pubDate>
+      <description>A small-budget Qwen3-8B RNA inverse-folding experiment with reinforcement learning, classical controls, and a numerical audit.</description>
+    </item>
+    <item>
       <title>How many independent forecasts are in a crowd?</title>
       <link>https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd.html</guid>

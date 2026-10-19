@@ -1,0 +1,1993 @@
+{
+  "summary": {
+    "test_id": {
+      "methods": {
+        "Untuned": {
+          "first_exact": 0.0078125,
+          "any_exact": 0.07421875,
+          "selected_exact": 0.07421875,
+          "first_reward": 0.4255054681530108,
+          "best_reward": 0.7122173337675888,
+          "best_f1": 0.8022788427354517,
+          "best_probability": 0.044575051994509354,
+          "best_defect": 0.24085990650034284,
+          "unique_fraction": 1.0,
+          "targets": 256,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "SFT": {
+          "first_exact": 0.1171875,
+          "any_exact": 0.359375,
+          "selected_exact": 0.359375,
+          "first_reward": 0.5596790493905119,
+          "best_reward": 0.8286751532485135,
+          "best_f1": 0.9071449436380208,
+          "best_probability": 0.1924063885199798,
+          "best_defect": 0.15208704642624238,
+          "unique_fraction": 1.0,
+          "targets": 256,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "RL seed 17": {
+          "first_exact": 0.7265625,
+          "any_exact": 0.94921875,
+          "selected_exact": 0.94921875,
+          "first_reward": 0.9329828558397981,
+          "best_reward": 0.9884579879164994,
+          "best_f1": 0.9968640268347756,
+          "best_probability": 0.8222710885648477,
+          "best_defect": 0.01223975125222071,
+          "unique_fraction": 1.0,
+          "targets": 256,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "RL seed 29": {
+          "first_exact": 0.81640625,
+          "any_exact": 0.96484375,
+          "selected_exact": 0.96484375,
+          "first_reward": 0.9540421960828666,
+          "best_reward": 0.9912518447400409,
+          "best_f1": 0.9980679547634272,
+          "best_probability": 0.837236722877232,
+          "best_defect": 0.01066626910418176,
+          "unique_fraction": 1.0,
+          "targets": 256,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "random8": {
+          "first_exact": 0.0078125,
+          "any_exact": 0.0703125,
+          "selected_exact": 0.0703125,
+          "first_reward": 0.3971271785822647,
+          "best_reward": 0.6787090084096603,
+          "best_f1": 0.7588240896270001,
+          "best_probability": 0.03688790084660533,
+          "best_defect": 0.2693357160095996,
+          "unique_fraction": 1.0,
+          "targets": 256,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "heuristic8": {
+          "first_exact": 0.40625,
+          "any_exact": 0.8671875,
+          "selected_exact": 0.8671875,
+          "first_reward": 0.8442454724389319,
+          "best_reward": 0.9723040405726124,
+          "best_f1": 0.9904388444830498,
+          "best_probability": 0.6862095868260695,
+          "best_defect": 0.02408532917228088,
+          "unique_fraction": 1.0,
+          "targets": 256,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "mutation128": {
+          "first_exact": 0.39453125,
+          "any_exact": 0.6875,
+          "selected_exact": 0.6875,
+          "first_reward": 0.8472362721812727,
+          "best_reward": 0.9387065125505989,
+          "best_f1": 0.9773651426485721,
+          "best_probability": 0.5049223533949598,
+          "best_defect": 0.04681514693421787,
+          "unique_fraction": 0.7830810546875,
+          "targets": 256,
+          "candidates_per_target": [
+            128
+          ]
+        },
+        "rnainverse8": {
+          "first_exact": 0.96875,
+          "any_exact": 0.99609375,
+          "selected_exact": 0.99609375,
+          "first_reward": 0.977158278443544,
+          "best_reward": 0.9942122488958292,
+          "best_f1": 0.9998301630434783,
+          "best_probability": 0.7939279168014687,
+          "best_defect": 0.013280519064775082,
+          "unique_fraction": 1.0,
+          "targets": 256,
+          "candidates_per_target": [
+            8
+          ]
+        }
+      },
+      "paired_rl_minus_sft": {
+        "RL seed 17": {
+          "first_exact": {
+            "difference": 0.609375,
+            "ci95": [
+              0.546875,
+              0.671875
+            ],
+            "targets": 256,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "any_exact": {
+            "difference": 0.58984375,
+            "ci95": [
+              0.52734375,
+              0.6484375
+            ],
+            "targets": 256,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "best_reward": {
+            "difference": 0.1597828346679861,
+            "ci95": [
+              0.14485024752982703,
+              0.17512974763596795
+            ],
+            "targets": 256,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          }
+        },
+        "RL seed 29": {
+          "first_exact": {
+            "difference": 0.69921875,
+            "ci95": [
+              0.640625,
+              0.7578125
+            ],
+            "targets": 256,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "any_exact": {
+            "difference": 0.60546875,
+            "ci95": [
+              0.546875,
+              0.6640625
+            ],
+            "targets": 256,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "best_reward": {
+            "difference": 0.16257669149152743,
+            "ci95": [
+              0.14716287449450666,
+              0.17834537664017447
+            ],
+            "targets": 256,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          }
+        }
+      },
+      "length_64": {
+        "Untuned": {
+          "first_exact": 0.0,
+          "any_exact": 0.030612244897959183,
+          "best_reward": 0.6824786179623656
+        },
+        "SFT": {
+          "first_exact": 0.02040816326530612,
+          "any_exact": 0.14285714285714285,
+          "best_reward": 0.7769537300720534
+        },
+        "RL seed 17": {
+          "first_exact": 0.6632653061224489,
+          "any_exact": 0.9387755102040817,
+          "best_reward": 0.9869090457079969
+        },
+        "RL seed 29": {
+          "first_exact": 0.7959183673469388,
+          "any_exact": 0.9489795918367347,
+          "best_reward": 0.9884423261130413
+        },
+        "random8": {
+          "first_exact": 0.0,
+          "any_exact": 0.01020408163265306,
+          "best_reward": 0.6493145743382883
+        },
+        "heuristic8": {
+          "first_exact": 0.30612244897959184,
+          "any_exact": 0.826530612244898,
+          "best_reward": 0.9677026756644059
+        },
+        "mutation128": {
+          "first_exact": 0.30612244897959184,
+          "any_exact": 0.5612244897959183,
+          "best_reward": 0.9212949099237407
+        },
+        "rnainverse8": {
+          "first_exact": 0.9591836734693877,
+          "any_exact": 1.0,
+          "best_reward": 0.9939624493618684
+        }
+      },
+      "crosscheck": {
+        "Untuned": {
+          "vienna37_exact": 0.07421875,
+          "vienna25_exact": 0.05859375,
+          "turner1999_exact": 0.05078125,
+          "eterna_exact": 0.03125,
+          "eterna_f1": 0.6964845286646877
+        },
+        "SFT": {
+          "vienna37_exact": 0.359375,
+          "vienna25_exact": 0.31640625,
+          "turner1999_exact": 0.296875,
+          "eterna_exact": 0.171875,
+          "eterna_f1": 0.8000471978823471
+        },
+        "RL seed 17": {
+          "vienna37_exact": 0.94921875,
+          "vienna25_exact": 0.95703125,
+          "turner1999_exact": 0.91015625,
+          "eterna_exact": 0.91796875,
+          "eterna_f1": 0.9920082489359694
+        },
+        "RL seed 29": {
+          "vienna37_exact": 0.96484375,
+          "vienna25_exact": 0.9609375,
+          "turner1999_exact": 0.921875,
+          "eterna_exact": 0.9296875,
+          "eterna_f1": 0.993974076397321
+        },
+        "random8": {
+          "vienna37_exact": 0.0703125,
+          "vienna25_exact": 0.0546875,
+          "turner1999_exact": 0.046875,
+          "eterna_exact": 0.02734375,
+          "eterna_f1": 0.6207783852453632
+        },
+        "heuristic8": {
+          "vienna37_exact": 0.8671875,
+          "vienna25_exact": 0.8984375,
+          "turner1999_exact": 0.80859375,
+          "eterna_exact": 0.828125,
+          "eterna_f1": 0.9809633682775464
+        },
+        "mutation128": {
+          "vienna37_exact": 0.6875,
+          "vienna25_exact": 0.68359375,
+          "turner1999_exact": 0.59765625,
+          "eterna_exact": 0.55859375,
+          "eterna_f1": 0.9267933425386945
+        },
+        "rnainverse8": {
+          "vienna37_exact": 0.99609375,
+          "vienna25_exact": 0.9921875,
+          "turner1999_exact": 0.9296875,
+          "eterna_exact": 0.92578125,
+          "eterna_f1": 0.9942880199940294
+        }
+      }
+    },
+    "test_ood": {
+      "methods": {
+        "Untuned": {
+          "first_exact": 0.0,
+          "any_exact": 0.0078125,
+          "selected_exact": 0.0078125,
+          "first_reward": 0.29697264507312715,
+          "best_reward": 0.5669039571718859,
+          "best_f1": 0.6282955053483869,
+          "best_probability": 0.001084447689705326,
+          "best_defect": 0.37006261375576877,
+          "unique_fraction": 1.0,
+          "targets": 128,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "SFT": {
+          "first_exact": 0.0234375,
+          "any_exact": 0.0546875,
+          "selected_exact": 0.0546875,
+          "first_reward": 0.42641181689163576,
+          "best_reward": 0.6978182239924007,
+          "best_f1": 0.7881593585188233,
+          "best_probability": 0.022528076258263446,
+          "best_defect": 0.2543255131675273,
+          "unique_fraction": 1.0,
+          "targets": 128,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "RL seed 17": {
+          "first_exact": 0.4921875,
+          "any_exact": 0.859375,
+          "selected_exact": 0.859375,
+          "first_reward": 0.873032299141884,
+          "best_reward": 0.9670092454248647,
+          "best_f1": 0.9902714182756516,
+          "best_probability": 0.5632742499986461,
+          "best_defect": 0.035159909282402896,
+          "unique_fraction": 1.0,
+          "targets": 128,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "RL seed 29": {
+          "first_exact": 0.546875,
+          "any_exact": 0.8515625,
+          "selected_exact": 0.8515625,
+          "first_reward": 0.8863066266052249,
+          "best_reward": 0.9672060668364364,
+          "best_f1": 0.9892386985630757,
+          "best_probability": 0.5749854014135953,
+          "best_defect": 0.03142383111275353,
+          "unique_fraction": 1.0,
+          "targets": 128,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "random8": {
+          "first_exact": 0.0,
+          "any_exact": 0.0078125,
+          "selected_exact": 0.0078125,
+          "first_reward": 0.28247974668641096,
+          "best_reward": 0.5380578258186263,
+          "best_f1": 0.5950154715797265,
+          "best_probability": 0.0014752652297319335,
+          "best_defect": 0.40057789992809234,
+          "unique_fraction": 1.0,
+          "targets": 128,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "heuristic8": {
+          "first_exact": 0.2578125,
+          "any_exact": 0.6796875,
+          "selected_exact": 0.6796875,
+          "first_reward": 0.809372243553456,
+          "best_reward": 0.9421193754335806,
+          "best_f1": 0.9810604188894682,
+          "best_probability": 0.46235415520414613,
+          "best_defect": 0.04094896002788341,
+          "unique_fraction": 1.0,
+          "targets": 128,
+          "candidates_per_target": [
+            8
+          ]
+        },
+        "mutation128": {
+          "first_exact": 0.1875,
+          "any_exact": 0.421875,
+          "selected_exact": 0.421875,
+          "first_reward": 0.7989642705596656,
+          "best_reward": 0.8860808729528029,
+          "best_f1": 0.9543014709576234,
+          "best_probability": 0.2442218348947079,
+          "best_defect": 0.0831434063150221,
+          "unique_fraction": 0.78460693359375,
+          "targets": 128,
+          "candidates_per_target": [
+            128
+          ]
+        },
+        "rnainverse8": {
+          "first_exact": 0.9453125,
+          "any_exact": 1.0,
+          "selected_exact": 1.0,
+          "first_reward": 0.969088048656412,
+          "best_reward": 0.9917672537250528,
+          "best_f1": 1.0,
+          "best_probability": 0.6513928146742093,
+          "best_defect": 0.020581865687368077,
+          "unique_fraction": 1.0,
+          "targets": 128,
+          "candidates_per_target": [
+            8
+          ]
+        }
+      },
+      "paired_rl_minus_sft": {
+        "RL seed 17": {
+          "first_exact": {
+            "difference": 0.46875,
+            "ci95": [
+              0.3828125,
+              0.5546875
+            ],
+            "targets": 128,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "any_exact": {
+            "difference": 0.8046875,
+            "ci95": [
+              0.734375,
+              0.8671875
+            ],
+            "targets": 128,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "best_reward": {
+            "difference": 0.2691910214324639,
+            "ci95": [
+              0.24528485688047827,
+              0.2937850201020376
+            ],
+            "targets": 128,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          }
+        },
+        "RL seed 29": {
+          "first_exact": {
+            "difference": 0.5234375,
+            "ci95": [
+              0.4375,
+              0.609375
+            ],
+            "targets": 128,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "any_exact": {
+            "difference": 0.796875,
+            "ci95": [
+              0.7265625,
+              0.859375
+            ],
+            "targets": 128,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          },
+          "best_reward": {
+            "difference": 0.26938784284403566,
+            "ci95": [
+              0.24578322830145113,
+              0.2940010736193952
+            ],
+            "targets": 128,
+            "method": "paired percentile bootstrap, 10000 resamples"
+          }
+        }
+      },
+      "crosscheck": {
+        "Untuned": {
+          "vienna37_exact": 0.0078125,
+          "vienna25_exact": 0.0078125,
+          "turner1999_exact": 0.0,
+          "eterna_exact": 0.0,
+          "eterna_f1": 0.5398526766725296
+        },
+        "SFT": {
+          "vienna37_exact": 0.0546875,
+          "vienna25_exact": 0.046875,
+          "turner1999_exact": 0.0234375,
+          "eterna_exact": 0.0078125,
+          "eterna_f1": 0.6773965609719613
+        },
+        "RL seed 17": {
+          "vienna37_exact": 0.859375,
+          "vienna25_exact": 0.890625,
+          "turner1999_exact": 0.7109375,
+          "eterna_exact": 0.6796875,
+          "eterna_f1": 0.952547652501129
+        },
+        "RL seed 29": {
+          "vienna37_exact": 0.8515625,
+          "vienna25_exact": 0.890625,
+          "turner1999_exact": 0.6796875,
+          "eterna_exact": 0.6328125,
+          "eterna_f1": 0.9485925496687064
+        },
+        "random8": {
+          "vienna37_exact": 0.0078125,
+          "vienna25_exact": 0.0078125,
+          "turner1999_exact": 0.0,
+          "eterna_exact": 0.0,
+          "eterna_f1": 0.4803291967590458
+        },
+        "heuristic8": {
+          "vienna37_exact": 0.6796875,
+          "vienna25_exact": 0.71875,
+          "turner1999_exact": 0.65625,
+          "eterna_exact": 0.5078125,
+          "eterna_f1": 0.941130006758913
+        },
+        "mutation128": {
+          "vienna37_exact": 0.421875,
+          "vienna25_exact": 0.4296875,
+          "turner1999_exact": 0.2890625,
+          "eterna_exact": 0.28125,
+          "eterna_f1": 0.8640228076554759
+        },
+        "rnainverse8": {
+          "vienna37_exact": 1.0,
+          "vienna25_exact": 1.0,
+          "turner1999_exact": 0.859375,
+          "eterna_exact": 0.75,
+          "eterna_f1": 0.978173833827639
+        }
+      }
+    }
+  },
+  "eterna": {
+    "scope": "Exploratory subset scored with ViennaRNA 2.7.2; not an official full Eterna100-V2 benchmark result. Base-model pretraining contamination cannot be excluded.",
+    "methods": {
+      "SFT": {
+        "targets": 30,
+        "solved_any": 6,
+        "solved_first": 4,
+        "mean_selected_f1": 0.6871774793120724
+      },
+      "RL seed 17": {
+        "targets": 30,
+        "solved_any": 15,
+        "solved_first": 8,
+        "mean_selected_f1": 0.8320574475323145
+      },
+      "RL seed 29": {
+        "targets": 30,
+        "solved_any": 15,
+        "solved_first": 9,
+        "mean_selected_f1": 0.8425693416739725
+      },
+      "random8": {
+        "targets": 30,
+        "solved_any": 4,
+        "solved_first": 0,
+        "mean_selected_f1": 0.5501692055112655
+      },
+      "heuristic8": {
+        "targets": 30,
+        "solved_any": 12,
+        "solved_first": 6,
+        "mean_selected_f1": 0.8539227140527534
+      },
+      "mutation128": {
+        "targets": 30,
+        "solved_any": 12,
+        "solved_first": 9,
+        "mean_selected_f1": 0.8508186021277544
+      },
+      "rnainverse8": {
+        "targets": 30,
+        "solved_any": 20,
+        "solved_first": 17,
+        "mean_selected_f1": 0.9778648301138905
+      }
+    },
+    "puzzles": {
+      "eterna-v2-8": {
+        "name": "G-C Placement",
+        "length": 12,
+        "methods": {
+          "SFT": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-1": {
+        "name": "Simple Hairpin",
+        "length": 16,
+        "methods": {
+          "SFT": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-23": {
+        "name": "Shortie 4",
+        "length": 17,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.0
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6666666666666666
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.0
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6666666666666666
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6666666666666666
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-26": {
+        "name": "stickshift",
+        "length": 26,
+        "methods": {
+          "SFT": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-15": {
+        "name": "Small and Easy 6",
+        "length": 30,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.4
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.5
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.42857142857142855
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.5
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-30": {
+        "name": "Corner bulge training",
+        "length": 31,
+        "methods": {
+          "SFT": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-41": {
+        "name": "Shortie 6",
+        "length": 35,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.23529411764705882
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6666666666666666
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.25
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.5333333333333333
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6153846153846154
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-3": {
+        "name": "Prion Pseudoknot - Difficulty Level 0",
+        "length": 36,
+        "methods": {
+          "SFT": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.7368421052631579
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-11": {
+        "name": "InfoRNA test 16",
+        "length": 36,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9629629629629629
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-66": {
+        "name": "Bug 38",
+        "length": 36,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.2222222222222222
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.26666666666666666
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.36363636363636365
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.47619047619047616
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.5333333333333333
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.75
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9
+          }
+        }
+      },
+      "eterna-v2-40": {
+        "name": "Tripod5",
+        "length": 38,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.96
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.38095238095238093
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-88": {
+        "name": "Zigzag Semicircle",
+        "length": 38,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8571428571428571
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.72
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8181818181818182
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          }
+        }
+      },
+      "eterna-v2-65": {
+        "name": "Branching Loop",
+        "length": 40,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9411764705882353
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9411764705882353
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9411764705882353
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.4
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9411764705882353
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9411764705882353
+          }
+        }
+      },
+      "eterna-v2-20": {
+        "name": "InfoRNA bulge test 9",
+        "length": 42,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8823529411764706
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8823529411764706
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-57": {
+        "name": "multilooping fun",
+        "length": 44,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.3333333333333333
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.3
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.2222222222222222
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.25
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.47619047619047616
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.4166666666666667
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9090909090909091
+          }
+        }
+      },
+      "eterna-v2-10": {
+        "name": "Frog Foot",
+        "length": 45,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.34782608695652173
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.5
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-33": {
+        "name": "Worm 1",
+        "length": 45,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8421052631578947
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.5714285714285714
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.631578947368421
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6956521739130435
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8571428571428571
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          }
+        }
+      },
+      "eterna-v2-47": {
+        "name": "Misfolded Aptamer",
+        "length": 50,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.3076923076923077
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6153846153846154
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.7619047619047619
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6956521739130435
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-62": {
+        "name": "Bug 18",
+        "length": 53,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.46153846153846156
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.0
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.15384615384615385
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.0
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.36363636363636365
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.75
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9333333333333333
+          }
+        }
+      },
+      "eterna-v2-67": {
+        "name": "Simple Single Bond",
+        "length": 55,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6153846153846154
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.0
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          }
+        }
+      },
+      "eterna-v2-27": {
+        "name": "U",
+        "length": 57,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8108108108108109
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.972972972972973
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.7027027027027027
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.972972972972973
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8421052631578947
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-25": {
+        "name": "The Minitsry",
+        "length": 62,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.35294117647058826
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.23076923076923078
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8888888888888888
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8275862068965517
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-44": {
+        "name": "[CloudBeta] An Arm and a Leg 1.0",
+        "length": 63,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.24
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.23076923076923078
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9166666666666666
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.896551724137931
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-45": {
+        "name": "[CloudBeta] 5 Adjacent Stack Multi-Branch Loop",
+        "length": 63,
+        "methods": {
+          "SFT": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.45454545454545453
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-13": {
+        "name": "square",
+        "length": 67,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9803921568627451
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": false,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.72
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-18": {
+        "name": "snoRNA SNORD64",
+        "length": 67,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8947368421052632
+          },
+          "RL seed 17": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "RL seed 29": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.6666666666666666
+          },
+          "heuristic8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "mutation128": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      },
+      "eterna-v2-59": {
+        "name": "hard Y",
+        "length": 68,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9361702127659575
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9787234042553191
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9787234042553191
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.92
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9787234042553191
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9583333333333334
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9787234042553191
+          }
+        }
+      },
+      "eterna-v2-61": {
+        "name": "Chicken feet",
+        "length": 69,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.34285714285714286
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.16666666666666666
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.27586206896551724
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.0
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.41379310344827586
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.25806451612903225
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9032258064516129
+          }
+        }
+      },
+      "eterna-v2-72": {
+        "name": "Loop next to a Multiloop",
+        "length": 73,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9767441860465116
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9767441860465116
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9767441860465116
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.8936170212765957
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9767441860465116
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9777777777777777
+          },
+          "rnainverse8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9767441860465116
+          }
+        }
+      },
+      "eterna-v2-75": {
+        "name": "Misfolded Aptamer 6",
+        "length": 75,
+        "methods": {
+          "SFT": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.7857142857142857
+          },
+          "RL seed 17": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          },
+          "RL seed 29": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          },
+          "random8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.3870967741935484
+          },
+          "heuristic8": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9523809523809523
+          },
+          "mutation128": {
+            "any_exact": false,
+            "first_exact": false,
+            "selected_f1": 0.9166666666666666
+          },
+          "rnainverse8": {
+            "any_exact": true,
+            "first_exact": true,
+            "selected_f1": 1.0
+          }
+        }
+      }
+    }
+  },
+  "sampling": {
+    "test_id": {
+      "targets": 256,
+      "prefix_success": {
+        "Untuned": {
+          "1": 0.0078125,
+          "2": 0.03125,
+          "4": 0.0546875,
+          "8": 0.07421875
+        },
+        "SFT": {
+          "1": 0.1171875,
+          "2": 0.1796875,
+          "4": 0.2734375,
+          "8": 0.359375
+        },
+        "RL seed 17": {
+          "1": 0.7265625,
+          "2": 0.828125,
+          "4": 0.91015625,
+          "8": 0.94921875
+        },
+        "RL seed 29": {
+          "1": 0.81640625,
+          "2": 0.8828125,
+          "4": 0.92578125,
+          "8": 0.96484375
+        },
+        "Random": {
+          "1": 0.0078125,
+          "2": 0.01953125,
+          "4": 0.0390625,
+          "8": 0.0703125
+        },
+        "GC stems / A loops": {
+          "1": 0.40625,
+          "2": 0.5703125,
+          "4": 0.7890625,
+          "8": 0.8671875
+        },
+        "RNAinverse": {
+          "1": 0.96875,
+          "2": 0.99609375,
+          "4": 0.99609375,
+          "8": 0.99609375
+        }
+      },
+      "rl_vs_heuristic_at_8": {
+        "RL seed 17": {
+          "both_solve": 218,
+          "rl_only": 25,
+          "heuristic_only": 4,
+          "neither": 9
+        },
+        "RL seed 29": {
+          "both_solve": 220,
+          "rl_only": 27,
+          "heuristic_only": 2,
+          "neither": 7
+        }
+      },
+      "composition_all_candidates": {
+        "Untuned": {
+          "paired_position_gc_fraction": 0.5774906776176609,
+          "unpaired_position_a_fraction": 0.2266248768997335
+        },
+        "SFT": {
+          "paired_position_gc_fraction": 0.5747793042877993,
+          "unpaired_position_a_fraction": 0.305342910067239
+        },
+        "RL seed 17": {
+          "paired_position_gc_fraction": 0.8243869524326823,
+          "unpaired_position_a_fraction": 0.763214861603165
+        },
+        "RL seed 29": {
+          "paired_position_gc_fraction": 0.8765064609994309,
+          "unpaired_position_a_fraction": 0.7809406908802566
+        },
+        "Random": {
+          "paired_position_gc_fraction": 0.49823849335495335,
+          "unpaired_position_a_fraction": 0.25086091398227267
+        },
+        "GC stems / A loops": {
+          "paired_position_gc_fraction": 0.7222029737594459,
+          "unpaired_position_a_fraction": 0.9253777524388038
+        },
+        "RNAinverse": {
+          "paired_position_gc_fraction": 0.7433224216231764,
+          "unpaired_position_a_fraction": 0.9122207231777242
+        }
+      }
+    },
+    "test_ood": {
+      "targets": 128,
+      "prefix_success": {
+        "Untuned": {
+          "1": 0,
+          "2": 0,
+          "4": 0,
+          "8": 0.0078125
+        },
+        "SFT": {
+          "1": 0.0234375,
+          "2": 0.03125,
+          "4": 0.0390625,
+          "8": 0.0546875
+        },
+        "RL seed 17": {
+          "1": 0.4921875,
+          "2": 0.6328125,
+          "4": 0.8125,
+          "8": 0.859375
+        },
+        "RL seed 29": {
+          "1": 0.546875,
+          "2": 0.7109375,
+          "4": 0.8046875,
+          "8": 0.8515625
+        },
+        "Random": {
+          "1": 0,
+          "2": 0,
+          "4": 0.0078125,
+          "8": 0.0078125
+        },
+        "GC stems / A loops": {
+          "1": 0.2578125,
+          "2": 0.390625,
+          "4": 0.5234375,
+          "8": 0.6796875
+        },
+        "RNAinverse": {
+          "1": 0.9453125,
+          "2": 1,
+          "4": 1,
+          "8": 1
+        }
+      },
+      "rl_vs_heuristic_at_8": {
+        "RL seed 17": {
+          "both_solve": 83,
+          "rl_only": 27,
+          "heuristic_only": 4,
+          "neither": 14
+        },
+        "RL seed 29": {
+          "both_solve": 79,
+          "rl_only": 30,
+          "heuristic_only": 8,
+          "neither": 11
+        }
+      },
+      "composition_all_candidates": {
+        "Untuned": {
+          "paired_position_gc_fraction": 0.5762866959658616,
+          "unpaired_position_a_fraction": 0.22563192098958323
+        },
+        "SFT": {
+          "paired_position_gc_fraction": 0.557595017429209,
+          "unpaired_position_a_fraction": 0.3056849569028256
+        },
+        "RL seed 17": {
+          "paired_position_gc_fraction": 0.7542047829621578,
+          "unpaired_position_a_fraction": 0.7557049773025224
+        },
+        "RL seed 29": {
+          "paired_position_gc_fraction": 0.7922530544396752,
+          "unpaired_position_a_fraction": 0.7841057996301011
+        },
+        "Random": {
+          "paired_position_gc_fraction": 0.49843049603238043,
+          "unpaired_position_a_fraction": 0.2516124173437092
+        },
+        "GC stems / A loops": {
+          "paired_position_gc_fraction": 0.7243066394074132,
+          "unpaired_position_a_fraction": 0.9252255205591655
+        },
+        "RNAinverse": {
+          "paired_position_gc_fraction": 0.7450077452917999,
+          "unpaired_position_a_fraction": 0.9057041083291869
+        }
+      }
+    }
+  }
+}

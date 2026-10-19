@@ -1,0 +1,17 @@
+split,method,targets,first_exact,any_exact
+test_id,Untuned,256,0.0078125,0.07421875
+test_id,SFT,256,0.1171875,0.359375
+test_id,RL seed 17,256,0.7265625,0.94921875
+test_id,RL seed 29,256,0.81640625,0.96484375
+test_id,random8,256,0.0078125,0.0703125
+test_id,heuristic8,256,0.40625,0.8671875
+test_id,mutation128,256,0.39453125,0.6875
+test_id,rnainverse8,256,0.96875,0.99609375
+test_ood,Untuned,128,0.0,0.0078125
+test_ood,SFT,128,0.0234375,0.0546875
+test_ood,RL seed 17,128,0.4921875,0.859375
+test_ood,RL seed 29,128,0.546875,0.8515625
+test_ood,random8,128,0.0,0.0078125
+test_ood,heuristic8,128,0.2578125,0.6796875
+test_ood,mutation128,128,0.1875,0.421875
+test_ood,rnainverse8,128,0.9453125,1.0
