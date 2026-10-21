@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>The price of compute, the price of power</title>
+      <link>https://aryasomu.com/writing/price-of-compute-and-power.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/price-of-compute-and-power.html</guid>
+      <pubDate>Wed, 21 Oct 2026 18:33:22 +0000</pubDate>
+      <description>A ten-year model of useful compute and delivered power, with Texas, Alberta, Québec, and PJM as case studies in location, flexibility, and the emerging market for compute.</description>
+    </item>
+    <item>
       <title>The promise of a green light</title>
       <link>https://aryasomu.com/writing/the-promise-of-a-green-light.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/the-promise-of-a-green-light.html</guid>
