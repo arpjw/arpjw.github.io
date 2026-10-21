@@ -233,6 +233,88 @@ main { margin-top: 1.5rem; }
 .lifespan:has(.lifespan__expectancy:focus-visible) + main { margin-top: 2.7rem; }
 .bio { display: grid; gap: 0.75rem; }
 .bio p { margin: 0; text-wrap: pretty; }
+.secret-phrase {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.1em;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  vertical-align: baseline;
+}
+.secret-phrase:focus-visible { outline: 1px solid var(--foreground); outline-offset: 3px; }
+.secret-phrase__veil {
+  position: relative;
+  display: block;
+  width: min(17.4em, calc(100vw - 3rem));
+  height: 0.9em;
+  overflow: hidden;
+  opacity: 0.72;
+  filter: blur(5px);
+  transform: skewX(-9deg);
+}
+.secret-phrase__veil::before,
+.secret-phrase__veil::after {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(107deg, var(--body) 0 0.14em, transparent 0.14em 0.22em, var(--faint) 0.22em 0.37em, transparent 0.37em 0.52em);
+  content: '';
+}
+.secret-phrase__veil::before { clip-path: polygon(0 22%, 8% 6%, 17% 31%, 26% 4%, 39% 20%, 53% 0, 68% 30%, 82% 9%, 100% 26%, 100% 75%, 88% 91%, 73% 68%, 62% 100%, 43% 74%, 30% 95%, 17% 70%, 4% 90%); }
+.secret-phrase__veil::after { opacity: 0.48; transform: translate(0.24em, 0.18em) scaleY(0.55); }
+.secret-phrase.is-unlocked { cursor: text; }
+.secret-dialog {
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18);
+}
+.secret-dialog::backdrop { background: rgba(0, 0, 0, 0.42); }
+.secret-dialog__form { display: grid; gap: 0.7rem; }
+.secret-dialog h2 { margin: 0 1.5rem 0.4rem 0; font-size: 1.1rem; font-weight: 400; }
+.secret-dialog label { color: var(--muted); font-family: var(--sans); font-size: 0.78rem; }
+.secret-dialog input {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  outline-color: var(--foreground);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+}
+.secret-dialog__error { min-height: 1em; margin: 0; color: #a23a33; font-family: var(--sans); font-size: 0.75rem; }
+html.dark .secret-dialog__error { color: #ff8f85; }
+.secret-dialog__submit {
+  justify-self: start;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--foreground);
+  border-radius: 0.25rem;
+  background: var(--foreground);
+  color: var(--background);
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+}
+.secret-dialog__close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.85rem;
+  padding: 0.2rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.secret-dialog__close:hover, .secret-dialog__close:focus-visible { color: var(--foreground); }
 .prose-link {
   color: var(--foreground);
   text-decoration: none;

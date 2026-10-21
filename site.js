@@ -301,3 +301,63 @@
     if (event.key === 'Escape' || event.key === 'Enter' || event.key === ' ') finish(false);
   });
 })();
+
+(function () {
+  var trigger = document.querySelector('[data-secret-phrase]');
+  var dialog = document.querySelector('[data-secret-dialog]');
+  if (!trigger || !dialog) return;
+
+  var form = dialog.querySelector('[data-secret-form]');
+  var input = dialog.querySelector('[data-secret-password]');
+  var error = dialog.querySelector('[data-secret-error]');
+  var close = dialog.querySelector('[data-secret-close]');
+  var salt = 'QWTAnXX3476XxPDucmZDqA==';
+  var iv = 'MJ516FI05PFotyra';
+  var ciphertext = 'OtTy9pLob+nPvN/ZAacqoSxW2L1RDB2yxOjqSF0fdB5zKRGcKFMvDOxAxUu1XHJmoF7IOtKK';
+
+  function bytes(base64) {
+    return Uint8Array.from(atob(base64), function (character) { return character.charCodeAt(0); });
+  }
+
+  trigger.addEventListener('click', function () {
+    if (!trigger.classList.contains('is-unlocked')) {
+      dialog.showModal();
+      input.focus();
+    }
+  });
+
+  close.addEventListener('click', function () { dialog.close(); });
+  dialog.addEventListener('close', function () {
+    form.reset();
+    error.textContent = '';
+  });
+
+  input.addEventListener('input', function () { error.textContent = ''; });
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    var submittedPassword = input.value;
+    input.value = '';
+
+    try {
+      var source = await crypto.subtle.importKey(
+        'raw', new TextEncoder().encode(submittedPassword), 'PBKDF2', false, ['deriveKey']
+      );
+      var key = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: bytes(salt), iterations: 150000, hash: 'SHA-256' },
+        source, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+      );
+      var plaintext = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: bytes(iv) }, key, bytes(ciphertext)
+      );
+      trigger.textContent = new TextDecoder().decode(plaintext);
+      trigger.classList.add('is-unlocked');
+      trigger.removeAttribute('aria-label');
+      dialog.close();
+      trigger.focus();
+    } catch (failure) {
+      error.textContent = 'Incorrect password.';
+      input.focus();
+    }
+  });
+})();
