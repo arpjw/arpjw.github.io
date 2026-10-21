@@ -269,12 +269,26 @@ main { margin-top: 1.5rem; }
   width: min(22rem, calc(100vw - 2rem));
   padding: 1.5rem;
   border: 1px solid var(--border);
-  border-radius: 0.35rem;
+  border-radius: 1.15rem;
   background: var(--background);
   color: var(--foreground);
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18);
 }
-.secret-dialog::backdrop { background: rgba(0, 0, 0, 0.42); }
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .secret-dialog {
+    border-color: rgba(255, 255, 255, 0.88);
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.76), rgba(246, 246, 246, 0.64));
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.19), inset 0 1px rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(26px) saturate(1.35);
+    backdrop-filter: blur(26px) saturate(1.35);
+  }
+  html.dark .secret-dialog {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(155deg, rgba(59, 59, 63, 0.76), rgba(21, 21, 24, 0.66));
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5), inset 0 1px rgba(255, 255, 255, 0.24);
+  }
+}
+.secret-dialog::backdrop { background: rgba(0, 0, 0, 0.3); }
 .secret-dialog__form { display: grid; gap: 0.7rem; }
 .secret-dialog h2 { margin: 0 1.5rem 0.4rem 0; font-size: 1.1rem; font-weight: 400; }
 .secret-dialog label { color: var(--muted); font-family: var(--sans); font-size: 0.78rem; }
@@ -288,6 +302,10 @@ main { margin-top: 1.5rem; }
   color: var(--foreground);
   font-family: var(--sans);
   font-size: 0.9rem;
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .secret-dialog input { background: rgba(255, 255, 255, 0.55); }
+  html.dark .secret-dialog input { background: rgba(255, 255, 255, 0.08); }
 }
 .secret-dialog__error { min-height: 1em; margin: 0; color: #a23a33; font-family: var(--sans); font-size: 0.75rem; }
 html.dark .secret-dialog__error { color: #ff8f85; }
@@ -359,12 +377,23 @@ html.dark .secret-dialog__error { color: #ff8f85; }
 .photo-gallery__controls {
   position: absolute;
   z-index: 1;
-  bottom: 0.5rem;
+  bottom: 0.65rem;
   left: 50%;
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  padding: 0.2rem 0.45rem;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  background: rgba(24, 24, 28, 0.58);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18), inset 0 1px rgba(255, 255, 255, 0.16);
   translate: -50% 0;
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .photo-gallery__controls {
+    -webkit-backdrop-filter: blur(14px) saturate(1.35);
+    backdrop-filter: blur(14px) saturate(1.35);
+  }
 }
 .photo-gallery__arrow {
   display: grid;
