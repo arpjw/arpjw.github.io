@@ -1,7 +1,6 @@
 (function () {
   var toggle = document.querySelector('.theme-toggle');
   var splash = document.querySelector('.splash');
-  var startGalleryAutoplay;
 
   function setThemeButton() {
     var dark = document.documentElement.classList.contains('dark');
@@ -128,49 +127,8 @@
     var galleryStatus = gallery.querySelector('[data-gallery-status]');
     var previousButton = gallery.querySelector('.photo-gallery__arrow--previous');
     var nextButton = gallery.querySelector('.photo-gallery__arrow--next');
-    var caption = gallery.querySelector('figcaption');
-    var dots = gallery.querySelector('.photo-gallery__dots');
-    var dotButtons = photos.map(function (photo, index) {
-      var dot = document.createElement('button');
-      dot.className = 'photo-gallery__dot';
-      dot.type = 'button';
-      dot.setAttribute('aria-label', 'Show photo ' + (index + 1) + ' of ' + photos.length);
-      dot.addEventListener('click', function () { pauseAutoplay(); showPhoto(index); });
-      dots.appendChild(dot);
-      return dot;
-    });
     var galleryIndex = 0;
-    var visibleDotCount = Math.min(7, photos.length);
     var touchStartX = 0;
-    var autoplayTimer = 0;
-    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var autoplayPaused = reducedMotion.matches;
-
-    function updateCaptionAnnouncement() {
-      caption.setAttribute('aria-live', autoplayPaused ? 'polite' : 'off');
-    }
-
-    function stopAutoplay() {
-      window.clearTimeout(autoplayTimer);
-      autoplayTimer = 0;
-    }
-
-    function scheduleAutoplay() {
-      stopAutoplay();
-      if (autoplayPaused || document.hidden) return;
-      autoplayTimer = window.setTimeout(function () {
-        showPhoto(galleryIndex + 1);
-        scheduleAutoplay();
-      }, 3500);
-    }
-
-    function pauseAutoplay() {
-      autoplayPaused = true;
-      stopAutoplay();
-      updateCaptionAnnouncement();
-    }
-
-    startGalleryAutoplay = scheduleAutoplay;
 
     function showPhoto(index) {
       galleryIndex = (index + photos.length) % photos.length;
@@ -179,39 +137,21 @@
       galleryImage.alt = photo.alt;
       galleryCaption.textContent = photo.caption;
       galleryStatus.textContent = 'Photo ' + (galleryIndex + 1) + ' of ' + photos.length;
-      var firstVisibleDot = Math.floor(galleryIndex / visibleDotCount) * visibleDotCount;
-      dotButtons.forEach(function (dot, index) {
-        dot.hidden = index < firstVisibleDot || index >= firstVisibleDot + visibleDotCount;
-        if (index === galleryIndex) dot.setAttribute('aria-current', 'true');
-        else dot.removeAttribute('aria-current');
-      });
-
       var nextPhoto = photos[(galleryIndex + 1) % photos.length];
       var preload = new Image();
       preload.src = nextPhoto.src;
     }
 
-    previousButton.addEventListener('click', function () { pauseAutoplay(); showPhoto(galleryIndex - 1); });
-    nextButton.addEventListener('click', function () { pauseAutoplay(); showPhoto(galleryIndex + 1); });
-    galleryImage.addEventListener('click', pauseAutoplay);
-    gallery.addEventListener('focusin', pauseAutoplay);
-    document.addEventListener('visibilitychange', scheduleAutoplay);
-    window.addEventListener('pagehide', stopAutoplay, { once: true });
-    reducedMotion.addEventListener('change', function (event) {
-      if (event.matches) pauseAutoplay();
-    });
+    previousButton.addEventListener('click', function () { showPhoto(galleryIndex - 1); });
+    nextButton.addEventListener('click', function () { showPhoto(galleryIndex + 1); });
     gallery.addEventListener('keydown', function (event) {
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
-        pauseAutoplay();
         showPhoto(galleryIndex - 1);
-        if (event.target.classList.contains('photo-gallery__dot')) dotButtons[galleryIndex].focus();
       }
       if (event.key === 'ArrowRight') {
         event.preventDefault();
-        pauseAutoplay();
         showPhoto(galleryIndex + 1);
-        if (event.target.classList.contains('photo-gallery__dot')) dotButtons[galleryIndex].focus();
       }
     });
     gallery.addEventListener('touchstart', function (event) {
@@ -220,12 +160,9 @@
     gallery.addEventListener('touchend', function (event) {
       var distance = event.changedTouches[0].clientX - touchStartX;
       if (Math.abs(distance) < 45) return;
-      pauseAutoplay();
       showPhoto(galleryIndex + (distance < 0 ? 1 : -1));
     }, { passive: true });
     showPhoto(Math.floor(Math.random() * photos.length));
-    updateCaptionAnnouncement();
-    if (!splash) scheduleAutoplay();
   }
 
   if (!splash) return;
@@ -264,7 +201,6 @@
       document.body.classList.add('is-ready');
       window.setTimeout(function () { splash.remove(); }, 600);
     }
-    if (startGalleryAutoplay) startGalleryAutoplay();
   }
 
   function frame(now) {
