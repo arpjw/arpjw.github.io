@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Introducing TrainKernel</title>
+      <link>https://aryasomu.com/writing/introducing-trainkernel.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/introducing-trainkernel.html</guid>
+      <pubDate>Mon, 26 Oct 2026 23:48:17 +0000</pubDate>
+      <description>An experimental compiler turns a supported PyTorch training step into one cooperative CUDA megakernel. A detailed look at its design, A100 and H100 benchmarks, use cases, and limits.</description>
+    </item>
+    <item>
       <title>The price of compute, the price of power</title>
       <link>https://aryasomu.com/writing/price-of-compute-and-power.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/price-of-compute-and-power.html</guid>

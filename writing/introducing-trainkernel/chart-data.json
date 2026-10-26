@@ -1,0 +1,28 @@
+{
+  "units": "microseconds per complete forward, loss, backward, and SGD update step",
+  "held_out": [
+    {"gpu": "A100 SXM4 80 GB", "workload": "tiny-online", "shape": [4, 32, 64, 16], "trainkernel_us": 15.28, "inductor_us": 22.85, "ratio": 0.669},
+    {"gpu": "A100 SXM4 80 GB", "workload": "online", "shape": [1, 128, 128, 16], "trainkernel_us": 20.32, "inductor_us": 24.24, "ratio": 0.838},
+    {"gpu": "A100 SXM4 80 GB", "workload": "small", "shape": [32, 128, 256, 64], "trainkernel_us": 66.04, "inductor_us": 22.92, "ratio": 2.894},
+    {"gpu": "A100 SXM4 80 GB", "workload": "medium", "shape": [128, 512, 1024, 256], "trainkernel_us": 255.32, "inductor_us": 42.19, "ratio": 6.052},
+    {"gpu": "H100 SXM 80 GB", "workload": "tiny-online", "shape": [4, 32, 64, 16], "trainkernel_us": 12.80, "inductor_us": 15.58, "ratio": 0.824},
+    {"gpu": "H100 SXM 80 GB", "workload": "online", "shape": [1, 128, 128, 16], "trainkernel_us": 13.41, "inductor_us": 21.76, "ratio": 0.616},
+    {"gpu": "H100 SXM 80 GB", "workload": "small", "shape": [32, 128, 256, 64], "trainkernel_us": 53.86, "inductor_us": 18.84, "ratio": 2.859},
+    {"gpu": "H100 SXM 80 GB", "workload": "medium", "shape": [128, 512, 1024, 256], "trainkernel_us": 191.09, "inductor_us": 30.58, "ratio": 6.257}
+  ],
+  "h100_calibration": [
+    {"workload": "small", "schedule": "selected WMMA", "latency_us": 56.53},
+    {"workload": "small", "schedule": "WGMMA shared group 1", "latency_us": 93.59},
+    {"workload": "small", "schedule": "WGMMA shared group 4", "latency_us": 92.87},
+    {"workload": "small", "schedule": "WGMMA register-source A", "latency_us": 104.85},
+    {"workload": "medium", "schedule": "selected WMMA", "latency_us": 190.88},
+    {"workload": "medium", "schedule": "WGMMA shared group 1", "latency_us": 344.73},
+    {"workload": "medium", "schedule": "WGMMA shared group 4", "latency_us": 355.29},
+    {"workload": "medium", "schedule": "WGMMA register-source A", "latency_us": 389.76}
+  ],
+  "sources": {
+    "a100": "https://github.com/arpjw/trainkernel/blob/main/results/a100-optimization/README.md",
+    "h100": "https://github.com/arpjw/trainkernel/blob/main/results/h100-optimization/README.md",
+    "h100_calibration": "https://github.com/arpjw/trainkernel/blob/main/results/h100-calibration/README.md"
+  }
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=writing-volumes-v1">
+  <link rel="canonical" href="https://aryasomu.com/writing/introducing-trainkernel.html">
+  <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
+  <title>Introducing TrainKernel · Arya Somu</title>
+  <meta name="description" content="A detailed look at TrainKernel, an experimental compiler that turns a supported PyTorch training step into one cooperative CUDA megakernel, with A100 and H100 benchmarks.">
+  <meta property="og:title" content="Introducing TrainKernel · Arya Somu">
+  <meta property="og:description" content="One training step, one generated CUDA kernel, and an honest comparison with PyTorch Inductor on A100 and H100.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/introducing-trainkernel.html">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <style>
+    .writing-page { --article-accent: #315f91; }
+    html.dark .writing-page { --article-accent: #9fc4ec; }
+    .writing-post__body code { padding: 0.08em 0.24em; border: 1px solid var(--border); border-radius: 0.2rem; font: 0.82em var(--mono); }
+    .writing-post__body pre { margin: 1.7rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: 0.35rem; overflow-x: auto; background: color-mix(in srgb, var(--background) 94%, var(--foreground)); font: 0.76rem/1.65 var(--mono); }
+    .writing-post__body pre code { padding: 0; border: 0; font: inherit; }
+    .tk-system { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.55rem; margin: 2rem 0 2.5rem; font-family: var(--sans); }
+    .tk-system div { position: relative; min-height: 6.25rem; padding: 0.8rem 0.75rem; border: 1px solid var(--border); border-top: 2px solid var(--article-accent); border-radius: 0.3rem; }
+    .tk-system div:not(:last-child)::after { position: absolute; top: 50%; right: -0.48rem; z-index: 1; color: var(--faint); content: "›"; transform: translateY(-52%); }
+    .tk-system strong { display: block; margin-bottom: 0.35rem; color: var(--foreground); font-size: 0.78rem; font-weight: 600; }
+    .tk-system span { display: block; color: var(--muted); font-size: 0.7rem; line-height: 1.4; }
+    .tk-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin: 2rem 0; font-family: var(--sans); }
+    .tk-stat { padding: 1rem; border-block: 1px solid var(--border); }
+    .tk-stat strong { display: block; color: var(--article-accent); font-size: 1.6rem; font-weight: 500; letter-spacing: -0.03em; }
+    .tk-stat span { display: block; margin-top: 0.3rem; color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
+    .tk-table-wrap { max-width: 100%; margin: 1.8rem 0 2rem; overflow-x: auto; }
+    .tk-table { width: 100%; min-width: 39rem; border-collapse: collapse; font-family: var(--sans); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+    .tk-table caption { margin-bottom: 0.65rem; color: var(--muted); text-align: left; font-size: 0.72rem; }
+    .tk-table th, .tk-table td { padding: 0.65rem 0.55rem; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
+    .tk-table th:first-child, .tk-table td:first-child, .tk-table th:nth-child(2), .tk-table td:nth-child(2) { text-align: left; }
+    .tk-table th { color: var(--muted); font-weight: 500; }
+    .tk-table .tk-win { color: var(--article-accent); font-weight: 600; }
+    .tk-figure { margin: 2.6rem 0; padding: 1.15rem 0 0; border-top: 1px solid var(--border); font-family: var(--sans); }
+    .tk-figure h3 { margin: 0 0 0.35rem; font-size: 0.92rem; font-weight: 600; }
+    .tk-figure__sub { margin: 0 0 1.15rem !important; color: var(--muted); font-size: 0.72rem; line-height: 1.45 !important; }
+    .tk-ratio-axis { display: grid; grid-template-columns: 4.7rem 1fr 3.1rem; align-items: end; color: var(--faint); font-size: 0.62rem; }
+    .tk-ratio-axis div { position: relative; height: 1.6rem; }
+    .tk-ratio-axis span { position: absolute; bottom: 0; transform: translateX(-50%); }
+    .tk-ratio-axis span:nth-child(1) { left: 0%; transform: none; }
+    .tk-ratio-axis span:nth-child(2) { left: 25%; }
+    .tk-ratio-axis span:nth-child(3) { left: 50%; }
+    .tk-ratio-axis span:nth-child(4) { left: 75%; }
+    .tk-ratio-axis span:nth-child(5) { right: 0; transform: none; }
+    .tk-ratio-group { margin: 0.85rem 0 1.25rem; }
+    .tk-ratio-group > strong { display: block; margin-bottom: 0.5rem; color: var(--foreground); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .tk-ratio-row { display: grid; grid-template-columns: 4.7rem 1fr 3.1rem; gap: 0.55rem; align-items: center; margin: 0.55rem 0; }
+    .tk-ratio-row > span, .tk-ratio-row > b { font-size: 0.68rem; }
+    .tk-ratio-row > span { color: var(--muted); }
+    .tk-ratio-row > b { color: var(--foreground); font-weight: 500; text-align: right; }
+    .tk-ratio-track { position: relative; height: 0.5rem; border-radius: 999px; background: color-mix(in srgb, var(--foreground) 8%, transparent); }
+    .tk-ratio-track::before { position: absolute; top: -0.25rem; bottom: -0.25rem; left: 25%; width: 1px; background: var(--foreground); content: ""; opacity: 0.45; }
+    .tk-ratio-track i { position: absolute; top: 50%; left: var(--x); width: 0.72rem; height: 0.72rem; border: 2px solid var(--background); border-radius: 50%; background: var(--dot, var(--article-accent)); box-shadow: 0 0 0 1px var(--dot, var(--article-accent)); transform: translate(-50%, -50%); }
+    .tk-ratio-row.loss { --dot: #9a594b; }
+    html.dark .tk-ratio-row.loss { --dot: #d79584; }
+    .tk-bars { display: grid; gap: 1rem; margin-top: 1.25rem; }
+    .tk-bars__group > strong { display: block; margin-bottom: 0.55rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .tk-bar-row { display: grid; grid-template-columns: 6.9rem 1fr 4.4rem; gap: 0.55rem; align-items: center; margin: 0.45rem 0; }
+    .tk-bar-row span, .tk-bar-row b { font-size: 0.67rem; }
+    .tk-bar-row span { color: var(--muted); }
+    .tk-bar-row b { font-weight: 500; text-align: right; }
+    .tk-bar-track { height: 0.62rem; background: color-mix(in srgb, var(--foreground) 8%, transparent); }
+    .tk-bar-track i { display: block; width: var(--w); height: 100%; background: #9a594b; }
+    html.dark .tk-bar-track i { background: #d79584; }
+    .tk-bar-row.selected .tk-bar-track i { background: var(--article-accent); }
+    .tk-callout { margin: 2.2rem 0; padding: 1rem 1.1rem; border: 1px solid var(--border); border-left: 3px solid var(--article-accent); font-family: var(--sans); }
+    .tk-callout strong { display: block; margin-bottom: 0.35rem; font-size: 0.8rem; }
+    .tk-callout p { margin: 0; color: var(--muted); font-size: 0.76rem; line-height: 1.55; }
+    .tk-resource-links { margin-top: 2.5rem !important; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-family: var(--sans); font-size: 0.8rem; }
+    @media (max-width: 700px) {
+      .tk-system { grid-template-columns: 1fr; }
+      .tk-system div { min-height: 0; }
+      .tk-system div:not(:last-child)::after { top: auto; right: 50%; bottom: -0.61rem; transform: translateX(50%) rotate(90deg); }
+      .tk-stats { grid-template-columns: 1fr; }
+      .tk-stat { padding-inline: 0; }
+    }
+    @media (max-width: 430px) {
+      .tk-ratio-axis, .tk-ratio-row { grid-template-columns: 3.8rem 1fr 2.8rem; }
+      .tk-bar-row { grid-template-columns: 5.8rem 1fr 3.8rem; }
+    }
+  </style>
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
+</head>
+<body class="writing-page writing-article-page">
+  <div class="site writing-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="../math/">Math</a>
+        <a href="./" aria-current="page">Writing</a>
+        <a href="https://curius.app/arya-somu" target="_blank" rel="noopener noreferrer">Reading</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="writing-article-main" id="top">
+      <article class="writing-post">
+        <header class="writing-post__header">
+          <h1>Introducing TrainKernel</h1>
+          <p class="writing-post__meta">Arya Somu <span aria-hidden="true">·</span> Systems<br><span class="writing-post__volume">Volume XI</span></p>
+        </header>
+        <div class="writing-post__content">
+          <nav class="writing-toc" aria-label="On this page">
+            <p>On this page</p>
+            <ul>
+              <li><a href="#introduction">The launch is the workload</a></li>
+              <li><a href="#one-kernel">One training step, one kernel</a></li>
+              <li><a href="#compiler">Inside the compiler</a></li>
+              <li><a href="#benchmarks">Benchmarks</a></li>
+              <li><a href="#hopper">The H100 experiment</a></li>
+              <li><a href="#use-cases">Where it could be useful</a></li>
+              <li><a href="#limits">Where it is not useful</a></li>
+              <li><a href="#conclusion">What I learned</a></li>
+            </ul>
+          </nav>
+          <div class="writing-post__body">
+            <details class="writing-toc-mobile">
+              <summary>In this article</summary>
+              <nav aria-label="On this page"><ul>
+                <li><a href="#introduction">The launch is the workload</a></li>
+                <li><a href="#one-kernel">One training step, one kernel</a></li>
+                <li><a href="#compiler">Inside the compiler</a></li>
+                <li><a href="#benchmarks">Benchmarks</a></li>
+                <li><a href="#hopper">The H100 experiment</a></li>
+                <li><a href="#use-cases">Where it could be useful</a></li>
+                <li><a href="#limits">Where it is not useful</a></li>
+                <li><a href="#conclusion">What I learned</a></li>
+              </ul></nav>
+            </details>
+
+            <p class="writing-post__lead" id="introduction">TrainKernel is an experimental compiler that turns a supported PyTorch training step into one generated CUDA kernel. On tiny online workloads, that kernel can beat PyTorch Inductor. On larger matrix multiplications, it loses badly. Both halves of that result explain what a training megakernel is for.</p>
+
+            <p>A normal training step looks simple in Python. Run a forward pass. Measure a loss. Differentiate it. Update the parameters. On a GPU, that expression becomes a sequence of kernel launches, temporary tensors, library calls, and synchronization points. For a large model, the useful arithmetic dominates. For a tiny model or batch of one, the machinery around the arithmetic can become a meaningful fraction of the step.</p>
+
+            <p>PyTorch already attacks this problem. <code>torch.compile</code> captures Python programs and uses TorchInductor as its default optimizing backend. Its low-overhead modes can also use CUDA Graphs, which remove repeated host launch work.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-pytorch" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-pytorch">PyTorch, <a href="https://docs.pytorch.org/docs/stable/generated/torch.compile">torch.compile documentation</a> and <a href="https://docs.pytorch.org/docs/main/user_guide/torch_compiler/torch.compiler.html">compiler overview</a>. TrainKernel compares against Inductor with CUDA Graph capture rather than an uncompiled Python loop.</span></span></p>
+
+            <p>TrainKernel asks a narrower question: if the complete training step is small, static, functional, and repeated many times, can the forward pass, loss, backward pass, and optimizer update share one persistent device program? The point is not to replace PyTorch. It is to find the boundary where eliminating the remaining device-side boundaries is worth giving up a general compiler's mature kernels.</p>
+
+            <blockquote><p>When the model is small enough, launching the work can matter almost as much as doing the work.</p></blockquote>
+
+            <h2 id="one-kernel">One training step, one kernel<a class="heading-anchor" href="#one-kernel" aria-label="Link to One training step, one kernel">#</a></h2>
+
+            <p>The public interface is deliberately ordinary. A training function receives detached state and data, computes its own gradients with <code>torch.func.grad_and_value</code>, and returns the loss, gradients, and updated state. TrainKernel captures that function once for fixed shapes, strides, devices, and dtypes.</p>
+
+<pre><code>import torch
+import trainkernel
+
+def train_step(weights, x, target):
+    def loss(w):
+        prediction = torch.relu(x @ w)
+        return ((prediction - target) ** 2).mean()
+
+    gradients, value = torch.func.grad_and_value(loss)(weights)
+    return value, gradients, weights - 1e-3 * gradients
+
+compiled = trainkernel.compile_training(train_step, (weights, x, target))
+loss, gradients, weights = compiled(weights, x, target)</code></pre>
+
+            <p>The generated program is not a long list of CUDA launches. It is one cooperative kernel whose resident blocks execute the graph in topological order. Grid-wide barriers separate stages that have real dependencies. Pointwise operations can be inlined into their consumers, temporary buffers can be reused after their final read, and safe last-use parameter updates can commit directly instead of passing through another staging buffer.</p>
+
+            <div class="tk-system" role="img" aria-label="TrainKernel pipeline: capture a static PyTorch step, lower it to a small typed intermediate representation, plan fusion storage and state commits, generate architecture-specific CUDA, then capture repeated execution in a CUDA Graph.">
+              <div><strong>1 · Capture</strong><span>Functional PyTorch training step with fixed tensor metadata</span></div>
+              <div><strong>2 · Lower</strong><span>Typed SSA graph with shapes, dtypes, views, and aliases</span></div>
+              <div><strong>3 · Plan</strong><span>Fusion, workspace reuse, barriers, and state commits</span></div>
+              <div><strong>4 · Generate</strong><span>SIMT, WMMA, or opt-in SM90a CUDA source</span></div>
+              <div><strong>5 · Replay</strong><span>One stateful kernel launch inside a captured CUDA Graph</span></div>
+            </div>
+
+            <p>The grid-wide synchronization is what lets later parts of the same kernel consume values produced by earlier parts. CUDA only permits this kind of whole-grid barrier under a cooperative launch, where the runtime can guarantee that the participating blocks are resident together.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-cooperative" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-cooperative">NVIDIA, <a href="https://docs.nvidia.com/cuda/cuda-programming-guide/04-special-topics/cooperative-groups.html">CUDA Cooperative Groups</a>. Whole-grid synchronization requires <code>cudaLaunchCooperativeKernel</code>; TrainKernel also checks device support and clamps its grid to measured occupancy.</span></span></p>
+
+            <p>This architecture creates a trade. It is excellent at removing boundaries. It is much less free to assign every matrix multiplication a separate launch geometry, deep pipeline, or library implementation. The same resident grid that makes a whole step possible also limits how much parallel work a large matrix multiply can expose.</p>
+
+            <h2 id="compiler">Inside the compiler<a class="heading-anchor" href="#compiler" aria-label="Link to Inside the compiler">#</a></h2>
+
+            <p>Capture begins with functionalization and fake-tensor tracing. Instead of executing the example update, TrainKernel obtains an ATen graph and a structured description of the returned loss, gradients, and new state. Unsupported mutation, tensor constants hidden in closures, cross-device operations, unsupported dtypes, and dynamic shapes fail at the boundary. There is no silent eager fallback.</p>
+
+            <p>The lowered intermediate representation is intentionally small. Every tensor value carries its shape, dtype, root storage, offset, and strides. Views remain aliases when possible. Materialized values receive workspace storage, and a liveness pass lets later values reuse regions whose final reader has executed. The compiler also separates direct updates from transactional updates. A parameter can be overwritten in place only after TrainKernel proves that no later operation needs the old value.</p>
+
+            <p>Code generation has three main arithmetic paths. FP32 matrix products use a tiled SIMT implementation to preserve the expected accuracy. BF16 and FP16 products use WMMA tensor-core fragments. Row-shaped products can take a split-K GEMV path. Around them, the compiler emits reductions, broadcast arithmetic, ReLU and its backward, scalar powers, casts, fills, and supported storage views. The complete implementation and design notes are public.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-code" aria-label="Citation 3">3</a><span class="writing-citation__note" id="cite-code">Arya Somu, <a href="https://github.com/arpjw/trainkernel">TrainKernel source repository</a> and <a href="https://github.com/arpjw/trainkernel/blob/main/docs/design.md">compiler design</a>, version 0.2.0 (2026), Apache 2.0.</span></span></p>
+
+            <div class="tk-stats" aria-label="TrainKernel release validation summary">
+              <div class="tk-stat"><strong>1 kernel</strong><span>for each complete validated training step</span></div>
+              <div class="tk-stat"><strong>116 + 133</strong><span>GPU tests in the independent A100 and complete H100 suites</span></div>
+              <div class="tk-stat"><strong>3 precisions</strong><span>FP32, BF16, and FP16 in the supported static subset</span></div>
+            </div>
+
+            <h2 id="benchmarks">Benchmarks: complete steps, not isolated operators<a class="heading-anchor" href="#benchmarks" aria-label="Link to Benchmarks: complete steps, not isolated operators">#</a></h2>
+
+            <p>The benchmark is a two-layer ReLU MLP trained with FP32 master weights, BF16 forward and backward matrix compute, FP32 loss, and FP32 SGD updates. The four shapes move from a batch-four tiny MLP to a batch-128 medium MLP. Every timed method performs the complete forward, loss, backward, and update step.</p>
+
+            <p>Each method is captured as a stateful 20-step CUDA Graph over four fixed GPU-resident batches. Compilation, capture, reset, warmup, and setup are excluded from the event timing. Every seed retains 30 paired samples, a 100-step numerical trajectory, a 20-step replay check, generated-source hashes, and baseline failures. The reported number is the median of three held-out seed medians. Inductor was allowed multiple declared configurations, and the table compares TrainKernel with the fastest measured one. This is intentionally a hard baseline, not eager PyTorch dressed up as a compiler comparison.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-method" aria-label="Citation 4">4</a><span class="writing-citation__note" id="cite-method">TrainKernel, <a href="https://github.com/arpjw/trainkernel/blob/main/docs/a100-methodology.md">A100 benchmark methodology</a>, <a href="https://github.com/arpjw/trainkernel/blob/main/docs/h100-methodology.md">H100 methodology</a>, and the raw held-out JSON files linked from each result report.</span></span></p>
+
+            <div class="tk-table-wrap">
+              <table class="tk-table">
+                <caption>Median microseconds per complete training step. Lower is better.</caption>
+                <thead><tr><th>GPU</th><th>Workload (B/I/H/O)</th><th>TrainKernel</th><th>Inductor</th><th>TK / Inductor</th><th>Verdict</th></tr></thead>
+                <tbody>
+                  <tr><td>A100</td><td>tiny · 4/32/64/16</td><td>15.28</td><td>22.85</td><td class="tk-win">0.669</td><td class="tk-win">1.49× faster</td></tr>
+                  <tr><td>A100</td><td>online · 1/128/128/16</td><td>20.32</td><td>24.24</td><td class="tk-win">0.838</td><td class="tk-win">1.19× faster</td></tr>
+                  <tr><td>A100</td><td>small · 32/128/256/64</td><td>66.04</td><td>22.92</td><td>2.894</td><td>2.89× slower</td></tr>
+                  <tr><td>A100</td><td>medium · 128/512/1024/256</td><td>255.32</td><td>42.19</td><td>6.052</td><td>6.05× slower</td></tr>
+                  <tr><td>H100</td><td>tiny · 4/32/64/16</td><td>12.80</td><td>15.58</td><td class="tk-win">0.824</td><td class="tk-win">1.21× faster</td></tr>
+                  <tr><td>H100</td><td>online · 1/128/128/16</td><td>13.41</td><td>21.76</td><td class="tk-win">0.616</td><td class="tk-win">1.62× faster</td></tr>
+                  <tr><td>H100</td><td>small · 32/128/256/64</td><td>53.86</td><td>18.84</td><td>2.859</td><td>2.86× slower</td></tr>
+                  <tr><td>H100</td><td>medium · 128/512/1024/256</td><td>191.09</td><td>30.58</td><td>6.257</td><td>6.26× slower</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <figure class="tk-figure">
+              <h3>Relative latency across held-out workloads</h3>
+              <p class="tk-figure__sub">TrainKernel latency divided by the fastest measured Inductor latency. The scale is logarithmic; the vertical line at 1× is parity. Points to the left win.</p>
+              <div class="tk-ratio-axis" aria-hidden="true"><span></span><div><span>0.5×</span><span>1×</span><span>2×</span><span>4×</span><span>8×</span></div><span></span></div>
+              <div class="tk-ratio-group">
+                <strong>A100 SXM4 80 GB</strong>
+                <div class="tk-ratio-row"><span>tiny</span><div class="tk-ratio-track"><i style="--x: 10.50%"></i></div><b>0.67×</b></div>
+                <div class="tk-ratio-row"><span>online</span><div class="tk-ratio-track"><i style="--x: 18.63%"></i></div><b>0.84×</b></div>
+                <div class="tk-ratio-row loss"><span>small</span><div class="tk-ratio-track"><i style="--x: 63.33%"></i></div><b>2.89×</b></div>
+                <div class="tk-ratio-row loss"><span>medium</span><div class="tk-ratio-track"><i style="--x: 89.94%"></i></div><b>6.05×</b></div>
+              </div>
+              <div class="tk-ratio-group">
+                <strong>H100 SXM 80 GB</strong>
+                <div class="tk-ratio-row"><span>tiny</span><div class="tk-ratio-track"><i style="--x: 18.02%"></i></div><b>0.82×</b></div>
+                <div class="tk-ratio-row"><span>online</span><div class="tk-ratio-track"><i style="--x: 7.53%"></i></div><b>0.62×</b></div>
+                <div class="tk-ratio-row loss"><span>small</span><div class="tk-ratio-track"><i style="--x: 62.89%"></i></div><b>2.86×</b></div>
+                <div class="tk-ratio-row loss"><span>medium</span><div class="tk-ratio-track"><i style="--x: 91.14%"></i></div><b>6.26×</b></div>
+              </div>
+              <figcaption>The result is a crossover, not a universal speedup. TrainKernel wins where launch and intermediate-stage overhead matter most. Inductor wins once specialized matrix multiplication dominates. Source: <a href="https://github.com/arpjw/trainkernel/blob/main/results/a100-optimization/README.md">A100 report</a> and <a href="https://github.com/arpjw/trainkernel/blob/main/results/h100-optimization/README.md">H100 report</a>.</figcaption>
+            </figure>
+
+            <p>An independent one-hot least-squares classification head gave the same directional result. On A100, TrainKernel measured 13.07 microseconds against 18.63 for the fastest measured Inductor configuration, a 1.43× win. On H100 it measured 12.77 against 15.65, a 1.22× win. The workload is useful because it resembles a small online head rather than another seed of the same MLP shape.</p>
+
+            <p>The cost appears before the first fast step. The independent A100 classification run took 53.62 seconds to compile and capture from a cold cache. At the measured steady-state latency difference, the report estimated that about 7.82 million updates would be required to amortize that setup. TrainKernel is therefore plausible for a long-lived repeated loop, not for a command that runs for five seconds and exits.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-a100" aria-label="Citation 5">5</a><span class="writing-citation__note" id="cite-a100">TrainKernel, <a href="https://github.com/arpjw/trainkernel/blob/main/results/release-validation/README.md">independent A100 release validation</a>. The report preserves three seeds, correctness failures, raw samples, source hashes, and the setup-amortization calculation.</span></span></p>
+
+            <div class="tk-callout">
+              <strong>The honest benchmark conclusion</strong>
+              <p>TrainKernel is compelling for a narrow launch-bound regime. It is not competitive for the small and medium GEMM-heavy shapes tested here. A useful dispatcher should choose between a megakernel and Inductor instead of pretending one schedule fits both.</p>
+            </div>
+
+            <h2 id="hopper">The H100 experiment: a correct kernel can still be the wrong kernel<a class="heading-anchor" href="#hopper" aria-label="Link to The H100 experiment">#</a></h2>
+
+            <p>The first H100 result used the same WMMA-oriented backend selected on A100. A launch calibration improved the medium workload from 209.03 to 191.09 microseconds, about 8.6%, but it did not change the larger conclusion. I then added an opt-in SM90a path using Hopper's asynchronous warpgroup matrix multiply instructions, or WGMMA.</p>
+
+            <p>WGMMA is an architectural temptation. A warpgroup can issue asynchronous matrix multiply-accumulate work and later commit and wait on groups of operations. In an isolated 64×16×64 probe, a register-source variant was about 6% faster than the shared-source version. That looked promising. In the complete training step, it lost.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-wgmma" aria-label="Citation 6">6</a><span class="writing-citation__note" id="cite-wgmma">NVIDIA, <a href="https://docs.nvidia.com/cuda/parallel-thread-execution/#asynchronous-warpgroup-level-matrix-instructions">PTX asynchronous warpgroup matrix instructions</a>; TrainKernel, <a href="https://github.com/arpjw/trainkernel/blob/main/results/h100-calibration/README.md">H100 calibration evidence</a>.</span></span></p>
+
+            <figure class="tk-figure">
+              <h3>H100 calibration: WMMA remained faster</h3>
+              <p class="tk-figure__sub">Microseconds per complete step on the fixed calibration seed. Shorter is better. These calibration measurements are separate from the held-out table above.</p>
+              <div class="tk-bars" role="img" aria-label="On the H100 calibration seed, small workload latency was 56.53 microseconds for selected WMMA, 93.59 for WGMMA group one, 92.87 for WGMMA group four, and 104.85 for register-source WGMMA. Medium latency was 190.88, 344.73, 355.29, and 389.76 microseconds respectively.">
+                <div class="tk-bars__group"><strong>Small workload</strong>
+                  <div class="tk-bar-row selected"><span>WMMA</span><div class="tk-bar-track"><i style="--w: 14.13%"></i></div><b>56.53 μs</b></div>
+                  <div class="tk-bar-row"><span>WGMMA g1</span><div class="tk-bar-track"><i style="--w: 23.40%"></i></div><b>93.59 μs</b></div>
+                  <div class="tk-bar-row"><span>WGMMA g4</span><div class="tk-bar-track"><i style="--w: 23.22%"></i></div><b>92.87 μs</b></div>
+                  <div class="tk-bar-row"><span>WGMMA reg A</span><div class="tk-bar-track"><i style="--w: 26.21%"></i></div><b>104.85 μs</b></div>
+                </div>
+                <div class="tk-bars__group"><strong>Medium workload</strong>
+                  <div class="tk-bar-row selected"><span>WMMA</span><div class="tk-bar-track"><i style="--w: 47.72%"></i></div><b>190.88 μs</b></div>
+                  <div class="tk-bar-row"><span>WGMMA g1</span><div class="tk-bar-track"><i style="--w: 86.18%"></i></div><b>344.73 μs</b></div>
+                  <div class="tk-bar-row"><span>WGMMA g4</span><div class="tk-bar-track"><i style="--w: 88.82%"></i></div><b>355.29 μs</b></div>
+                  <div class="tk-bar-row"><span>WGMMA reg A</span><div class="tk-bar-track"><i style="--w: 97.44%"></i></div><b>389.76 μs</b></div>
+                </div>
+              </div>
+              <figcaption>The WGMMA implementation passed exact tiles, irregular tails, multi-K accumulation, 100-step training, and CUDA Graph replay. Correctness was not the problem. The tested data movement and scheduling around the instruction were not good enough to beat the simpler selected path.</figcaption>
+            </figure>
+
+            <p>This was the most useful negative result in the project. New instructions do not erase surrounding work. TrainKernel still had to stage operands, synchronize the warpgroup, move accumulators, execute pointwise work, and preserve the cooperative schedule. A locally faster matrix primitive made the complete program slower.</p>
+
+            <p>A serious Hopper-native successor would need to treat WGMMA as one part of a different pipeline: tensor memory accelerator transfers, swizzled shared-memory layouts, warp specialization, deeper overlap, and perhaps thread-block clusters. Dropping one new instruction into an A100-shaped schedule was enough to prove correctness, not performance. The public release keeps the slower experiments instead of selecting a favorable microbenchmark.</p>
+
+            <h2 id="use-cases">Where a training megakernel could be useful<a class="heading-anchor" href="#use-cases" aria-label="Link to Where a training megakernel could be useful">#</a></h2>
+
+            <p>The benchmarks support a narrow set of candidate use cases. They do not prove production gains in any of them, but they identify the shape of a workload worth testing next.</p>
+
+            <ul>
+              <li><strong>Online learning with small models.</strong> A service that performs one or a few updates after each event may care about step latency more than bulk throughput. Static feature widths and long-lived state fit TrainKernel's current contract.</li>
+              <li><strong>Continuously adapted classification heads.</strong> The independent least-squares head is the closest implemented example: a small resident head, repeated updates, and no data-loading time inside the measured loop.</li>
+              <li><strong>Bandit and control loops.</strong> A small policy or value model updated inside a simulator can run millions of structurally identical steps. The setup cost can be amortized, and a few microseconds may matter to the outer loop.</li>
+              <li><strong>Inner-loop adaptation experiments.</strong> Fixed-shape meta-learning or per-task adaptation can contain tiny repeated training programs. The current operator subset is restrictive, but the compilation model matches the repetition pattern.</li>
+              <li><strong>Compiler research.</strong> The project is small enough to inspect end to end. It exposes aliasing, state commits, cooperative occupancy, tensor-core tails, numerical gates, and the point where global fusion stops helping.</li>
+            </ul>
+
+            <p>Three conditions recur: the model is small, the shapes are static, and the same compiled step runs enough times to repay setup. If any one of those is false, the case weakens quickly.</p>
+
+            <h2 id="limits">Where it is not useful<a class="heading-anchor" href="#limits" aria-label="Link to Where it is not useful">#</a></h2>
+
+            <p>TrainKernel is not a general training compiler. Version 0.2.0 does not implement attention, convolutions, dropout or random-number generation, dynamic shapes, distributed collectives, arbitrary input mutation, asynchronous task scheduling, or AdamW. Its optimizer story is explicit SGD inside a functional step. A different shape, stride, device, or dtype requires another compilation.</p>
+
+            <p>It is also not a credible path for conventional large-model training in its current form. The small and medium benchmark losses show why. Once matrix multiplication is large enough, specialized GEMM schedules and libraries have room to dominate. Holding the whole graph inside one cooperative grid becomes a constraint rather than a gift.</p>
+
+            <p>The measurements are from one A100 SXM4 80 GB and one H100 SXM 80 GB environment. They do not establish behavior across every SM80-or-newer GPU, long-run convergence, data-loader throughput, host-to-device transfers, multi-GPU scaling, or end-to-end application latency. GPU clocks could not be fixed in the recorded cloud environments. The reports retain this provenance rather than presenting the medians as hardware-independent constants.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-results" aria-label="Citation 7">7</a><span class="writing-citation__note" id="cite-results">TrainKernel, <a href="https://github.com/arpjw/trainkernel/blob/main/results/a100-optimization/README.md">A100 optimization evidence</a>, <a href="https://github.com/arpjw/trainkernel/blob/main/results/h100-optimization/README.md">H100 optimization evidence</a>, and <a href="https://github.com/arpjw/trainkernel/blob/main/docs/infrastructure.md">GPU access record</a>.</span></span></p>
+
+            <p>The benchmark's fastest-Inductor column includes every measured Inductor variant, even when a variant misses the declared numerical tolerance; each raw result separately records the fastest passing reference. That choice is conservative for the headline comparison. It prevents TrainKernel from winning because a faster baseline result was hidden, while keeping numerical failures visible for anyone deciding which configuration is usable.</p>
+
+            <h2 id="conclusion">What I learned<a class="heading-anchor" href="#conclusion" aria-label="Link to What I learned">#</a></h2>
+
+            <p>The project began with a clean systems hypothesis: training contains more fusible structure than a sequence of forward operators, and very small training loops may benefit from collapsing that structure into one device program. The A100 and H100 results support that hypothesis in a real but narrow regime. TrainKernel wins the two smallest held-out shapes on both architectures, as well as the independent classification-head check on each, and it loses decisively as matrix work grows.</p>
+
+            <p>The next architectural step would not be “more fusion.” It would be a cost model. A practical compiler should recognize when a launch-bound graph belongs in a megakernel, when a GEMM should be delegated to Inductor or cuBLAS, and where to split a graph so both sides keep their advantage. The shape-aware dispatcher in the roadmap matters more than adding another GPU row.</p>
+
+            <p>I also came away more skeptical of instruction-level stories. The H100 WGMMA path is correct. Its isolated probe can be faster. Its training step is slower. The program around an instruction decides whether the instruction matters.</p>
+
+            <p>TrainKernel 0.2.0 is available under Apache 2.0 on <a href="https://github.com/arpjw/trainkernel">GitHub</a> and as <a href="https://pypi.org/project/trainkernel/0.2.0/">a Python package</a>. The repository includes generated CUDA, raw benchmark samples, correctness logs, rejected schedules, environment records, and reproduction commands. The most important output is not a universal claim that megakernels are faster. It is a measured boundary: for tiny repeated training, one kernel can be enough; beyond that boundary, the compiler has to know when to stop.</p>
+
+            <p class="tk-resource-links"><a href="https://github.com/arpjw/trainkernel">Source and documentation</a><br><a href="https://github.com/arpjw/trainkernel/tree/main/results/a100-optimization">A100 evidence</a> · <a href="https://github.com/arpjw/trainkernel/tree/main/results/h100-optimization">H100 evidence</a> · <a href="introducing-trainkernel/chart-data.json" download>Chart data</a><br>Original article text © 2026 Arya Somu, <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+          </div>
+        </div>
+
+        <section class="writing-post__cite" aria-labelledby="cite-this-essay">
+          <div class="writing-post__cite-header">
+            <h2 id="cite-this-essay">Cite this essay</h2>
+            <button class="writing-post__copy" type="button">Copy BibTeX</button>
+          </div>
+          <pre><code>@misc{somu2026trainkernel,
+  title  = {Introducing TrainKernel},
+  author = {Somu, Arya},
+  year   = {2026},
+  url    = {https://aryasomu.com/writing/introducing-trainkernel.html}
+}</code></pre>
+        </section>
+      </article>
+      <nav class="writing-post__footer" aria-label="Article navigation"><a href="./">← All writing</a><a href="#top">Back to top ↑</a></nav>
+    </main>
+  </div>
+
+  <script src="../site.js"></script>
+  <script src="writing.js"></script>
+  <script src="citations.js"></script>
+</body>
+</html>
