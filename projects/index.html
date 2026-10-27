@@ -3,11 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=../math/">
-  <link rel="canonical" href="https://aryasomu.com/math/">
-  <title>Math · Arya Somu</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=projects-tree-v2">
+  <link rel="canonical" href="https://aryasomu.com/projects/">
+  <title>Projects · Arya Somu</title>
+  <meta name="description" content="Projects by Arya Somu in post-training, kernels, compilers, finance, forecasting, and more.">
+  <meta property="og:title" content="Projects · Arya Somu">
+  <meta property="og:description" content="Projects by Arya Somu in post-training, kernels, compilers, finance, forecasting, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aryasomu.com/projects/">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Projects · Arya Somu">
+  <meta name="twitter:description" content="Projects by Arya Somu in post-training, kernels, compilers, finance, forecasting, and more.">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
 </head>
-<body>
-  <p>Projects has moved to <a href="../math/">Math</a>.</p>
+<body class="projects-page">
+  <div class="site projects-site">
+    <header class="topbar">
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="../">Arya</a>
+        <a href="../work/">Work</a>
+        <a href="../math/">Math</a>
+        <a href="../writing/">Writing</a>
+        <a href="./" aria-current="page">Projects</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </header>
+
+    <main class="projects-main">
+      <h1>Projects</h1>
+      <p class="projects-intro">Experiments, tools, and things I’ve built. <a href="https://github.com/arpjw?tab=repositories" target="_blank" rel="noopener noreferrer">All repos ↗</a></p>
+
+      <div class="project-groups">
+        <section class="project-group" aria-labelledby="post-training">
+          <h2 id="post-training">Post-training</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/nemotron" target="_blank" rel="noopener noreferrer">nemotron</a><span class="project-description"> - Nemotron Mini 4B post-training for banking intents and graph repair.</span></li>
+            <li><a href="https://github.com/arpjw/rna" target="_blank" rel="noopener noreferrer">rna</a><span class="project-description"> - Qwen3-8B adapted for RNA inverse folding with supervised training and RL.</span></li>
+            <li><a href="https://github.com/arpjw/reward-function" target="_blank" rel="noopener noreferrer">reward-function</a><span class="project-description"> - Audited Qwen3-4B reward experiments; no demonstrated practical token savings.</span></li>
+            <li><a href="https://github.com/arpjw/inkling" target="_blank" rel="noopener noreferrer">inkling</a><span class="project-description"> - A Brier-score RL pilot for poker probabilities; calibration gains remained inconclusive.</span></li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="kernels-compilers">
+          <h2 id="kernels-compilers">Kernels &amp; compilers</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/trainkernel" target="_blank" rel="noopener noreferrer">trainkernel</a><span class="project-description"> - Compiles a supported static PyTorch training step into one cooperative CUDA kernel.</span></li>
+            <li><a href="https://github.com/arpjw/yolk" target="_blank" rel="noopener noreferrer">yolk</a><span class="project-description"> - An OCaml e-graph engine with relational matching, extraction, and proof explanations.</span></li>
+            <li><a href="https://github.com/arpjw/minos" target="_blank" rel="noopener noreferrer">minos</a><span class="project-description"> - Hindley–Milner type inference with row polymorphism and a browser playground.</span></li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="learning-dynamics">
+          <h2 id="learning-dynamics">Learning dynamics</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/grokking" target="_blank" rel="noopener noreferrer">grokking</a><span class="project-description"> - Replicating delayed generalization in a small transformer trained on modular arithmetic.</span></li>
+            <li><a href="https://github.com/arpjw/spl" target="_blank" rel="noopener noreferrer">spl</a><span class="project-description"> - Sparse parity learning with an MLP and a Fourier-based measure of training progress.</span></li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="finance">
+          <h2 id="finance">Finance</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/exchange-in-a-box" target="_blank" rel="noopener noreferrer">exchange-in-a-box</a><span class="project-description"> - A deterministic OCaml market simulator with matching, replay, risk controls, and synthetic agents.</span></li>
+            <li><a href="https://github.com/arpjw/skew" target="_blank" rel="noopener noreferrer">skew</a><span class="project-description"> - A typed financial-contract DSL with Monte Carlo pricing, binomial lattices, and autodiff Greeks.</span></li>
+            <li><a href="https://github.com/arpjw/adverse-selection-engine" target="_blank" rel="noopener noreferrer">adverse-selection-engine</a><span class="project-description"> - Rolling bid-ask spread estimates from Binance trades using three microstructure models.</span></li>
+            <li><a href="https://github.com/arpjw/velocity" target="_blank" rel="noopener noreferrer">velocity</a><span class="project-description"> - Shadow-mode research on prediction-market moves and related equities; live execution disabled.</span></li>
+            <li><a href="https://github.com/arpjw/prism" target="_blank" rel="noopener noreferrer">prism</a><span class="project-description"> - A connector format and registry for prediction-market, economic, and news time series.</span></li>
+            <li><a href="https://github.com/arpjw/crucible" target="_blank" rel="noopener noreferrer">crucible</a><span class="project-description"> - An adversarial agent framework for reviewing fund research, risk, and portfolio decisions.</span></li>
+            <li><a href="https://github.com/arpjw/pbl-markets" target="_blank" rel="noopener noreferrer">pbl-markets</a><span class="project-description"> - A chapter prediction market for De Anza PBL, using virtual points.</span></li>
+            <li><a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet" target="_blank" rel="noopener noreferrer">favorable-bet</a><span class="project-description"> - A reproducible simulation of expected wealth, typical outcomes, and fractional betting.</span></li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="forecasting">
+          <h2 id="forecasting">Forecasting</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/causal-interventions" target="_blank" rel="noopener noreferrer">causal-interventions</a><span class="project-description"> - An exact Bayes-risk benchmark for experiment choice by open language models.</span></li>
+            <li><a href="https://github.com/arpjw/shared-evidence-forecasting-repro" target="_blank" rel="noopener noreferrer">shared-evidence</a><span class="project-description"> - Synthetic studies of forecast aggregation when forecasters share information.</span></li>
+            <li><a href="https://github.com/arpjw/credible-intervals-under-misspecification" target="_blank" rel="noopener noreferrer">credible-intervals</a><span class="project-description"> - Checking Bayesian interval coverage when the fitted likelihood has the wrong variance.</span></li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="math-games">
+          <h2 id="math-games">Math &amp; games</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/matrices" target="_blank" rel="noopener noreferrer">matrices</a><span class="project-description"> - A Lean 4 formalization of the Marchenko–Pastur law for independent fair-sign matrices.</span></li>
+            <li><a href="https://github.com/arpjw/traffic" target="_blank" rel="noopener noreferrer">traffic</a><span class="project-description"> - An executable essay with four traffic controllers and an exhaustive finite-state checker.</span></li>
+            <li><a href="https://github.com/arpjw/regret" target="_blank" rel="noopener noreferrer">regret</a><span class="project-description"> - A Rust CFR+ solver for heads-up poker subgames, with a convergence dashboard and range explorer.</span></li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="onchain">
+          <h2 id="onchain">Onchain</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer">xenith</a><span class="project-description"> - Transport-agnostic cross-chain state synchronization in Rust, with explicit divergence handling.</span></li>
+            <li><a href="https://github.com/arpjw/auric" target="_blank" rel="noopener noreferrer">auric</a><span class="project-description"> - An educational ERC-20, vesting, and constant-product AMM stack, with a Sepolia testnet interface.</span></li>
+            <li><a href="https://github.com/arpjw/crowdfunder" target="_blank" rel="noopener noreferrer">crowdfunder</a><span class="project-description"> - Milestone crowdfunding with contributor votes and campaign escrows on Base Sepolia.</span></li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="tools-experiments">
+          <h2 id="tools-experiments">Tools &amp; experiments</h2>
+          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
+          <ul class="project-items">
+            <li><a href="https://github.com/arpjw/anvil" target="_blank" rel="noopener noreferrer">anvil</a><span class="project-description"> - A terminal coding agent that checks proposed TypeScript edits in a shadow workspace.</span></li>
+            <li><a href="https://github.com/arpjw/aegis" target="_blank" rel="noopener noreferrer">aegis</a><span class="project-description"> - A coding-agent plugin for smart-contract review, gas analysis, and DeFi development.</span></li>
+            <li><a href="https://github.com/arpjw/lidfold" target="_blank" rel="noopener noreferrer">lidfold</a><span class="project-description"> - A native macOS prototype that folds the desktop with the MacBook hinge angle.</span></li>
+            <li><a href="https://github.com/arpjw/reply-guy" target="_blank" rel="noopener noreferrer">reply-guy</a><span class="project-description"> - A prototype for scouting posts, scoring them, and reviewing AI-drafted replies.</span></li>
+            <li><a href="https://github.com/arpjw/newstartup" target="_blank" rel="noopener noreferrer">newstartup</a><span class="project-description"> - Early architecture and research notes for combining wearable and metabolic data.</span></li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="socials" aria-label="Social links">
+      <a href="https://x.com/arrrrrryaa" target="_blank" rel="noopener noreferrer" aria-label="X" title="X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117Z"/></svg></a>
+      <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a>
+      <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286ZM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124ZM7.119 20.452H3.555V9h3.564v11.452ZM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0Z"/></svg></a>
+      <a href="mailto:asomu@ucsd.edu" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+    </footer>
+  </div>
+
+  <script src="../site.js"></script>
+  <script src="projects.js"></script>
 </body>
 </html>

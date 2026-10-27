@@ -93,7 +93,7 @@ button { font: inherit; }
   margin-inline: auto;
   padding: 2.5rem 0 4rem;
 }
-.home-site, .work-site, .math-site, .writing-site { padding-top: 1.25rem; }
+.home-site, .work-site, .math-site, .writing-site, .projects-site { padding-top: 1.25rem; }
 .home-site { opacity: 0; translate: 0 6px; transition: opacity 560ms ease, translate 620ms ease; }
 body.is-ready .home-site { opacity: 1; translate: 0 0; }
 body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
@@ -448,6 +448,35 @@ html.dark .secret-dialog__error { color: #ff8f85; }
 .math-matrix::before { left: 0; border-left: 1px solid currentColor; }
 .math-matrix::after { right: 0; border-right: 1px solid currentColor; }
 .math-site .socials { margin-top: 4rem; }
+/* Projects */
+.projects-site { width: min(100% - 2.5rem, 49rem); --project-branch: #a5ad94; }
+html.dark .projects-site { --project-branch: #586449; }
+.projects-site .topbar { width: min(100%, 34rem); margin-inline: auto; }
+.projects-main { margin-top: 3rem; }
+.projects-main h1 { width: min(100%, 34rem); margin: 0 auto; color: var(--foreground); font-size: 1.55rem; font-weight: 400; line-height: 1.2; }
+.projects-intro { width: min(100%, 34rem); margin: 0.6rem auto 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+.projects-intro a { white-space: nowrap; text-underline-offset: 0.18em; text-decoration-color: var(--border); }
+.project-groups { display: grid; gap: 3.75rem; margin-top: 3rem; }
+.project-group { position: relative; display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 4rem; align-items: center; }
+.project-group h2 { margin: 0; color: var(--foreground); font-size: 1rem; font-weight: 600; line-height: 1.4; text-align: right; }
+.project-branches { position: absolute; top: 0; left: 9.35rem; width: 3.3rem; height: 100%; overflow: visible; fill: none; stroke: var(--project-branch); stroke-width: 1; pointer-events: none; }
+.project-items { display: grid; gap: 0.65rem; min-width: 0; margin: 0; padding: 0; list-style: none; }
+.project-items li { position: relative; line-height: 1.55; overflow-wrap: anywhere; }
+.project-items a { color: var(--foreground); text-decoration-color: var(--border); text-underline-offset: 0.16em; transition: text-decoration-color 150ms ease; }
+.project-items a:hover, .project-items a:focus-visible { text-decoration-color: var(--foreground); }
+.project-description { color: var(--muted); }
+.projects-site .socials { width: min(100%, 34rem); margin: 4rem auto 0; }
+
+@media (max-width: 42rem) {
+  .projects-site { width: min(100% - 2.5rem, 34rem); }
+  .project-groups { gap: 2.75rem; margin-top: 2.5rem; }
+  .project-group { display: block; }
+  .project-group h2 { margin-bottom: 1rem; text-align: left; }
+  .project-branches { display: none; }
+  .project-items { gap: 0.85rem; margin-left: 0.2rem; padding-left: 1.1rem; border-left: 1px solid var(--project-branch); }
+  .project-items li::before { position: absolute; top: 0.75em; left: -1.1rem; width: 0.75rem; border-top: 1px solid var(--project-branch); content: ''; }
+}
+
 /* Work */
 
 .work-site { width: min(100% - 2.5rem, 34rem); --work-section-gap: 2rem; }
@@ -694,7 +723,7 @@ html.dark .tarot-project .release-row a { color: inherit; text-decoration-color:
 
 @media (max-width: 36rem) {
   .site { padding-top: 3rem; }
-  .home-site, .work-site, .math-site, .writing-site { padding-top: 1.75rem; }
+  .home-site, .work-site, .math-site, .writing-site, .projects-site { padding-top: 1.75rem; }
   .topbar { gap: 0.5rem; }
   .nav { gap: 0.5rem; }
   .nav a { font-size: 0.95rem; }

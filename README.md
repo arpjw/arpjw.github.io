@@ -1,5 +1,16 @@
 aryasomu.com
 
+## Projects
+
+`projects/index.html` lists public repositories by project type. Each entry links
+directly to its repository and has a short description based on its README or
+source. Keep research, prototypes, and testnet work described at their actual
+scope. The profile README, websites, and documentation repositories are omitted.
+
+The category branches are decorative SVG paths drawn by `projects/projects.js`
+from the rendered text positions. On small screens, CSS uses a vertical tree.
+The full project list remains readable without JavaScript.
+
 ## Writing
 
 The Writing tab points to `/writing/` on this site. Posts are plain HTML files in
