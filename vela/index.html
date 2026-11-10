@@ -42,18 +42,6 @@
       }
     }
   </script>
-  <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="../styles.css?v=site-masthead">
-  <script>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
-      } catch (error) {}
-    })();
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -71,17 +59,6 @@
       --warn:#a85a1f;
       --sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
       --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
-    }
-    html.dark{
-      --bg:#171719;
-      --ink:#ededed;
-      --body:#c6c6cb;
-      --muted:#a6a6ac;
-      --line:rgba(255,255,255,0.16);
-      --line-strong:rgba(255,255,255,0.28);
-      --code-bg:#232326;
-      --ok:#90c99c;
-      --warn:#e3ad76;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{-webkit-text-size-adjust:100%;overflow-x:hidden;scroll-behavior:smooth}
@@ -124,17 +101,18 @@
     .toc::-webkit-scrollbar{width:4px}
     .toc::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
 
-    .vela-page .topbar{
-      --foreground:var(--ink);
-      --border:var(--line);
-      width:min(100% - 2.5rem,672px);
-      margin-inline:auto;
+    /* Header */
+    .back{
+      font-family:var(--mono);font-size:13px;letter-spacing:0.06em;
+      color:var(--muted);text-decoration:none;
+      display:inline-flex;align-items:center;gap:8px;
     }
-    html:not(.dark) .vela-page .topbar{--muted:#626269}
+    .back:hover{color:var(--ink)}
+    .back::before{content:"←";margin-right:2px}
 
     h1{
       font-size:32px;line-height:38px;font-weight:600;color:var(--ink);
-      letter-spacing:-0.02em;
+      letter-spacing:-0.02em;margin-top:28px;
     }
     .subtitle{
       margin-top:12px;color:var(--muted);font-size:16px;line-height:24px;
@@ -147,8 +125,7 @@
     .byline a{color:var(--body)}
     .byline a:hover{color:var(--ink)}
 
-    a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px;transition:text-decoration-color .15s ease}
-    a:hover{text-decoration-color:var(--ink)}
+    a{color:inherit;text-decoration:none}
 
     /* Section headings */
     h2{
@@ -272,23 +249,7 @@
     }
   </style>
 </head>
-<body class="vela-page">
-  <header class="topbar">
-      <div class="site-name">Arya Somu</div>
-      <div class="topbar__row">
-        <nav class="nav" aria-label="Primary navigation">
-          <a href="../">Home</a>
-          <a href="../work/">Work</a>
-          <a href="../math/">Math</a>
-          <a href="../writing/">Writing</a>
-          <a href="../projects/">Projects</a>
-        </nav>
-        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
-          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-        </button>
-      </div>
-    </header>
+<body>
 
   <nav class="toc" aria-label="Table of contents">
     <div class="toc-title">Contents</div>
@@ -315,6 +276,8 @@
   </nav>
 
   <div class="wrap">
+    <a class="back" href="/">Arya Somu</a>
+
     <h1>Vela: a sub-microsecond verifiable spot DEX matching engine</h1>
     <p class="subtitle">Design notes on the fastest published verifiable matching engine, and what it took to get there.</p>
 
@@ -995,6 +958,5 @@
       headings.forEach(function(h){ observer.observe(h); });
     })();
   </script>
-  <script src="../site.js"></script>
 </body>
 </html>

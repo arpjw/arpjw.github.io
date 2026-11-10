@@ -1,6 +1,6 @@
 .reward-page { --accent: #286f78; --accent-soft: #edf4f3; --panel: #faf9f6; }
 html.dark .reward-page { --accent: #8acbd2; --accent-soft: #102426; --panel: #111110; }
-.reward-site { width: min(100% - 2.5rem, 62rem); }
+.reward-site { width: min(100% - 3rem, 62rem); padding-top: 2.5rem; }
 .reward-page main { margin-top: 4.5rem; }
 .reward-page h1, .reward-page h2, .reward-page h3, .reward-page h4 { color: var(--foreground); font-weight: 400; }
 .reward-page p { line-height: 1.65; }
@@ -115,6 +115,7 @@ figcaption a { color: var(--body); }
 .back-link { display: inline-block; margin-top: 1.3rem; color: var(--muted); font-size: .73rem; }
 .reward-page a:focus-visible, .reward-page button:focus-visible, .reward-page summary:focus-visible, .reward-page select:focus-visible, .reward-page input:focus-visible, .figure-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 680px) {
+  .reward-site { width: calc(100% - 2.5rem); padding-top: 1.7rem; }
   .reward-page main { margin-top: 3.1rem; }
   .hero-dek { font-size: 1.04rem; }
   .hero-meta { display: grid; gap: .45rem; }
