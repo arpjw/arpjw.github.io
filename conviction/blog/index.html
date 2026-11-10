@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css?v=3">
-<link rel="stylesheet" href="blog.css?v=2">
+<link rel="stylesheet" href="blog.css?v=3">
 </head>
 <body class="post-page">
 <div class="grain" aria-hidden="true"></div>
@@ -59,6 +59,8 @@
         <dt>Resources</dt><dd><a href="https://huggingface.co/datasets/arpjw/ConvictionBench">Dataset</a> · <a href="https://huggingface.co/arpjw/conviction-1.7b-sft">SFT model</a> · <a href="https://huggingface.co/arpjw/conviction-1.7b-rl">RL model</a> · <a href="https://github.com/arpjw/conviction">Code</a></dd>
       </dl>
     </header>
+
+    <aside class="update-note"><strong>Update, November 10, 2026.</strong> This post covers open-weight models. We have since evaluated proprietary GPT models through the OpenAI API with their default reasoning: the reasoning models resist pressure and ignore forged records far more often (GPT-6.1 Sol: pressure flips 0.07, forged-record resistance 0.87), while GPT-4.1, which does not reason, behaves like the open models. See the <a href="../">results page</a> (Proprietary toggle).</aside>
 
     <section id="introduction">
       <h2>Introduction</h2>
@@ -181,6 +183,6 @@
   <span>ConvictionBench v0.1 · data CC-BY-4.0 · code Apache-2.0</span>
   <a href="https://aryasomu.com/">Arya Somu</a>
 </footer>
-<script src="blog.js?v=1"></script>
+<script src="blog.js?v=2"></script>
 </body>
 </html>

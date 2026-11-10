@@ -59,7 +59,7 @@
   }
 
   fetch('../data.json').then(function (r) { return r.json(); }).then(function (D) {
-    var M = D.models;
+    var M = D.models.filter(function (m) { return m.track !== 'proprietary'; });  // this post covers the open-weight track
 
     // Fig 1: held-out final accuracy
     var b1 = figure('fig-acc', 'Final accuracy on held-out problem types', 'test_structural · higher is better',

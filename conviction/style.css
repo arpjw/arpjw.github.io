@@ -112,6 +112,13 @@ td.num { font-size: 13px; }
 .fill.ours_sft, .sw.ours_sft { background: var(--sft); }
 .fill.base, .sw.base { background: var(--base); }
 .fill.other, .sw.other { background: var(--other); }
+.fill.prop { background: transparent; border: 1.5px solid var(--other); border-left: 0; box-sizing: border-box; }
+.sw.prop { background: transparent; border: 1.5px solid var(--other); box-sizing: border-box; }
+.tagc.api { background: transparent; color: var(--muted); border: 1px solid var(--faint); }
+.controls { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+.track-seg button[aria-selected='true'] { background: var(--fg); color: var(--bg); }
+.track-note { margin: -4px 0 12px; font-size: 12.5px; color: var(--muted); max-width: 820px; }
+.empty-note td { color: var(--muted); font-size: 13px; padding: 14px 0; }
 .key { display: inline-flex; flex-wrap: wrap; gap: 4px 14px; margin-left: 6px; }
 .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: -0.5px; }
 
