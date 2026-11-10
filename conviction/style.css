@@ -173,7 +173,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--sft); outline-o
 @media (max-width: 720px) {
   body { font-size: 16px; }
   .top nav { gap: 14px; }
-  .top nav a[href^="#"] { display: none; }
+  .top nav a.sec { display: none; }
   h1 { font-size: 34px; }
   .headline, .facts { grid-template-columns: 1fr; }
   .headline div { border-left: 0; padding: 16px 0; border-top: 1px solid var(--line); }
