@@ -4,9 +4,41 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <title>The promise of a green light · Interactive experiment</title>
-  <link rel="stylesheet" href="demo.css">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="../../styles.css?v=site-masthead">
+  <link rel="stylesheet" href="demo.css?v=site-masthead">
+  <script>
+    (function () {
+      if (window.self !== window.top) {
+        document.documentElement.classList.add('traffic-embed');
+        return;
+      }
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.toggle('dark', dark);
+        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+      } catch (error) {}
+    })();
+  </script>
 </head>
 <body>
+    <header class="topbar">
+      <div class="site-name">Arya Somu</div>
+      <div class="topbar__row">
+        <nav class="nav" aria-label="Primary navigation">
+          <a href="../../">Home</a>
+          <a href="../../work/">Work</a>
+          <a href="../../math/">Math</a>
+          <a href="../../writing/" aria-current="true">Writing</a>
+          <a href="../../projects/">Projects</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+        </button>
+      </div>
+    </header>
 <main>
   <header class="intro"><p class="eyebrow">AN INTERSECTION, FOUR PROMISES</p>
     <h1>The promise of a green light</h1><p>Try a controller. Watch what happens. Then check every state it can reach.</p>
@@ -60,4 +92,5 @@
   </section>
   <footer>Executable teaching model · <a href="https://github.com/arpjw/traffic" target="_blank" rel="noopener">Source and verifier</a></footer>
 </main><script type="module" src="app.mjs"></script>
+<script src="../../site.js"></script>
 </body></html>

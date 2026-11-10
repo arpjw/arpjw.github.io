@@ -91,43 +91,66 @@ button { font: inherit; }
 .site {
   width: min(100% - 2.5rem, 34rem);
   margin-inline: auto;
-  padding: 2.5rem 0 4rem;
+  padding-bottom: 4rem;
 }
-.home-site, .work-site, .math-site, .writing-site, .projects-site { padding-top: 1.25rem; }
 .home-site { opacity: 0; translate: 0 6px; transition: opacity 560ms ease, translate 620ms ease; }
 body.is-ready .home-site { opacity: 1; translate: 0 0; }
 body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
+.home-site main { margin-top: 1.75rem; }
 
-.topbar { display: flex; align-items: center; gap: 0.75rem; }
+.topbar {
+  --site-name-size: clamp(2.5rem, 8vw, 4.5rem);
+  --site-name-inset: clamp(1.75rem, 5vw, 3rem);
+  --site-name-gap: 0.9rem;
+  padding-top: var(--site-name-inset);
+}
+.site-name {
+  margin: 0 0 var(--site-name-gap);
+  color: var(--foreground);
+  font-family: var(--serif);
+  font-size: var(--site-name-size);
+  font-weight: 400;
+  line-height: 1;
+}
+.topbar__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+}
 .nav {
   display: flex;
   min-width: 0;
   flex: 1;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 1rem;
-  overflow-x: auto;
-  padding: 0.2rem 0;
-  scrollbar-width: none;
+  gap: 0.2rem clamp(0.4rem, 2vw, 1rem);
+  padding-block: 0.2rem;
+  font-family: var(--serif);
+  font-weight: 400;
 }
-.nav::-webkit-scrollbar { display: none; }
 .nav a {
   flex: none;
   color: var(--muted);
-  font-size: 1.0625rem;
+  font-size: clamp(0.875rem, 3.75vw, 1.0625rem);
   line-height: 1.15;
+  padding-block: 0.2rem;
   text-decoration: none;
   transition: color 150ms ease;
 }
-.nav a[aria-current='page'], .nav a:hover, .nav a:focus-visible { color: var(--foreground); }
-.home-site .nav a[aria-current='page'] {
+.nav a[aria-current], .nav a:hover, .nav a:focus-visible { color: var(--foreground); }
+.nav a[aria-current] {
   text-decoration: underline 1px var(--muted);
   text-underline-offset: 0.16em;
 }
 
-.theme-toggle {
+.topbar .theme-toggle {
   display: grid;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  min-height: 0;
   flex: none;
   place-items: center;
   padding: 0;
@@ -138,8 +161,7 @@ body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
   cursor: pointer;
   transition: color 150ms ease, background-color 150ms ease;
 }
-.theme-toggle:hover, .theme-toggle:focus-visible { color: var(--foreground); background: var(--hover); }
-.home-site .theme-toggle { width: 2.25rem; height: 2.25rem; }
+.topbar .theme-toggle:hover, .topbar .theme-toggle:focus-visible { color: var(--foreground); background: var(--hover); }
 .theme-toggle svg { width: 0.95rem; height: 0.95rem; }
 .theme-toggle .moon { display: none; }
 html.dark .theme-toggle .sun { display: none; }
@@ -640,8 +662,16 @@ html.dark .writing-page { --article-accent: #8acbd2; }
 html.dark .writing-page.article-color-blue { --article-accent: #a8c5ec; }
 .writing-page.article-color-rust { --article-accent: #a4523e; }
 html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
-.writing-article-page .writing-site { width: min(100% - 3rem, 90rem); padding-top: 0; }
-.writing-article-page .topbar { position: sticky; z-index: 10; top: 0; min-height: 4.25rem; border-bottom: 1px solid var(--border); background: var(--background); }
+.writing-article-page .writing-site { width: min(100% - 2.5rem, 90rem); }
+@media (min-width: 20rem) {
+  .writing-article-page .topbar {
+    position: sticky;
+    z-index: 10;
+    /* Let the name scroll away and keep only the navigation at the top. */
+    top: calc(0px - var(--site-name-inset) - var(--site-name-size) - var(--site-name-gap));
+    background: var(--background);
+  }
+}
 .writing-article-page .writing-article-main { margin-top: 0; }
 .writing-post__header { max-width: 72rem; margin: clamp(4.5rem, 9vw, 9rem) auto clamp(5rem, 8vw, 8rem); text-align: center; }
 .writing-post h1 { margin: 0 auto; color: var(--foreground); font-family: Baskerville, 'Iowan Old Style', Georgia, serif; font-size: clamp(3.5rem, 8vw, 7.5rem); font-weight: 400; letter-spacing: -0.035em; line-height: 0.98; text-wrap: balance; }
@@ -703,7 +733,6 @@ html.dark .writing-page.article-color-rust { --article-accent: #e0a18f; }
 }
 @media (max-width: 48rem) {
   .writing-article-page .writing-site { width: min(100% - 2.5rem, 43rem); }
-  .writing-article-page .topbar { min-height: 3.5rem; }
   .writing-post__header { margin: 4.25rem auto 5rem; }
   .writing-post h1 { font-size: clamp(3.1rem, 12vw, 5rem); }
   .writing-post__meta { margin-top: 2.4rem; }
@@ -746,11 +775,6 @@ html.dark .tarot-project .release-row a { color: inherit; text-decoration-color:
 }
 
 @media (max-width: 36rem) {
-  .site { padding-top: 3rem; }
-  .home-site, .work-site, .math-site, .writing-site, .projects-site { padding-top: 1.75rem; }
-  .topbar { gap: 0.5rem; }
-  .nav { gap: 0.5rem; }
-  .nav a { font-size: 0.95rem; }
   .lifespan__readout { font-size: 0.67rem; }
   .lifespan__tooltip { left: -3.5rem; max-width: min(12rem, calc(100vw - 2.5rem)); transform: translate(0, -0.2rem); white-space: normal; }
   .lifespan__expectancy:hover .lifespan__tooltip,
