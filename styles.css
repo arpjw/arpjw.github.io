@@ -119,6 +119,10 @@ body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
   transition: color 150ms ease;
 }
 .nav a[aria-current='page'], .nav a:hover, .nav a:focus-visible { color: var(--foreground); }
+.home-site .nav a[aria-current='page'] {
+  text-decoration: underline 1px var(--muted);
+  text-underline-offset: 0.16em;
+}
 
 .theme-toggle {
   display: grid;
@@ -135,6 +139,7 @@ body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
   transition: color 150ms ease, background-color 150ms ease;
 }
 .theme-toggle:hover, .theme-toggle:focus-visible { color: var(--foreground); background: var(--hover); }
+.home-site .theme-toggle { width: 2.25rem; height: 2.25rem; }
 .theme-toggle svg { width: 0.95rem; height: 0.95rem; }
 .theme-toggle .moon { display: none; }
 html.dark .theme-toggle .sun { display: none; }
@@ -232,6 +237,7 @@ main { margin-top: 1.5rem; }
 .lifespan:has(.lifespan__expectancy:hover) + .cover,
 .lifespan:has(.lifespan__expectancy:focus-visible) + .cover { margin-top: 2.7rem; }
 .bio { display: grid; gap: 0.75rem; }
+.home-site .bio { line-height: 1.5; }
 .bio p { margin: 0; text-wrap: pretty; }
 .secret-phrase {
   display: inline-flex;
@@ -339,6 +345,15 @@ html.dark .secret-dialog__error { color: #ff8f85; }
   transition: opacity 150ms ease;
 }
 .prose-link:hover { opacity: 0.65; }
+.home-site .bio .prose-link {
+  text-decoration: underline 1px var(--muted);
+  text-underline-offset: 0.18em;
+}
+.home-site .bio .prose-link:hover,
+.home-site .bio .prose-link:focus-visible {
+  opacity: 1;
+  text-decoration-color: currentColor;
+}
 
 .cover {
   margin-inline: 0;
@@ -427,6 +442,15 @@ html.dark .secret-dialog__error { color: #ff8f85; }
   white-space: nowrap;
 }
 .visitor-count [data-visitor-count] { color: var(--foreground); }
+.home-site .cover figcaption,
+.home-site .visitor-count { color: var(--body); }
+.home-site .socials { flex-wrap: wrap; gap: 0.25rem 0.125rem; }
+.home-site .socials a {
+  display: grid;
+  width: 2rem;
+  height: 2.25rem;
+  place-items: center;
+}
 
 /* Math */
 .math-main { margin-top: 3rem; }
@@ -732,6 +756,7 @@ html.dark .tarot-project .release-row a { color: inherit; text-decoration-color:
   .lifespan__expectancy:hover .lifespan__tooltip,
   .lifespan__expectancy:focus-visible .lifespan__tooltip { transform: translate(0, 0); }
   .bio { gap: 1.6rem; }
+  .home-site .bio { gap: 1.125rem; }
   .cover { margin-top: 1.6rem; }
   .socials { margin-top: 2.5rem; }
 }
