@@ -522,6 +522,15 @@ html.dark .projects-site { --project-branch: #586449; }
 .tarot-project .release-row > span:first-child { color: #303846; }
 .tarot-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b9c8e5; text-underline-offset: 0.18em; }
 .tarot-project .release-row a:hover, .tarot-project .release-row a:focus-visible { color: #1646c0; }
+.conviction-project { padding: 1.25rem; background: #efeeeb; }
+.conviction-project .project-heading img { border-radius: 0.4rem; }
+.conviction-project .project-heading a { color: #6b6a66; }
+.conviction-project .project-heading a:hover, .conviction-project .project-heading a:focus-visible { color: #c4501f; }
+.conviction-project .release-list { margin-top: 1rem; padding: 0; border: 0; border-top: 1px solid #dad8d2; }
+.conviction-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #dad8d2; color: #6b6a66; font-family: var(--sans); font-size: 0.75rem; }
+.conviction-project .release-row > span:first-child { color: #34332f; }
+.conviction-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b3b0a8; text-underline-offset: 0.18em; }
+.conviction-project .release-row a:hover, .conviction-project .release-row a:focus-visible { color: #c4501f; }
 .research-section { margin-top: var(--work-section-gap); }
 .research-section > h2,
 .research-section > h1,
@@ -714,6 +723,18 @@ html.dark .vela-project .release-list,
 html.dark .vela-project .release-row { border-color: #46443c; }
 html.dark .vela-project .release-row > span:first-child { color: #e0ddd2; }
 html.dark .vela-project .release-row a { text-decoration-color: #6e6b5e; }
+html.dark .conviction-project { background: #141414; }
+html.dark .conviction-project .project-heading img { box-shadow: 0 0 0 1px #2a2a2a; }
+html.dark .conviction-project .project-heading a,
+html.dark .conviction-project .release-row { color: #8f8f8b; }
+html.dark .conviction-project .project-heading a:hover,
+html.dark .conviction-project .project-heading a:focus-visible,
+html.dark .conviction-project .release-row a:hover,
+html.dark .conviction-project .release-row a:focus-visible { color: #eb6834; }
+html.dark .conviction-project .release-list,
+html.dark .conviction-project .release-row { border-color: #2a2a2a; }
+html.dark .conviction-project .release-row > span:first-child { color: #e6e6e3; }
+html.dark .conviction-project .release-row a { text-decoration-color: #555; }
 html.dark .tarot-project { background: #111827; }
 html.dark .project-heading a,
 html.dark .tarot-project .release-row { color: #9099aa; }
