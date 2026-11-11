@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -64,7 +64,7 @@
       <thead><tr><th class="rank">#</th><th>Model</th><th class="barcol" id="board-metric">Final accuracy</th><th class="num">Size</th></tr></thead>
       <tbody></tbody>
     </table>
-    <p class="note">Bars show point estimates; the thin line is the 95% cluster-bootstrap interval (resampling problem groups). Hover or tap a row for every metric. <span class="key"><i class="sw ours_rl"></i>Ours, RL <i class="sw ours_sft"></i>Ours, SFT <i class="sw base"></i>Our base model <i class="sw other"></i>Off-the-shelf</span></p>
+    <p class="note">Bars show point estimates; the thin line is the 95% cluster-bootstrap interval (resampling problem groups). Hover or tap a row for every metric. <span class="key"><i class="sw ours_rl"></i>Ours, RL <i class="sw ours_sft"></i>Ours, SFT <i class="sw ours_v2"></i>Ours, v2 <i class="sw base"></i>Our base model <i class="sw other"></i>Off-the-shelf</span></p>
   </section>
 
   <section id="tradeoff">
@@ -80,6 +80,13 @@
     <div class="sec-head"><h2>What makes models cave</h2></div>
     <p class="lede">Rate at which a model drops a correct answer, by framing of the challenge (all three test splits pooled, about 65 challenges per cell). Flattery never appears in training data.</p>
     <div class="heat-wrap"><table class="heat" id="heat"></table></div>
+  </section>
+
+  <section id="thinking">
+    <div class="sec-head"><h2>Does thinking help?</h2></div>
+    <p class="lede">The same open models with thinking mode switched on, on the same held-out problems. Thinking makes them far more accurate, better at accepting real corrections and tool updates, and (for most) harder to pressure. But it makes them <em>more</em> likely to follow a forged record: reasoning treats the forgery as information to work through rather than a claim to check against the rules.</p>
+    <div class="heat-wrap"><table class="think" id="think"></table></div>
+    <p class="note">Thinking off (greedy) → thinking on (sampled, temperature 0.6, up to 4,096 tokens), 1,257 held-out episodes per model; below each pair, the paired difference with its 95% interval. Green: a significant improvement; red: a significant decline; grey: not significant. Answers that ran out of thinking room count as failures (Qwen3.5-9B 3%, Granite 5%).</p>
   </section>
 
   <section id="method">
@@ -131,12 +138,13 @@
 
   <section id="models">
     <div class="sec-head"><h2>Training for conviction</h2></div>
-    <p class="lede">We trained two LoRA adapters (r = 16, 17.4M parameters) on Qwen3-1.7B, using disjoint halves of the training split. Together they show a trade-off: imitation learns the provenance rule, while reinforcement learning generalises to unseen problem types and stays open to correction.</p>
+    <p class="lede">We trained LoRA adapters (r = 16, 17.4M parameters) on Qwen3-1.7B, using disjoint halves of the training split. SFT and RL show a trade-off: imitation learns the provenance rule, while reinforcement learning generalises to unseen problem types and stays open to correction. A follow-up, v2, tried to get both with a light SFT warm-start before RL; it learned provenance but moved along the trade-off rather than escaping it.</p>
     <table class="tasks models">
       <thead><tr><th>Model</th><th>Recipe</th><th>Strength</th><th>Weakness</th></tr></thead>
       <tbody>
         <tr><td><i class="sw ours_sft"></i>conviction-1.7b-sft</td><td>SFT on 4,000 solver-written responses, 11 GPU-minutes</td><td>Resists forged records (0.96) and abstains correctly (0.96)</td><td>On unseen problem types, rarely accepts corrections to its own answers (7%)</td></tr>
         <tr><td><i class="sw ours_rl"></i>conviction-1.7b-rl</td><td>GRPO from base with a deterministic reward, 200 steps, 65 GPU-minutes</td><td>Best 1.7B on held-out problems; lowest pressure-flip rate of all 13 models</td><td>Does not learn the provenance rule (0.19)</td></tr>
+        <tr><td><i class="sw ours_v2"></i>conviction-1.7b-v2</td><td>SFT on 1,000 responses, then the same 200-step GRPO</td><td>Best held-out forged-record resistance of any model tested (0.58); near-perfect format (99.5%)</td><td>Gives up RL&#8217;s held-out accuracy (0.56 vs 0.64); accepts corrections to its own answers only 24% of the time. Not yet released</td></tr>
       </tbody>
     </table>
     <p class="note">A second RL seed reproduces the profile (held-out final accuracy 0.642 vs 0.644). Total compute for the project: about $17 of rented GPU time.</p>
@@ -164,6 +172,6 @@
 </footer>
 
 <div class="tip" id="tip" role="tooltip" hidden></div>
-<script src="app.js?v=1"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
   --track: #222222;
   --sft: #3987e5;
   --rl: #d95926;
+  --v2: #199e70;
   --base: #b8b8b4;
   --other: #8a8a8a;
   --heat: 227, 73, 72;
@@ -31,6 +32,7 @@
   --track: #ecebe6;
   --sft: #2a78d6;
   --rl: #eb6834;
+  --v2: #1baf7a;
   --base: #55544f;
   --other: #8a8984;
   --good: #1a8a5a;
@@ -98,7 +100,7 @@ td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--line); font-size: 1
 .mname { white-space: nowrap; color: var(--fg); }
 .mname small { margin-left: 8px; font: 10px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .mname .tagc { margin-left: 8px; font: 500 9.5px var(--sans); letter-spacing: .1em; text-transform: uppercase; padding: 2px 5px; border-radius: 3px; color: var(--bg); }
-.tagc.ours_rl { background: var(--rl); } .tagc.ours_sft { background: var(--sft); }
+.tagc.ours_rl { background: var(--rl); } .tagc.ours_sft { background: var(--sft); } .tagc.ours_v2 { background: var(--v2); }
 .barcol { width: 52%; }
 .num { width: 60px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
 td.num { font-size: 13px; }
@@ -110,6 +112,13 @@ td.num { font-size: 13px; }
 .bar .val { position: absolute; top: -1px; font: 12px var(--mono); color: var(--fg); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .fill.ours_rl, .sw.ours_rl { background: var(--rl); }
 .fill.ours_sft, .sw.ours_sft { background: var(--sft); }
+.fill.ours_v2, .sw.ours_v2 { background: var(--v2); }
+.think { margin-top: 6px; }
+.think td, .think th { text-align: right; font-variant-numeric: tabular-nums; }
+.think td:first-child, .think th:first-child { text-align: left; color: var(--fg); }
+.think .d { font: 12px var(--mono); }
+.think .up { color: var(--good); } .think .down { color: var(--bad); } .think .ns { color: var(--muted); }
+.think small { display: block; font: 10.5px var(--mono); color: var(--muted); }
 .fill.base, .sw.base { background: var(--base); }
 .fill.other, .sw.other { background: var(--other); }
 .key { display: inline-flex; flex-wrap: wrap; gap: 4px 14px; margin-left: 6px; }

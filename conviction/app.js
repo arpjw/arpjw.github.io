@@ -18,6 +18,7 @@
     ['emotional', 'Emotional'], ['impatience', 'Impatience'], ['threat', 'Threat'], ['repetition', 'Repetition'], ['flattery', 'Flattery']];
   var state = { split: 'test_structural', metric: 'final_accuracy', scatterSplit: 'test_structural' };
   var DATA = null;
+  function isOurs(m) { return m.group === 'ours_rl' || m.group === 'ours_sft' || m.group === 'ours_v2'; }
   var tip = document.getElementById('tip');
 
   function $(id) { return document.getElementById(id); }
@@ -98,7 +99,7 @@
       var tr = el('tr');
       tr.appendChild(el('td', { class: 'rank' }, String(i + 1)));
       var name = el('td', { class: 'mname' }, m.label.replace(' (ours)', ''));
-      if (m.group === 'ours_rl' || m.group === 'ours_sft') name.appendChild(el('span', { class: 'tagc ' + m.group }, 'ours'));
+      if (isOurs(m)) name.appendChild(el('span', { class: 'tagc ' + m.group }, 'ours'));
       else name.appendChild(el('small', null, m.group === 'base' ? 'base' : m.lab));
       tr.appendChild(name);
       var td = el('td', { class: 'barcol' });
@@ -153,7 +154,7 @@
       if (!f || !r || f.v == null || r.v == null) return null;
       return { m: m, x: 1 - f.v, xlo: 1 - f.hi, xhi: 1 - f.lo, y: r.v, ylo: r.lo, yhi: r.hi };
     }).filter(Boolean);
-    var colour = function (g) { return 'var(--' + (g === 'ours_rl' ? 'rl' : g === 'ours_sft' ? 'sft' : g === 'base' ? 'base' : 'other') + ')'; };
+    var colour = function (g) { return 'var(--' + (g === 'ours_rl' ? 'rl' : g === 'ours_sft' ? 'sft' : g === 'ours_v2' ? 'v2' : g === 'base' ? 'base' : 'other') + ')'; };
 
     // label placement: greedy vertical de-overlap on the right-hand side of each point
     pts.sort(function (a, b) { return a.y - b.y; });
@@ -170,12 +171,12 @@
     });
 
     pts.forEach(function (p) {
-      var c = colour(p.m.group), ours = p.m.group === 'ours_rl' || p.m.group === 'ours_sft';
+      var c = colour(p.m.group), ours = isOurs(p.m);
       if (p.xlo != null) s.appendChild(svg('line', { class: 'ci-line', x1: X(p.xlo), x2: X(p.xhi), y1: Y(p.y), y2: Y(p.y), stroke: c }));
       if (p.ylo != null) s.appendChild(svg('line', { class: 'ci-line', x1: X(p.x), x2: X(p.x), y1: Y(p.ylo), y2: Y(p.yhi), stroke: c }));
     });
     pts.forEach(function (p) {
-      var c = colour(p.m.group), ours = p.m.group === 'ours_rl' || p.m.group === 'ours_sft';
+      var c = colour(p.m.group), ours = isOurs(p.m);
       var dot = svg('circle', { class: 'pt', cx: X(p.x), cy: Y(p.y), r: ours ? 7 : 5.5, fill: c });
       dot.addEventListener('mouseenter', function (e) { showTip(e, p.m, state.scatterSplit); });
       dot.addEventListener('mousemove', moveTip);
@@ -209,7 +210,7 @@
     rows.forEach(function (m) {
       var tr = el('tr');
       var name = el('td', null, m.label.replace(' (ours)', ''));
-      if (m.group === 'ours_rl' || m.group === 'ours_sft') name.appendChild(el('span', { class: 'tagc ' + m.group, style: 'margin-left:8px;font:500 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;border-radius:3px;color:var(--bg)' }, 'ours'));
+      if (isOurs(m)) name.appendChild(el('span', { class: 'tagc ' + m.group, style: 'margin-left:8px;font:500 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;border-radius:3px;color:var(--bg)' }, 'ours'));
       tr.appendChild(name);
       PRESSURES.forEach(function (p) {
         var x = m.pressure[p[0]];
@@ -222,6 +223,33 @@
     t.appendChild(tb);
     var cap = el('caption', { class: 'note', style: 'caption-side:bottom;text-align:left' }, 'Cells show the percentage of correct answers abandoned. * Flattery is held out of training data.');
     t.appendChild(cap);
+  }
+
+  // ---------- thinking on vs off ----------
+  function renderThinking() {
+    var T = DATA.thinking, t = $('think');
+    if (!T || !t) return;
+    var cols = [['final_accuracy', 'Final accuracy', 1], ['pressure_flip_rate', 'Pressure flips \u2193', -1],
+      ['fabricated_evidence_resistance', 'Ignores forged records', 1], ['authenticated_update_accuracy', 'Accepts tool updates', 1]];
+    var head = el('tr'); head.appendChild(el('th', null, 'Model'));
+    cols.forEach(function (c) { head.appendChild(el('th', null, c[1])); });
+    head.appendChild(el('th', null, 'Thinking tokens'));
+    var thead = el('thead'); thead.appendChild(head); t.appendChild(thead);
+    var tb = el('tbody');
+    T.models.forEach(function (m) {
+      var tr = el('tr'); tr.appendChild(el('td', null, m.label));
+      cols.forEach(function (c) {
+        var d = m.diff[c[0]], sig = d.lo > 0 || d.hi < 0, good = sig && (d.diff * c[2] > 0);
+        var td = el('td');
+        td.appendChild(el('span', { class: 'd ' + (!sig ? 'ns' : good ? 'up' : 'down') },
+          m.off[c[0]].toFixed(2) + ' \u2192 ' + m.on[c[0]].toFixed(2)));
+        td.appendChild(el('small', null, (d.diff >= 0 ? '+' : '') + d.diff.toFixed(2) + ' [' + d.lo.toFixed(2) + ', ' + d.hi.toFixed(2) + ']'));
+        tr.appendChild(td);
+      });
+      tr.appendChild(el('td', null, String(m.mean_think_tokens)));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
   }
 
   // ---------- headline numbers ----------
@@ -243,6 +271,7 @@
     renderBoard();
     renderScatter();
     renderHeat();
+    renderThinking();
   }).catch(function (e) {
     document.querySelector('#board tbody').innerHTML = '<tr><td colspan="4">Could not load results (' + e.message + ').</td></tr>';
   });

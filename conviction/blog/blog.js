@@ -59,7 +59,10 @@
   }
 
   fetch('../data.json').then(function (r) { return r.json(); }).then(function (D) {
-    var M = D.models;
+    var POST_MODELS = ['E3b_grpo_base', 'E2_sft', 'E0_base', 'B_Qwen3_5-9B', 'B_Qwen3_5-4B', 'B_Qwen3-8B', 'B_granite-4_2-8b',
+      'B_Ministral-3-8B-Instruct-2512-BF16', 'B_Olmo-3-7B-Instruct', 'B_NVIDIA-Nemotron-3-Nano-4B-BF16', 'B_Phi-4-mini-instruct',
+      'B_Llama-3_2-3B-Instruct', 'B_MobileLLM-Pro'];  // the 13 models this post describes (later additions are on the results page)
+    var M = D.models.filter(function (m) { return POST_MODELS.indexOf(m.key) >= 0; });
 
     // Fig 1: held-out final accuracy
     var b1 = figure('fig-acc', 'Final accuracy on held-out problem types', 'test_structural · higher is better',
