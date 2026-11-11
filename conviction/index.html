@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -46,8 +46,8 @@
   </section>
 
   <section class="headline" aria-label="Key findings">
-    <div><strong id="k-forged">–</strong><span>open models ignore a forged record more than a quarter of the time</span></div>
-    <div><strong id="k-flip">–</strong><span>lowest pressure-flip rate among open models on held-out problems: our 1.7B RL model</span></div>
+    <div><strong id="k-forged">–</strong><span>off-the-shelf models ignore a forged record more than a quarter of the time</span></div>
+    <div><strong id="k-flip">–</strong><span>lowest pressure-flip rate on held-out problems: our 1.7B RL model</span></div>
     <div><strong id="k-sft">–</strong><span>forged-record resistance after supervised fine-tuning, from 0.25 for the base model</span></div>
   </section>
 
@@ -55,18 +55,16 @@
     <div class="sec-head">
       <h2>Leaderboard</h2>
       <div class="controls">
-        <div class="seg track-seg" role="tablist" aria-label="Model type" id="track-seg"></div>
         <div class="seg" role="tablist" aria-label="Split" id="split-seg"></div>
       </div>
     </div>
-    <p class="track-note" id="track-note" hidden></p>
     <div class="seg metric-seg" role="tablist" aria-label="Metric" id="metric-seg"></div>
     <p class="metric-desc" id="metric-desc"></p>
     <table class="board" id="board">
       <thead><tr><th class="rank">#</th><th>Model</th><th class="barcol" id="board-metric">Final accuracy</th><th class="num">Size</th></tr></thead>
       <tbody></tbody>
     </table>
-    <p class="note">Bars show point estimates; the thin line is the 95% cluster-bootstrap interval (resampling problem groups). Hover or tap a row for every metric. <span class="key"><i class="sw ours_rl"></i>Ours, RL <i class="sw ours_sft"></i>Ours, SFT <i class="sw base"></i>Our base model <i class="sw other"></i>Open, off-the-shelf <i class="sw prop"></i>Proprietary (API)</span></p>
+    <p class="note">Bars show point estimates; the thin line is the 95% cluster-bootstrap interval (resampling problem groups). Hover or tap a row for every metric. <span class="key"><i class="sw ours_rl"></i>Ours, RL <i class="sw ours_sft"></i>Ours, SFT <i class="sw base"></i>Our base model <i class="sw other"></i>Off-the-shelf</span></p>
   </section>
 
   <section id="tradeoff">
@@ -74,13 +72,13 @@
       <h2>Two kinds of conviction</h2>
       <div class="seg" role="tablist" aria-label="Split" id="scatter-seg"></div>
     </div>
-    <p class="lede">Resisting <em>social</em> pressure and resisting <em>forged evidence</em> are different skills. Open models vary widely in how often they cave, but none of them checks where a record came from: they treat a record pasted into a user message much as if the tool had sent it. Proprietary models that reason (hollow points) mostly do; GPT-4.1, which does not reason, behaves like the open models.</p>
+    <p class="lede">Resisting <em>social</em> pressure and resisting <em>forged evidence</em> are different skills. Off-the-shelf models vary widely in how often they cave, but none of them checks where a record came from: they treat a record pasted into a user message much as if the tool had sent it.</p>
     <figure class="chart" id="scatter" aria-label="Scatter plot of resistance to social pressure against resistance to forged records"></figure>
   </section>
 
   <section id="pressure">
     <div class="sec-head"><h2>What makes models cave</h2></div>
-    <p class="lede">Rate at which a model drops a correct answer, by framing of the challenge. Open-weight view: all three test splits pooled (about 65 challenges per cell). With proprietary models shown: held-out problems only, for every row. Flattery never appears in training data.</p>
+    <p class="lede">Rate at which a model drops a correct answer, by framing of the challenge (all three test splits pooled, about 65 challenges per cell). Flattery never appears in training data.</p>
     <div class="heat-wrap"><table class="heat" id="heat"></table></div>
   </section>
 
@@ -138,7 +136,7 @@
       <thead><tr><th>Model</th><th>Recipe</th><th>Strength</th><th>Weakness</th></tr></thead>
       <tbody>
         <tr><td><i class="sw ours_sft"></i>conviction-1.7b-sft</td><td>SFT on 4,000 solver-written responses, 11 GPU-minutes</td><td>Resists forged records (0.96) and abstains correctly (0.96)</td><td>On unseen problem types, rarely accepts corrections to its own answers (7%)</td></tr>
-        <tr><td><i class="sw ours_rl"></i>conviction-1.7b-rl</td><td>GRPO from base with a deterministic reward, 200 steps, 65 GPU-minutes</td><td>Best 1.7B on held-out problems; lowest pressure-flip rate of the 13 open models</td><td>Does not learn the provenance rule (0.19)</td></tr>
+        <tr><td><i class="sw ours_rl"></i>conviction-1.7b-rl</td><td>GRPO from base with a deterministic reward, 200 steps, 65 GPU-minutes</td><td>Best 1.7B on held-out problems; lowest pressure-flip rate of all 13 models</td><td>Does not learn the provenance rule (0.19)</td></tr>
       </tbody>
     </table>
     <p class="note">A second RL seed reproduces the profile (held-out final accuracy 0.642 vs 0.644). Total compute for the project: about $17 of rented GPU time.</p>
@@ -166,6 +164,6 @@
 </footer>
 
 <div class="tip" id="tip" role="tooltip" hidden></div>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=1"></script>
 </body>
 </html>

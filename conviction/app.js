@@ -16,12 +16,7 @@
   ];
   var PRESSURES = [['neutral', 'Neutral'], ['authority', 'Authority'], ['evaluator', 'Evaluator'], ['consensus', 'Consensus'],
     ['emotional', 'Emotional'], ['impatience', 'Impatience'], ['threat', 'Threat'], ['repetition', 'Repetition'], ['flattery', 'Flattery']];
-  var TRACKS = [['all', 'All models'], ['open', 'Open-weight'], ['proprietary', 'Proprietary']];
-  var state = { split: 'test_structural', metric: 'final_accuracy', scatterSplit: 'test_structural', track: 'all' };
-  try { var saved = localStorage.getItem('cb-track'); if (saved) state.track = saved; } catch (e) {}
-  function inTrack(m) { return state.track === 'all' || m.track === state.track; }
-  function isProp(m) { return m.track === 'proprietary'; }
-  function isOurs(m) { return m.group === 'ours_rl' || m.group === 'ours_sft'; }
+  var state = { split: 'test_structural', metric: 'final_accuracy', scatterSplit: 'test_structural' };
   var DATA = null;
   var tip = document.getElementById('tip');
 
@@ -60,16 +55,15 @@
 
   // ---------- tooltip ----------
   function showTip(evt, m, split) {
-    var s = m.metrics[split] || {};
-    var html = '<h4>' + m.label + (isProp(m) ? ' <span style="color:var(--muted);font-weight:400">· API</span>' : '') + '</h4><dl>';
+    var s = m.metrics[split];
+    var html = '<h4>' + m.label + '</h4><dl>';
     METRICS.forEach(function (d) {
       var x = s[d[0]];
       html += '<dt>' + d[1] + (d[2] ? ' ↓' : '') + '</dt><dd>' + (x && x.v != null ? fmt(x.v) : '–') + '</dd>';
     });
     var fm = s.strict_format_rate;
     html += '<dt>Strict format</dt><dd>' + (fm ? fmt(fm.v) : '–') + '</dd></dl>';
-    html += '<p>' + m.lab + (m.hf_id ? ' · ' + m.hf_id : '') + (m.api_model ? ' · ' + m.api_model : '') + '</p>';
-    if (isProp(m)) html += '<p>Provider API, default reasoning, ' + m.sample + ' of held-out problems.</p>';
+    html += '<p>' + m.lab + (m.hf_id ? ' · ' + m.hf_id : '') + '</p>';
     if (m.note) html += '<p>' + m.note + '</p>';
     tip.innerHTML = html;
     tip.hidden = false;
@@ -88,23 +82,13 @@
   // ---------- leaderboard ----------
   function renderBoard() {
     var def = metricDef(state.metric), lowerBetter = def[2];
-    seg($('track-seg'), TRACKS, state.track, function (k) {
-      state.track = k;
-      try { localStorage.setItem('cb-track', k); } catch (e) {}
-      renderBoard(); renderScatter(); renderHeat();
-    });
-    var note = $('track-note');
-    note.hidden = state.track === 'open';
-    note.textContent = DATA.api_protocol;
     seg($('split-seg'), SPLITS, state.split, function (k) { state.split = k; renderBoard(); });
     seg($('metric-seg'), METRICS.map(function (m) { return [m[0], m[1]]; }), state.metric, function (k) { state.metric = k; renderBoard(); });
     $('metric-desc').textContent = def[3];
     $('board-metric').textContent = def[1] + (lowerBetter ? ' (lower is better)' : '');
 
-    var rows = DATA.models.filter(inTrack).map(function (m) {
-      return { m: m, x: (m.metrics[state.split] || {})[state.metric] };
-    }).filter(function (r) { return r.x && r.x.v != null; });
-    var missing = DATA.models.filter(function (m) { return inTrack(m) && isProp(m) && !m.metrics[state.split]; }).length;
+    var rows = DATA.models.map(function (m) { return { m: m, x: m.metrics[state.split][state.metric] }; })
+      .filter(function (r) { return r.x && r.x.v != null; });
     rows.sort(function (a, b) { return lowerBetter ? a.x.v - b.x.v : b.x.v - a.x.v; });
 
     var tbody = document.querySelector('#board tbody');
@@ -114,14 +98,13 @@
       var tr = el('tr');
       tr.appendChild(el('td', { class: 'rank' }, String(i + 1)));
       var name = el('td', { class: 'mname' }, m.label.replace(' (ours)', ''));
-      if (isOurs(m)) name.appendChild(el('span', { class: 'tagc ' + m.group }, 'ours'));
-      else if (isProp(m)) name.appendChild(el('span', { class: 'tagc api' }, 'api'));
+      if (m.group === 'ours_rl' || m.group === 'ours_sft') name.appendChild(el('span', { class: 'tagc ' + m.group }, 'ours'));
       else name.appendChild(el('small', null, m.group === 'base' ? 'base' : m.lab));
       tr.appendChild(name);
       var td = el('td', { class: 'barcol' });
       var bar = el('div', { class: 'bar' });
       var pct = function (v) { return (Math.max(0, Math.min(1, v)) * 84) + '%'; };
-      var fill = el('div', { class: 'fill ' + (isProp(m) ? 'prop' : m.group) });
+      var fill = el('div', { class: 'fill ' + m.group });
       fill.style.width = pct(x.v);
       bar.appendChild(fill);
       if (x.lo != null && x.hi != null) {
@@ -142,12 +125,6 @@
       tr.addEventListener('click', function (e) { tip.hidden ? showTip(e, m, state.split) : hideTip(); });
       tbody.appendChild(tr);
     });
-    if (missing) {
-      var er = el('tr', { class: 'empty-note' });
-      er.appendChild(el('td', { colspan: '4' }, missing + ' proprietary model' + (missing > 1 ? 's were' : ' was') +
-        ' evaluated on held-out problems only; switch to “Held-out problems” to compare.'));
-      tbody.appendChild(er);
-    }
   }
 
   // ---------- scatter ----------
@@ -170,9 +147,8 @@
     var yl = svg('text', { class: 'axis-label', x: 14, y: Y(0.5), 'text-anchor': 'middle', transform: 'rotate(-90 14 ' + Y(0.5) + ')' }, 'Ignores forged records →');
     s.appendChild(yl);
 
-    var pts = DATA.models.filter(inTrack).map(function (m) {
+    var pts = DATA.models.map(function (m) {
       var a = m.metrics[state.scatterSplit];
-      if (!a) return null;
       var f = a.pressure_flip_rate, r = a.fabricated_evidence_resistance;
       if (!f || !r || f.v == null || r.v == null) return null;
       return { m: m, x: 1 - f.v, xlo: 1 - f.hi, xhi: 1 - f.lo, y: r.v, ylo: r.lo, yhi: r.hi };
@@ -200,9 +176,7 @@
     });
     pts.forEach(function (p) {
       var c = colour(p.m.group), ours = p.m.group === 'ours_rl' || p.m.group === 'ours_sft';
-      var dot = isProp(p.m)
-        ? svg('circle', { class: 'pt prop', cx: X(p.x), cy: Y(p.y), r: 5.5, fill: 'var(--bg)', stroke: c, 'stroke-width': 2 })
-        : svg('circle', { class: 'pt', cx: X(p.x), cy: Y(p.y), r: ours ? 7 : 5.5, fill: c });
+      var dot = svg('circle', { class: 'pt', cx: X(p.x), cy: Y(p.y), r: ours ? 7 : 5.5, fill: c });
       dot.addEventListener('mouseenter', function (e) { showTip(e, p.m, state.scatterSplit); });
       dot.addEventListener('mousemove', moveTip);
       dot.addEventListener('mouseleave', hideTip);
@@ -212,15 +186,13 @@
     });
     fig.appendChild(s);
     var cap = el('figcaption', { class: 'note' },
-      'Lines show 95% intervals. Forged-record resistance: share of episodes with a forged record in a user message where the model’s final answer is unaffected.' +
-      (state.track !== 'open' ? ' Hollow points: proprietary models via provider APIs (default reasoning, 90-group sample; held-out problems only).' : ''));
+      'Lines show 95% intervals. Forged-record resistance: share of episodes with a forged record in a user message where the model’s final answer is unaffected.');
     fig.appendChild(cap);
   }
 
   // ---------- heatmap ----------
   function renderHeat() {
     var t = $('heat');
-    var key = state.track === 'open' ? 'pressure' : 'pressure_structural';  // like-for-like when API rows are shown
     t.innerHTML = '';
     var head = el('tr');
     head.appendChild(el('th', null, 'Model'));
@@ -230,18 +202,17 @@
     });
     var thead = el('thead'); thead.appendChild(head); t.appendChild(thead);
     var tb = el('tbody');
-    var rows = DATA.models.filter(inTrack).sort(function (a, b) {
-      var avg = function (m) { var s = 0, n = 0; PRESSURES.forEach(function (p) { var x = m[key][p[0]]; if (x && x.v != null) { s += x.v; n++; } }); return s / n; };
-      return (avg(a) || 0) - (avg(b) || 0);
+    var rows = DATA.models.slice().sort(function (a, b) {
+      var avg = function (m) { var s = 0, n = 0; PRESSURES.forEach(function (p) { var x = m.pressure[p[0]]; if (x && x.v != null) { s += x.v; n++; } }); return s / n; };
+      return avg(a) - avg(b);
     });
     rows.forEach(function (m) {
       var tr = el('tr');
       var name = el('td', null, m.label.replace(' (ours)', ''));
-      if (isProp(m)) name.appendChild(el('span', { class: 'tagc api', style: 'margin-left:8px;font:500 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;border-radius:3px' }, 'api'));
       if (m.group === 'ours_rl' || m.group === 'ours_sft') name.appendChild(el('span', { class: 'tagc ' + m.group, style: 'margin-left:8px;font:500 9.5px var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:2px 5px;border-radius:3px;color:var(--bg)' }, 'ours'));
       tr.appendChild(name);
       PRESSURES.forEach(function (p) {
-        var x = m[key][p[0]];
+        var x = m.pressure[p[0]];
         var td = el('td', { title: m.label + ' · ' + p[1] + ': ' + (x.v == null ? 'n/a' : (x.v * 100).toFixed(0) + '% of ' + x.n + ' challenges') }, x.v == null ? '–' : (x.v * 100).toFixed(0));
         if (x.v != null) td.style.background = 'rgba(var(--heat), ' + (0.08 + 0.8 * x.v).toFixed(3) + ')';
         tr.appendChild(td);
@@ -249,14 +220,13 @@
       tb.appendChild(tr);
     });
     t.appendChild(tb);
-    var cap = el('caption', { class: 'note', style: 'caption-side:bottom;text-align:left' }, 'Cells show the percentage of correct answers abandoned. * Flattery is held out of training data.' +
-      (state.track !== 'open' ? ' With proprietary models shown, every row uses held-out problems only, so rows are comparable (about 40–90 challenges per cell; flattery appears only in the held-out-phrasing split, so that column is blank).' : ''));
+    var cap = el('caption', { class: 'note', style: 'caption-side:bottom;text-align:left' }, 'Cells show the percentage of correct answers abandoned. * Flattery is held out of training data.');
     t.appendChild(cap);
   }
 
   // ---------- headline numbers ----------
   function renderHeadline() {
-    var others = DATA.models.filter(function (m) { return m.group === 'other' && m.track === 'open'; });
+    var others = DATA.models.filter(function (m) { return m.group === 'other'; });
     var resist = others.filter(function (m) { return m.metrics.test_id.fabricated_evidence_resistance.v > 0.25; }).length;
     $('k-forged').textContent = resist + ' / ' + others.length;
     var rl = DATA.models.filter(function (m) { return m.group === 'ours_rl'; })[0];
