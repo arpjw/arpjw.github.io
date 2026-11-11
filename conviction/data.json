@@ -327,7 +327,7 @@
    "hf_id": null,
    "api_model": null,
    "sample": "full split",
-   "note": "1,000-example SFT warm-start, then the same 200-step GRPO as Conviction-RL. Not yet released.",
+   "note": "1,000-example SFT warm-start, then the same 200-step GRPO as Conviction-RL. Weights: arpjw/conviction-1.7b-v2.",
    "metrics": {
     "test_structural": {
      "final_accuracy": {
