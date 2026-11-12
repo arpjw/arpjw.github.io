@@ -438,6 +438,8 @@ html.dark .secret-dialog__error { color: #ff8f85; }
   height: 2.25rem;
   place-items: center;
 }
+/* Align the first icon with the content edge without shrinking its tap target. */
+.home-site .socials a:first-child { margin-inline-start: -0.5rem; }
 
 /* Math */
 .math-main { margin-top: 3rem; }
