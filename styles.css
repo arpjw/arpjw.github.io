@@ -518,7 +518,10 @@ html.dark .projects-site { --project-branch: #586449; }
 .vela-project .release-row > span:first-child { color: #49483f; }
 .vela-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #a6a397; text-underline-offset: 0.18em; }
 .vela-project .release-row a:hover, .vela-project .release-row a:focus-visible { color: #20201e; }
-.tarot-project .release-list { margin-top: 1rem; padding: 0; border: 0; border-top: 1px solid #d1ddf4; }
+.tarot-project .release-heading { margin: 1rem 0 0.35rem; color: var(--foreground); font-family: var(--sans); font-size: 0.8rem; font-weight: 600; }
+.tarot-project > .release-byline { margin: 0 0 0.5rem; color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.tarot-project .release-byline a:hover, .tarot-project .release-byline a:focus-visible { color: var(--foreground); }
+.tarot-project .release-list { padding: 0; border-top: 1px solid #d1ddf4; }
 .tarot-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #d1ddf4; color: #667085; font-family: var(--sans); font-size: 0.75rem; }
 .tarot-project .release-row > span { display: inline; margin: 0; }
 .tarot-project .release-row > span:first-child { color: #303846; }
@@ -533,6 +536,20 @@ html.dark .projects-site { --project-branch: #586449; }
 .conviction-project .release-row > span:first-child { color: #34332f; }
 .conviction-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b3b0a8; text-underline-offset: 0.18em; }
 .conviction-project .release-row a:hover, .conviction-project .release-row a:focus-visible { color: #c4501f; }
+.independent-project {
+  --paper-border: #cddcd2;
+  --paper-muted: #50645a;
+  --paper-accent: #216347;
+  padding: 1.25rem;
+  background: #edf5ef;
+}
+.independent-project .project-heading img { flex: none; border-radius: 50%; }
+.independent-project .project-heading a, .independent-project .release-row { color: var(--paper-muted); }
+.independent-project .release-list { margin-top: 1rem; border-top: 1px solid var(--paper-border); }
+.independent-project .release-row { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.55rem 0; border-bottom: 1px solid var(--paper-border); font: 0.75rem/1.35 var(--sans); }
+.independent-project .release-row > span:first-child { color: var(--foreground); }
+.independent-project .release-row > span:last-child { flex: none; }
+.independent-project a:hover, .independent-project a:focus-visible { color: var(--paper-accent); }
 .research-section { margin-top: var(--work-section-gap); }
 .research-section > h2,
 .research-section > h1,
@@ -737,6 +754,14 @@ html.dark .conviction-project .release-list,
 html.dark .conviction-project .release-row { border-color: #2a2a2a; }
 html.dark .conviction-project .release-row > span:first-child { color: #e6e6e3; }
 html.dark .conviction-project .release-row a { text-decoration-color: #555; }
+html.dark .independent-project {
+  --paper-border: #2c4137;
+  --paper-muted: #a5b9ae;
+  --paper-accent: #8bd1ae;
+  background: #132019;
+}
+html.dark .independent-project .project-heading a { color: var(--paper-muted); }
+.independent-project .project-heading a:hover, .independent-project .project-heading a:focus-visible { color: var(--paper-accent); }
 html.dark .tarot-project { background: #111827; }
 html.dark .project-heading a,
 html.dark .tarot-project .release-row { color: #9099aa; }
