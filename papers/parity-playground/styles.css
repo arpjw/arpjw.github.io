@@ -8,16 +8,6 @@
   --lab-panel: #fbfbfa;
 }
 
-html.dark {
-  --lab-blue: #8eb9df;
-  --lab-blue-soft: #101a24;
-  --lab-rust: #e0a08d;
-  --lab-rust-soft: #211714;
-  --lab-green: #8fc5a9;
-  --lab-green-soft: #111d17;
-  --lab-panel: #080808;
-}
-
 .playground-site { width: min(100% - 2.5rem, 66rem); }
 .playground-main { margin-top: 4.75rem; }
 .playground-hero { max-width: 47rem; }
@@ -104,7 +94,7 @@ html.dark {
   background: var(--lab-panel);
   box-shadow: 0 14px 42px rgba(42, 39, 34, 0.06);
 }
-html.dark .lab-card { box-shadow: none; }
+
 .lab-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .segmented-control {
   display: inline-flex;
@@ -180,7 +170,6 @@ code { color: var(--foreground); font-family: var(--mono); font-size: 0.82em; }
 .takeaway { max-width: 47rem; margin-top: 8rem; padding: 2.2rem 0 0; border-top: 1px solid var(--border); }
 .takeaway h2 { margin-top: 0.75rem; }
 .takeaway > p:not(.section-number) { max-width: 39rem; margin: 1rem 0 0; font-size: 1.05rem; line-height: 1.6; }
-.playground-site .socials { margin-top: 6rem; }
 
 @media (max-width: 46rem) {
   .playground-main { margin-top: 3.5rem; }

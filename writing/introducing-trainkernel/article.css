@@ -3,11 +3,6 @@
   --tk-negative: #975546;
 }
 
-html.dark .trainkernel-page {
-  --article-accent: #a8c6ed;
-  --tk-negative: #d79584;
-}
-
 .tk-system {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -41,7 +36,7 @@ html.dark .trainkernel-page {
 }
 .tk-table caption { margin-bottom: 0.55rem; color: var(--muted); text-align: left; }
 .tk-table :is(th, td) { padding: 0.52rem 0.55rem; border-bottom: 1px solid var(--border); text-align: right; white-space: nowrap; }
-.tk-table :is(th, td):nth-child(-n+2) { text-align: left; }
+.tk-table :is(th, td):nth-child(-n/**/+2) { text-align: left; }
 .tk-table th { border-block: 1px solid var(--border); background: var(--writing-surface); font-weight: 500; }
 .tk-table .tk-win { color: var(--article-accent); font-weight: 600; }
 

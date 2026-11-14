@@ -1,5 +1,5 @@
 .reward-page { --accent: #286f78; --accent-soft: #edf4f3; --panel: #faf9f6; }
-html.dark .reward-page { --accent: #8acbd2; --accent-soft: #102426; --panel: #111110; }
+
 .reward-site { width: min(100% - 3rem, 62rem); padding-top: 2.5rem; }
 .reward-page main { margin-top: 4.5rem; }
 .reward-page h1, .reward-page h2, .reward-page h3, .reward-page h4 { color: var(--foreground); font-weight: 400; }

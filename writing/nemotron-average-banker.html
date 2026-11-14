@@ -20,9 +20,6 @@
   <meta name="twitter:card" content="summary">
   <style>
     .writing-post__body .nemotron-figure img { display: block; width: 100%; height: auto; border-radius: 0.45rem; }
-    .writing-post__body .nemotron-figure img.figure-dark { display: none; }
-    html.dark .writing-post__body .nemotron-figure img.figure-light { display: none; }
-    html.dark .writing-post__body .nemotron-figure img.figure-dark { display: block; }
     .writing-post__body .nemotron-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; margin: 1.55rem 0; }
     .writing-post__body .nemotron-flow div { padding: 0.85rem; border: 1px solid var(--border); border-top: 2px solid var(--article-accent); border-radius: 0.3rem; }
     .writing-post__body .nemotron-flow strong { display: block; color: var(--article-accent); font-family: var(--sans); font-size: 1.05rem; }
@@ -76,8 +73,7 @@
             <p>The corrected one-epoch adapter returned valid JSON for all 400 development questions. It answered 168 exactly. On the 320 questions with a numeric answer, only 105 numeric values were correct. A deterministic parser operating on the same document and question solved all 400. The model had learned much more about the answer format than about arithmetic. I did not evaluate the held-out synthetic test or robustness split.</p>
             <figure class="writing-figure nemotron-figure">
               <div class="writing-figure__head"><span class="writing-figure__label">Figure 1</span><strong>Performance on synthetic development questions</strong></div>
-              <img class="figure-light" src="nemotron-average-banker/synthetic-limits-light.svg" width="900" height="380" alt="On the corrected synthetic development set, the adapter returned valid JSON for 400 of 400 questions, exact answers for 168 of 400, and correct numeric values for 105 of 320 answerable questions.">
-              <img class="figure-dark" src="nemotron-average-banker/synthetic-limits-dark.svg" width="900" height="380" alt="On the corrected synthetic development set, the adapter returned valid JSON for 400 of 400 questions, exact answers for 168 of 400, and correct numeric values for 105 of 320 answerable questions.">
+              <img src="nemotron-average-banker/synthetic-limits-light.svg" width="900" height="380" alt="On the corrected synthetic development set, the adapter returned valid JSON for 400 of 400 questions, exact answers for 168 of 400, and correct numeric values for 105 of 320 answerable questions.">
               <figcaption>Corrected synthetic development data only. The numeric row uses the 320 answerable questions; the other rows use all 400.</figcaption>
             </figure>
             <p>That result forced a better question. If a small adapter was going to change Nemotron's behavior, what job could I measure without confusing a good-looking answer with a good answer?</p>
@@ -103,15 +99,13 @@
             <p>Once the checkpoint was fixed, I ran the untouched model and the adapter once each on all 3,080 official test questions. The adapter got 2,614 right, or 84.9%. The untouched model got 1,310 right, or 42.5%. Macro-F1 rose from 0.413 to 0.844. The paired macro-F1 gain was 0.431, with a 95% group-bootstrap interval of 0.415 to 0.449.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-3" href="#cite-results" aria-label="Citation 3">3</a></span></p>
             <figure class="writing-figure nemotron-figure">
               <div class="writing-figure__head"><span class="writing-figure__label">Figure 2</span><strong>Macro-F1 on BANKING77</strong></div>
-              <img class="figure-light" src="nemotron-average-banker/macro-f1-light.svg" width="900" height="370" alt="Macro-F1 on development rose from 0.399 for untouched Nemotron to 0.830 for the adapter. On the 3,080-query official test it rose from 0.413 to 0.844.">
-              <img class="figure-dark" src="nemotron-average-banker/macro-f1-dark.svg" width="900" height="370" alt="Macro-F1 on development rose from 0.399 for untouched Nemotron to 0.830 for the adapter. On the 3,080-query official test it rose from 0.413 to 0.844.">
+              <img src="nemotron-average-banker/macro-f1-light.svg" width="900" height="370" alt="Macro-F1 on development rose from 0.399 for untouched Nemotron to 0.830 for the adapter. On the 3,080-query official test it rose from 0.413 to 0.844.">
               <figcaption>Macro-F1 gives each of the 77 intents equal weight. Both conditions used the same taxonomy-constrained decoder. The official paired gain was 0.431, 95% group-bootstrap interval [0.415, 0.449].</figcaption>
             </figure>
             <p>The gain was spread across labels. All 77 intents had higher F1 on the official test after adaptation. At a per-intent F1 of 0.8 or better, the count rose from six intents for the base to 55 for the adapter. This is a descriptive look at the already-scored test, not another selection rule.</p>
             <figure class="writing-figure nemotron-figure">
               <div class="writing-figure__head"><span class="writing-figure__label">Figure 3</span><strong>Per-intent F1 across the official test</strong></div>
-              <img class="figure-light" src="nemotron-average-banker/intent-coverage-light.svg" width="900" height="410" alt="Empirical curve showing how many of the 77 official test intents achieve at least each F1 threshold. At 0.8, six base intents and 55 adapter intents meet the threshold.">
-              <img class="figure-dark" src="nemotron-average-banker/intent-coverage-dark.svg" width="900" height="410" alt="Empirical curve showing how many of the 77 official test intents achieve at least each F1 threshold. At 0.8, six base intents and 55 adapter intents meet the threshold.">
+              <img src="nemotron-average-banker/intent-coverage-light.svg" width="900" height="410" alt="Empirical curve showing how many of the 77 official test intents achieve at least each F1 threshold. At 0.8, six base intents and 55 adapter intents meet the threshold.">
               <figcaption>Each curve counts intents at or above an F1 threshold on the fixed official test. This is an empirical distribution of 77 class scores, not a learning curve. <a href="https://github.com/arpjw/nemotron/blob/main/results/BANKING77_PER_CLASS.json">Aggregate per-class scores</a> provide the figure data.</figcaption>
             </figure>
             <p>The constrained score is the main result. I also let the models answer without the label constraint to see how often they broke the required format. The base produced 396 malformed answers; the adapter produced five. That is a useful format improvement, but it is separate from the apples-to-apples constrained score.</p>
@@ -150,7 +144,6 @@
       </article>
     </main>
   </div>
-  <script src="../site.js"></script>
   <script src="writing.js"></script>
   <script src="citations.js"></script>
 </body>
