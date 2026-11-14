@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("../writing/fonts/crimson-pro-latin.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+html:has(.math-page) { background: #f4f4f1; }
+
+.math-page {
+  --background: #f4f4f1;
+  --foreground: #262625;
+  --body: #494944;
+  --muted: #64645e;
+  --border: #dbdbd3;
+  --serif: "Crimson Pro", Georgia, serif;
+}
+
+.math-site { width: min(100% - 2.5rem, 40rem); }
+.math-main { margin-top: 1.45rem; }
+.math-main h1 { font: 500 1.375rem/1.22 var(--serif); }
+.math-main .math-section { margin-top: 1.75rem; }
+.math-section > h2 { margin-bottom: 0.4rem; font: 500 1.0625rem/1.3 var(--serif); }
+.math-paper { padding: 0.65rem 0; }
+.math-paper-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.1rem 1rem;
+  align-items: baseline;
+}
+.math-paper h3 { font: 400 1.1875rem/1.25 var(--serif); }
+.math-paper .math-meta { margin: 0; color: var(--muted); font: 0.875rem/1.3 var(--serif); }
+.math-pdf { margin-inline-start: 0.2rem; color: var(--muted); font: 0.66rem var(--sans); white-space: nowrap; }
+
+.math-links {
+  align-items: baseline;
+  gap: 0 0.85rem;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.math-links > a, .math-abstract summary { padding-block: 0.3rem; }
+.math-paper a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-color: #8f8f83;
+}
+.math-paper a:hover, .math-paper a:focus-visible { color: var(--foreground); text-decoration-color: currentColor; }
+.math-paper :is(a, summary):focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+
+.math-abstract[open] { flex-basis: 100%; }
+.math-abstract summary { width: fit-content; cursor: pointer; }
+.math-abstract p {
+  max-width: 36rem;
+  margin: 0.35rem 0 0.25rem;
+  padding-inline-start: 0.8rem;
+  border-inline-start: 1px solid var(--border);
+  color: var(--body);
+  font: 1.0625rem/1.45 var(--serif);
+}
+
+@media (max-width: 34rem) {
+  .math-paper-head { grid-template-columns: 1fr; }
+}

@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <title>The promise of a green light · Interactive experiment</title>
   <link rel="stylesheet" href="demo.css?v=compact-links">
 </head>
 <body>
 <main>
+  <a class="site-home-link" href="/" target="_top">← Home</a>
   <header class="intro"><p class="eyebrow">AN INTERSECTION, FOUR PROMISES</p>
     <h1>The promise of a green light</h1><p>Try a controller. Watch what happens. Then check every state it can reach.</p>
   </header>
@@ -57,7 +58,7 @@
     <p class="small">The checker explores all four detector inputs at every reachable state, including inputs you did not select above.</p>
     <div id="check-result" aria-live="polite"><p>Run the check to see what this controller guarantees.</p></div>
     <details><summary>What does this check assume?</summary><p>Two incompatible through movements; atomic state changes; a clock that keeps ticking; lamps that exactly follow the model. It checks simultaneous green and recurring green service. It does not model cars inside the crossing, turning traffic, pedestrians, hardware, or collisions. A green opportunity does not mean every queued vehicle gets through.</p></details>
+    <p class="small demo-source"><a href="https://github.com/arpjw/traffic" target="_blank" rel="noopener">Source and verifier</a></p>
   </section>
-  <footer>Executable teaching model · <a href="https://github.com/arpjw/traffic" target="_blank" rel="noopener">Source and verifier</a></footer>
 </main><script type="module" src="app.mjs"></script>
 </body></html>

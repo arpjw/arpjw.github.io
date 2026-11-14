@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=compact-links">
+  <link rel="stylesheet" href="projects.css">
   <link rel="canonical" href="https://aryasomu.com/projects/">
   <title>Projects · Arya Somu</title>
   <meta name="description" content="Projects by Arya Somu in post-training, kernels, compilers, finance, forecasting, and more.">
@@ -18,144 +19,251 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Projects · Arya Somu">
   <meta name="twitter:description" content="Projects by Arya Somu in post-training, kernels, compilers, finance, forecasting, and more.">
-  <script>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
-      } catch (error) {}
-    })();
-  </script>
 </head>
 <body class="projects-page">
   <div class="site projects-site">
-    <header class="topbar">
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="../">Arya</a>
-        <a href="../work/">Work</a>
-        <a href="../math/">Math</a>
-        <a href="../writing/">Writing</a>
-        <a href="./" aria-current="page">Projects</a>
-      </nav>
-      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-      </button>
-    </header>
+    <a class="site-home-link" href="/">← Home</a>
 
     <main class="projects-main">
       <h1>Projects</h1>
-      <p class="projects-intro">Experiments, tools, and things I’ve built.</p>
+      <p class="projects-intro">Code, models, and experiments.</p>
+
+      <nav class="project-index" aria-label="Project categories">
+        <ul>
+          <li><a href="#finance">Markets</a></li>
+          <li><a href="#onchain">Onchain</a></li>
+          <li><a href="#kernels-compilers">Kernels &amp; compilers</a></li>
+          <li><a href="#post-training">Models</a></li>
+          <li><a href="#forecasting">Forecasting</a></li>
+          <li><a href="#learning-dynamics">Learning dynamics</a></li>
+          <li><a href="#math-games">Math &amp; games</a></li>
+          <li><a href="#tools-experiments">Tools &amp; experiments</a></li>
+        </ul>
+      </nav>
 
       <div class="project-groups">
-        <section class="project-group" aria-labelledby="post-training">
-          <h2 id="post-training">Models</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://huggingface.co/arpjw/conviction-1.7b-sft" target="_blank" rel="noopener noreferrer">conviction-1.7b-sft</a><span class="project-description"> - Qwen3-1.7B LoRA trained with SFT to revise on evidence, not pressure; ignores forged records.</span></li>
-            <li><a href="https://huggingface.co/arpjw/conviction-1.7b-rl" target="_blank" rel="noopener noreferrer">conviction-1.7b-rl</a><span class="project-description"> - Qwen3-1.7B LoRA trained with GRPO; best 1.7B on held-out ConvictionBench problems.</span></li>
-            <li><a href="https://huggingface.co/arpjw/conviction-1.7b-v2" target="_blank" rel="noopener noreferrer">conviction-1.7b-v2</a><span class="project-description"> - Qwen3-1.7B, light SFT then GRPO; learns provenance but gives up held-out accuracy.</span></li>
-            <li><a href="https://huggingface.co/arpjw/microreason-43m" target="_blank" rel="noopener noreferrer">microreason-43M</a><span class="project-description"> - A small 43M model trained to do step-by-step arithmetic and linear algrebra.</span></li>
-            <li><a href="https://github.com/arpjw/nemotron" target="_blank" rel="noopener noreferrer">nemotron</a><span class="project-description"> - Nemotron Mini 4B post-training for banking intents and graph repair.</span></li>
-            <li><a href="https://github.com/arpjw/rna" target="_blank" rel="noopener noreferrer">rna</a><span class="project-description"> - Qwen3-8B adapted for RNA inverse folding with supervised training and RL.</span></li>
-            <li><a href="https://github.com/arpjw/reward-function" target="_blank" rel="noopener noreferrer">reward-function</a><span class="project-description"> - Audited Qwen3-4B reward experiments; no demonstrated practical token savings.</span></li>
-            <li><a href="https://github.com/arpjw/inkling" target="_blank" rel="noopener noreferrer">inkling</a><span class="project-description"> - A Brier-score RL pilot for poker probabilities; calibration gains remained inconclusive.</span></li>
-          </ul>
-        </section>
-        <section class="project-group" aria-labelledby="kernels-compilers">
-          <h2 id="kernels-compilers">Kernels &amp; compilers</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://github.com/arpjw/trainkernel" target="_blank" rel="noopener noreferrer">trainkernel</a><span class="project-description"> - Compiles a supported static PyTorch training step into one cooperative CUDA kernel.</span></li>
-            <li><a href="https://github.com/arpjw/qwencpu" target="_blank" rel="noopener noreferrer">qwencpu</a><span class="project-description"> - Compiles an 8-bit CPU into Qwen3.5's recurrent layers, with bounded 9B execution and tool-routing checks.</span></li>
-            <li><a href="https://github.com/arpjw/tinynpu" target="_blank" rel="noopener noreferrer">tinynpu</a><span class="project-description"> - A verified 4×4 INT8 systolic array in SystemVerilog with an interactive <a href="https://tinynpu.vercel.app" target="_blank" rel="noopener noreferrer">RTL trace viewer</a>.</span></li>
-            <li><a href="https://github.com/arpjw/yolk" target="_blank" rel="noopener noreferrer">yolk</a><span class="project-description"> - An OCaml e-graph engine with relational matching, extraction, and proof explanations.</span></li>
-            <li><a href="https://github.com/arpjw/minos" target="_blank" rel="noopener noreferrer">minos</a><span class="project-description"> - Hindley–Milner type inference with row polymorphism and a browser playground.</span></li>
-          </ul>
-        </section>
-        <section class="project-group" aria-labelledby="learning-dynamics">
-          <h2 id="learning-dynamics">Learning dynamics</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://github.com/arpjw/grokking" target="_blank" rel="noopener noreferrer">grokking</a><span class="project-description"> - Replicating delayed generalization in a small transformer trained on modular arithmetic.</span></li>
-            <li><a href="https://github.com/arpjw/spl" target="_blank" rel="noopener noreferrer">spl</a><span class="project-description"> - Sparse parity learning with an MLP and a Fourier-based measure of training progress.</span></li>
-          </ul>
-        </section>
         <section class="project-group" aria-labelledby="finance">
-          <h2 id="finance">Finance</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://github.com/arpjw/exchange-in-a-box" target="_blank" rel="noopener noreferrer">exchange-in-a-box</a><span class="project-description"> - A deterministic OCaml market simulator with matching, replay, risk controls, and synthetic agents.</span></li>
-            <li><a href="https://github.com/arpjw/skew" target="_blank" rel="noopener noreferrer">skew</a><span class="project-description"> - A typed financial-contract DSL with Monte Carlo pricing, binomial lattices, and autodiff Greeks.</span></li>
-            <li><a href="https://obsidian-delta-rosy.vercel.app" target="_blank" rel="noopener noreferrer">obsidian</a><span class="project-description"> - An interactive implied-volatility surface visualizer with editable data and volatility-smile slices.</span></li>
-            <li><a href="https://github.com/arpjw/adverse-selection-engine" target="_blank" rel="noopener noreferrer">adverse-selection-engine</a><span class="project-description"> - Rolling bid-ask spread estimates from Binance trades using three microstructure models.</span></li>
-            <li><a href="https://github.com/arpjw/velocity" target="_blank" rel="noopener noreferrer">velocity</a><span class="project-description"> - Shadow-mode research on prediction-market moves and related equities; live execution disabled.</span></li>
-            <li><a href="https://github.com/arpjw/prism" target="_blank" rel="noopener noreferrer">prism</a><span class="project-description"> - A connector format and registry for prediction-market, economic, and news time series.</span></li>
-            <li><a href="https://getrita.app" target="_blank" rel="noopener noreferrer">getrita</a><span class="project-description"> - A landing page for Rita, a Discord bot for macro research, alerts, and document Q&amp;A.</span></li>
-            <li><a href="https://github.com/arpjw/crucible" target="_blank" rel="noopener noreferrer">crucible</a><span class="project-description"> - An adversarial agent framework for reviewing fund research, risk, and portfolio decisions.</span></li>
-            <li><a href="https://github.com/arpjw/pbl-markets" target="_blank" rel="noopener noreferrer">pbl-markets</a><span class="project-description"> - A chapter prediction market for De Anza PBL, using virtual points.</span></li>
-            <li><a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet" target="_blank" rel="noopener noreferrer">favorable-bet</a><span class="project-description"> - A reproducible simulation of expected wealth, typical outcomes, and fractional betting.</span></li>
-          </ul>
-        </section>
-        <section class="project-group" aria-labelledby="forecasting">
-          <h2 id="forecasting">Forecasting</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://github.com/arpjw/causal-interventions" target="_blank" rel="noopener noreferrer">causal-interventions</a><span class="project-description"> - An exact Bayes-risk benchmark for experiment choice by open language models.</span></li>
-            <li><a href="https://github.com/arpjw/shared-evidence-forecasting-repro" target="_blank" rel="noopener noreferrer">shared-evidence</a><span class="project-description"> - Synthetic studies of forecast aggregation when forecasters share information.</span></li>
-            <li><a href="https://github.com/arpjw/credible-intervals-under-misspecification" target="_blank" rel="noopener noreferrer">credible-intervals</a><span class="project-description"> - Checking Bayesian interval coverage when the fitted likelihood has the wrong variance.</span></li>
-          </ul>
-        </section>
-        <section class="project-group" aria-labelledby="math-games">
-          <h2 id="math-games">Math &amp; games</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://github.com/arpjw/matrices" target="_blank" rel="noopener noreferrer">matrices</a><span class="project-description"> - A Lean 4 formalization of the Marchenko–Pastur law for independent fair-sign matrices.</span></li>
-            <li><a href="https://github.com/arpjw/traffic" target="_blank" rel="noopener noreferrer">traffic</a><span class="project-description"> - An executable essay with four traffic controllers and an exhaustive finite-state checker.</span></li>
-            <li><a href="https://github.com/arpjw/regret" target="_blank" rel="noopener noreferrer">regret</a><span class="project-description"> - A Rust CFR+ solver for heads-up poker subgames, with a convergence dashboard and range explorer.</span></li>
-            <li><a href="https://target-number.vercel.app" target="_blank" rel="noopener noreferrer">target-number</a><span class="project-description"> - An arithmetic puzzle game with daily challenges, timed sprints, and a practice library.</span></li>
-            <li><a href="https://gray-pied.vercel.app" target="_blank" rel="noopener noreferrer">gray</a><span class="project-description"> - A browser-based Gray-Scott reaction-diffusion simulator for exploring emergent patterns.</span></li>
-            <li><a href="https://galvani-orpin.vercel.app" target="_blank" rel="noopener noreferrer">galvani</a><span class="project-description"> - An interactive Hodgkin-Huxley neuron simulator with adjustable currents and membrane-voltage traces.</span></li>
+          <h2 id="finance">Markets <span class="project-count" aria-hidden="true">10</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/exchange-in-a-box" target="_blank" rel="noopener noreferrer"><span class="project-name-text">exchange-in-a-box</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">An OCaml market simulator with deterministic matching, replay, and synthetic agents.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/skew" target="_blank" rel="noopener noreferrer"><span class="project-name-text">skew</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A typed financial contract language with pricing and autodiff Greeks.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://obsidian-delta-rosy.vercel.app" target="_blank" rel="noopener noreferrer"><span class="project-name-text">obsidian</span> <span class="project-kind">Demo</span></a>
+              <span class="project-description">An interactive implied volatility surface with editable data and smile slices.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/adverse-selection-engine" target="_blank" rel="noopener noreferrer"><span class="project-name-text">adverse-selection-engine</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Estimates bid-ask spreads from Binance trades with three microstructure models.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/velocity" target="_blank" rel="noopener noreferrer"><span class="project-name-text">velocity</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Studies prediction markets and related equities in shadow mode, with live execution disabled.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/prism" target="_blank" rel="noopener noreferrer"><span class="project-name-text">prism</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A connector format and registry for market, economic, and news time series.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://getrita.app" target="_blank" rel="noopener noreferrer"><span class="project-name-text">getrita</span> <span class="project-kind">Site</span></a>
+              <span class="project-description">The landing page for a Discord bot for macro research and alerts.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/crucible" target="_blank" rel="noopener noreferrer"><span class="project-name-text">crucible</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">An adversarial agent framework for reviewing fund research and risk decisions.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/pbl-markets" target="_blank" rel="noopener noreferrer"><span class="project-name-text">pbl-markets</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A De Anza PBL prediction market that uses virtual points.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet" target="_blank" rel="noopener noreferrer"><span class="project-name-text">favorable-bet</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Simulates how fractional betting changes expected wealth and typical outcomes.</span>
+            </li>
           </ul>
         </section>
         <section class="project-group" aria-labelledby="onchain">
-          <h2 id="onchain">Onchain</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer">xenith</a><span class="project-description"> - Transport-agnostic cross-chain state synchronization in Rust, with explicit divergence handling.</span></li>
-            <li><a href="https://github.com/arpjw/auric" target="_blank" rel="noopener noreferrer">auric</a><span class="project-description"> - An educational ERC-20, vesting, and constant-product AMM stack, with a Sepolia testnet interface.</span></li>
-            <li><a href="https://github.com/arpjw/crowdfunder" target="_blank" rel="noopener noreferrer">crowdfunder</a><span class="project-description"> - Milestone crowdfunding with contributor votes and campaign escrows on Base Sepolia.</span></li>
-            <li><a href="https://create2-psi.vercel.app" target="_blank" rel="noopener noreferrer">create2</a><span class="project-description"> - A browser-based vanity-address miner for deterministic CREATE2 contract deployments.</span></li>
+          <h2 id="onchain">Onchain <span class="project-count" aria-hidden="true">4</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/xenith" target="_blank" rel="noopener noreferrer"><span class="project-name-text">xenith</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Cross-chain state synchronization in Rust with explicit divergence handling.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/auric" target="_blank" rel="noopener noreferrer"><span class="project-name-text">auric</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">An educational token, vesting, and constant-product AMM stack on Sepolia.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/crowdfunder" target="_blank" rel="noopener noreferrer"><span class="project-name-text">crowdfunder</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Milestone crowdfunding with contributor votes and campaign escrows on Base Sepolia.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://create2-psi.vercel.app" target="_blank" rel="noopener noreferrer"><span class="project-name-text">create2</span> <span class="project-kind">Demo</span></a>
+              <span class="project-description">A browser tool for mining deterministic CREATE2 vanity addresses.</span>
+            </li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="kernels-compilers">
+          <h2 id="kernels-compilers">Kernels &amp; compilers <span class="project-count" aria-hidden="true">5</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/trainkernel" target="_blank" rel="noopener noreferrer"><span class="project-name-text">trainkernel</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Compiles a supported static PyTorch training step into one cooperative CUDA kernel.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/qwencpu" target="_blank" rel="noopener noreferrer"><span class="project-name-text">qwencpu</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Compiles an 8-bit CPU into Qwen3.5 recurrent layers, with bounded 9B execution checks.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/tinynpu" target="_blank" rel="noopener noreferrer"><span class="project-name-text">tinynpu</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A verified 4×4 INT8 systolic array in SystemVerilog. <a class="project-demo" href="https://tinynpu.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="tinyNPU demo: RTL trace viewer">Demo</a></span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/yolk" target="_blank" rel="noopener noreferrer"><span class="project-name-text">yolk</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">An OCaml e-graph engine with relational matching, extraction, and proof explanations.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/minos" target="_blank" rel="noopener noreferrer"><span class="project-name-text">minos</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Hindley–Milner type inference with row polymorphism and a browser playground.</span>
+            </li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="post-training">
+          <h2 id="post-training">Models <span class="project-count" aria-hidden="true">8</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-sft" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-sft</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">A Qwen3 LoRA that learns to revise on evidence and ignore forged records.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-rl" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-rl</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">A GRPO adapter with the best held-out ConvictionBench score among the tested 1.7B models.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-v2" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-v2</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">An SFT and GRPO adapter that learns provenance at a cost to held-out accuracy.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/microreason-43m" target="_blank" rel="noopener noreferrer"><span class="project-name-text">microreason-43M</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">A 43M model for step-by-step arithmetic and linear algebra.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/nemotron" target="_blank" rel="noopener noreferrer"><span class="project-name-text">nemotron</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Post-training Nemotron Mini 4B for banking intents and graph repair.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/rna" target="_blank" rel="noopener noreferrer"><span class="project-name-text">rna</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Adapting Qwen3-8B for RNA inverse folding with supervised training and RL.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/reward-function" target="_blank" rel="noopener noreferrer"><span class="project-name-text">reward-function</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Audited Qwen3-4B reward experiments with no demonstrated practical token savings.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/inkling" target="_blank" rel="noopener noreferrer"><span class="project-name-text">inkling</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A poker probability calibration pilot with inconclusive gains.</span>
+            </li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="forecasting">
+          <h2 id="forecasting">Forecasting <span class="project-count" aria-hidden="true">3</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/causal-interventions" target="_blank" rel="noopener noreferrer"><span class="project-name-text">causal-interventions</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">An exact Bayes risk benchmark for experiment choice by language models.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/shared-evidence-forecasting-repro" target="_blank" rel="noopener noreferrer"><span class="project-name-text">shared-evidence</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Synthetic studies of forecast aggregation when forecasters share information.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/credible-intervals-under-misspecification" target="_blank" rel="noopener noreferrer"><span class="project-name-text">credible-intervals</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Checks Bayesian interval coverage when the fitted likelihood has the wrong variance.</span>
+            </li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="learning-dynamics">
+          <h2 id="learning-dynamics">Learning dynamics <span class="project-count" aria-hidden="true">2</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/grokking" target="_blank" rel="noopener noreferrer"><span class="project-name-text">grokking</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Replicates delayed generalization in a transformer trained on modular arithmetic.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/spl" target="_blank" rel="noopener noreferrer"><span class="project-name-text">spl</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Studies sparse parity learning with an MLP and a Fourier measure of progress.</span>
+            </li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="math-games">
+          <h2 id="math-games">Math &amp; games <span class="project-count" aria-hidden="true">6</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/matrices" target="_blank" rel="noopener noreferrer"><span class="project-name-text">matrices</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A Lean 4 formalization of the Marchenko–Pastur law for independent fair signs.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/traffic" target="_blank" rel="noopener noreferrer"><span class="project-name-text">traffic</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Four traffic controllers and a checker that explores every reachable state. <a class="project-demo" href="../writing/traffic/" aria-label="Traffic controller demo">Demo</a></span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/regret" target="_blank" rel="noopener noreferrer"><span class="project-name-text">regret</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A Rust CFR+ solver for poker subgames, with a convergence dashboard and range explorer.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://target-number.vercel.app" target="_blank" rel="noopener noreferrer"><span class="project-name-text">target-number</span> <span class="project-kind">Demo</span></a>
+              <span class="project-description">An arithmetic puzzle game with daily challenges, sprints, and practice.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://gray-pied.vercel.app" target="_blank" rel="noopener noreferrer"><span class="project-name-text">gray</span> <span class="project-kind">Demo</span></a>
+              <span class="project-description">An interactive Gray–Scott reaction–diffusion simulator.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://galvani-orpin.vercel.app" target="_blank" rel="noopener noreferrer"><span class="project-name-text">galvani</span> <span class="project-kind">Demo</span></a>
+              <span class="project-description">An interactive Hodgkin–Huxley neuron simulator with adjustable currents.</span>
+            </li>
           </ul>
         </section>
         <section class="project-group" aria-labelledby="tools-experiments">
-          <h2 id="tools-experiments">Tools &amp; experiments</h2>
-          <svg class="project-branches" aria-hidden="true" focusable="false"></svg>
-          <ul class="project-items">
-            <li><a href="https://github.com/arpjw/anvil" target="_blank" rel="noopener noreferrer">anvil</a><span class="project-description"> - A terminal coding agent that checks proposed TypeScript edits in a shadow workspace.</span></li>
-            <li><a href="https://github.com/arpjw/aegis" target="_blank" rel="noopener noreferrer">aegis</a><span class="project-description"> - A coding-agent plugin for smart-contract review, gas analysis, and DeFi development.</span></li>
-            <li><a href="https://github.com/arpjw/lidfold" target="_blank" rel="noopener noreferrer">lidfold</a><span class="project-description"> - A native macOS prototype that folds the desktop with the MacBook hinge angle.</span></li>
-            <li><a href="https://github.com/arpjw/reply-guy" target="_blank" rel="noopener noreferrer">reply-guy</a><span class="project-description"> - A prototype for scouting posts, scoring them, and reviewing AI-drafted replies.</span></li>
-            <li><a href="https://bartender.aryasomu.com" target="_blank" rel="noopener noreferrer">bartender</a><span class="project-description"> - An AI cocktail builder that works with your available ingredients and flavor preferences.</span></li>
-            <li><a href="https://trvl.aryasomu.com" target="_blank" rel="noopener noreferrer">trvl</a><span class="project-description"> - An AI travel planner that builds itineraries around your destination, dates, budget, and interests.</span></li>
-            <li><a href="https://github.com/arpjw/newstartup" target="_blank" rel="noopener noreferrer">newstartup</a><span class="project-description"> - Early architecture and research notes for combining wearable and metabolic data.</span></li>
+          <h2 id="tools-experiments">Tools &amp; experiments <span class="project-count" aria-hidden="true">7</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/anvil" target="_blank" rel="noopener noreferrer"><span class="project-name-text">anvil</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A terminal coding agent that checks proposed TypeScript edits in a shadow workspace.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/aegis" target="_blank" rel="noopener noreferrer"><span class="project-name-text">aegis</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A coding agent plugin for smart contract review, gas analysis, and DeFi development.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/lidfold" target="_blank" rel="noopener noreferrer"><span class="project-name-text">lidfold</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A macOS prototype that folds the desktop with the MacBook hinge angle.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/reply-guy" target="_blank" rel="noopener noreferrer"><span class="project-name-text">reply-guy</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A prototype that scouts posts, scores them, and drafts replies for review.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://bartender.aryasomu.com" target="_blank" rel="noopener noreferrer"><span class="project-name-text">bartender</span> <span class="project-kind">App</span></a>
+              <span class="project-description">An AI cocktail builder based on your ingredients and preferences.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://trvl.aryasomu.com" target="_blank" rel="noopener noreferrer"><span class="project-name-text">trvl</span> <span class="project-kind">App</span></a>
+              <span class="project-description">An AI travel planner that builds itineraries around your dates, budget, and interests.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/newstartup" target="_blank" rel="noopener noreferrer"><span class="project-name-text">newstartup</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Early research and architecture notes for combining wearable and metabolic data.</span>
+            </li>
           </ul>
         </section>
       </div>
     </main>
-
-    <footer class="socials" aria-label="Social links">
-      <a href="https://x.com/0xarpjw" target="_blank" rel="noopener noreferrer" aria-label="X" title="X"><svg aria-hidden="true"><use href="/footer-icons.svg#x"/></svg></a>
-      <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg aria-hidden="true"><use href="/footer-icons.svg#github"/></svg></a>
-      <a href="https://huggingface.co/arpjw" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face" title="Hugging Face"><svg aria-hidden="true"><use href="/footer-icons.svg#huggingface"/></svg></a>
-      <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg aria-hidden="true"><use href="/footer-icons.svg#linkedin"/></svg></a>
-      <a href="mailto:asomu@ucsd.edu" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
-    </footer>
   </div>
-
-  <script src="../site.js"></script>
-  <script src="projects.js"></script>
 </body>
 </html>

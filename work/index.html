@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=work-profile">
+  <link rel="stylesheet" href="../styles.css?v=laplace-byline">
+  <link rel="stylesheet" href="work.css">
   <link rel="canonical" href="https://aryasomu.com/work/">
   <title>Work · Arya Somu</title>
   <meta name="description" content="Selected work by Arya Somu.">
@@ -18,32 +19,10 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Work">
   <meta name="twitter:description" content="Selected work by Arya Somu.">
-  <script>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
-      } catch (error) {}
-    })();
-  </script>
 </head>
 <body class="work-page">
   <div class="site work-site">
-    <header class="topbar">
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="../">Arya</a>
-        <a href="./" aria-current="page">Work</a>
-        <a href="../math/">Math</a>
-        <a href="../writing/">Writing</a>
-        <a href="../projects/">Projects</a>
-      </nav>
-      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-      </button>
-    </header>
+    <a class="site-home-link" href="/">← Home</a>
 
     <main class="work-main">
       <h1>Selected work</h1>
@@ -82,7 +61,7 @@
           </header>
           <p>A concluded testnet exchange research project spanning deterministic matching, signed orders, and ledger integration.</p>
           <div class="release-list" aria-label="Vela project links">
-            <div class="release-row"><span>Exchange</span><span><a href="https://github.com/Vela-Laboratories/vela" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://velalaboratories.com/" target="_blank" rel="noopener noreferrer">Website</a></span></div>
+            <div class="release-row"><span>Exchange</span><span><a href="https://github.com/Vela-Laboratories/vela" target="_blank" rel="noopener noreferrer">GitHub</a></span></div>
           </div>
         </article>
         <article class="work-project conviction-project">
@@ -90,15 +69,15 @@
             <img src="../conviction-mark.svg" alt="" width="32" height="32">
             <div>
               <h2>ConvictionBench</h2>
-              <a href="https://convictionbench.org/" target="_blank" rel="noopener noreferrer">ConvictionBench ↗</a>
+              <a href="https://convictionbench.org/" target="_blank" rel="noopener noreferrer" aria-label="ConvictionBench results">Results ↗</a>
             </div>
           </header>
           <p>A benchmark for whether language models change their answers for good reasons, and only for good reasons.</p>
           <div class="release-list" aria-label="ConvictionBench releases">
-            <div class="release-row"><span>Benchmark</span><span><a href="https://convictionbench.org/">Results</a> · <a href="https://convictionbench.org/blog/">Blog</a> · <a href="https://huggingface.co/datasets/arpjw/ConvictionBench" target="_blank" rel="noopener noreferrer">Dataset</a></span></div>
-            <div class="release-row"><span>Conviction-1.7B SFT</span><span><a href="https://github.com/arpjw/conviction" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/arpjw/conviction-1.7b-sft" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
-            <div class="release-row"><span>Conviction-1.7B RL</span><span><a href="https://github.com/arpjw/conviction" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/arpjw/conviction-1.7b-rl" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
-            <div class="release-row"><span>Conviction-1.7B v2</span><span><a href="https://github.com/arpjw/conviction" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/arpjw/conviction-1.7b-v2" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
+            <div class="release-row"><span>Benchmark</span><span><a href="https://convictionbench.org/blog/">Blog</a> · <a href="https://huggingface.co/datasets/arpjw/ConvictionBench" target="_blank" rel="noopener noreferrer">Dataset</a> · <a href="https://github.com/arpjw/conviction" target="_blank" rel="noopener noreferrer">GitHub</a></span></div>
+            <div class="release-row"><span>Conviction-1.7B SFT</span><span><a href="https://huggingface.co/arpjw/conviction-1.7b-sft" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
+            <div class="release-row"><span>Conviction-1.7B RL</span><span><a href="https://huggingface.co/arpjw/conviction-1.7b-rl" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
+            <div class="release-row"><span>Conviction-1.7B v2</span><span><a href="https://huggingface.co/arpjw/conviction-1.7b-v2" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
           </div>
         </article>
         <article class="work-project independent-project">
@@ -106,7 +85,7 @@
             <img src="profile.png" alt="" width="28" height="28">
             <div>
               <h2>Independent Work</h2>
-              <a href="../research/">Full research archive ↗</a>
+              <a href="../research/">Full research archive</a>
             </div>
           </header>
           <p>Research papers on language models, markets, and mathematics.</p>
@@ -120,13 +99,6 @@
       </div>
     </main>
 
-    <footer class="socials" aria-label="Social links">
-      <a href="https://x.com/0xarpjw" target="_blank" rel="noopener noreferrer" aria-label="X" title="X"><svg aria-hidden="true"><use href="/footer-icons.svg#x"/></svg></a>
-      <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg aria-hidden="true"><use href="/footer-icons.svg#github"/></svg></a>
-      <a href="https://huggingface.co/arpjw" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face" title="Hugging Face"><svg aria-hidden="true"><use href="/footer-icons.svg#huggingface"/></svg></a>
-      <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg aria-hidden="true"><use href="/footer-icons.svg#linkedin"/></svg></a>
-      <a href="mailto:asomu@ucsd.edu" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
-    </footer>
   </div>
 
   <script src="../site.js"></script>

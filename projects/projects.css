@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("../writing/fonts/crimson-pro-latin.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+html:has(.projects-page) { background: #f4f4f1; }
+
+.projects-page {
+  --background: #f4f4f1;
+  --foreground: #262625;
+  --body: #494944;
+  --muted: #64645e;
+  --border: #dbdbd3;
+  --serif: "Crimson Pro", Georgia, serif;
+}
+
+.projects-site { width: min(100% - 2.5rem, 40rem); }
+.projects-main { margin-top: 1.45rem; }
+.projects-main h1 { margin: 0; color: var(--foreground); font: 500 1.375rem/1.22 var(--serif); }
+.projects-intro { margin: 0.35rem 0 0; color: var(--muted); font-size: 1.0625rem; }
+
+.project-index ul {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  gap: 0.15rem 1.1rem;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.project-index a { display: inline-block; padding-block: 0.2rem; }
+.projects-main a {
+  text-decoration: underline;
+  text-decoration-color: #8f8f83;
+  text-underline-offset: 0.15em;
+}
+.projects-main a:hover, .projects-main a:focus-visible { color: var(--foreground); text-decoration-color: currentColor; }
+.projects-main a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+
+.project-groups { display: grid; gap: 1.75rem; margin-top: 1.75rem; }
+.project-group h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin: 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+  font: 500 1.125rem/1.25 var(--serif);
+  scroll-margin-top: 1.25rem;
+}
+.project-count, .project-kind { color: var(--muted); font: 0.67rem/1.35 var(--sans); }
+.project-count { font-variant-numeric: tabular-nums; }
+.project-items { margin: 0; padding: 0; list-style: none; }
+.project-items li {
+  display: grid;
+  grid-template-columns: minmax(0, 13.5rem) minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.15rem 1rem;
+  padding-block: 0.38rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  overflow-wrap: anywhere;
+}
+.project-items li:last-child { border-bottom: 0; }
+.project-name { width: fit-content; color: var(--foreground); font-size: 1.125rem; }
+.projects-main .project-name { text-decoration: none; }
+.project-name-text { text-decoration: underline; text-decoration-color: #8f8f83; text-underline-offset: 0.15em; }
+.project-name:is(:hover, :focus-visible) .project-name-text { text-decoration-color: currentColor; }
+.project-kind { margin-inline-start: 0.2rem; white-space: nowrap; }
+.project-description { color: var(--body); font-size: 1rem; line-height: 1.35; }
+.project-demo { margin-inline-start: 0.25rem; color: var(--muted); font: 0.75rem var(--sans); white-space: nowrap; }
+
+@media (max-width: 36rem) {
+  .project-index ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project-items li { grid-template-columns: 1fr; }
+}

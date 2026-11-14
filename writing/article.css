@@ -41,13 +41,10 @@ html.dark .writing-article-page {
 }
 
 .writing-article-page .writing-site { width: min(100% - 2.5rem, 83rem); }
-.writing-article-page .topbar {
-  width: min(100%, var(--writing-column));
-  min-height: 3.5rem;
-  margin-inline: auto;
-  border: 0;
+.writing-article-page .site-home-link {
+  margin-inline-start: max(0px, (100% - var(--writing-column)) / 2);
+  padding-block: 1rem 0.55rem;
 }
-.writing-article-page .writing-article-main { scroll-margin-top: 3.5rem; }
 
 .writing-article-page .writing-post__content { display: block; }
 .writing-article-page .writing-toc { display: none; }
@@ -79,11 +76,13 @@ html.dark .writing-article-page {
 
 .writing-article-page .writing-post__body p { margin: 0 0 1.35rem; }
 .writing-article-page .writing-post__body .writing-post__lead { font-size: inherit; line-height: inherit; }
+.writing-article-page .writing-post__body #introduction { scroll-margin-top: 1.5rem; }
 .writing-article-page .writing-post__body h2 {
   margin: 3.25rem 0 0.75rem;
   font: 500 1.1875rem/1.26 var(--serif);
   letter-spacing: -0.008em;
   text-wrap: pretty;
+  scroll-margin-top: 1.5rem;
 }
 .writing-article-page .writing-post__body a { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--muted) 60%, var(--background)); }
 .writing-article-page .writing-post__body a:hover { text-decoration-color: currentColor; }
@@ -149,7 +148,8 @@ html.dark .writing-article-page {
     grid-area: 1 / 1;
     justify-self: end;
     width: min(100%, 10rem);
-    top: 5.5rem;
+    top: 1.75rem;
+    max-height: calc(100dvh - 3.5rem);
     margin-top: 2.75rem;
     font: 0.85rem/1.4 var(--serif);
   }
@@ -185,7 +185,7 @@ html.dark .writing-article-page {
 .writing-article-page .writing-table thead th { border-block: 1px solid var(--border); background: var(--writing-surface); font-weight: 500; }
 
 @media print {
-  .writing-article-page .topbar,
+  .writing-article-page .site-home-link,
   .writing-article-page .writing-toc,
   .writing-article-page .writing-toc-mobile { display: none; }
   .writing-article-page .writing-post__content { display: block; }

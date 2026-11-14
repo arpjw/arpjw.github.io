@@ -1,5 +1,9 @@
 aryasomu.com
 
+The homepage links to each section and carries the social profiles. Interior
+pages use one `← Home` link above the content, without a site navigation bar
+or footer. A table of contents can help readers move within a long page.
+
 ## Projects
 
 `projects/index.html` lists public repositories and deployed projects by project
@@ -9,16 +13,16 @@ or interface. Keep research, prototypes, and testnet work described at their
 actual scope. Profile READMEs, organization websites, and documentation
 repositories are omitted.
 
-The category branches are decorative SVG paths drawn by `projects/projects.js`
-from the rendered text positions. On small screens, CSS uses a vertical tree.
-The full project list remains readable without JavaScript.
+The catalog puts project names and descriptions side by side on desktop and
+stacks them on phones. Keep the category jump links in the same order as the
+sections, and distinguish links to code, model weights, sites, apps, and demos.
+The catalog and its jump links work without JavaScript.
 
 ## Writing
 
-The Writing tab points to `/writing/` on this site. Posts are plain HTML files in
+The homepage's Writings heading points to `/writing/`. Posts are plain HTML files in
 `writing/`, so they can be edited locally or in GitHub without a separate service.
-The Writing footer links to its RSS feed; the homepage Substack button remains
-a separate external link.
+The Writing index links to its RSS feed.
 
 To publish a post:
 
@@ -36,8 +40,9 @@ To publish a post:
    Keep `writing-page writing-article-page` on `<body>`, and optionally add
    `article-color-blue` or `article-color-rust` to choose an accent. The default
    is teal.
-3. Add a matching entry to `.writing-list` in `writing/index.html`, an item
-   to `writing/feed.xml`, and the canonical URL to `sitemap.xml`. Keep each RSS
+3. Add matching entries to the homepage's `.home-writings` list and
+   `.writing-list` in `writing/index.html`, an item to `writing/feed.xml`, and
+   the canonical URL to `sitemap.xml`. Keep each RSS
    `<guid>` equal to the article's canonical URL, and set `<pubDate>` to its
    actual publication time on this site in RFC 822 format. Visible publication
    labels use Roman-numeral volumes instead of dates. Keep the same volume on
@@ -62,12 +67,11 @@ stylesheet in that post's `<head>`:
 ```html
 <style>
   .writing-page { --article-accent: #286f78; }
-  html.dark .writing-page { --article-accent: #8acbd2; }
 </style>
 ```
 
-Change the two hex values to readable light and dark accents. The shared CSS
-continues to control typography and layout.
+Choose an accent with enough contrast against the light article background.
+The shared CSS continues to control typography and layout.
 
 Example index entry:
 

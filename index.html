@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css?v=footer-alignment">
+  <link rel="stylesheet" href="home.css">
   <link rel="canonical" href="https://aryasomu.com/">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>Arya Somu</title>
@@ -52,105 +53,59 @@
           "sameAs": [
             "https://github.com/arpjw",
             "https://www.linkedin.com/in/aryasomu/"
-          ],
-          "worksFor": {
-            "@id": "https://laplaceresearch.org/#organization"
-          }
-        },
-        {
-          "@type": "Organization",
-          "@id": "https://laplaceresearch.org/#organization",
-          "name": "Laplace Research",
-          "url": "https://laplaceresearch.org/"
+          ]
         }
       ]
     }
   </script>
-  <script>
-    (function () {
-      try {
-        var saved = localStorage.getItem('theme');
-        var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
-      } catch (error) {}
-    })();
-  </script>
 </head>
-<body>
-  <div class="splash" role="status" aria-label="Introducing Arya Somu" tabindex="0">
-    <pre class="splash__art" aria-hidden="true"></pre>
-  </div>
+<body class="home-page">
+  <main class="home-column" aria-labelledby="homepage-title">
+    <h1 class="sr-only" id="homepage-title">Arya Somu</h1>
 
-  <div class="site home-site">
-    <header class="topbar">
-      <nav class="nav" aria-label="Primary navigation">
-        <a href="./" aria-current="page">Arya</a>
-        <a href="work/">Work</a>
-        <a href="math/">Math</a>
-        <a href="writing/">Writing</a>
-        <a href="projects/">Projects</a>
-      </nav>
-      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
-      </button>
-    </header>
+    <figure class="home-photo">
+      <img src="images/hampi-virupaksha.jpg" alt="A pixelated view of Virupaksha Temple and the sandstone ruins of Hampi, Karnataka, India" width="120" height="66" fetchpriority="high">
+      <figcaption>Hampi, Karnataka · Pixelated from <a href="https://commons.wikimedia.org/wiki/File:Virupaksha_temple,_Hampi.jpg">Avinash K G</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></figcaption>
+    </figure>
 
-    <main>
-      <div class="bio">
-        <p>I'm building something new. I'm also studying CS and math at <a class="prose-link" href="https://ucsd.edu/" target="_blank" rel="noopener noreferrer">UC San Diego</a> as a transfer student from <a class="prose-link" href="https://deanza.edu/" target="_blank" rel="noopener noreferrer">De Anza College</a>.</p>
-        <p>Before that, I built <a class="prose-link" href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer">Laplace Research</a>, <a class="prose-link" href="https://velalaboratories.com/" target="_blank" rel="noopener noreferrer">Vela Exchange</a>, <a class="prose-link" href="https://monolithinvestmentslp.com/" target="_blank" rel="noopener noreferrer">Monolith Investments LP</a>, and a bot-driven sneaker resale business that reached over 50 countries.</p>
-        <p>I'm huge into contributing to open-source AI, check out some of my work at <a class="prose-link" href="https://convictionbench.org/" target="_blank" rel="noopener noreferrer">ConvictionBench</a>, <a class="prose-link" href="https://huggingface.co/arpjw/" target="_blank" rel="noopener noreferrer">HuggingFace</a>, and <a class="prose-link" href="https://github.com/arpjw/" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
-        <p>Outside of work, I love R&B, racket sports, and spending time with friends.</p>
-        <p>I spend a lot of time connecting with aligned researchers in the AI, crypto, and decentralized finance spaces. If you're interested in my work or think I would be interested in yours, reach out to me at <a class="prose-link" href="mailto:asomu@ucsd.edu">asomu@ucsd.edu</a>.</p>
+    <div class="home-contact">
+      <div class="home-profiles" role="group" aria-label="Social profiles">
+        <a href="https://x.com/0xarpjw" target="_blank" rel="noopener noreferrer" aria-label="X" title="X"><svg aria-hidden="true"><use href="images/home-social.svg#x"/></svg></a>
+        <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg aria-hidden="true"><use href="images/home-social.svg#linkedin"/></svg></a>
+        <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg aria-hidden="true"><use href="images/home-social.svg#github"/></svg></a>
+        <a href="https://huggingface.co/arpjw" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face" title="Hugging Face"><svg aria-hidden="true"><use href="images/home-social.svg#huggingface"/></svg></a>
       </div>
+      <a class="home-email" href="mailto:asomu@ucsd.edu">asomu@ucsd.edu</a>
+    </div>
 
-      <section class="lifespan" aria-label="Lifespan counter">
-        <div class="lifespan__readout">
-          <span><span data-lifespan-age>—</span> <span class="lifespan__unit">of <a class="lifespan__expectancy" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9772563/" target="_blank" rel="noopener noreferrer" aria-describedby="lifespan-source">86.53<span class="lifespan__tooltip" id="lifespan-source" role="tooltip">U.S. estimate for Asian Indian men · 86.53 years</span></a> years</span></span>
-          <span class="lifespan__percent"><span data-lifespan-percent>—</span>% lived</span>
-        </div>
-        <div class="lifespan__track" role="progressbar" aria-label="Estimated lifespan elapsed" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-lifespan-bar>
-          <span class="lifespan__fill" data-lifespan-fill></span>
-        </div>
-      </section>
+    <div class="home-intro">
+      <p>I'm currently a Mathematics and Computer Science undergrad at UC San Diego interested in:</p>
+      <ul>
+        <li>Crypto, DEX architecture, and market structure</li>
+        <li>Post-training AI models for specific domains</li>
+        <li>Forecasting and applied probability</li>
+        <li>Compilers and GPU performance</li>
+      </ul>
+      <p>I previously co-founded <a href="https://laplaceresearch.org/">Laplace Research</a>, built <a href="https://velalaboratories.com/">Vela Exchange</a>, and ran a global sneaker botting business.</p>
+      <p>Take a look at some of my <a href="work/">work</a>, <a href="projects/">projects</a>, and <a href="math/">math interests</a>.</p>
+    </div>
 
-      <figure class="cover photo-gallery" aria-label="Photos of Arya and friends" aria-roledescription="carousel">
-        <div class="photo-gallery__frame">
-          <img class="photo-gallery__image" src="friends/01-before-college.jpg" alt="Arya and friends together before leaving for college" width="1200" height="900">
-          <button class="photo-gallery__arrow photo-gallery__arrow--previous" type="button" aria-label="Previous photo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <button class="photo-gallery__arrow photo-gallery__arrow--next" type="button" aria-label="Next photo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
-          </button>
-        </div>
-        <figcaption aria-live="polite"><span data-gallery-caption>My friends and I before splitting up for college!</span> <span class="sr-only" data-gallery-status>Photo 1 of 13</span></figcaption>
-      </figure>
-    </main>
-
-    <footer class="socials" aria-label="Social links">
-      <a href="https://x.com/0xarpjw" target="_blank" rel="noopener noreferrer" aria-label="X" title="X"><svg aria-hidden="true"><use href="/footer-icons.svg#x"/></svg></a>
-      <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg aria-hidden="true"><use href="/footer-icons.svg#github"/></svg></a>
-      <a href="https://huggingface.co/arpjw" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face" title="Hugging Face"><svg aria-hidden="true"><use href="/footer-icons.svg#huggingface"/></svg></a>
-      <a href="https://www.linkedin.com/in/aryasomu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><svg aria-hidden="true"><use href="/footer-icons.svg#linkedin"/></svg></a>
-      <a href="mailto:arya@laplaceresearch.org" aria-label="Email" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
-      <span class="visitor-count" aria-label="All-time Visitors">All-time Visitors: <span data-visitor-count>—</span></span>
-    </footer>
-  </div>
-
-  <dialog class="secret-dialog" aria-labelledby="secret-dialog-title" data-secret-dialog>
-    <form method="dialog" class="secret-dialog__form" data-secret-form>
-      <button class="secret-dialog__close" type="button" aria-label="Close" data-secret-close>&times;</button>
-      <h2 id="secret-dialog-title">Password required</h2>
-      <label for="secret-password">Password</label>
-      <input id="secret-password" type="password" autocomplete="off" spellcheck="false" required data-secret-password>
-      <p class="secret-dialog__error" role="status" aria-live="polite" data-secret-error></p>
-      <button class="secret-dialog__submit" type="submit">Unlock</button>
-    </form>
-  </dialog>
-
-  <script src="site.js?v=gallery-arrows"></script>
+    <section class="home-writings" aria-labelledby="home-writings-title">
+      <h2 id="home-writings-title"><a href="writing/">Writings</a></h2>
+      <ol>
+        <li><a href="writing/introducing-trainkernel.html">Introducing TrainKernel</a><span>Volume XI</span></li>
+        <li><a href="writing/price-of-compute-and-power.html">The price of compute, the price of power</a><span>Volume X</span></li>
+        <li><a href="writing/the-promise-of-a-green-light.html">The promise of a green light</a><span>Volume IX</span></li>
+        <li><a href="writing/molecular-origami.html">Molecular origami</a><span>Volume VIII</span></li>
+        <li><a href="writing/how-many-independent-forecasts-are-in-a-crowd.html">How many independent forecasts are in a crowd?</a><span>Volume VII</span></li>
+        <li><a href="writing/nemotron-graph-repair.html">I taught Nemotron to flip graph edges</a><span>Volume VI</span></li>
+        <li><a href="writing/nemotron-average-banker.html">I post-trained Nemotron 4B into an Average Banker</a><span>Volume V</span></li>
+        <li><a href="writing/what-should-an-ai-ask.html">What should an AI ask when every explanation fits?</a><span>Volume IV</span></li>
+        <li><a href="writing/when-95-percent-credible-intervals-cover-81-percent.html">When 95% credible intervals cover 81%</a><span>Volume III</span></li>
+        <li><a href="writing/the-typical-path-of-a-favorable-bet.html">The Typical Path of a Favorable Bet</a><span>Volume II</span></li>
+        <li><a href="writing/the-epistemic-century.html">The Epistemic Century</a><span>Volume I</span></li>
+      </ol>
+    </section>
+  </main>
 </body>
 </html>

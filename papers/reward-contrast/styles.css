@@ -5,7 +5,7 @@ html.dark .reward-page { --accent: #8acbd2; --accent-soft: #102426; --panel: #11
 .reward-page h1, .reward-page h2, .reward-page h3, .reward-page h4 { color: var(--foreground); font-weight: 400; }
 .reward-page p { line-height: 1.65; }
 .reward-page a { text-underline-offset: .22em; }
-.reward-page .eyebrow, .hero-meta, .metric-label, .metric-detail, .section-nav, .section-number, figcaption, .small, .scope-note, .lab-controls, .group-heading, .trajectory-rows, .lab-summary, .lab-footnote, .policy-label, .resource-links, .back-link { font-family: var(--sans); }
+.reward-page .eyebrow, .hero-meta, .metric-label, .metric-detail, .section-nav, .section-number, figcaption, .small, .scope-note, .lab-controls, .group-heading, .trajectory-rows, .lab-summary, .lab-footnote, .policy-label, .resource-links { font-family: var(--sans); }
 .eyebrow { margin: 0 0 1rem; font-size: .69rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
 .eyebrow span { padding: 0 .5rem; color: var(--faint); }
 .paper-hero { max-width: 49rem; }
@@ -107,12 +107,11 @@ figcaption a { color: var(--body); }
 .task-grid table { width: 100%; border-collapse: collapse; font: .73rem var(--mono); color: var(--body); }
 .task-grid th, .task-grid td { text-align: right; padding: .5rem; border-bottom: 1px solid var(--border); }
 .selection-note { max-width: 48rem; margin-top: 1rem; }
-.paper-footer { margin: 4rem 0 0; padding-top: 2rem; border-top: 1px solid var(--border); }
-.paper-footer h2 { margin: 0; font-size: 1.7rem; }
-.paper-footer p { max-width: 43rem; }
+.paper-resources { margin: 4rem 0 0; padding-top: 2rem; border-top: 1px solid var(--border); }
+.paper-resources h2 { margin: 0; font-size: 1.7rem; }
+.paper-resources p { max-width: 43rem; }
 .resource-links { display: flex; flex-wrap: wrap; gap: .8rem 1.4rem; padding: .5rem 0 1.3rem; font-size: .73rem; }
 .resource-links a { color: var(--body); }
-.back-link { display: inline-block; margin-top: 1.3rem; color: var(--muted); font-size: .73rem; }
 .reward-page a:focus-visible, .reward-page button:focus-visible, .reward-page summary:focus-visible, .reward-page select:focus-visible, .reward-page input:focus-visible, .figure-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 @media (max-width: 680px) {
   .reward-site { width: calc(100% - 2.5rem); padding-top: 1.7rem; }

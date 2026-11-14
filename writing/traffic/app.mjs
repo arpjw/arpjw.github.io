@@ -66,10 +66,6 @@ $('check').addEventListener('click', () => {
 document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
 // Exposes read-only state for reproducible browser checks and the screen recording.
 window.trafficSnapshot = () => ({ mode, config: { ...config }, state: key(state), tick, signals: signals(state) });
-window.addEventListener('message', event => {
-  if (event.origin !== location.origin || event.source !== parent || event.data?.type !== 'traffic-theme') return;
-  document.documentElement.dataset.theme = event.data.dark ? 'dark' : 'light';
-});
 new ResizeObserver(() => {
   if (parent !== window) parent.postMessage({ type: 'traffic-height', height: Math.ceil(document.querySelector('main').getBoundingClientRect().height) + 2 }, location.origin);
 }).observe(document.querySelector('main'));

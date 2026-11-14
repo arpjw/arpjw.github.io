@@ -98,6 +98,21 @@ button { font: inherit; }
 body.is-ready .home-site { opacity: 1; translate: 0 0; }
 body.no-splash .home-site { opacity: 1; translate: none; transition: none; }
 
+.site-home-link {
+  display: block;
+  width: fit-content;
+  padding-block: 0.55rem;
+  color: var(--muted);
+  font: 0.9rem/1.25 var(--serif);
+  text-decoration: none;
+}
+.site-home-link:hover, .site-home-link:focus-visible {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+}
+.site-home-link:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+
 .topbar { display: flex; align-items: center; gap: 0.75rem; }
 .nav {
   display: flex;
@@ -461,35 +476,6 @@ html.dark .secret-dialog__error { color: #ff8f85; }
 .math-matrix::before { left: 0; border-left: 1px solid currentColor; }
 .math-matrix::after { right: 0; border-right: 1px solid currentColor; }
 .math-site .socials { margin-top: 4rem; }
-/* Projects */
-.projects-site { width: min(100% - 2.5rem, 49rem); --project-branch: #a5ad94; }
-html.dark .projects-site { --project-branch: #586449; }
-.projects-site .topbar { width: min(100%, 34rem); margin-inline: auto; }
-.projects-main { margin-top: 3rem; }
-.projects-main h1 { width: min(100%, 34rem); margin: 0 auto; color: var(--foreground); font-size: 1.55rem; font-weight: 400; line-height: 1.2; }
-.projects-intro { width: min(100%, 34rem); margin: 0.6rem auto 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
-.projects-intro a { white-space: nowrap; text-underline-offset: 0.18em; text-decoration-color: var(--border); }
-.project-groups { display: grid; gap: 3.75rem; margin-top: 3rem; }
-.project-group { position: relative; display: grid; grid-template-columns: 9rem minmax(0, 1fr); column-gap: 4rem; align-items: center; }
-.project-group h2 { margin: 0; color: var(--foreground); font-size: 1rem; font-weight: 600; line-height: 1.4; text-align: right; }
-.project-branches { position: absolute; top: 0; left: 9.35rem; width: 3.3rem; height: 100%; overflow: visible; fill: none; stroke: var(--project-branch); stroke-width: 1; pointer-events: none; }
-.project-items { display: grid; gap: 0.65rem; min-width: 0; margin: 0; padding: 0; list-style: none; }
-.project-items li { position: relative; line-height: 1.55; overflow-wrap: anywhere; }
-.project-items a { color: var(--foreground); text-decoration-color: var(--border); text-underline-offset: 0.16em; transition: text-decoration-color 150ms ease; }
-.project-items a:hover, .project-items a:focus-visible { text-decoration-color: var(--foreground); }
-.project-description { color: var(--muted); }
-.projects-site .socials { width: min(100%, 34rem); margin: 4rem auto 0; }
-
-@media (max-width: 42rem) {
-  .projects-site { width: min(100% - 2.5rem, 34rem); }
-  .project-groups { gap: 2.75rem; margin-top: 2.5rem; }
-  .project-group { display: block; }
-  .project-group h2 { margin-bottom: 1rem; text-align: left; }
-  .project-branches { display: none; }
-  .project-items { gap: 0.85rem; margin-left: 0.2rem; padding-left: 1.1rem; border-left: 1px solid var(--project-branch); }
-  .project-items li::before { position: absolute; top: 0.75em; left: -1.1rem; width: 0.75rem; border-top: 1px solid var(--project-branch); content: ''; }
-}
-
 /* Work */
 
 .work-site { width: min(100% - 2.5rem, 34rem); --work-section-gap: 2rem; }
@@ -520,7 +506,9 @@ html.dark .projects-site { --project-branch: #586449; }
 .vela-project .release-row a:hover, .vela-project .release-row a:focus-visible { color: #20201e; }
 .tarot-project .release-heading { margin: 1rem 0 0.35rem; color: var(--foreground); font-family: var(--sans); font-size: 0.8rem; font-weight: 600; }
 .tarot-project > .release-byline { margin: 0 0 0.5rem; color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
-.tarot-project .release-byline a:hover, .tarot-project .release-byline a:focus-visible { color: var(--foreground); }
+.tarot-project .release-byline a { display: inline-block; padding: 0.1rem 0.35rem; border-radius: 0.25rem; background: #28519b; color: #fff; }
+.tarot-project .release-byline a:hover, .tarot-project .release-byline a:focus-visible { background: #1d3d78; }
+.tarot-project .release-byline a:focus-visible { outline: 2px solid var(--foreground); outline-offset: 2px; }
 .tarot-project .release-list { padding: 0; border-top: 1px solid #d1ddf4; }
 .tarot-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #d1ddf4; color: #667085; font-family: var(--sans); font-size: 0.75rem; }
 .tarot-project .release-row > span { display: inline; margin: 0; }

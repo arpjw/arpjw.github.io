@@ -1,0 +1,99 @@
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("writing/fonts/crimson-pro-latin.woff2") format("woff2");
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+html:has(.home-page) { background: #f4f4f1; }
+
+.home-page {
+  --background: #f4f4f1;
+  --foreground: #262625;
+  --home-muted: #64645e;
+  color: var(--foreground);
+  font: 1.1875rem/1.35 "Crimson Pro", Georgia, serif;
+}
+
+.home-column {
+  width: min(100% - 3.25rem, 40rem);
+  margin-inline: auto;
+  padding-block: 2.5rem 4rem;
+}
+
+.home-photo { position: relative; margin: 0; }
+.home-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  image-rendering: pixelated;
+  background: #d5d8cd;
+}
+
+.home-photo figcaption {
+  position: absolute;
+  right: 0.375rem;
+  bottom: 0.375rem;
+  max-width: calc(100% - 0.75rem);
+  padding: 0.125rem 0.375rem;
+  background: #f4f4f1f2;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.home-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.125rem 0.75rem;
+  margin: 0.55rem 0 1.65rem;
+  color: var(--home-muted);
+}
+
+.home-profiles { display: flex; margin-inline-start: -0.5rem; }
+.home-profiles a {
+  display: grid;
+  place-items: center;
+  width: 2.0625rem;
+  min-height: 2.5rem;
+}
+.home-profiles svg { width: 1.0625rem; height: 1.0625rem; fill: currentColor; }
+.home-email { white-space: nowrap; min-height: 2.5rem; display: inline-flex; align-items: center; }
+
+.home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a,
+.home-column .home-email {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: #8f8f83;
+}
+
+.home-column a:hover { color: #121210; text-decoration-color: currentColor; }
+.home-column a:focus-visible { outline: 1px solid #59594f; outline-offset: 3px; }
+.home-intro p { margin: 0 0 1.1rem; }
+.home-intro ul { margin: 0 0 1.15rem; padding-left: 1.25rem; }
+.home-intro li { padding-left: 0.25rem; }
+.home-intro li + li { margin-top: 0.2rem; }
+.home-intro li::marker { color: #77776d; }
+
+.home-writings { margin-top: 2.65rem; }
+.home-writings h2 { margin: 0 0 0.65rem; font-size: inherit; font-weight: 500; }
+.home-writings ol { list-style: none; padding: 0; margin: 0; }
+.home-writings li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  align-items: baseline;
+  gap: 0.8rem;
+  padding-block: 0.26rem;
+}
+.home-writings li a { width: fit-content; }
+.home-writings a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+.home-writings li span { color: var(--home-muted); font-size: 0.84rem; white-space: nowrap; }
+
+@media (max-width: 36rem) {
+  .home-page { font-size: 1.125rem; }
+  .home-column { width: min(100% - 2.5rem, 40rem); padding-block-start: 1.25rem; }
+}

@@ -1,20 +1,5 @@
 (function () {
-  var toggle = document.querySelector('.theme-toggle');
   var splash = document.querySelector('.splash');
-
-  function setThemeButton() {
-    var dark = document.documentElement.classList.contains('dark');
-    toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
-  }
-
-  toggle.addEventListener('click', function () {
-    var dark = document.documentElement.classList.toggle('dark');
-    try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (error) {}
-    var theme = document.querySelector('meta[name="theme-color"]');
-    theme.content = dark ? (theme.dataset.dark || '#000000') : (theme.dataset.light || '#ffffff');
-    setThemeButton();
-  });
-  setThemeButton();
 
   var lifespanAge = document.querySelector('[data-lifespan-age]');
   var lifespanPercent = document.querySelector('[data-lifespan-percent]');
