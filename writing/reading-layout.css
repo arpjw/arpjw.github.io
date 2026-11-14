@@ -1,0 +1,76 @@
+@font-face {
+  font-family: Inter;
+  src: url("fonts/inter-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: block;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("fonts/inter-variable-italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: block;
+}
+
+html:has(.writing-page) { background: #f4f4f1; }
+
+.writing-page {
+  --background: #f4f4f1;
+  --foreground: #1b1b1a;
+  --body: #4f4f4c;
+  --muted: #686864;
+  --faint: #757575;
+  --border: #d7d7d0;
+  --sans: Inter, system-ui, sans-serif;
+  --writing-column: 40rem;
+  --writing-pad: 2.25rem;
+  --writing-top: 2.5rem;
+  color: var(--body);
+  font: 400 0.9375rem/1.5 var(--sans);
+  letter-spacing: -0.006em;
+  font-optical-sizing: auto;
+  font-synthesis: none;
+}
+
+.writing-page .writing-site {
+  width: 100%;
+  padding: var(--writing-top) var(--writing-pad) 4rem;
+}
+
+.writing-page .site-home-link {
+  padding: 0;
+  margin: 0 0 2.5rem;
+  color: var(--faint);
+  font: inherit;
+}
+
+.writing-index-page .writing-index-content {
+  width: min(100%, var(--writing-column));
+  margin-inline: auto;
+}
+
+.writing-index-page .writing-main { margin-top: 0; }
+.writing-index-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; margin-bottom: 1.5rem; }
+.writing-index-page .writing-index-head h1 { font: 500 1.1875rem/1.5rem var(--sans); letter-spacing: -0.012em; }
+.writing-index-head > a { font-size: 0.8125rem; line-height: 1.35; }
+.writing-index-page .writing-list { list-style: none; padding: 0; margin: 0; }
+.writing-list > li { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; margin-bottom: 0.625rem; }
+.writing-list > li:last-child { margin-bottom: 0; }
+.writing-list > li a { min-width: 0; overflow-wrap: anywhere; }
+.writing-list > li span { flex: none; color: var(--faint); }
+.writing-index-page .writing-main a {
+  color: var(--muted);
+  text-decoration: underline dashed 0.75px;
+  text-underline-offset: 0.2em;
+}
+.writing-index-page .writing-main a:is(:hover, :focus-visible) { color: var(--foreground); }
+
+@media (max-width: 768px) {
+  .writing-page { --writing-pad: 1.9375rem; --writing-top: 1.875rem; }
+}
+
+@media (max-width: 480px) {
+  .writing-page { --writing-pad: 1.625rem; --writing-top: 1.25rem; }
+}

@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=compact-links">
+  <link rel="stylesheet" href="reading-layout.css">
   <link rel="canonical" href="https://aryasomu.com/writing/">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>Writing · Arya Somu</title>
@@ -22,80 +23,29 @@
 </head>
 <body class="writing-page writing-index-page">
   <div class="site writing-site">
-    <a class="site-home-link" href="/">← Home</a>
+    <div class="writing-index-content">
+      <a class="site-home-link" href="/">← Home</a>
 
-    <main class="writing-main">
-      <h1>Writing</h1>
-      <p class="writing-intro">Notes and essays, published here. <a class="prose-link" href="feed.xml">RSS</a></p>
-
-      <div class="writing-list" aria-label="Posts">
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume XI</span>
-          <div class="writing-entry__content"><h2><a href="introducing-trainkernel.html">Introducing TrainKernel</a></h2><p>Arya Somu</p></div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume X</span>
-          <div class="writing-entry__content"><h2><a href="price-of-compute-and-power.html">The price of compute, the price of power</a></h2><p>Arya Somu</p></div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume IX</span>
-          <div class="writing-entry__content"><h2><a href="the-promise-of-a-green-light.html">The promise of a green light</a></h2><p>Arya Somu</p></div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume VIII</span>
-          <div class="writing-entry__content"><h2><a href="molecular-origami.html">Molecular origami</a></h2><p>Arya Somu</p></div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume VII</span>
-          <div class="writing-entry__content">
-            <h2><a href="how-many-independent-forecasts-are-in-a-crowd.html">How many independent forecasts are in a crowd?</a></h2>
-            <p>Arya Somu</p>
-          </div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume VI</span>
-          <div class="writing-entry__content">
-            <h2><a href="nemotron-graph-repair.html">I taught Nemotron to flip graph edges</a></h2>
-            <p>Arya Somu</p>
-          </div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume V</span>
-          <div class="writing-entry__content">
-            <h2><a href="nemotron-average-banker.html">I post-trained Nemotron 4B into an Average Banker</a></h2>
-            <p>Arya Somu</p>
-          </div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume IV</span>
-          <div class="writing-entry__content">
-            <h2><a href="what-should-an-ai-ask.html">What should an AI ask when every explanation fits?</a></h2>
-            <p>Arya Somu</p>
-          </div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume III</span>
-          <div class="writing-entry__content">
-            <h2><a href="when-95-percent-credible-intervals-cover-81-percent.html">When 95% credible intervals cover 81%</a></h2>
-            <p>Arya Somu</p>
-          </div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume II</span>
-          <div class="writing-entry__content">
-            <h2><a href="the-typical-path-of-a-favorable-bet.html">The Typical Path of a Favorable Bet</a></h2>
-            <p>Arya Somu</p>
-          </div>
-        </article>
-        <article class="writing-entry">
-          <span class="writing-entry__volume">Volume I</span>
-          <div class="writing-entry__content">
-            <h2><a href="the-epistemic-century.html">The Epistemic Century</a></h2>
-            <p>Arya Somu</p>
-          </div>
-        </article>
-      </div>
-    </main>
+      <main class="writing-main">
+        <div class="writing-index-head">
+          <h1>Writing</h1>
+          <a href="feed.xml">RSS</a>
+        </div>
+        <ul class="writing-list" role="list">
+          <li><a href="introducing-trainkernel.html">Introducing TrainKernel</a><span>Volume XI</span></li>
+          <li><a href="price-of-compute-and-power.html">The price of compute, the price of power</a><span>Volume X</span></li>
+          <li><a href="the-promise-of-a-green-light.html">The promise of a green light</a><span>Volume IX</span></li>
+          <li><a href="molecular-origami.html">Molecular origami</a><span>Volume VIII</span></li>
+          <li><a href="how-many-independent-forecasts-are-in-a-crowd.html">How many independent forecasts are in a crowd?</a><span>Volume VII</span></li>
+          <li><a href="nemotron-graph-repair.html">I taught Nemotron to flip graph edges</a><span>Volume VI</span></li>
+          <li><a href="nemotron-average-banker.html">I post-trained Nemotron 4B into an Average Banker</a><span>Volume V</span></li>
+          <li><a href="what-should-an-ai-ask.html">What should an AI ask when every explanation fits?</a><span>Volume IV</span></li>
+          <li><a href="when-95-percent-credible-intervals-cover-81-percent.html">When 95% credible intervals cover 81%</a><span>Volume III</span></li>
+          <li><a href="the-typical-path-of-a-favorable-bet.html">The Typical Path of a Favorable Bet</a><span>Volume II</span></li>
+          <li><a href="the-epistemic-century.html">The Epistemic Century</a><span>Volume I</span></li>
+        </ul>
+      </main>
+    </div>
 
   </div>
 

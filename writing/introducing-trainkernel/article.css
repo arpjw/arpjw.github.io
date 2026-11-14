@@ -86,10 +86,6 @@
   font: 0.75rem/1.65 var(--sans);
 }
 
-@media (width > 68rem) {
-  .trainkernel-page .tk-figure > :is(.tk-table-wrap, .tk-plot, .tk-system) { margin-inline: -1.15rem; }
-}
-
 @media (max-width: 39rem) {
   .tk-system { grid-template-columns: 1fr; }
   .tk-system div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); align-items: baseline; gap: 0.6rem; }

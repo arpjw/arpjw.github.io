@@ -22,14 +22,16 @@ The catalog and its jump links work without JavaScript.
 
 The homepage's Writings heading points to `/writing/`. Posts are plain HTML files in
 `writing/`, so they can be edited locally or in GitHub without a separate service.
-The Writing index links to its RSS feed.
+The Writing index links to its RSS feed. It and the article pages share
+`writing/reading-layout.css`, which loads Inter and sets the reading width.
 
 To publish a post:
 
 1. Copy `writing/post-template.txt` to `writing/your-post-slug.html`.
 2. Replace the title, one-line summary, metadata description, volume label,
    canonical URL, and article text. Keep the shared `writing/article.css`
-   stylesheet and put the title block inside the reading column. Give each
+   stylesheet and put the title block inside the reading column. Keep the
+   Home link and desktop table of contents together in `.writing-rail`. Give each
    section a stable ID and add it to both tables of contents.
    `writing/writing.js` marks the current section in the desktop guide. Put
    a `.writing-citation__mark` beside the sentence it supports and link it to
@@ -76,11 +78,5 @@ The shared CSS continues to control typography and layout.
 Example index entry:
 
 ```html
-<article class="writing-entry">
-  <span class="writing-entry__volume">Volume I</span>
-  <div class="writing-entry__content">
-    <h2><a href="your-post-slug.html">Your post title</a></h2>
-    <p>Arya Somu</p>
-  </div>
-</article>
+<li><a href="your-post-slug.html">Your post title</a><span>Volume I</span></li>
 ```

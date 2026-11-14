@@ -10,8 +10,8 @@
     });
   }
   function positionCitations() {
-    var useRail = body && !printing && window.matchMedia('(width > 68rem)').matches;
-    var railEdge = useRail ? body.getBoundingClientRect().right + 36 : 0;
+    var useRail = body && !printing && window.matchMedia('screen and (min-width: 61rem)').matches;
+    var railEdge = useRail ? body.getBoundingClientRect().right : 0;
     var previousBottom = -Infinity;
     citations.forEach(function (citation) {
       var mark = endnotes && citation.querySelector('.writing-citation__mark');
@@ -29,7 +29,7 @@
       } else {
         var markBox = citation.getBoundingClientRect();
         note.classList.add('is-rail');
-        note.style.left = (railEdge - markBox.left) + 'px';
+        note.style.left = 'calc(' + (railEdge - markBox.left) + 'px + var(--writing-rail-gap))';
         note.style.top = Math.max(0, previousBottom + 10 - markBox.top) + 'px';
         previousBottom = note.getBoundingClientRect().bottom;
       }
@@ -57,7 +57,7 @@
     scheduled = false;
     var current = 0;
     sections.forEach(function (section, index) {
-      if (section && section.getBoundingClientRect().top <= 180) current = index;
+      if (section && section.getBoundingClientRect().top <= 100) current = index;
     });
     links.forEach(function (link, index) {
       if (index === current) link.setAttribute('aria-current', 'location');
