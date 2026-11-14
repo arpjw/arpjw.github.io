@@ -23,14 +23,16 @@ a separate external link.
 To publish a post:
 
 1. Copy `writing/post-template.txt` to `writing/your-post-slug.html`.
-2. Replace the title, description, volume label, canonical URL, and article text. Keep
-   the shared `writing-post` classes for the title, reading column, section
-   navigation, and mobile layout. Give each section a stable ID and add it to
-   both tables of contents. `writing/writing.js` marks the current section in
-   the desktop guide. Put source references beside the sentence they support
-   with a `.writing-citation` marker and `.writing-citation__note`. The note
-   appears in the right margin on wide screens and inline on smaller screens.
-   Give each note a unique ID, and link the marker to it.
+2. Replace the title, one-line summary, metadata description, volume label,
+   canonical URL, and article text. Keep the shared `writing/article.css`
+   stylesheet and put the title block inside the reading column. Give each
+   section a stable ID and add it to both tables of contents.
+   `writing/writing.js` marks the current section in the desktop guide. Put
+   a `.writing-citation__mark` beside the sentence it supports and link it to
+   a `.writing-citation__note` in the numbered Notes list. On wide screens the
+   script moves the note beside its marker. Give the marker its own ID so the
+   endnote can link back. Use `.writing-figure` for figures, with a numbered
+   `.writing-figure__head` and a caption where needed.
    Keep `writing-page writing-article-page` on `<body>`, and optionally add
    `article-color-blue` or `article-color-rust` to choose an accent. The default
    is teal.

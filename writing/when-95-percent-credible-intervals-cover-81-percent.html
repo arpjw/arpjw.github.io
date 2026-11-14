@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1" data-light="#f4f4f1" data-dark="#1b1b19">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=compact-links">
+  <link rel="stylesheet" href="article.css">
   <link rel="canonical" href="https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>When 95% credible intervals cover 81% · Arya Somu</title>
@@ -34,7 +35,8 @@
         var saved = localStorage.getItem('theme');
         var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+        var theme = document.querySelector('meta[name="theme-color"]');
+        theme.content = dark ? theme.dataset.dark : theme.dataset.light;
       } catch (error) {}
     })();
   </script>
@@ -57,10 +59,6 @@
 
     <main class="writing-article-main" id="top">
       <article class="writing-post">
-        <header class="writing-post__header">
-          <h1>When 95% credible intervals cover 81%</h1>
-          <p class="writing-post__meta">Arya Somu <span aria-hidden="true">·</span> Statistics<br><span class="writing-post__volume">Volume III</span></p>
-        </header>
         <div class="writing-post__content">
           <nav class="writing-toc" aria-label="On this page">
             <p>On this page</p>
@@ -74,6 +72,12 @@
             </ul>
           </nav>
         <div class="writing-post__body">
+            <header class="writing-post__header">
+              <div class="writing-post__meta"><span class="writing-post__volume">Volume III</span><span aria-hidden="true"> · </span>Arya Somu <span aria-hidden="true">·</span> Statistics</div>
+              <h1>When 95% credible intervals cover 81%</h1>
+              <p class="writing-post__dek">A small example of why Bayesian credible intervals can lose frequentist coverage when the likelihood's variance is wrong.</p>
+            </header>
+
           <details class="writing-toc-mobile">
             <summary>In this article</summary>
             <nav aria-label="On this page">
@@ -88,7 +92,7 @@
             </nav>
           </details>
           <p class="writing-post__lead" id="introduction">A posterior can locate the right parameter and still report the wrong uncertainty.</p>
-          <p>Suppose I report a 95% Bayesian credible interval for a population mean. If I could repeat the data collection thousands of times, how often would that interval contain the mean? Under familiar conditions the answer approaches 95%. A wrong assumption about the observations' variance is enough to break that agreement.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-anish" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-anish">Prompted by Anish Lakkapragada, <a href="https://anishlk.com/posts/bayesian-misspecification/">“Bayesian Misspecification”</a>.</span></span></p>
+          <p>Suppose I report a 95% Bayesian credible interval for a population mean. If I could repeat the data collection thousands of times, how often would that interval contain the mean? Under familiar conditions the answer approaches 95%. A wrong assumption about the observations' variance is enough to break that agreement.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-1" href="#cite-anish" aria-label="Citation 1">1</a></span></p>
           <p>The key is to distinguish two distributions. One is the posterior distribution of a parameter <em>given this dataset</em>. The other is the distribution of the estimator <em>across new datasets</em>. They have the same center asymptotically in this example, but different widths.</p>
 
           <h2 id="wrong-likelihood">A deliberately wrong likelihood<a class="heading-anchor" href="#wrong-likelihood" aria-label="Link to A deliberately wrong likelihood">#</a></h2>
@@ -101,14 +105,16 @@
           <h2 id="repeated-sampling">What repeated sampling sees<a class="heading-anchor" href="#repeated-sampling" aria-label="Link to What repeated sampling sees">#</a></h2>
           <p>Across fresh datasets, the sample mean has variance σ²/n. The posterior mean is only slightly shrunk toward zero by the prior, so its sampling variance is close to σ²/n too. At large n, the posterior variance is close to 1/n. The two agree only when σ = 1.</p>
           <div class="math-block" role="math" aria-label="Posterior variance is approximately one over n. Sampling variance of sample mean is sigma squared over n.">Posterior variance ≈ 1/n &nbsp; | &nbsp; Sampling variance of X̄ = σ²/n.</div>
-          <p>This is the one-dimensional version of the distinction between inverse curvature, H<sup>−1</sup>, and the sandwich variance, H<sup>−1</sup>JH<sup>−1</sup>, where H is expected negative log-likelihood curvature and J is score variance. Here H = 1 and J = σ². The sandwich describes how the estimate varies across samples; it is not automatically the covariance of the ordinary posterior.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-kleijn" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-kleijn">Kleijn and van der Vaart, <a href="https://pure.uva.nl/ws/files/1850322/114737_376240.pdf">“The Bernstein–von Mises theorem under misspecification”</a> (2012).</span></span></p>
+          <p>This is the one-dimensional version of the distinction between inverse curvature, H<sup>−1</sup>, and the sandwich variance, H<sup>−1</sup>JH<sup>−1</sup>, where H is expected negative log-likelihood curvature and J is score variance. Here H = 1 and J = σ². The sandwich describes how the estimate varies across samples; it is not automatically the covariance of the ordinary posterior.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-2" href="#cite-kleijn" aria-label="Citation 2">2</a></span></p>
           <p>For a nearly flat prior and true mean zero, the actual coverage of the nominal 95% posterior interval is:</p>
           <div class="math-block" role="math" aria-label="Coverage is approximately two times Phi of 1.96 divided by sigma minus one.">Coverage ≈ 2Φ(1.96/σ) − 1.</div>
           <p>With σ = 1.5, this is 80.9%, rather than 95%. With σ = 2, it falls to 67.3%. If σ is below one, the interval is too wide and overcovers. These are repeated-sampling statements about the pseudo-true mean, not posterior probabilities conditional on any one dataset.</p>
 
           <h2 id="simulation">Check it with simulation<a class="heading-anchor" href="#simulation" aria-label="Link to Check it with simulation">#</a></h2>
-          <p>I drew 50,000 independent datasets of size 100 for each true σ, keeping the fitted variance at one. For each dataset I formed the exact posterior interval and a comparison interval centered on the sample mean with standard error estimated from that dataset. The fixed-seed code and outputs are browsable in the <a href="https://github.com/arpjw/credible-intervals-under-misspecification">reproduction repository</a>.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-code" aria-label="Citation 3">3</a><span class="writing-citation__note" id="cite-code"><a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/simulate.py">Python script</a>, <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/results.csv">CSV</a>, and <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/coverage.svg">figure source</a>.</span></span></p>
-          <div class="results-wrap">
+          <p>I drew 50,000 independent datasets of size 100 for each true σ, keeping the fitted variance at one. For each dataset I formed the exact posterior interval and a comparison interval centered on the sample mean with standard error estimated from that dataset. The fixed-seed code and outputs are browsable in the <a href="https://github.com/arpjw/credible-intervals-under-misspecification">reproduction repository</a>.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-3" href="#cite-code" aria-label="Citation 3">3</a></span></p>
+          <figure class="writing-figure writing-table">
+            <figcaption class="writing-figure__head" id="writing-table-1"><span class="writing-figure__label">Table 1</span><strong>Coverage across noise levels</strong></figcaption>
+            <div class="results-wrap writing-table__scroll" tabindex="0" role="region" aria-labelledby="writing-table-1">
             <table>
               <thead><tr><th scope="col">True σ</th><th scope="col">Posterior interval</th><th scope="col">Exact prediction</th><th scope="col">Estimated sandwich interval</th></tr></thead>
               <tbody>
@@ -118,8 +124,10 @@
                 <tr><td>2.0</td><td>67.34%</td><td>67.29%</td><td>94.80%</td></tr>
               </tbody>
             </table>
-          </div>
-          <figure>
+            </div>
+          </figure>
+          <figure class="writing-figure">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 1</span><strong>Exact and simulated interval coverage</strong></div>
             <img src="credible-intervals-under-misspecification/coverage.svg" width="720" height="400" alt="Line chart showing posterior interval coverage dropping from about 100% to 67% as true standard deviation rises from 0.5 to 2. Estimated sandwich interval coverage stays near 95%.">
             <figcaption>Exact posterior coverage is the blue curve; dots and squares are the seeded simulations. All intervals were labeled 95%.</figcaption>
           </figure>
@@ -129,6 +137,15 @@
           <p>The ordinary posterior is internally consistent with the model it was given. It answers a conditional question under a likelihood that has fixed the variance incorrectly. If the intended claim is about repeated-sampling coverage, the variance assumption has to be checked or the uncertainty calculation has to account for its failure.</p>
           <p>This example is intentionally narrow: independent normal observations, one mean parameter, and a known zero true mean used only for evaluation. It does not establish that a sandwich interval solves every form of misspecification. Dependence, changing distributions, and biased pseudo-true targets need separate treatment. Its useful lesson is more basic: getting the center right does not guarantee getting the uncertainty right.</p>
 
+
+          <section class="writing-post__notes" data-writing-endnotes aria-labelledby="article-notes">
+            <h2 id="article-notes">Notes</h2>
+            <ol>
+              <li><span class="writing-citation__note" id="cite-anish">Prompted by Anish Lakkapragada, <a href="https://anishlk.com/posts/bayesian-misspecification/">“Bayesian Misspecification”</a>.</span> <a class="writing-note-return" href="#note-ref-1" aria-label="Return to citation 1">↩</a></li>
+              <li><span class="writing-citation__note" id="cite-kleijn">Kleijn and van der Vaart, <a href="https://pure.uva.nl/ws/files/1850322/114737_376240.pdf">“The Bernstein–von Mises theorem under misspecification”</a> (2012).</span> <a class="writing-note-return" href="#note-ref-2" aria-label="Return to citation 2">↩</a></li>
+              <li><span class="writing-citation__note" id="cite-code"><a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/simulate.py">Python script</a>, <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/results.csv">CSV</a>, and <a href="https://github.com/arpjw/credible-intervals-under-misspecification/blob/main/outputs/coverage.svg">figure source</a>.</span> <a class="writing-note-return" href="#note-ref-3" aria-label="Return to citation 3">↩</a></li>
+            </ol>
+          </section>
         </div>
         </div>
         <section class="writing-post__cite" aria-labelledby="cite-this-essay">

@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1" data-light="#f4f4f1" data-dark="#1b1b19">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=compact-links">
+  <link rel="stylesheet" href="article.css">
   <link rel="canonical" href="https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd.html">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>How many independent forecasts are in a crowd? · Arya Somu</title>
@@ -33,7 +34,8 @@
         var saved = localStorage.getItem('theme');
         var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+        var theme = document.querySelector('meta[name="theme-color"]');
+        theme.content = dark ? theme.dataset.dark : theme.dataset.light;
       } catch (error) {}
     })();
   </script>
@@ -56,10 +58,6 @@
 
     <main class="writing-article-main" id="top">
       <article class="writing-post">
-        <header class="writing-post__header">
-          <h1>How many independent forecasts are in a crowd?</h1>
-          <p class="writing-post__meta">Arya Somu · Forecasting research<br><span class="writing-post__volume">Volume VII</span></p>
-        </header>
         <div class="writing-post__content">
           <nav class="writing-toc" aria-label="On this page">
             <p>On this page</p>
@@ -75,6 +73,12 @@
             </ul>
           </nav>
           <div class="writing-post__body">
+            <header class="writing-post__header">
+              <div class="writing-post__meta"><span class="writing-post__volume">Volume VII</span><span aria-hidden="true"> · </span>Arya Somu · Forecasting research</div>
+              <h1>How many independent forecasts are in a crowd?</h1>
+              <p class="writing-post__dek">How much independent evidence lies behind agreeing forecasts? A frozen synthetic study learns source groups from resolved questions and tests where that repair breaks.</p>
+            </header>
+
             <details class="writing-toc-mobile">
               <summary>In this article</summary>
               <nav aria-label="On this page"><ul><li><a href="#introduction">The question</a></li>
@@ -124,7 +128,9 @@
             <p>The frozen primary experiment used ten forecasters, overlap .5 and signal
             strength .5. Each of 30 independent repetitions used 200 training questions
             and 10,000 fresh test questions. Lower log loss is better:</p>
-            <div class="results-wrap"><table>
+            <figure class="writing-figure writing-table">
+              <figcaption class="writing-figure__head" id="writing-table-1"><span class="writing-figure__label">Table 1</span><strong>Log loss in the primary experiment</strong></figcaption>
+              <div class="results-wrap writing-table__scroll" tabindex="0" role="region" aria-labelledby="writing-table-1"><table>
             <thead>
             <tr>
             <th>Method</th>
@@ -149,7 +155,9 @@
             <td style="text-align: right;">0.50739</td>
             </tr>
             </tbody>
-            </table></div>
+            </table>
+              </div>
+            </figure>
             <p>The learned pool improved on the arithmetic mean by 0.03287 nats per question
             and on the independence pool by 0.66860. The prespecified paired 97.5%
             bootstrap intervals for learned minus comparator were [-0.03452, -0.03085]
@@ -158,7 +166,7 @@
             intervals, adjusted for the two primary comparisons, rather than exact
             finite-sample guarantees. The <a href="shared-evidence/production-primary-v1-analysis.json">primary analysis</a>
             contains the scores and intervals; the <a href="shared-evidence/production-primary-v1.manifest.json">frozen manifest</a>
-            records the design.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-primary" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-primary"><a href="https://github.com/arpjw/shared-evidence-forecasting-repro">Primary analysis, frozen manifest and full ledger</a>, Arya Somu (2026).</span></span></p>
+            records the design.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-1" href="#cite-primary" aria-label="Citation 1">1</a></span></p>
             <p>That is a useful result in a deliberately simple world. The more interesting
             question is what happens when the sharing is uneven.</p>
             <h2 id="when-the-crowd-points-the-wrong-way">When the crowd points the wrong way<a class="heading-anchor" href="#when-the-crowd-points-the-wrong-way" aria-label="Link to When the crowd points the wrong way">#</a></h2>
@@ -187,8 +195,10 @@
             <a href="shared-evidence/stress-groups-m5000-v1-signs.json">sign diagnostic</a>
             records those counts. No amount of training can make a nonnegative scalar
             reverse the sign of the same summed input. The structural failure survives
-            better estimation of the scalar.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-stress" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-stress"><a href="https://github.com/arpjw/shared-evidence-forecasting-repro">Exploratory stress report and full ledgers</a>, Arya Somu (2026).</span></span></p>
-            <figure><img loading="lazy" decoding="async" alt="Fraction of summed forecasts pointing opposite to the group oracle, by source partition and within-group overlap" src="shared-evidence/figures/group_decision_disagreement.svg" /><figcaption>The sign diagnostic across overlap values uses the M=5,000 test batches.
+            better estimation of the scalar.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-2" href="#cite-stress" aria-label="Citation 2">2</a></span></p>
+            <figure class="writing-figure">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 1</span><strong>Forecast disagreement with the group oracle</strong></div>
+              <img loading="lazy" decoding="async" alt="Fraction of summed forecasts pointing opposite to the group oracle, by source partition and within-group overlap" src="shared-evidence/figures/group_decision_disagreement.svg" /><figcaption>The sign diagnostic across overlap values uses the M=5,000 test batches.
             It compares the summed reports with the exact group posterior; it is not an
             observed classification-error rate.</figcaption></figure>
             <p>The equal-sized group control helps explain why. With two groups of five at
@@ -197,7 +207,9 @@
             need different discounts, which a single scalar cannot express. The small
             observed gap in the equal-group control is consistent with that distinction;
             it does not prove exact equality of learned and oracle performance.</p>
-            <figure><img loading="lazy" decoding="async" alt="Learned scalar regret relative to the group oracle across training sizes" src="shared-evidence/figures/group_oracle_regret.svg" /><figcaption>At complete within-group duplication, the unequal-group gap persists across
+            <figure class="writing-figure">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 2</span><strong>Scalar regret by training size</strong></div>
+              <img loading="lazy" decoding="async" alt="Learned scalar regret relative to the group oracle across training sizes" src="shared-evidence/figures/group_oracle_regret.svg" /><figcaption>At complete within-group duplication, the unequal-group gap persists across
             training sizes. Each point summarizes twelve independent fits; bars are
             descriptive 95% replicate-bootstrap intervals. This figure uses overlap 1,
             while the numerical comparison above uses .9. Both figures come from the
@@ -262,7 +274,9 @@
             test questions. Both learned methods received the same training data. The
             training budget is larger than the original experiment's 200 questions, and
             this test uses fresh draws rather than the earlier stress batches.</p>
-            <div class="results-wrap"><table>
+            <figure class="writing-figure writing-table">
+              <figcaption class="writing-figure__head" id="writing-table-2"><span class="writing-figure__label">Table 2</span><strong>Log loss and Brier score in the follow-up</strong></figcaption>
+              <div class="results-wrap writing-table__scroll" tabindex="0" role="region" aria-labelledby="writing-table-2"><table>
             <thead>
             <tr>
             <th>Method</th>
@@ -302,10 +316,14 @@
             <td style="text-align: right;">0.15904</td>
             </tr>
             </tbody>
-            </table></div>
+            </table>
+              </div>
+            </figure>
             <p>Lower is better for both scores. The prespecified decision rule concerned log
             loss and required both of these paired comparisons to pass:</p>
-            <div class="results-wrap"><table>
+            <figure class="writing-figure writing-table">
+              <figcaption class="writing-figure__head" id="writing-table-3"><span class="writing-figure__label">Table 3</span><strong>Paired loss differences and prespecified gates</strong></figcaption>
+              <div class="results-wrap writing-table__scroll" tabindex="0" role="region" aria-labelledby="writing-table-3"><table>
             <thead>
             <tr>
             <th>Comparison</th>
@@ -328,7 +346,9 @@
             <td>Upper endpoint below 0.01</td>
             </tr>
             </tbody>
-            </table></div>
+            </table>
+              </div>
+            </figure>
             <p>Both gates passed. The second establishes proximity under the chosen tolerance
             of .01 nats per question. It does not establish equality with the oracle;
             indeed, the estimated regret is positive and its interval excludes zero.</p>
@@ -357,7 +377,7 @@
             with introducing new ones. There were no exact-zero ties in this primary run.
             These are disagreements with a reference posterior, not counts of observed
             classification errors. The <a href="shared-evidence/source-inference-suite-v1.json">complete follow-up report</a>
-            contains every method, contrast and diagnostic.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-followup" aria-label="Citation 3">3</a><span class="writing-citation__note" id="cite-followup"><a href="https://github.com/arpjw/shared-evidence-forecasting-repro">Frozen follow-up report and full ledgers</a>, Arya Somu (2026).</span></span></p>
+            contains every method, contrast and diagnostic.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-3" href="#cite-followup" aria-label="Citation 3">3</a></span></p>
             <h2 id="what-breaks-with-fewer-resolved-questions">What breaks with fewer resolved questions?<a class="heading-anchor" href="#what-breaks-with-fewer-resolved-questions" aria-label="Link to What breaks with fewer resolved questions?">#</a></h2>
             <p>A successful primary cell can hide brittle behavior. The same frozen suite
             therefore included all 36 combinations of three partitions (9+1, 5+5 and
@@ -387,7 +407,9 @@
             missing confidence. Connected components have a different vulnerability: one
             noisy edge can merge otherwise separate groups. Those are limitations of the
             fixed procedure, whether or not a particular cell exposes them.</p>
-            <figure><img loading="lazy" decoding="async" alt="Primary test losses and source-inference regret across sensitivity training sizes" src="shared-evidence/figures/source_inference_regret.svg" /><figcaption>Panel A shows mean test losses in the primary follow-up. Panel B shows
+            <figure class="writing-figure">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 3</span><strong>Test loss and source inference regret</strong></div>
+              <img loading="lazy" decoding="async" alt="Primary test losses and source-inference regret across sensitivity training sizes" src="shared-evidence/figures/source_inference_regret.svg" /><figcaption>Panel A shows mean test losses in the primary follow-up. Panel B shows
             sensitivity regrets with descriptive 95% paired replicate-bootstrap intervals
             and twelve fits per cell. Those intervals are distinct from the primary
             follow-up's prespecified 97.5% comparisons in the table above. The full report
@@ -452,6 +474,15 @@
             history often can. The remaining work is to understand how much of the answer
             survives when the forecasters, their calibration and their sources stop holding
             still.</p>
+
+            <section class="writing-post__notes" data-writing-endnotes aria-labelledby="article-notes">
+              <h2 id="article-notes">Notes</h2>
+              <ol>
+                <li><span class="writing-citation__note" id="cite-primary"><a href="https://github.com/arpjw/shared-evidence-forecasting-repro">Primary analysis, frozen manifest and full ledger</a>, Arya Somu (2026).</span> <a class="writing-note-return" href="#note-ref-1" aria-label="Return to citation 1">↩</a></li>
+                <li><span class="writing-citation__note" id="cite-stress"><a href="https://github.com/arpjw/shared-evidence-forecasting-repro">Exploratory stress report and full ledgers</a>, Arya Somu (2026).</span> <a class="writing-note-return" href="#note-ref-2" aria-label="Return to citation 2">↩</a></li>
+                <li><span class="writing-citation__note" id="cite-followup"><a href="https://github.com/arpjw/shared-evidence-forecasting-repro">Frozen follow-up report and full ledgers</a>, Arya Somu (2026).</span> <a class="writing-note-return" href="#note-ref-3" aria-label="Return to citation 3">↩</a></li>
+              </ol>
+            </section>
           </div>
         </div>
         <section class="writing-post__cite" aria-labelledby="cite-this-essay">

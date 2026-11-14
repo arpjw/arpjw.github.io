@@ -10,7 +10,8 @@
   toggle.addEventListener('click', function () {
     var dark = document.documentElement.classList.toggle('dark');
     try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (error) {}
-    document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+    var theme = document.querySelector('meta[name="theme-color"]');
+    theme.content = dark ? (theme.dataset.dark || '#000000') : (theme.dataset.light || '#ffffff');
     setThemeButton();
   });
   setThemeButton();

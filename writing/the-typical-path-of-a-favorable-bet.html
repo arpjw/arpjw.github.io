@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1" data-light="#f4f4f1" data-dark="#1b1b19">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=compact-links">
+  <link rel="stylesheet" href="article.css">
   <link rel="canonical" href="https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>The Typical Path of a Favorable Bet · Arya Somu</title>
@@ -33,7 +34,8 @@
         var saved = localStorage.getItem('theme');
         var dark = saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
         document.documentElement.classList.toggle('dark', dark);
-        document.querySelector('meta[name="theme-color"]').content = dark ? '#000000' : '#ffffff';
+        var theme = document.querySelector('meta[name="theme-color"]');
+        theme.content = dark ? theme.dataset.dark : theme.dataset.light;
       } catch (error) {}
     })();
   </script>
@@ -56,10 +58,6 @@
 
     <main class="writing-article-main" id="top">
       <article class="writing-post">
-        <header class="writing-post__header">
-          <h1>The Typical Path of a Favorable Bet</h1>
-          <p class="writing-post__meta">Arya Somu · Finance &amp; Probability<br><span class="writing-post__volume">Volume II</span></p>
-        </header>
         <div class="writing-post__content">
           <nav class="writing-toc" aria-label="On this page">
             <p>On this page</p>
@@ -69,6 +67,12 @@
             </ul>
           </nav>
         <div class="writing-post__body">
+            <header class="writing-post__header">
+              <div class="writing-post__meta"><span class="writing-post__volume">Volume II</span><span aria-hidden="true"> · </span>Arya Somu · Finance &amp; Probability</div>
+              <h1>The Typical Path of a Favorable Bet</h1>
+              <p class="writing-post__dek">A fixed-seed experiment shows how a favorable repeated bet can raise expected wealth while leaving the median bankroll poorer.</p>
+            </header>
+
           <details class="writing-toc-mobile">
             <summary>In this article</summary>
             <nav aria-label="On this page"><ul><li><a href="#introduction">Introduction</a></li><li><a href="#two-averages">Two averages of the same bet</a></li><li><a href="#experiment">A small experiment</a></li><li><a href="#interpretation">What the result does and does not say</a></li></ul></nav>
@@ -81,11 +85,13 @@
           <p>If the stake fraction is <em>f</em>, a win multiplies wealth by 1 + <em>f</em>, and a loss multiplies it by 1 − <em>f</em>. After one round, expected wealth is multiplied by 0.55(1 + <em>f</em>) + 0.45(1 − <em>f</em>) = 1 + 0.10<em>f</em>. Raise this to the hundredth power for expected wealth after 100 independent rounds. By that measure, a larger stake always looks better within this model.</p>
           <p>But a person does not receive the average of thousands of parallel bankrolls. They live one path. The quantity that adds across rounds on that path is log wealth:</p>
           <div class="math-block" role="math" aria-label="Expected log growth per round equals 0.55 times log of one plus f, plus 0.45 times log of one minus f.">g(f) = 0.55 log(1 + f) + 0.45 log(1 − f).</div>
-          <p>Maximizing this expression gives <em>f</em> = 0.10. This is the familiar proportional betting result associated with John Kelly's growth criterion.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-kelly" aria-label="Citation 1">1</a><span class="writing-citation__note" id="cite-kelly">John L. Kelly Jr., <a href="https://onlinelibrary.wiley.com/doi/10.1002/j.1538-7305.1956.tb03809.x">“A New Interpretation of Information Rate”</a>, <em>Bell System Technical Journal</em> (1956).</span></span> It is a result about a particular objective under a particular model, not a universal instruction to stake 10% of wealth.</p>
+          <p>Maximizing this expression gives <em>f</em> = 0.10. This is the familiar proportional betting result associated with John Kelly's growth criterion.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-1" href="#cite-kelly" aria-label="Citation 1">1</a></span> It is a result about a particular objective under a particular model, not a universal instruction to stake 10% of wealth.</p>
 
           <h2 id="experiment">A small experiment<a class="heading-anchor" href="#experiment" aria-label="Link to A small experiment">#</a></h2>
-          <p>I generated 50,000 independent paths of 100 wins and losses with a fixed random seed. Each path was reused for four stake fractions, so differences across columns are caused by the stake rule rather than by different lucky draws. Initial wealth is one. The code and exact CSV output are available in the <a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet">experiment repository</a>.<span class="writing-citation"><a class="writing-citation__mark" href="#cite-experiment" aria-label="Citation 2">2</a><span class="writing-citation__note" id="cite-experiment"><a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet/blob/main/simulate.py">Simulation code</a> and <a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet/blob/main/results.csv">results.csv</a>. Python standard library; seed 20261011; run October 11, 2026.</span></span></p>
-          <div class="results-wrap">
+          <p>I generated 50,000 independent paths of 100 wins and losses with a fixed random seed. Each path was reused for four stake fractions, so differences across columns are caused by the stake rule rather than by different lucky draws. Initial wealth is one. The code and exact CSV output are available in the <a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet">experiment repository</a>.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-2" href="#cite-experiment" aria-label="Citation 2">2</a></span></p>
+          <figure class="writing-figure writing-table">
+            <figcaption class="writing-figure__head" id="writing-table-1"><span class="writing-figure__label">Table 1</span><strong>Wealth outcomes by stake fraction</strong></figcaption>
+            <div class="results-wrap writing-table__scroll" tabindex="0" role="region" aria-labelledby="writing-table-1">
             <table>
               <thead><tr><th scope="col">Stake fraction</th><th scope="col">Expected wealth, exact</th><th scope="col">Median wealth, simulated</th><th scope="col">Paths below start</th></tr></thead>
               <tbody>
@@ -95,13 +101,22 @@
                 <tr><td>50%</td><td>131.50</td><td>0.0001</td><td>95.6%</td></tr>
               </tbody>
             </table>
-          </div>
+            </div>
+          </figure>
           <p class="note">The expected wealth column is an exact model calculation; the median and loss frequencies are simulated. At 50,000 paths, the largest approximate Monte Carlo margin for a reported frequency is about ±0.4 percentage points at 95% confidence. Each stake fraction sees the same outcome paths.</p>
           <p>The 25% rule makes the contrast concrete. Its expected ending wealth is almost twelve times the start. Yet the median ending wealth is about half the start, and 62% of paths finish below one. The high expectation is carried by a minority of extremely successful paths. At 50%, the gap is extreme: expected wealth exceeds 131, while the median path ends near zero.</p>
 
           <h2 id="interpretation">What the result does and does not say<a class="heading-anchor" href="#interpretation" aria-label="Link to What the result does and does not say">#</a></h2>
           <p>There is no contradiction. Arithmetic expectation weights a rare, enormous bankroll in full. Median wealth describes the middle path. Expected log growth asks how a repeated multiplicative process tends to compound. They answer different questions. Even the 10% rule, which maximizes expected log growth here, loses money over 100 rounds in about 31% of simulated paths. A growth optimum is no promise of a good finite run.</p>
           <p>The experiment is intentionally easier than finance. Its 55% chance is known and stable, outcomes are independent, and odds never change. A real edge has to be estimated; its estimate can be wrong. Prices, fees, limits, liquidity, dependence, and the ability to keep betting all matter. None of those appear here, and this is not a backtest or evidence that any asset or market offers this wager. The useful habit is to ask for the distribution of paths alongside an expected return, especially when the position size changes what remains available for the next decision.</p>
+
+          <section class="writing-post__notes" data-writing-endnotes aria-labelledby="article-notes">
+            <h2 id="article-notes">Notes</h2>
+            <ol>
+              <li><span class="writing-citation__note" id="cite-kelly">John L. Kelly Jr., <a href="https://onlinelibrary.wiley.com/doi/10.1002/j.1538-7305.1956.tb03809.x">“A New Interpretation of Information Rate”</a>, <em>Bell System Technical Journal</em> (1956).</span> <a class="writing-note-return" href="#note-ref-1" aria-label="Return to citation 1">↩</a></li>
+              <li><span class="writing-citation__note" id="cite-experiment"><a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet/blob/main/simulate.py">Simulation code</a> and <a href="https://github.com/arpjw/the-typical-path-of-a-favorable-bet/blob/main/results.csv">results.csv</a>. Python standard library; seed 20261011; run October 11, 2026.</span> <a class="writing-note-return" href="#note-ref-2" aria-label="Return to citation 2">↩</a></li>
+            </ol>
+          </section>
         </div>
         </div>
         <section class="writing-post__cite" aria-labelledby="cite-this-essay">
