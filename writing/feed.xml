@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>A tiny GPU inside Qwen</title>
+      <link>https://aryasomu.com/writing/a-tiny-gpu-inside-qwen.html</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/a-tiny-gpu-inside-qwen.html</guid>
+      <pubDate>Sun, 15 Nov 2026 00:34:12 +0000</pubDate>
+      <description>How Qwen-GPU turns a language model's generated tokens into the clock of a small programmable processor, and what its verified 16×16 matrix multiply does and does not prove.</description>
+    </item>
+    <item>
       <title>Introducing TrainKernel</title>
       <link>https://aryasomu.com/writing/introducing-trainkernel.html</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/introducing-trainkernel.html</guid>
