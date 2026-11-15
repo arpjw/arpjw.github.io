@@ -7,6 +7,13 @@
     <language>en-us</language>
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>The Handshake Moat</title>
+      <link>https://aryasomu.com/writing/the-handshake-moat</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/the-handshake-moat</guid>
+      <pubDate>Sun, 15 Nov 2026 23:21:16 +0000</pubDate>
+      <description>An examination of relational contracting, Jensen Huang's personal credibility, and the hidden economic infrastructure behind NVIDIA's supply chain.</description>
+    </item>
+    <item>
       <title>A tiny GPU inside Qwen</title>
       <link>https://aryasomu.com/writing/a-tiny-gpu-inside-qwen</link>
       <guid isPermaLink="true">https://aryasomu.com/writing/a-tiny-gpu-inside-qwen</guid>
