@@ -37,7 +37,11 @@ To publish a post:
    a `.writing-citation__mark` beside the sentence it supports and link it to
    a `.writing-citation__note` in the numbered Notes list. On wide screens the
    script moves the note beside its marker. Give the marker its own ID so the
-   endnote can link back. Use `.writing-figure` for figures, with a numbered
+   endnote can link back. `writing.js` numbers each `<h2>` (01, 02) and `<h3>`
+   (1.1, 1.2) in the body and in both tables of contents; add `data-unnumbered`
+   to a heading to skip it. Keep `<strong>` for a few key phrases; the shared
+   CSS renders it at medium weight in the darker text color.
+   Use `.writing-figure` for figures, with a numbered
    `.writing-figure__head` and a caption where needed.
    Keep `writing-page writing-article-page` on `<body>`, and optionally add
    `article-color-blue` or `article-color-rust` to choose an accent. The default

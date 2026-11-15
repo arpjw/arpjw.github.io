@@ -50,7 +50,7 @@
     }
     @keyframes qg-step { 0%, 100% { fill: #fff; stroke: #c9c9c1; } 4%, 18% { fill: #e3e9f2; stroke: #365f9a; } 26% { fill: #fff; stroke: #c9c9c1; } }
     @keyframes qg-token { 0% { fill: #ecece7; } 100% { fill: #365f9a; } }
-    .qg-hero { margin-top: 0; }
+    .writing-post__header .qg-hero { margin: 2rem 0 0; }
     .qg-panels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem 0.75rem; margin: 0; padding: 0; list-style: none; }
     .qg-panels li { margin: 0 !important; font: 0.72rem/1.35 var(--sans); color: var(--muted); }
     .qg-panels svg { width: 100%; max-width: 6.5rem; margin-bottom: 0.45rem; }
@@ -102,9 +102,7 @@
               <div class="writing-post__meta"><span class="writing-post__volume">Volume XII</span><span aria-hidden="true"> · </span>Arya Somu</div>
               <h1>A tiny GPU inside Qwen</h1>
               <p class="writing-post__dek">What if a language model's next token were the clock of a programmable machine?</p>
-            </header>
-
-            <figure class="writing-figure qg-hero" aria-describedby="fig-hero-desc">
+              <figure class="writing-figure qg-hero" aria-describedby="fig-hero-desc">
               <div class="qg-art" role="img" aria-label="Summary of the verified run. The 16 by 16 output matrix is split into four 8 by 8 tiles: top-left from panels 1 and 2, top-right from panels 3 and 4, bottom-left from panels 5 and 6, bottom-right from panels 7 and 8. A timeline shows the eight panels in order, each covering one half of k, separated by seven model-selected transitions, over 928 instructions. The run emitted 20,167 tokens in one generation call, and all 256 output cells were exact.">
                 <svg class="qg-wide" viewBox="0 0 600 206" aria-hidden="true" focusable="false">
 <text class="qg-m" x="0" y="12">output C, 16×16</text>
@@ -128,6 +126,8 @@
               </div>
               <figcaption id="fig-hero-desc">The verified 16×16 run at a glance. Qwen worked through four output tiles, each over two halves of k, in one generation call. The host uploaded the launch and relayed generated tokens back as input; the model selected each panel transition. Panels are drawn by instruction count, 116 each, not by time or token count.</figcaption>
             </figure>
+            </header>
+
 
             <details class="writing-toc-mobile">
               <summary>In this article</summary>

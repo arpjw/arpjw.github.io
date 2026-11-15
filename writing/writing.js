@@ -4,6 +4,38 @@
   var endnotes = document.querySelector('[data-writing-endnotes]');
   var noteHomes = new Map();
   var printing = false;
+
+  // Number sections (01, 02) and subsections (1.1, 1.2), and mirror the numbers in the guides.
+  if (body) {
+    var section = 0;
+    var subsection = 0;
+    body.querySelectorAll('h2, h3').forEach(function (heading) {
+      if (heading.closest('.writing-post__notes, figure, aside, details, [data-unnumbered]') || heading.hasAttribute('data-unnumbered')) return;
+      if (heading.tagName === 'H2') {
+        section += 1;
+        subsection = 0;
+        heading.setAttribute('data-number', (section < 10 ? '0' : '') + section);
+      } else if (section) {
+        subsection += 1;
+        heading.setAttribute('data-number', section + '.' + subsection);
+      }
+    });
+    document.querySelectorAll('.writing-toc a[href^="#"], .writing-toc-mobile a[href^="#"]').forEach(function (link) {
+      var target = document.getElementById(link.hash.slice(1));
+      var number = target && target.getAttribute('data-number');
+      if (!number || link.querySelector('.writing-toc__number')) return;
+      var label = document.createElement('span');
+      label.className = 'writing-toc__number';
+      label.textContent = number;
+      link.insertBefore(label, link.firstChild);
+      if (target.tagName === 'H3') link.classList.add('is-subsection');
+    });
+  }
+  citations.forEach(function (citation) {
+    var mark = citation.querySelector('.writing-citation__mark');
+    var note = mark && document.getElementById(mark.hash.slice(1));
+    if (note && !note.hasAttribute('data-note')) note.setAttribute('data-note', mark.textContent.trim());
+  });
   if (endnotes) {
     endnotes.querySelectorAll('.writing-citation__note[id]').forEach(function (note) {
       noteHomes.set(note.id, { note: note, parent: note.parentElement });
