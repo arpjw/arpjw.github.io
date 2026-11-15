@@ -41,6 +41,11 @@ To publish a post:
    (1.1, 1.2) in the body and in both tables of contents; add `data-unnumbered`
    to a heading to skip it. Keep `<strong>` for a few key phrases; the shared
    CSS renders it at medium weight in the darker text color.
+   Draw charts as inline SVG with the shared `.wa-art` classes in
+   `writing/article.css`: one `.wa-wide` (600 wide) and one `.wa-narrow`
+   (340 wide) variant, direct labels instead of legends, an `aria-label` that
+   states the plotted values, and `data-wa-animate` for a one-time draw-in that
+   is skipped with reduced motion.
    Use `.writing-figure` for figures, with a numbered
    `.writing-figure__head` and a caption where needed.
    Keep `writing-page writing-article-page` on `<body>`, and optionally add

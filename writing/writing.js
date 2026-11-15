@@ -68,6 +68,23 @@
     });
     if (endnotes) endnotes.hidden = useRail;
   }
+  // Draw-in charts once, when they first scroll into view. Static without JS or with reduced motion.
+  var animated = document.querySelectorAll('[data-wa-animate]');
+  if (animated.length && 'IntersectionObserver' in window && window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var reveal = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        reveal.unobserve(entry.target);
+      });
+    }, { threshold: 0.45 });
+    animated.forEach(function (figure) {
+      var box = figure.getBoundingClientRect();
+      if (box.top < window.innerHeight && box.bottom > 0) return;
+      figure.classList.add('wa-anim');
+      reveal.observe(figure);
+    });
+  }
   window.addEventListener('resize', positionCitations);
   if (endnotes) {
     window.addEventListener('beforeprint', function () { printing = true; positionCitations(); });
