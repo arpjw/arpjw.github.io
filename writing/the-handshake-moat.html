@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f4f1">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="stylesheet" href="../styles.css?v=compact-links">
+  <link rel="stylesheet" href="article.css">
+  <link rel="canonical" href="https://aryasomu.com/writing/the-handshake-moat">
+  <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
+  <title>The Handshake Moat · Arya Somu</title>
+  <meta name="description" content="An examination of relational contracting, Jensen Huang's personal credibility, and the hidden economic infrastructure behind NVIDIA's supply chain.">
+  <meta name="author" content="Arya Somu">
+  <meta property="og:title" content="The Handshake Moat · Arya Somu">
+  <meta property="og:description" content="An examination of relational contracting, Jensen Huang's personal credibility, and the hidden economic infrastructure behind NVIDIA's supply chain.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aryasomu.com/writing/the-handshake-moat">
+  <meta property="og:site_name" content="Arya Somu">
+  <meta property="article:published_time" content="2026-11-15T23:21:16Z">
+  <meta property="article:author" content="Arya Somu">
+  <meta property="article:section" content="Economics &amp; Technology">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Handshake Moat · Arya Somu">
+  <meta name="twitter:description" content="An examination of relational contracting, Jensen Huang's personal credibility, and the hidden economic infrastructure behind NVIDIA's supply chain.">
+  <style>
+    .writing-page { --article-accent: #44702a; }
+    .hm-soft { --hm-soft: color-mix(in srgb, var(--article-accent) 14%, #fbfbf8); }
+
+    .writing-post__body .math-block { margin: 1.5rem 0; padding: 0.85rem 1rem; overflow-x: auto; border-left: 2px solid var(--article-accent); background: rgba(128, 128, 128, 0.07); color: var(--foreground); }
+    .writing-post__body .math-block math { font-size: 1.15rem; }
+    .writing-post__body .math-block--words { font-size: 0.9375rem; }
+
+    /* Shared figure details */
+    .hm-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; margin: 0 0 1rem; color: var(--muted); font: 0.75rem/1.4 var(--sans); }
+    .hm-meta strong { color: var(--foreground); font-weight: 500; }
+    .hm-key { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin: 0.9rem 0 0; padding: 0; list-style: none; color: var(--muted); font: 0.75rem/1.4 var(--sans); }
+    .writing-article-page .writing-post__body .hm-key > li { display: flex; align-items: center; gap: 0.5rem; margin: 0; padding: 0; }
+    .hm-key svg { flex: none; width: 1.75rem; height: 0.5rem; }
+    .hm-flag { margin: 0.9rem 0 0; color: var(--muted); font: 0.75rem/1.5 var(--sans); }
+    .hm-flag b { color: var(--foreground); font-weight: 500; }
+
+    /* Segmented controls, built on native radio and checkbox inputs */
+    .hm-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin: 0 0 1rem; padding: 0; border: 0; }
+    .hm-controls legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .hm-seg { display: inline-flex; flex-wrap: wrap; gap: 0.3rem; }
+    .hm-pill { position: relative; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--muted); font: 0.75rem/1.3 var(--sans); cursor: pointer; transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease; }
+    .hm-pill input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+    .hm-pill:hover { color: var(--foreground); }
+    .hm-pill:has(input:checked) { border-color: var(--article-accent); background: #fff; color: var(--foreground); }
+    .hm-pill:has(input:focus-visible) { outline: 2px solid var(--article-accent); outline-offset: 2px; }
+    .hm-switch { display: inline-block; width: 0.55rem; height: 0.55rem; border: 1px solid var(--muted); border-radius: 2px; }
+    .hm-pill:has(input:checked) .hm-switch { border-color: var(--article-accent); background: var(--article-accent); }
+    .hm-status { margin: 0.9rem 0 0; min-height: 3em; color: var(--body); font: 0.8125rem/1.5 var(--sans); }
+    .hm-status p { display: none; margin: 0 !important; }
+
+    /* Figure 1: commitments, HTML bars on one proportional scale */
+    .hm-bars { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 1rem; row-gap: 0.55rem; align-items: center; font: 0.8125rem/1.35 var(--sans); }
+    .hm-bars__panel { grid-column: 1 / -1; margin: 1.1rem 0 0.1rem; color: var(--muted); font-size: 0.75rem; }
+    .hm-bars__panel:first-child { margin-top: 0; }
+    .hm-bars__label { color: var(--muted); }
+    .hm-bars__label strong { color: var(--foreground); font-weight: 500; }
+    .hm-track { position: relative; display: flex; align-items: center; height: 1.6rem; background: linear-gradient(to right, #e4e4de 1px, transparent 1px) 0 0 / calc(100% / 3 - 0.33px) 100% repeat-x; border-right: 1px solid #e4e4de; }
+    .hm-bar { height: 100%; transform-origin: left center; }
+    .hm-bar--prev { background: color-mix(in srgb, var(--article-accent) 38%, #fbfbf8); }
+    .hm-bar--now { position: relative; background: var(--article-accent); }
+    .hm-val { margin-left: 0.45rem; color: var(--foreground); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .hm-bar--now .hm-val { position: absolute; right: 0.45rem; top: 50%; margin: 0; color: #fff; transform: translateY(-50%); }
+    .hm-stack { display: flex; height: 100%; transform-origin: left center; }
+    .hm-stack > span { height: 100%; box-shadow: inset -1px 0 #fbfbf8; }
+    .hm-stack > span:nth-child(odd) { background: color-mix(in srgb, var(--article-accent) 72%, #fbfbf8); }
+    .hm-stack > span:nth-child(even) { background: color-mix(in srgb, var(--article-accent) 42%, #fbfbf8); }
+    .hm-stack-labels { display: flex; color: var(--muted); font-size: 0.75rem; line-height: 1.35; font-variant-numeric: tabular-nums; }
+    .hm-stack-labels > span { flex: none; padding-right: 0.25rem; }
+    .hm-stack-labels b { display: block; color: var(--foreground); font-weight: 500; }
+    .hm-stack-rest { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+    .hm-stack-rest b { color: var(--foreground); font-weight: 500; }
+    .hm-scale { position: relative; height: 1.1rem; color: var(--faint); font: 0.6875rem/1 var(--mono); }
+    .hm-scale span { position: absolute; top: 0.25rem; transform: translateX(-50%); white-space: nowrap; }
+    .hm-scale span:first-child { transform: none; }
+    .hm-scale span:last-child { transform: translateX(-100%); }
+    .hm-axis-title { color: var(--faint); font: 0.6875rem/1.3 var(--sans); }
+    @media (max-width: 36rem) {
+      .hm-bars { grid-template-columns: minmax(0, 1fr); row-gap: 0.25rem; }
+      .hm-bars > .hm-bars__label { margin-top: 0.35rem; }
+      .hm-bars > .hm-bars__spacer { display: none; }
+    }
+
+    /* Figure 2: network */
+    .hm-node { fill: #fff; stroke: #c9c9c1; stroke-width: 1; }
+    .hm-hub { fill: #fff; stroke: #9f9e98; stroke-width: 1; }
+    .hm-row rect { fill: transparent; transition: fill 300ms ease; }
+    .hm-row text { transition: fill 300ms ease; }
+    .hm-net .wa-wide text.wa-t { font-size: 11px; }
+    .hm-net .wa-wide text.hm-title { font-size: 12px; }
+    .hm-nt { font: 400 12.5px var(--sans); fill: #1b1b1a; letter-spacing: -0.01em; }
+    .hm-nh { font: 500 11px var(--sans); fill: #686864; letter-spacing: 0.02em; text-transform: uppercase; }
+    .hm-link { fill: none; stroke-width: 1.15; transition: opacity 300ms ease, stroke-width 300ms ease, stroke-dasharray 300ms ease; }
+    .hm-formal { stroke: #5c5c58; }
+    .hm-rel { stroke: var(--article-accent); stroke-dasharray: 3.5 3; }
+    .hm-net:has(input[value="formal"]:checked) .hm-rel { opacity: 0.12; }
+    .hm-net:has(input[value="formal"]:checked) .hm-formal { stroke-width: 2; }
+    .hm-net:has(input[value="formal"]:checked) .hm-row--proc rect { fill: #e9e9e3; }
+    .hm-net:has(input[value="relational"]:checked) .hm-formal { opacity: 0.12; }
+    .hm-net:has(input[value="relational"]:checked) .hm-rel { stroke-width: 2; }
+    .hm-net:has(input[value="relational"]:checked) .hm-row--exec rect { fill: color-mix(in srgb, var(--article-accent) 14%, #fbfbf8); }
+    .hm-net:has(input[name="hm-trust"]:checked) .hm-rel { opacity: 0.22; stroke-dasharray: 1 5; }
+    .hm-net:has(input[name="hm-trust"]:checked) .hm-row--exec text { fill: #9a9994; }
+    .hm-net .hm-status p[data-state="all"] { display: block; }
+    .hm-net:has(input[value="formal"]:checked) .hm-status p[data-state="all"],
+    .hm-net:has(input[value="relational"]:checked) .hm-status p[data-state="all"] { display: none; }
+    .hm-net:has(input[value="formal"]:checked) .hm-status p[data-state="formal"],
+    .hm-net:has(input[value="relational"]:checked) .hm-status p[data-state="relational"],
+    .hm-net:has(input[name="hm-trust"]:checked) .hm-status p[data-state="trust"] { display: block; }
+    .hm-net:has(input[name="hm-trust"]:checked) .hm-status p[data-state="trust"] { margin-top: 0.5rem !important; color: var(--muted); }
+    @media (prefers-reduced-motion: no-preference) {
+      .hm-net .wa-anim .hm-link { opacity: 0; }
+      .hm-net .wa-anim.is-visible .hm-formal { opacity: 1; transition: opacity 450ms ease; }
+      .hm-net .wa-anim.is-visible .hm-rel { opacity: 1; transition: opacity 450ms ease 200ms; }
+      .wa-anim .hm-bar, .wa-anim .hm-stack { transform: scaleX(0); }
+      .wa-anim .hm-val, .wa-anim .hm-stack-labels { opacity: 0; }
+      .wa-anim.is-visible .hm-bar, .wa-anim.is-visible .hm-stack { transform: none; transition: transform 650ms cubic-bezier(.2, .7, .2, 1); }
+      .wa-anim.is-visible .hm-stack { transition-delay: 150ms; }
+      .wa-anim.is-visible .hm-val, .wa-anim.is-visible .hm-stack-labels { opacity: 1; transition: opacity 250ms ease 600ms; }
+    }
+
+    /* Figure 3: relational contract model */
+    .hm-sliders { display: grid; gap: 0.85rem; margin: 0 0 1.25rem; }
+    .hm-slider { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.3rem 1rem; align-items: baseline; font: 0.8125rem/1.35 var(--sans); }
+    .hm-slider label { color: var(--foreground); }
+    .hm-slider label small { display: block; color: var(--muted); font-size: 0.75rem; }
+    .hm-slider output { color: var(--foreground); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .hm-slider input { grid-column: 1 / -1; width: 100%; margin: 0.1rem 0 0; accent-color: var(--article-accent); cursor: pointer; }
+    .hm-slider input:focus-visible { outline: 2px solid var(--article-accent); outline-offset: 3px; }
+    .hm-compare { display: grid; gap: 0.6rem; font: 0.8125rem/1.35 var(--sans); }
+    .hm-compare__row { display: grid; gap: 0.3rem; }
+    .hm-compare__head { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); }
+    .hm-compare__head b { color: var(--foreground); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .hm-compare .hm-track { height: 1.1rem; }
+    .hm-mbar { height: 100%; transition: width 250ms ease; }
+    .hm-mbar--g { background: #8f8e88; }
+    .hm-mbar--v { background: var(--article-accent); }
+    .hm-mbar.is-clipped { background-image: linear-gradient(to right, transparent calc(100% - 0.6rem), rgba(255, 255, 255, 0.55) calc(100% - 0.6rem)); }
+    .hm-verdict { margin: 1rem 0 0 !important; padding: 0.6rem 0.75rem; border-left: 2px solid var(--article-accent); background: color-mix(in srgb, var(--article-accent) 8%, #fbfbf8); color: var(--foreground); font: 0.8125rem/1.5 var(--sans); }
+    .hm-verdict.is-broken { border-left-color: #8f8e88; background: #efefea; }
+    .hm-threshold { margin: 0.5rem 0 0 !important; color: var(--muted); font: 0.75rem/1.5 var(--sans); }
+
+    /* Figure 4: stock and flow */
+    .hm-lane { fill: #f1f1ec; }
+    .hm-stock { fill: color-mix(in srgb, var(--article-accent) 22%, #fbfbf8); }
+    .hm-stock-edge { fill: none; stroke: var(--article-accent); stroke-width: 1.5; }
+    .hm-fan { transition: opacity 400ms ease; }
+    .hm-fan--stable { fill: color-mix(in srgb, var(--article-accent) 22%, #fbfbf8); }
+    .hm-fan--weak { fill: color-mix(in srgb, var(--article-accent) 10%, #fbfbf8); stroke: color-mix(in srgb, var(--article-accent) 55%, #fbfbf8); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; }
+    .hm-flow { fill: none; stroke: var(--article-accent); stroke-width: 1.5; transition: stroke-dasharray 400ms ease; }
+    .hm-guide { stroke: #d9d9d2; stroke-width: 1; stroke-dasharray: 2 3; }
+    .hm-flowfig:has(input[value="weak"]:checked) .hm-fan--stable { opacity: 0; }
+    .hm-flowfig:has(input[value="weak"]:checked) .hm-fan--weak { opacity: 1; }
+    .hm-flowfig:has(input[value="weak"]:checked) .hm-flow { stroke-dasharray: 5 4; }
+    .hm-flowfig .hm-status p[data-state="stable"] { display: block; }
+    .hm-flowfig:has(input[value="weak"]:checked) .hm-status p[data-state="stable"] { display: none; }
+    .hm-flowfig:has(input[value="weak"]:checked) .hm-status p[data-state="weak"] { display: block; }
+
+    @media (max-width: 30rem) {
+      .hm-figure .wa-art { padding: 0.9rem 0.7rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hm-figure *, .hm-figure *::before { transition: none !important; }
+    }
+  </style>
+</head>
+<body class="writing-page writing-article-page">
+  <div class="site writing-site">
+    <main class="writing-article-main" id="top">
+      <article class="writing-post">
+        <div class="writing-post__content">
+          <aside class="writing-rail">
+            <a class="site-home-link" href="/">← Home</a>
+            <nav class="writing-toc" aria-label="On this page">
+              <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#the-bottleneck-beyond-the-gpu">The bottleneck beyond the GPU</a></li>
+                <li><a href="#a-279-billion-coordination-problem">A $279 billion coordination problem</a></li>
+                <li><a href="#why-a-handshake-has-economic-value">Why a handshake has economic value</a></li>
+                <li><a href="#the-other-side-of-the-handshake">The other side of the handshake</a></li>
+                <li><a href="#the-personal-moat">The personal moat</a></li>
+                <li><a href="#the-capacity-that-has-already-been-secured">The capacity that has already been secured</a></li>
+                <li><a href="#how-would-we-know">How would we know?</a></li>
+                <li><a href="#can-a-handshake-be-institutionalized">Can a handshake be institutionalized?</a></li>
+                <li><a href="#what-the-balance-sheet-cannot-tell-us">What the balance sheet cannot tell us</a></li>
+              </ul>
+            </nav>
+          </aside>
+          <div class="writing-post__body">
+            <header class="writing-post__header">
+              <div class="writing-post__meta"><span class="writing-post__volume">Volume XIII</span><span aria-hidden="true"> · </span>Arya Somu · Economics &amp; Technology</div>
+              <h1>The Handshake Moat</h1>
+              <p class="writing-post__dek">The economics of trust in NVIDIA's supply chain.</p>
+            </header>
+
+            <details class="writing-toc-mobile">
+              <summary>In this article</summary>
+              <nav aria-label="On this page"><ul><li><a href="#introduction">Introduction</a></li><li><a href="#the-bottleneck-beyond-the-gpu">The bottleneck beyond the GPU</a></li><li><a href="#a-279-billion-coordination-problem">A $279 billion coordination problem</a></li><li><a href="#why-a-handshake-has-economic-value">Why a handshake has economic value</a></li><li><a href="#the-other-side-of-the-handshake">The other side of the handshake</a></li><li><a href="#the-personal-moat">The personal moat</a></li><li><a href="#the-capacity-that-has-already-been-secured">The capacity that has already been secured</a></li><li><a href="#how-would-we-know">How would we know?</a></li><li><a href="#can-a-handshake-be-institutionalized">Can a handshake be institutionalized?</a></li><li><a href="#what-the-balance-sheet-cannot-tell-us">What the balance sheet cannot tell us</a></li></ul></nav>
+            </details>
+
+            <p class="writing-post__lead" id="introduction">NVIDIA has spent three decades building one of the world's most formidable technological advantages. Its GPUs power modern artificial intelligence, CUDA has become an essential computing ecosystem, and its networking and systems businesses increasingly determine how entire data centers are built. But some of the company's most valuable infrastructure may have never belonged to NVIDIA in the conventional sense.</p>
+            <p>It may have belonged to Jensen Huang.</p>
+            <p>On November 12, NVIDIA announced Huang's departure after 33 years as chief executive. Colette Kress, its longtime CFO, assumed the position on an interim basis while the board began searching for a permanent successor. NVIDIA assured investors that its operations, customer commitments, and product roadmap would continue without interruption.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-1" href="#cite-nvidia-transition" aria-label="Citation 1">1</a></span></p>
+            <p>Two days later, Elon Musk offered a different perspective. Responding to commentary from semiconductor analyst Dylan Patel, Musk argued that significant portions of NVIDIA's supply-chain advantage depended on arrangements built around personal trust in Huang rather than conventional written contracts. Musk suggested that some of those arrangements could be lost without him.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-2" href="#cite-reuters-musk" aria-label="Citation 2">2</a></span></p>
+            <p>Patel had described an unusually personal approach to managing NVIDIA's suppliers. Huang, he argued, had persuaded relatively small and specialized manufacturers to dedicate substantial portions of their production capacity to NVIDIA, often well before the eventual scale of AI demand was obvious.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-3" href="#cite-patel" aria-label="Citation 3">3</a></span></p>
+            <p>These accounts do not establish that NVIDIA will lose any particular agreement. Nor do they establish how much of the company's supply chain is governed by informal commitments.</p>
+            <p>But they raise a more interesting economic question.</p>
+            <p>What happens when part of a corporation's competitive advantage resides in the personal credibility of an individual rather than in the assets, contracts, or processes of the corporation itself?</p>
+
+            <h2 id="the-bottleneck-beyond-the-gpu">The bottleneck beyond the GPU<a class="heading-anchor" href="#the-bottleneck-beyond-the-gpu" aria-label="Link to The bottleneck beyond the GPU">#</a></h2>
+            <p>The usual explanation for NVIDIA's dominance begins with technology.</p>
+            <p>Its accelerators are highly capable, CUDA provides a mature software environment, and its networking products allow individual processors to operate as increasingly integrated systems. Customers purchasing NVIDIA hardware also obtain access to an enormous body of software, developer expertise, and deployment infrastructure.</p>
+            <p>These advantages matter enormously. Yet they describe only one side of the market.</p>
+            <p>Designing a processor does not guarantee the ability to manufacture it at scale. An AI system also needs advanced fabrication, memory, packaging, substrates, testing, networking components, power, and physical infrastructure. A shortage in one component can constrain the output of the entire system.</p>
+            <p>That makes the AI hardware market a coordination problem as much as a technological one.</p>
+            <p>Consider a company producing a specialized component used in advanced AI servers. Its customers are asking for extraordinary increases in capacity, but expanding production requires large investments today against uncertain demand several years from now.</p>
+            <p>The supplier must decide how much capacity to build, whose requirements to prioritize, and how much confidence to place in each customer's forecasts.</p>
+            <p>For NVIDIA, winning that decision can be commercially valuable even before a single additional GPU ships.</p>
+            <p>The company that secures capacity early can plan more ambitious product launches, offer customers greater delivery confidence, and potentially capture orders that a technically competitive rival cannot fulfill.</p>
+            <p>This is where Huang's relationships become economically interesting.</p>
+            <p>According to Patel's account, Jensen did not simply leave these negotiations to a procurement department. He worked directly with suppliers, including smaller manufacturers whose production capacity could become strategically critical. The claim is that his forecasts and credibility helped convince them to invest and allocate capacity ahead of realized demand.<a class="writing-citation__mark" id="note-ref-3b" href="#cite-patel" aria-label="Citation 3">3</a></p>
+            <p>A supplier might agree because NVIDIA pays more, provides financing, offers contractual guarantees, or represents a valuable long-term customer. Personal trust does not replace those incentives.</p>
+            <p>But it may change how a supplier evaluates them.</p>
+            <p>If two buyers offer similar economics, the supplier might favor the one whose leadership has repeatedly delivered on its promises.</p>
+            <p>That difference can become a competitive advantage.</p>
+
+            <h2 id="a-279-billion-coordination-problem">A $279 billion coordination problem<a class="heading-anchor" href="#a-279-billion-coordination-problem" aria-label="Link to A $279 billion coordination problem">#</a></h2>
+            <p>NVIDIA's financial disclosures show how enormous its supply commitments have become.</p>
+            <p>In its Form 10-Q for the quarter ended July 26, 2026, NVIDIA reported $279 billion in supply and capacity commitments, up from $119 billion in the previous quarter. These commitments cover the infrastructure needed to produce its data-center systems, particularly memory and manufacturing capacity, across current and future product generations.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-4" href="#cite-10q" aria-label="Citation 4">4</a></span></p>
+
+            <figure class="writing-figure hm-figure" id="figure-1">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 1</span><strong>NVIDIA's disclosed supply and capacity commitments</strong></div>
+              <div class="wa-art" data-wa-animate>
+                <p class="hm-meta"><span><strong>As of July 26, 2026</strong> · US$ billions</span><a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm">Form 10-Q, Note 10</a></p>
+                <div class="hm-bars" role="img" aria-label="Horizontal bar chart on a common scale from 0 to 300 billion dollars. Total supply and capacity commitments were 119 billion dollars in the previous quarter and 279 billion dollars as of July 26, 2026. A second bar divides the 279 billion dollars by NVIDIA fiscal year: 92 billion for the remainder of fiscal 2027, 87 billion in fiscal 2028, 88 billion in fiscal 2029, 6 billion in fiscal 2030, 5 billion in fiscal 2031, and 1 billion in fiscal 2032 and thereafter.">
+                  <div class="hm-bars__panel">Total commitments, by reporting date</div>
+                  <div class="hm-bars__label">Previous quarter</div>
+                  <div class="hm-track"><div class="hm-bar hm-bar--prev" style="width: 39.667%"></div><span class="hm-val">$119B</span></div>
+                  <div class="hm-bars__label"><strong>July 26, 2026</strong></div>
+                  <div class="hm-track"><div class="hm-bar hm-bar--now" style="width: 93%"><span class="hm-val">$279B</span></div></div>
+                  <div class="hm-bars__panel">The $279B by when it falls due, NVIDIA fiscal year</div>
+                  <div class="hm-bars__label">Maturity schedule</div>
+                  <div class="hm-track"><div class="hm-stack" style="width: 93%"><span style="width: 32.975%"></span><span style="width: 31.183%"></span><span style="width: 31.541%"></span><span style="width: 2.151%"></span><span style="width: 1.792%"></span><span style="width: 0.358%"></span></div></div>
+                  <div class="hm-bars__spacer"></div>
+                  <div>
+                    <div class="hm-stack-labels"><span style="width: 30.667%">FY2027 rest<b>$92B</b></span><span style="width: 29%">FY2028<b>$87B</b></span><span style="width: 29.333%">FY2029<b>$88B</b></span></div>
+                    <p class="hm-stack-rest">Narrow segments at right: FY2030 <b>$6B</b> · FY2031 <b>$5B</b> · FY2032 and after <b>$1B</b></p>
+                  </div>
+                  <div class="hm-bars__spacer"></div>
+                  <div>
+                    <div class="hm-scale" aria-hidden="true"><span style="left: 0">$0</span><span style="left: 33.333%">$100B</span><span style="left: 66.667%">$200B</span><span style="left: 100%">$300B</span></div>
+                    <div class="hm-axis-title">Billions of US dollars. All three bars share this scale.</div>
+                  </div>
+                </div>
+              </div>
+              <figcaption>NVIDIA's disclosed supply and capacity commitments: $119 billion in the preceding quarter and $279 billion as of July 26, 2026. Source: <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm">NVIDIA Form 10-Q</a>, Note 10. The six maturity amounts sum to $279 billion; NVIDIA's fiscal years end in late January. These are disclosed commitments, not recognized revenue, and some may be cancelable, rescheduled, or adjustable before firm orders are placed. They do not measure informal or handshake agreements.</figcaption>
+            </figure>
+
+            <p>The increase was $160 billion in a single quarter.</p>
+            <p>There are important limitations to interpreting this number. These are commitments rather than recognized revenue, and the filing says some supplier arrangements may be canceled, rescheduled, or adjusted before firm orders are placed. The disclosure does not tell us which commitments, if any, originated in verbal assurances, nor does it measure their dependence on Huang.</p>
+            <p>Still, it illustrates the extraordinary scale of the coordination involved.</p>
+            <p>The July filing also provides a schedule of these supply and capacity commitments: $92 billion for the remainder of fiscal 2027, $87 billion in fiscal 2028, $88 billion in fiscal 2029, and smaller amounts thereafter.<a class="writing-citation__mark" id="note-ref-4b" href="#cite-10q" aria-label="Citation 4">4</a></p>
+            <p>This is not a company purchasing generic components as it needs them. It is coordinating a multiyear manufacturing system around expectations of future computing demand.</p>
+            <p>In October, NVIDIA offered a more concrete illustration. It announced plans involving suppliers including IBIDEN, Samsung Electro-Mechanics, Unimicron, Amkor, KYEC, and SPIL. The initiatives included a targeted 2.5-fold increase in substrate capacity over three years, major advanced-packaging expansion, and a $1.1 billion capacity reservation advance supporting new testing facilities.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-5" href="#cite-supply-partners" aria-label="Citation 5">5</a></span></p>
+            <p>These arrangements make clear that NVIDIA has formal, financial, and institutional mechanisms for securing supply. The handshake argument should not be mistaken for a claim that NVIDIA operates without contracts.</p>
+            <p>The more plausible mechanism is that personal credibility helps produce commitments that eventually become formal agreements, and helps sustain cooperation when circumstances change.</p>
+            <p>A written contract can allocate obligations. It cannot perfectly anticipate every future bottleneck, technological change, or opportunity to accelerate production.</p>
+            <p>And when the industry changes quickly enough, the ability to resolve those contingencies may be nearly as important as the original contract.</p>
+
+            <h2 id="why-a-handshake-has-economic-value">Why a handshake has economic value<a class="heading-anchor" href="#why-a-handshake-has-economic-value" aria-label="Link to Why a handshake has economic value">#</a></h2>
+            <p>Economists have a name for agreements sustained by continuing relationships rather than by enforceable written terms alone: relational contracts.</p>
+            <p>Baker, Gibbons, and Murphy formalized the idea in a 2002 paper, showing how repeated interactions can support cooperation within and between firms. Parties comply with informal expectations because preserving a valuable future relationship can be worth more than the immediate benefit of reneging.<span class="writing-citation"><a class="writing-citation__mark" id="note-ref-6" href="#cite-bgm" aria-label="Citation 6">6</a></span></p>
+            <p>This is not necessarily a substitute for legal contracting. Formal and relational agreements often coexist.</p>
+            <p>Suppose a supplier is asked to reserve capacity for NVIDIA at a price that is attractive, but not clearly superior to every competing offer. Allocating that capacity may also create opportunity costs: the supplier could be turning away another buyer or investing in facilities optimized for NVIDIA's needs.</p>
+            <p>The supplier's decision depends partly on the value of doing business with NVIDIA in the future.</p>
+            <p>A simple stylized condition captures the idea:</p>
+            <div class="math-block math-block--words">Current gain from deviating ≤ discounted future relationship value lost</div>
+            <p>Let <i>g</i> be the immediate incremental gain from abandoning an informal commitment, <i>R</i> the recurring future value of maintaining the relationship, and <i>δ</i> a discount factor between zero and one.</p>
+            <p>Under an infinite-horizon repeated-relationship model with constant future benefits, cooperation is sustainable when:</p>
+            <div class="math-block"><math display="block" aria-label="g is less than or equal to delta times R, divided by one minus delta"><mi>g</mi><mo>≤</mo><mfrac><mrow><mi>δ</mi><mi>R</mi></mrow><mrow><mn>1</mn><mo>−</mo><mi>δ</mi></mrow></mfrac></math></div>
+            <p>This is not a calibrated model of NVIDIA's supplier contracts. It simply makes the mechanism explicit.</p>
+            <p>The credibility of the relationship matters because the supplier must believe those future benefits are real.</p>
+            <p>A leader with a long record of accurately forecasting demand, honoring commitments, and helping suppliers grow can potentially increase the supplier's perceived value of continued cooperation.</p>
+            <p>Now introduce an unexpected leadership change.</p>
+            <p>The existing contracts might remain intact. The facilities might still be operational. The buyer might retain the same enormous purchasing power.</p>
+            <p>But if the supplier becomes less certain about future strategy, purchasing decisions, or informal promises, its estimate of the future relationship value may fall.</p>
+            <p>An arrangement that was previously attractive can become less attractive without any immediate change to the written terms.</p>
+
+            <figure class="writing-figure hm-figure hm-model" id="figure-2">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 2</span><strong>When does an informal commitment hold?</strong></div>
+              <div class="wa-art">
+                <p class="hm-meta"><span><strong>Illustrative model</strong> · arbitrary units</span><span>Not an estimate of any NVIDIA contract</span></p>
+                <div class="hm-sliders" data-hm-model-controls hidden>
+                  <div class="hm-slider">
+                    <label for="hm-g">Immediate gain from deviating, <i>g</i><small>One-time benefit of breaking the informal commitment</small></label>
+                    <output for="hm-g" id="hm-g-out">50</output>
+                    <input type="range" id="hm-g" min="0" max="150" step="1" value="50">
+                  </div>
+                  <div class="hm-slider">
+                    <label for="hm-r">Relationship value per period, <i>R</i><small>Recurring value of continuing to do business</small></label>
+                    <output for="hm-r" id="hm-r-out">10.0</output>
+                    <input type="range" id="hm-r" min="0" max="30" step="0.5" value="10">
+                  </div>
+                  <div class="hm-slider">
+                    <label for="hm-d">Discount factor, <i>δ</i><small>How much each future period counts today, from 0.50 to 0.95</small></label>
+                    <output for="hm-d" id="hm-d-out">0.85</output>
+                    <input type="range" id="hm-d" min="0.5" max="0.95" step="0.01" value="0.85">
+                  </div>
+                </div>
+                <div class="hm-compare" aria-hidden="true">
+                  <div class="hm-compare__row">
+                    <div class="hm-compare__head"><span>Gain from deviating, <i>g</i></span><b data-hm-out="g">50.0</b></div>
+                    <div class="hm-track"><div class="hm-mbar hm-mbar--g" data-hm-bar="g" style="width: 16.667%"></div></div>
+                  </div>
+                  <div class="hm-compare__row">
+                    <div class="hm-compare__head"><span>Discounted future relationship value, <i>δR</i>/(1 − <i>δ</i>)</span><b data-hm-out="v">56.7</b></div>
+                    <div class="hm-track"><div class="hm-mbar hm-mbar--v" data-hm-bar="v" style="width: 18.889%"></div></div>
+                  </div>
+                  <div class="hm-scale"><span style="left: 0">0</span><span style="left: 33.333%">100</span><span style="left: 66.667%">200</span><span style="left: 100%">300+</span></div>
+                </div>
+                <p class="hm-verdict" data-hm-verdict aria-live="polite">Condition satisfied: 56.7 ≥ 50.0. Keeping the commitment is worth more than breaking it.</p>
+                <p class="hm-threshold" data-hm-threshold>With <i>g</i> = 50.0 and <i>R</i> = 10.0, the commitment holds whenever <i>δ</i> is at least 0.84.</p>
+              </div>
+              <figcaption>An infinite-horizon repeated-interaction simplification with a constant per-period relationship value, not an empirical model of NVIDIA. The default values are arbitrary. Lowering <i>R</i> or <i>δ</i>, which stand for how much the supplier expects the relationship to be worth and how confident it is that the relationship will continue, can break the condition while <i>g</i> stays the same.</figcaption>
+            </figure>
+
+            <p>This is the economically meaningful version of the handshake thesis.</p>
+            <blockquote><p>A leadership transition can change the value of a commercial relationship without changing the formal contracts that govern it.</p></blockquote>
+
+            <h2 id="the-other-side-of-the-handshake">The other side of the handshake<a class="heading-anchor" href="#the-other-side-of-the-handshake" aria-label="Link to The other side of the handshake">#</a></h2>
+            <p>The same mechanism can operate downstream.</p>
+            <p>NVIDIA's suppliers must believe it will purchase the capacity they build. Its customers must believe it will deliver the computing systems they plan around.</p>
+            <p>These customers include cloud providers, AI laboratories, enterprises, and organizations developing some of the world's largest computing clusters.</p>
+            <p>Their investment decisions are highly interdependent.</p>
+            <p>A customer planning a major data-center expansion needs confidence that processors, networking equipment, memory, power infrastructure, and physical construction will be available on compatible schedules.</p>
+            <p>If the processors arrive late, the customer may face idle infrastructure and delayed deployments. If the customer postpones its expansion, NVIDIA and its suppliers may face excess capacity.</p>
+            <p>Musk provided an unusually direct account of how personal credibility can help manage this problem. In a November 14 post, he said Huang had reliably fulfilled his personal assurances about compute delivery and acceleration requests, sometimes before formal purchase orders were completed.<a class="writing-citation__mark" id="note-ref-2b" href="#cite-reuters-musk" aria-label="Citation 2">2</a></p>
+            <p>That is one customer's account, not evidence that all NVIDIA customers operate this way.</p>
+            <p>But it reveals something important about the sequencing of large infrastructure decisions.</p>
+            <p>Commercial planning can begin before every document is signed.</p>
+            <p>A credible assurance allows a customer to begin coordinating internal investments, while a credible expectation of customer demand allows NVIDIA to coordinate its own supply chain.</p>
+            <p>The two reinforce each other.</p>
+
+            <figure class="writing-figure hm-figure hm-net" id="figure-3">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 3</span><strong>NVIDIA's coordination network</strong></div>
+              <div class="wa-art" data-wa-animate>
+                <fieldset class="hm-controls">
+                  <legend>Relationships shown in Figure 3</legend>
+                  <div class="hm-seg">
+                    <label class="hm-pill"><input type="radio" name="hm-view" value="all" checked>All relationships</label>
+                    <label class="hm-pill"><input type="radio" name="hm-view" value="formal">Formal commitments</label>
+                    <label class="hm-pill"><input type="radio" name="hm-view" value="relational">Relational credibility</label>
+                  </div>
+                  <label class="hm-pill"><input type="checkbox" name="hm-trust"><span class="hm-switch" aria-hidden="true"></span>Illustrative loss of relational trust</label>
+                </fieldset>
+                <div role="img" aria-label="Diagram in three groups. Suppliers on one side: advanced semiconductor fabrication, high-bandwidth memory, packaging and substrates, and testing and optics. NVIDIA in the center: architecture and product roadmap, capacity planning, procurement and financing, and executive relationships. Customers on the other side: hyperscalers, AI laboratories, enterprises, and infrastructure developers. Each supplier and customer group is joined to NVIDIA by two lines: a solid line for formal agreements and financial commitments, which meets NVIDIA at procurement and financing, and a dashed line for relationship-based credibility and informal coordination, which meets NVIDIA at executive relationships. The diagram is stylized and carries no quantities.">
+                  <svg class="wa-wide" viewBox="0 0 640 282" aria-hidden="true" focusable="false">
+                    <text class="hm-nh" x="0" y="16">Suppliers</text>
+                    <text class="hm-nh" x="320" y="16" text-anchor="middle">NVIDIA</text>
+                    <text class="hm-nh" x="640" y="16" text-anchor="end">Customers</text>
+                    <g class="hm-links">
+                      <path class="hm-link hm-formal" d="M156.5 50C188 50 188 184 220 184"/><path class="hm-link hm-rel" d="M156.5 60C188 60 188 220 220 220"/>
+                      <path class="hm-link hm-formal" d="M156.5 116C188 116 188 184 220 184"/><path class="hm-link hm-rel" d="M156.5 126C188 126 188 220 220 220"/>
+                      <path class="hm-link hm-formal" d="M156.5 182C188 182 188 184 220 184"/><path class="hm-link hm-rel" d="M156.5 192C188 192 188 220 220 220"/>
+                      <path class="hm-link hm-formal" d="M156.5 248C188 248 188 184 220 184"/><path class="hm-link hm-rel" d="M156.5 258C188 258 188 220 220 220"/>
+                      <path class="hm-link hm-formal" d="M420 184C452 184 452 50 483.5 50"/><path class="hm-link hm-rel" d="M420 220C452 220 452 60 483.5 60"/>
+                      <path class="hm-link hm-formal" d="M420 184C452 184 452 116 483.5 116"/><path class="hm-link hm-rel" d="M420 220C452 220 452 126 483.5 126"/>
+                      <path class="hm-link hm-formal" d="M420 184C452 184 452 182 483.5 182"/><path class="hm-link hm-rel" d="M420 220C452 220 452 192 483.5 192"/>
+                      <path class="hm-link hm-formal" d="M420 184C452 184 452 248 483.5 248"/><path class="hm-link hm-rel" d="M420 220C452 220 452 258 483.5 258"/>
+                    </g>
+                    <rect class="hm-node" x="0.5" y="32" width="156" height="46" rx="4"/><text class="wa-t" x="11" y="51">Advanced semiconductor</text><text class="wa-t" x="11" y="65">fabrication</text>
+                    <rect class="hm-node" x="0.5" y="98" width="156" height="46" rx="4"/><text class="wa-t" x="11" y="125">High-bandwidth memory</text>
+                    <rect class="hm-node" x="0.5" y="164" width="156" height="46" rx="4"/><text class="wa-t" x="11" y="191">Packaging and substrates</text>
+                    <rect class="hm-node" x="0.5" y="230" width="156" height="46" rx="4"/><text class="wa-t" x="11" y="257">Testing and optics</text>
+                    <rect class="hm-node" x="483.5" y="32" width="156" height="46" rx="4"/><text class="wa-t" x="494" y="59">Hyperscalers</text>
+                    <rect class="hm-node" x="483.5" y="98" width="156" height="46" rx="4"/><text class="wa-t" x="494" y="125">AI laboratories</text>
+                    <rect class="hm-node" x="483.5" y="164" width="156" height="46" rx="4"/><text class="wa-t" x="494" y="191">Enterprises</text>
+                    <rect class="hm-node" x="483.5" y="230" width="156" height="46" rx="4"/><text class="wa-t" x="494" y="249">Infrastructure</text><text class="wa-t" x="494" y="263">developers</text>
+                    <rect class="hm-hub" x="220" y="48" width="200" height="212" rx="5"/>
+                    <text class="wa-t hm-title" x="236" y="74">NVIDIA</text>
+                    <path class="wa-grid" d="M220 88H420"/>
+                    <g class="hm-row"><rect x="228" y="97" width="184" height="30" rx="3"/><text class="wa-s" x="238" y="116">Architecture and product roadmap</text></g>
+                    <g class="hm-row"><rect x="228" y="133" width="184" height="30" rx="3"/><text class="wa-s" x="238" y="152">Capacity planning</text></g>
+                    <g class="hm-row hm-row--proc"><rect x="228" y="169" width="184" height="30" rx="3"/><text class="wa-s" x="238" y="188">Procurement and financing</text></g>
+                    <g class="hm-row hm-row--exec"><rect x="228" y="205" width="184" height="30" rx="3"/><text class="wa-s" x="238" y="224">Executive relationships</text></g>
+                  </svg>
+                  <svg class="wa-narrow" viewBox="0 0 280 606" aria-hidden="true" focusable="false">
+                    <rect class="hm-node" x="0.5" y="0.5" width="279" height="150" rx="4"/>
+                    <text class="hm-nh" x="14" y="24">Suppliers</text>
+                    <text class="hm-nt" x="14" y="52">Advanced semiconductor fabrication</text>
+                    <text class="hm-nt" x="14" y="78">High-bandwidth memory</text>
+                    <text class="hm-nt" x="14" y="104">Packaging and substrates</text>
+                    <text class="hm-nt" x="14" y="130">Testing and optics</text>
+                    <path class="hm-link hm-formal" d="M122 151V219"/><path class="hm-link hm-rel" d="M158 151V219"/>
+                    <text class="wa-s" x="114" y="189" text-anchor="end">formal</text><text class="wa-s" x="166" y="189">relational</text>
+                    <rect class="hm-hub" x="0.5" y="219.5" width="279" height="166" rx="5"/>
+                    <text class="hm-nh" x="14" y="244" style="fill:#1b1b1a">NVIDIA</text>
+                    <g class="hm-row"><rect x="7" y="257" width="266" height="28" rx="3"/><text class="hm-nt" x="14" y="275.5">Architecture and product roadmap</text></g>
+                    <g class="hm-row"><rect x="7" y="289" width="266" height="28" rx="3"/><text class="hm-nt" x="14" y="307.5">Capacity planning</text></g>
+                    <g class="hm-row hm-row--proc"><rect x="7" y="321" width="266" height="28" rx="3"/><text class="hm-nt" x="14" y="339.5">Procurement and financing</text></g>
+                    <g class="hm-row hm-row--exec"><rect x="7" y="353" width="266" height="28" rx="3"/><text class="hm-nt" x="14" y="371.5">Executive relationships</text></g>
+                    <path class="hm-link hm-formal" d="M122 386V454"/><path class="hm-link hm-rel" d="M158 386V454"/>
+                    <text class="wa-s" x="114" y="424" text-anchor="end">formal</text><text class="wa-s" x="166" y="424">relational</text>
+                    <rect class="hm-node" x="0.5" y="454.5" width="279" height="150" rx="4"/>
+                    <text class="hm-nh" x="14" y="478">Customers</text>
+                    <text class="hm-nt" x="14" y="506">Hyperscalers</text>
+                    <text class="hm-nt" x="14" y="532">AI laboratories</text>
+                    <text class="hm-nt" x="14" y="558">Enterprises</text>
+                    <text class="hm-nt" x="14" y="584">Infrastructure developers</text>
+                  </svg>
+                </div>
+                <ul class="hm-key">
+                  <li><svg viewBox="0 0 28 8" aria-hidden="true"><path d="M0 4H28" stroke="#5c5c58" stroke-width="1.5"/></svg>Formal agreements and financial commitments</li>
+                  <li><svg viewBox="0 0 28 8" aria-hidden="true"><path d="M0 4H28" stroke="#44702a" stroke-width="1.5" stroke-dasharray="3.5 3"/></svg>Relationship-based credibility and informal coordination</li>
+                </ul>
+                <div class="hm-status" aria-live="polite">
+                  <p data-state="all">Both channels are shown. Solid lines stand for the kind of arrangements NVIDIA documents in filings and announcements, such as capacity commitments and reservation advances. Dashed lines stand for the channel described by Patel and Musk; it has not been measured.</p>
+                  <p data-state="formal">Formal commitments: contracts, purchase orders, capacity reservations, and financing, which survive a change of chief executive.</p>
+                  <p data-state="relational">Relational credibility: confidence in forecasts and informal assurances, reported by Patel and Musk and hypothesized in this essay to run partly through executive relationships.</p>
+                  <p data-state="trust">Conceptual simulation only: the dashed links fade to show a weaker relational channel while the formal links stay as they were. It is not an estimate of how any supplier or customer will behave.</p>
+                </div>
+              </div>
+              <figcaption>A stylized view of NVIDIA's coordination network: suppliers commit capacity, NVIDIA coordinates production, and customers commit infrastructure spending. Credibility affects decisions at both ends. Lines show kinds of relationship, not individual contracts, and carry no weights.</figcaption>
+            </figure>
+
+            <p>This suggests an additional function of NVIDIA's leadership.</p>
+            <p>The company does not merely sell processors. It helps synchronize investment decisions among organizations that cannot individually control the entire infrastructure stack.</p>
+            <p>In that setting, Huang's personal credibility may have served as a coordination asset.</p>
+            <p>It is an asset that could be unusually valuable precisely because the industry is moving so quickly.</p>
+
+            <h2 id="the-personal-moat">The personal moat<a class="heading-anchor" href="#the-personal-moat" aria-label="Link to The personal moat">#</a></h2>
+            <p>Traditional competitive analysis tends to focus on advantages that belong clearly to the corporation.</p>
+            <p>Patents belong to a legal entity. Software can be maintained by an organization. Contracts survive changes in management. Manufacturing equipment remains in place after an executive departs.</p>
+            <p>Relationships are more complicated.</p>
+            <p>A customer may trust NVIDIA because of its balance sheet, engineering organization, and delivery record. It may also trust Huang because he personally made and fulfilled commitments over many years.</p>
+            <p>The two sources of credibility are intertwined.</p>
+            <p>I find it useful to distinguish between a corporate moat and a personal moat.</p>
+            <p>A <strong>corporate moat</strong> consists of durable advantages embedded in the company's technology, assets, contracts, systems, and organization.</p>
+            <p>A <strong>personal moat</strong> consists of advantages associated disproportionately with an individual's knowledge, judgment, reputation, and relationships.</p>
+            <p>This distinction is one of degree rather than kind. Jensen's relationships were developed through NVIDIA, supported by NVIDIA employees, and made credible by NVIDIA's ability to execute. They are not assets that can be cleanly separated from the business.</p>
+            <p>Nevertheless, their value may be sensitive to his departure in ways that more conventional assets are not.</p>
+            <p>The problem becomes especially interesting when the personal moat is complementary to the corporate moat.</p>
+            <p>CUDA makes NVIDIA hardware attractive. Its scale makes it a valuable supplier customer. Its technical roadmap makes expanded manufacturing capacity worthwhile. Jensen's credibility may make suppliers more willing to act on that roadmap earlier.</p>
+            <p>Each advantage reinforces the others.</p>
+            <p>It is therefore possible for the value of personal credibility to grow alongside the scale of the corporation, even as the company becomes more institutionally sophisticated.</p>
+            <p>That creates a paradox.</p>
+            <p>The same leader who makes an organization exceptionally valuable can also make an unexpected succession exceptionally costly.</p>
+
+            <h2 id="the-capacity-that-has-already-been-secured">The capacity that has already been secured<a class="heading-anchor" href="#the-capacity-that-has-already-been-secured" aria-label="Link to The capacity that has already been secured">#</a></h2>
+            <p>There is a strong argument against interpreting Huang's departure as an immediate supply-chain crisis.</p>
+            <p>NVIDIA is an enormous and highly profitable customer. Its suppliers have powerful reasons to preserve their relationships with the company regardless of who occupies the CEO position.</p>
+            <p>A supplier that has already invested in production capacity for NVIDIA cannot necessarily redirect that capacity to another customer without technical, financial, or scheduling costs.</p>
+            <p>Many arrangements are contractually binding. Others involve financing advances, dedicated manufacturing processes, and mutual investments that make a sudden reversal unattractive.</p>
+            <p>NVIDIA also retains the engineers, procurement specialists, business executives, and operational systems that built its supply network.</p>
+            <p>The company itself has said it expects no interruption to customer commitments or its product roadmap.<a class="writing-citation__mark" id="note-ref-1b" href="#cite-nvidia-transition" aria-label="Citation 1">1</a></p>
+            <p>These facts should materially constrain any prediction of immediate disruption.</p>
+            <p>The stronger hypothesis concerns future negotiations.</p>
+            <p>Call the capacity already reserved the <strong>stock</strong> of supply commitments. Call the capacity NVIDIA must secure through subsequent negotiations the <strong>flow</strong> of new commitments.</p>
+            <p>The existing stock may provide considerable protection. The flow is where a change in relational credibility could matter most.</p>
+
+            <figure class="writing-figure hm-figure hm-flowfig" id="figure-4">
+              <div class="writing-figure__head"><span class="writing-figure__label">Figure 4</span><strong>The stock of secured capacity and the flow of new commitments</strong></div>
+              <div class="wa-art">
+                <fieldset class="hm-controls">
+                  <legend>Scenario shown in Figure 4</legend>
+                  <div class="hm-seg">
+                    <label class="hm-pill"><input type="radio" name="hm-scenario" value="stable" checked>Stable relational credibility</label>
+                    <label class="hm-pill"><input type="radio" name="hm-scenario" value="weak">Weakened relational credibility</label>
+                  </div>
+                </fieldset>
+                <div role="img" aria-label="Conceptual diagram with two parallel tracks over time, from now, through the next product generation, to the generations after that. The upper track, existing commitments, starts full and runs down as previously negotiated commitments are fulfilled; it is identical in both scenarios. The lower track, future negotiations, starts near zero and grows, drawn as a central path inside a band of possible outcomes. Under stable relational credibility the band is narrow. Under weakened relational credibility the band is wider, with more room below the central path. There are no quantities or probabilities.">
+                  <svg class="wa-wide" viewBox="0 0 640 282" aria-hidden="true" focusable="false">
+                    <text class="wa-t" x="0" y="64">Existing commitments</text>
+                    <text class="wa-s" x="0" y="80">Stock already secured</text>
+                    <text class="wa-t" x="0" y="190">Future negotiations</text>
+                    <text class="wa-s" x="0" y="206">Flow of new commitments</text>
+                    <rect class="hm-lane" x="170" y="34" width="460" height="86"/>
+                    <rect class="hm-lane" x="170" y="158" width="460" height="92"/>
+                    <path class="hm-guide" d="M360 26V250M560 26V250"/>
+                    <path class="hm-stock" d="M170 120V50H230C330 50 420 72 630 112V120Z"/>
+                    <path class="hm-stock-edge" d="M170 50H230C330 50 420 72 630 112"/>
+                    <text class="wa-s" x="622" y="54" text-anchor="end">Same in both scenarios</text>
+                    <path class="hm-fan hm-fan--stable" d="M170 248C330 236 460 196 630 170V196C460 216 330 244 170 248Z"/>
+                    <path class="hm-fan hm-fan--weak" d="M170 248C330 232 460 186 630 163V234C460 240 330 248 170 248Z"/>
+                    <path class="hm-flow" d="M170 248C330 240 460 206 630 183"/>
+                    <text class="wa-m" x="170" y="270">Now</text>
+                    <text class="wa-m" x="360" y="270" text-anchor="middle">Next generation</text>
+                    <text class="wa-m" x="560" y="270" text-anchor="middle">Generations after that</text>
+                  </svg>
+                  <svg class="wa-narrow" viewBox="0 0 280 300" aria-hidden="true" focusable="false">
+                    <text class="hm-nt" x="0" y="14" style="font-weight:500">Existing commitments</text>
+                    <text class="wa-s" x="0" y="31" style="font-size:12px">Stock already secured · same in both</text>
+                    <rect class="hm-lane" x="0" y="42" width="280" height="80"/>
+                    <path class="hm-stock" d="M0 122V54H30C110 54 170 74 280 114V122Z"/>
+                    <path class="hm-stock-edge" d="M0 54H30C110 54 170 74 280 114"/>
+                    <text class="hm-nt" x="0" y="154" style="font-weight:500">Future negotiations</text>
+                    <text class="wa-s" x="0" y="171" style="font-size:12px">Flow of new commitments</text>
+                    <rect class="hm-lane" x="0" y="182" width="280" height="80"/>
+                    <path class="hm-guide" d="M140 42V262"/>
+                    <path class="hm-fan hm-fan--stable" d="M0 260C90 248 170 208 280 184V208C170 226 90 256 0 260Z"/>
+                    <path class="hm-fan hm-fan--weak" d="M0 260C90 244 170 198 280 178V246C170 250 90 260 0 260Z"/>
+                    <path class="hm-flow" d="M0 260C90 252 170 218 280 196"/>
+                    <text class="wa-m" x="0" y="284" style="font-size:11px">Now</text>
+                    <text class="wa-m" x="140" y="284" text-anchor="middle" style="font-size:11px">Next generation</text>
+                    <text class="wa-m" x="280" y="284" text-anchor="end" style="font-size:11px">After that</text>
+                  </svg>
+                </div>
+                <div class="hm-status" aria-live="polite">
+                  <p data-state="stable">Stable relational credibility: existing commitments run their course, and new commitments are negotiated within a relatively narrow range of outcomes.</p>
+                  <p data-state="weak">Weakened relational credibility: the existing commitments are unchanged. What widens is the range of possible outcomes for capacity that still has to be negotiated, which may arrive later, on stiffer terms, or in smaller amounts.</p>
+                </div>
+              </div>
+              <figcaption>A conceptual figure. The shapes carry no NVIDIA-specific quantities or probabilities, and the time axis has no scale. It shows where a change in relational credibility would act under the essay's hypothesis: on the flow of new commitments, not on the stock already contracted. In practice, some existing agreements can also be rescheduled or adjusted, as the 10-Q notes.</figcaption>
+            </figure>
+
+            <p>Suppose suppliers continue fulfilling every existing NVIDIA agreement but become slightly less willing to reserve additional production capacity without stronger guarantees.</p>
+            <p>Or suppose a competitor offers a supplier favorable terms for capacity that NVIDIA would once have secured through an earlier, more informal negotiation.</p>
+            <p>NVIDIA might still receive all the components it ordered. Its quarterly revenue might remain excellent. Yet its ability to expand supply ahead of competitors could deteriorate.</p>
+            <p>That is an important distinction because the consequences would appear slowly.</p>
+            <p>The relevant question is not only whether NVIDIA can deliver its next generation of processors.</p>
+            <p>It is whether NVIDIA can secure comparable priority for the generations after that.</p>
+
+            <h2 id="how-would-we-know">How would we know?<a class="heading-anchor" href="#how-would-we-know" aria-label="Link to How would we know?">#</a></h2>
+            <p>The handshake moat is a hypothesis, not an established valuation.</p>
+            <p>Public evidence currently does not tell us how much economic value is attributable specifically to Huang's personal relationships. It also does not establish that his departure has caused any supplier to abandon a commitment.</p>
+            <p>To evaluate the hypothesis, I would watch several developments over the next few product cycles.</p>
+            <p><strong>First, capacity allocation.</strong> Are competitors securing scarce memory, packaging, testing, substrate, or optical-component capacity that NVIDIA previously would have been expected to obtain? This would be suggestive, though capacity expansions and changing market demand would complicate attribution.</p>
+            <p><strong>Second, the terms of new agreements.</strong> Does NVIDIA need larger advances, stronger guarantees, or more expensive commitments to secure equivalent supply? Its disclosures and supplier announcements may provide partial evidence.</p>
+            <p><strong>Third, delivery reliability.</strong> Are future product rollouts materially delayed relative to previously communicated expectations? If so, are the causes supply constraints, design problems, demand fluctuations, or something else?</p>
+            <p><strong>Fourth, customer behavior.</strong> Are major customers increasingly unwilling to plan infrastructure investments around NVIDIA's delivery assurances, or are they diversifying for reasons unrelated to the leadership transition?</p>
+            <p><strong>Finally, organizational continuity.</strong> Can NVIDIA's technical and commercial leaders preserve its supplier relationships and coordinate major investment decisions without depending on Huang personally?</p>
+            <p>None of these measures provides a clean causal experiment.</p>
+            <p>The counterfactual is unobservable: we cannot know what NVIDIA would have achieved if Huang had remained CEO. Competitors are also improving, suppliers are expanding capacity, and the AI market is changing independently of NVIDIA's succession.</p>
+            <p>A decline in market share or a delay in deliveries would not, by itself, establish the loss of a personal moat.</p>
+            <p>The more useful evidence would come from patterns of supplier behavior, documented changes in commercial terms, and direct accounts from the organizations involved.</p>
+
+            <h2 id="can-a-handshake-be-institutionalized">Can a handshake be institutionalized?<a class="heading-anchor" href="#can-a-handshake-be-institutionalized" aria-label="Link to Can a handshake be institutionalized?">#</a></h2>
+            <p>There is an uncomfortable implication to the argument.</p>
+            <p>If Jensen's personal credibility contributed significantly to NVIDIA's advantage, the board faces a problem that cannot be solved by selecting someone with an impressive résumé.</p>
+            <p>The new CEO must inherit relationships whose value may depend partly on the previous CEO.</p>
+            <p>But that does not make the task impossible.</p>
+            <p>Organizations can build reputations that outlast their founders. They can distribute relationships across multiple executives, establish reliable operational processes, and create contracts that reduce uncertainty for both sides.</p>
+            <p>They can develop institutional credibility through repeated performance.</p>
+            <p>In fact, NVIDIA's enormous scale provides an opportunity to do exactly this.</p>
+            <p>Its procurement organization can deepen relationships with critical suppliers. Technical leaders can make roadmaps credible through consistent execution. Financial executives can provide assurances through formal guarantees. Commercial teams can maintain continuity with customers.</p>
+            <p>A successor might even make NVIDIA less fragile by reducing its dependence on one person.</p>
+            <p>The trade-off is that formalizing a relationship can change its economics.</p>
+            <p>A supplier willing to reserve capacity based partly on a leader's personal assurance might require more contractual protection when the relationship becomes less personal.</p>
+            <p>That protection may involve financial commitments, legal terms, or reduced flexibility.</p>
+            <p>The organization can replace some of the credibility, but perhaps not at the same cost.</p>
+            <p>This is why the succession problem is fundamentally economic rather than merely cultural.</p>
+            <p>The question is not whether Jensen's successor can wear the leather jacket, deliver a convincing keynote, or win the affection of NVIDIA employees.</p>
+            <p>It is whether NVIDIA can preserve the commercial value of relationships that were built through more than three decades of repeated interactions.</p>
+
+            <h2 id="what-the-balance-sheet-cannot-tell-us">What the balance sheet cannot tell us<a class="heading-anchor" href="#what-the-balance-sheet-cannot-tell-us" aria-label="Link to What the balance sheet cannot tell us">#</a></h2>
+            <p>There is a temptation to reduce this entire episode to a verdict on Jensen Huang.</p>
+            <p>That would miss the more important question.</p>
+            <p>The concerns surrounding his departure deserve independent scrutiny, and a valuable commercial relationship does not excuse misconduct or override legitimate governance obligations. The value of retaining a leader and the reasons for removing that leader are separate considerations.</p>
+            <p>But the episode also creates a rare opportunity to examine something that is usually difficult to observe.</p>
+            <p>We can see NVIDIA's patents, products, financial commitments, and revenue. We can study its architectures, estimate manufacturing capacity, and compare the performance of competing accelerators.</p>
+            <p>What we cannot easily observe is the value created when a supplier trusts a forecast, a customer trusts a delivery commitment, or two executives decide to invest before all the necessary agreements are finalized.</p>
+            <p>Those decisions can affect billions of dollars in eventual investment.</p>
+            <p>And their economic consequences may persist long after the initial conversation is forgotten.</p>
+            <p>NVIDIA will not lose CUDA because Jensen Huang is gone. Its manufacturing contracts will not spontaneously disappear. Its customers will continue needing enormous amounts of computing power.</p>
+            <p>But if suppliers become less willing to reserve scarce capacity, if customers become less willing to act on future delivery assurances, or if coordination becomes slower and more expensive, the company may discover that some of its competitive advantage was never fully captured by its technology or contracts.</p>
+            <p>The most interesting question is not whether Jensen is irreplaceable.</p>
+            <p>It is how much of NVIDIA's moat belongs to NVIDIA, and how much was built on the expectation that Jensen Huang would keep his word.</p>
+
+            <section class="writing-post__notes" data-writing-endnotes aria-labelledby="article-notes">
+              <h2 id="article-notes">Sources and notes</h2>
+              <ol>
+                <li><span class="writing-citation__note" id="cite-nvidia-transition">NVIDIA, <a href="https://nvidianews.nvidia.com/news/nvidia-announces-ceo-transition">“NVIDIA Announces CEO Transition”</a>, November 12, 2026. See also the company's <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000082/nvda-20261111.htm">Form 8-K</a>.</span> <a class="writing-note-return" href="#note-ref-1" aria-label="Return to citation 1">↩</a></li>
+                <li><span class="writing-citation__note" id="cite-reuters-musk">Reuters, <a href="https://www.reuters.com/business/musk-says-nvidia-will-lose-critical-deals-without-jensen-huang-2026-11-14/">“Musk says Nvidia will lose 'critical' deals without Jensen Huang”</a>, November 14, 2026. Musk's subsequent account of compute deliveries was <a href="https://x.com/elonmusk/status/2121624209675665519">published separately on X</a>.</span> <a class="writing-note-return" href="#note-ref-2" aria-label="Return to citation 2">↩</a></li>
+                <li><span class="writing-citation__note" id="cite-patel">Dylan Patel, <a href="https://www.tbpndigest.com/story/2026-11-12/dylan-patel-jensens-exit-threatens-nvidias-supply-chain-dominance-open-source-ecosystem-and-ai-deal-pipeline">interview summarized by TBPN Digest</a>, November 12, 2026. Patel's claims are attributed observations, not independently audited measurements of supplier commitments.</span> <a class="writing-note-return" href="#note-ref-3" aria-label="Return to citation 3">↩</a></li>
+                <li><span class="writing-citation__note" id="cite-10q">NVIDIA, <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm">Form 10-Q for the quarter ended July 26, 2026</a>, Note 10, Commitments and Contingencies. The $279 billion figure represents supply and capacity commitments and should not be interpreted as informal or unsecured agreements.</span> <a class="writing-note-return" href="#note-ref-4" aria-label="Return to citation 4">↩</a></li>
+                <li><span class="writing-citation__note" id="cite-supply-partners">NVIDIA, <a href="https://nvidianews.nvidia.com/news/nvidia-and-supply-chain-partners-expand-capacity-to-accelerate-ai-infrastructure-buildout/">“NVIDIA and Supply Chain Partners Expand Capacity to Accelerate AI Infrastructure Buildout”</a>, October 21, 2026.</span> <a class="writing-note-return" href="#note-ref-5" aria-label="Return to citation 5">↩</a></li>
+                <li><span class="writing-citation__note" id="cite-bgm">George Baker, Robert Gibbons, and Kevin J. Murphy, <a href="https://doi.org/10.1162/003355302753399445">“Relational Contracts and the Theory of the Firm”</a>, <em>Quarterly Journal of Economics</em> 117, no. 1 (2002): 39–84.</span> <a class="writing-note-return" href="#note-ref-6" aria-label="Return to citation 6">↩</a></li>
+              </ol>
+            </section>
+          </div>
+        </div>
+        <section class="writing-post__cite" aria-labelledby="cite-this-essay">
+          <div class="writing-post__cite-header">
+            <h2 id="cite-this-essay">Cite this essay</h2>
+            <button class="writing-post__copy" type="button">Copy BibTeX</button>
+          </div>
+          <pre><code>@misc{somu2026handshakemoat,
+  title  = {The Handshake Moat},
+  author = {Somu, Arya},
+  year   = {2026},
+  url    = {https://aryasomu.com/writing/the-handshake-moat}
+}</code></pre>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <script src="writing.js"></script>
+  <script src="citations.js"></script>
+  <script>
+    (function () {
+      var controls = document.querySelector('[data-hm-model-controls]');
+      if (!controls) return;
+      var g = document.getElementById('hm-g');
+      var r = document.getElementById('hm-r');
+      var d = document.getElementById('hm-d');
+      var verdict = document.querySelector('[data-hm-verdict]');
+      var threshold = document.querySelector('[data-hm-threshold]');
+      var SCALE = 300;
+      controls.hidden = false;
+
+      function set(selector, text) { document.querySelector(selector).textContent = text; }
+      function bar(name, value) {
+        var el = document.querySelector('[data-hm-bar="' + name + '"]');
+        el.style.width = Math.min(100, value / SCALE * 100) + '%';
+        el.classList.toggle('is-clipped', value > SCALE);
+      }
+      function update() {
+        var gv = +g.value, rv = +r.value, dv = +d.value;
+        var value = dv * rv / (1 - dv);
+        set('#hm-g-out', gv.toFixed(0));
+        set('#hm-r-out', rv.toFixed(1));
+        set('#hm-d-out', dv.toFixed(2));
+        set('[data-hm-out="g"]', gv.toFixed(1));
+        set('[data-hm-out="v"]', value.toFixed(1));
+        bar('g', gv);
+        bar('v', value);
+        var holds = gv <= value + 1e-9;
+        verdict.classList.toggle('is-broken', !holds);
+        verdict.textContent = holds
+          ? 'Condition satisfied: ' + value.toFixed(1) + ' ≥ ' + gv.toFixed(1) + '. Keeping the commitment is worth more than breaking it.'
+          : 'Condition not satisfied: ' + value.toFixed(1) + ' < ' + gv.toFixed(1) + '. The one-time gain from deviating exceeds the discounted value of the relationship.';
+        var lead = 'With g = ' + gv.toFixed(1) + ' and R = ' + rv.toFixed(1) + ', ';
+        if (gv === 0) threshold.textContent = lead + 'deviating gains nothing, so the commitment holds at any δ.';
+        else if (rv === 0) threshold.textContent = lead + 'the relationship has no future value, so no discount factor sustains the commitment.';
+        else threshold.textContent = lead + 'the commitment holds whenever δ is at least ' + (Math.ceil(gv / (gv + rv) * 100) / 100).toFixed(2) + '.';
+      }
+      [g, r, d].forEach(function (input) { input.addEventListener('input', update); });
+      update();
+    })();
+  </script>
+</body>
+</html>
