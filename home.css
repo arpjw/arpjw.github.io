@@ -26,10 +26,8 @@ html:has(.home-page) { background: #f4f4f1; }
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 2 / 1;
-  object-fit: cover;
   image-rendering: pixelated;
-  background: #d5d8cd;
+  background: #c7a178;
 }
 
 .home-photo figcaption {
@@ -44,6 +42,9 @@ html:has(.home-page) { background: #f4f4f1; }
 }
 
 .home-contact {
+  --contact-height: 2.5rem;
+  --icon-size: 1.0625rem;
+  --icon-step: 2.0625rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -53,18 +54,26 @@ html:has(.home-page) { background: #f4f4f1; }
   color: var(--home-muted);
 }
 
-.home-profiles { display: flex; margin-inline-start: -0.5rem; }
+.home-profiles { display: flex; margin-inline-start: calc((var(--icon-size) - var(--icon-step)) / 2); }
 .home-profiles a {
   display: grid;
   place-items: center;
-  width: 2.0625rem;
-  min-height: 2.5rem;
+  width: var(--icon-step);
+  min-height: var(--contact-height);
 }
-.home-profiles svg { width: 1.0625rem; height: 1.0625rem; fill: currentColor; }
-.home-email { white-space: nowrap; min-height: 2.5rem; display: inline-flex; align-items: center; }
+.home-profiles svg { display: block; width: var(--icon-size); height: var(--icon-size); fill: currentColor; }
+.home-email {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--contact-height);
+  margin-inline-start: auto;
+  white-space: nowrap;
+}
+/* The serif glyphs sit lower than the SVGs in equally centered boxes. */
+.home-email span { line-height: 1; translate: 0 -0.1em; }
 
 .home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a,
-.home-column .home-email {
+.home-email span {
   text-decoration: underline;
   text-underline-offset: 0.15em;
   text-decoration-thickness: 1px;
