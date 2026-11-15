@@ -27,7 +27,7 @@ html:has(.home-page) { background: #f4f4f1; }
   width: 100%;
   height: auto;
   image-rendering: pixelated;
-  background: #c7a178;
+  background: #7f7564;
 }
 
 .home-photo figcaption {
