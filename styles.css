@@ -123,9 +123,8 @@ main { margin-top: 1.5rem; }
 .vela-project .release-row a:hover, .vela-project .release-row a:focus-visible { color: #20201e; }
 .tarot-project .release-heading { margin: 1rem 0 0.35rem; color: var(--foreground); font-family: var(--sans); font-size: 0.8rem; font-weight: 600; }
 .tarot-project > .release-byline { margin: 0 0 0.5rem; color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
-.tarot-project .release-byline a { display: inline-block; padding: 0.1rem 0.35rem; border-radius: 0.25rem; background: #28519b; color: #fff; }
-.tarot-project .release-byline a:hover, .tarot-project .release-byline a:focus-visible { background: #1d3d78; }
-.tarot-project .release-byline a:focus-visible { outline: 2px solid var(--foreground); outline-offset: 2px; }
+.tarot-project .release-byline a { color: inherit; }
+.tarot-project .release-byline a:hover, .tarot-project .release-byline a:focus-visible { color: var(--foreground); }
 .tarot-project .release-list { padding: 0; border-top: 1px solid #d1ddf4; }
 .tarot-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #d1ddf4; color: #667085; font-family: var(--sans); font-size: 0.75rem; }
 .tarot-project .release-row > span { display: inline; margin: 0; }
