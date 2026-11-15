@@ -8,14 +8,14 @@
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="stylesheet" href="../styles.css?v=compact-links">
   <link rel="stylesheet" href="article.css">
-  <link rel="canonical" href="https://aryasomu.com/writing/your-post-slug.html">
+  <link rel="canonical" href="https://aryasomu.com/writing/your-post-slug">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>Your post title · Arya Somu</title>
   <meta name="description" content="A short description of your post.">
   <meta property="og:title" content="Your post title · Arya Somu">
   <meta property="og:description" content="A short description of your post.">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://aryasomu.com/writing/your-post-slug.html">
+  <meta property="og:url" content="https://aryasomu.com/writing/your-post-slug">
   <meta property="og:site_name" content="Arya Somu">
   <meta name="twitter:card" content="summary">
 </head>

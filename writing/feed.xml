@@ -8,85 +8,85 @@
     <atom:link href="https://aryasomu.com/writing/feed.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A tiny GPU inside Qwen</title>
-      <link>https://aryasomu.com/writing/a-tiny-gpu-inside-qwen.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/a-tiny-gpu-inside-qwen.html</guid>
+      <link>https://aryasomu.com/writing/a-tiny-gpu-inside-qwen</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/a-tiny-gpu-inside-qwen</guid>
       <pubDate>Sun, 15 Nov 2026 00:34:12 +0000</pubDate>
       <description>How Qwen-GPU turns a language model's generated tokens into the clock of a small programmable processor, and what its verified 16×16 matrix multiply does and does not prove.</description>
     </item>
     <item>
       <title>Introducing TrainKernel</title>
-      <link>https://aryasomu.com/writing/introducing-trainkernel.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/introducing-trainkernel.html</guid>
+      <link>https://aryasomu.com/writing/introducing-trainkernel</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/introducing-trainkernel</guid>
       <pubDate>Mon, 26 Oct 2026 23:48:17 +0000</pubDate>
       <description>An experimental compiler turns a supported PyTorch training step into one cooperative CUDA megakernel. A detailed look at its design, A100 and H100 benchmarks, use cases, and limits.</description>
     </item>
     <item>
       <title>The price of compute, the price of power</title>
-      <link>https://aryasomu.com/writing/price-of-compute-and-power.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/price-of-compute-and-power.html</guid>
+      <link>https://aryasomu.com/writing/price-of-compute-and-power</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/price-of-compute-and-power</guid>
       <pubDate>Wed, 21 Oct 2026 18:33:22 +0000</pubDate>
       <description>A ten-year model of useful compute and delivered power, with Texas, Alberta, Québec, and PJM as case studies in location, flexibility, and the emerging market for compute.</description>
     </item>
     <item>
       <title>The promise of a green light</title>
-      <link>https://aryasomu.com/writing/the-promise-of-a-green-light.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/the-promise-of-a-green-light.html</guid>
+      <link>https://aryasomu.com/writing/the-promise-of-a-green-light</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/the-promise-of-a-green-light</guid>
       <pubDate>Mon, 19 Oct 2026 00:41:00 +0000</pubDate>
       <description>Four traffic-light controllers reveal the difference between avoiding a conflict, guaranteeing progress, and deciding who waits. Includes an interactive model and recorded walkthrough.</description>
     </item>
     <item>
       <title>Molecular origami</title>
-      <link>https://aryasomu.com/writing/molecular-origami.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/molecular-origami.html</guid>
+      <link>https://aryasomu.com/writing/molecular-origami</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/molecular-origami</guid>
       <pubDate>Mon, 19 Oct 2026 00:37:00 +0000</pubDate>
       <description>A small-budget Qwen3-8B RNA inverse-folding experiment with reinforcement learning, classical controls, and a numerical audit.</description>
     </item>
     <item>
       <title>How many independent forecasts are in a crowd?</title>
-      <link>https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd.html</guid>
+      <link>https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/how-many-independent-forecasts-are-in-a-crowd</guid>
       <pubDate>Sun, 18 Oct 2026 15:01:49 +0000</pubDate>
       <description>A frozen synthetic study of shared evidence, scalar pooling failure, and learning source groups from resolved forecasts.</description>
     </item>
     <item>
       <title>I taught Nemotron to flip graph edges. A small search still wins.</title>
-      <link>https://aryasomu.com/writing/nemotron-graph-repair.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/nemotron-graph-repair.html</guid>
+      <link>https://aryasomu.com/writing/nemotron-graph-repair</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/nemotron-graph-repair</guid>
       <pubDate>Sat, 17 Oct 2026 04:28:39 +0000</pubDate>
       <description>A Nemotron 4B adapter learned useful local moves on two small book-graph repair tasks. Exact CPU search remained stronger, and no new Ramsey bound was found.</description>
     </item>
     <item>
       <title>I post-trained Nemotron 4B into an Average Banker</title>
-      <link>https://aryasomu.com/writing/nemotron-average-banker.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/nemotron-average-banker.html</guid>
+      <link>https://aryasomu.com/writing/nemotron-average-banker</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/nemotron-average-banker</guid>
       <pubDate>Thu, 15 Oct 2026 23:55:00 GMT</pubDate>
       <description>A one-epoch adapter doubled Nemotron's accuracy on a narrow banking-support intent test, with a synthetic false start and limits on what that score means.</description>
     </item>
     <item>
       <title>What should an AI ask when every explanation fits?</title>
-      <link>https://aryasomu.com/writing/what-should-an-ai-ask.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/what-should-an-ai-ask.html</guid>
+      <link>https://aryasomu.com/writing/what-should-an-ai-ask</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/what-should-an-ai-ask</guid>
       <pubDate>Wed, 14 Oct 2026 21:46:00 GMT</pubDate>
       <description>A conversational account of exact causal experiment choice, locked model tests, and what changed when an agent received an exact-risk calculator.</description>
     </item>
     <item>
       <title>The Typical Path of a Favorable Bet</title>
-      <link>https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet.html</guid>
+      <link>https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/the-typical-path-of-a-favorable-bet</guid>
       <pubDate>Sun, 11 Oct 2026 23:59:27 GMT</pubDate>
       <description>A fixed-seed experiment shows how a favorable repeated bet can raise expected wealth while leaving the median bankroll poorer. Filed under September 18, 2026; first published October 11, 2026.</description>
     </item>
     <item>
       <title>The Epistemic Century</title>
-      <link>https://aryasomu.com/writing/the-epistemic-century.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/the-epistemic-century.html</guid>
+      <link>https://aryasomu.com/writing/the-epistemic-century</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/the-epistemic-century</guid>
       <pubDate>Sun, 11 Oct 2026 23:50:46 GMT</pubDate>
       <description>How AI could change the institutions that generate, test, fund, and act on claims. Originally published on Substack July 9, 2026; added to this site October 11, 2026.</description>
     </item>
     <item>
       <title>When 95% credible intervals cover 81%</title>
-      <link>https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html</link>
-      <guid isPermaLink="true">https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent.html</guid>
+      <link>https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent</link>
+      <guid isPermaLink="true">https://aryasomu.com/writing/when-95-percent-credible-intervals-cover-81-percent</guid>
       <pubDate>Sun, 11 Oct 2026 23:22:39 GMT</pubDate>
       <description>A derivation and reproducible simulation of posterior coverage under model misspecification.</description>
     </item>

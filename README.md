@@ -56,7 +56,12 @@ To publish a post:
    first post. Add a `Cite this essay` block at the end of the article with a
    unique BibTeX key, its title, author, year, and canonical URL.
 4. Preview the site locally, then commit and push when ready. The post will appear
-   at `https://aryasomu.com/writing/your-post-slug.html` after GitHub Pages updates.
+   at `https://aryasomu.com/writing/your-post-slug` after GitHub Pages updates.
+   Link to articles without the `.html` extension everywhere: in site links,
+   canonical and Open Graph URLs, RSS links and GUIDs, the sitemap, and BibTeX.
+   GitHub Pages serves `writing/your-post-slug.html` at that clean URL. Do not
+   give an asset folder the same name as an article; use `your-post-slug-assets/`.
+   A plain `python3 -m http.server` preview will not resolve extensionless links.
 
 The template stays a `.txt` file so it is not published as a post.
 `writing/_article-preview.html` shows the reading layout with sample copy and
@@ -78,5 +83,5 @@ The shared CSS continues to control typography and layout.
 Example index entry:
 
 ```html
-<li><a href="your-post-slug.html">Your post title</a><span>Volume I</span></li>
+<li><a href="your-post-slug">Your post title</a><span>Volume I</span></li>
 ```
