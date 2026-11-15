@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f4f4f1">
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
   <link rel="stylesheet" href="../../styles.css?v=compact-links">
-  <link rel="stylesheet" href="styles.css?v=1">
+  <link rel="stylesheet" href="../../writing/article.css">
+  <link rel="stylesheet" href="styles.css?v=2">
   <link rel="canonical" href="https://aryasomu.com/papers/parity-playground/">
-  <title>Prediction-Market Forecasting Playground</title>
+  <title>Two ways accuracy can mislead · Arya Somu</title>
   <meta name="description" content="Two interactive experiments about benchmark construction and coherent prediction-market forecasts.">
-  <meta property="og:title" content="Prediction-Market Forecasting Playground">
+  <meta property="og:title" content="Two ways accuracy can mislead · Arya Somu">
   <meta property="og:description" content="See how preprocessing can manufacture apparent skill, and why accuracy alone can miss incoherent forecasts.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://aryasomu.com/papers/parity-playground/">
   <meta property="og:site_name" content="Arya Somu">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Prediction-Market Forecasting Playground">
+  <meta name="twitter:title" content="Two ways accuracy can mislead">
   <meta name="twitter:description" content="Two interactive experiments about prediction-market forecasting.">
   <script type="application/ld+json">
     {
@@ -36,139 +37,148 @@
     }
   </script>
 </head>
-<body class="playground-page">
-  <div class="site playground-site">
-    <a class="site-home-link" href="/">← Home</a>
+<body class="writing-page writing-article-page article-color-blue lab-page">
+  <div class="site writing-site">
+    <main class="writing-article-main" id="top">
+      <article class="writing-post">
+        <div class="writing-post__content">
+          <aside class="writing-rail">
+            <a class="site-home-link" href="/">← Home</a>
+            <nav class="writing-toc" aria-label="On this page">
+              <ul>
+                <li><a href="#manufactured">Delete the quiet moments</a></li>
+                <li><a href="#coherence">Hold accuracy constant</a></li>
+                <li><a href="#takeaway">Evaluation is part of the model</a></li>
+              </ul>
+            </nav>
+          </aside>
+          <div class="writing-post__body">
+            <header class="writing-post__header">
+              <div class="writing-post__meta">Laplace Research · Interactive companion</div>
+              <h1>Two ways accuracy can mislead</h1>
+              <p class="writing-post__dek">Small, manipulable versions of two experiments on prediction-market forecasting. No model or market data is loaded here; the examples isolate the mechanism.</p>
+              <dl class="lab-findings" aria-label="Headline findings from the papers">
+                <div><dt>27.4%</dt><dd>persistence RMSE inflation from event-grid preprocessing</dd></div>
+                <div><dt>10.1×</dt><dd>larger sports effect on coherence than on accuracy</dd></div>
+                <div><dt>0</dt><dd>outcome labels needed to score forecast coherence</dd></div>
+              </dl>
+              <p class="lab-papers">Papers: <a href="../manufactured-skill-in-prediction-market-forecasting.pdf">Manufactured Skill</a> · <a href="../coherent-not-merely-accurate.pdf">Coherent, Not Merely Accurate</a></p>
+            </header>
 
-    <main class="playground-main">
-      <header class="playground-hero">
-        <p class="eyebrow">Interactive paper companion</p>
-        <h1>Two ways accuracy can mislead</h1>
-        <p class="playground-dek">Small, manipulable versions of two experiments on prediction-market forecasting. No model or market data is loaded here; the examples isolate the mechanism.</p>
-        <div class="paper-links" aria-label="Related papers">
-          <a href="../manufactured-skill-in-prediction-market-forecasting.pdf">Manufactured Skill <span aria-hidden="true">↗</span></a>
-          <a href="../coherent-not-merely-accurate.pdf">Coherent, Not Merely Accurate <span aria-hidden="true">↗</span></a>
-        </div>
-      </header>
+            <details class="writing-toc-mobile">
+              <summary>In this companion</summary>
+              <nav aria-label="On this page"><ul><li><a href="#manufactured">Delete the quiet moments</a></li><li><a href="#coherence">Hold accuracy constant</a></li><li><a href="#takeaway">Evaluation is part of the model</a></li></ul></nav>
+            </details>
 
-      <aside class="finding-strip" aria-label="Headline findings from the papers">
-        <div><strong>27.4%</strong><span>persistence RMSE inflation from event-grid preprocessing</span></div>
-        <div><strong>10.1×</strong><span>larger sports effect on coherence than on accuracy</span></div>
-        <div><strong>0</strong><span>outcome labels needed to score forecast coherence</span></div>
-      </aside>
+            <section aria-labelledby="manufactured">
+              <h2 id="manufactured">Delete the quiet moments<a class="heading-anchor" href="#manufactured" aria-label="Link to Delete the quiet moments">#</a></h2>
+              <p>A persistence forecast says the next price will equal the last one. On an ordinary tick grid, it is correct whenever the price stays flat. Delete every repeated price and persistence becomes wrong at every remaining step by construction.</p>
 
-      <section class="experiment" id="manufactured" aria-labelledby="manufactured-title">
-        <div class="experiment-copy">
-          <p class="section-number">Experiment 01</p>
-          <h2 id="manufactured-title">Delete the quiet moments</h2>
-          <p>A persistence forecast says the next price will equal the last one. On an ordinary tick grid, it is correct whenever the price stays flat. Delete every repeated price and persistence becomes wrong at every remaining step by construction.</p>
-        </div>
+              <figure class="writing-figure lab-card manufactured-lab">
+                <div class="writing-figure__head"><span class="writing-figure__label">Experiment 1</span><strong>A persistence forecast on one price path</strong></div>
+                <div class="wa-art">
+                  <div class="lab-toolbar">
+                    <fieldset class="lab-seg">
+                      <legend class="sr-only">Choose a price sequence</legend>
+                      <button type="button" data-sequence="quiet" aria-pressed="true">Quiet</button>
+                      <button type="button" data-sequence="mixed" aria-pressed="false">Mixed</button>
+                      <button type="button" data-sequence="active" aria-pressed="false">Active</button>
+                    </fieldset>
+                    <label class="lab-switch">
+                      <input type="checkbox" data-deduplicate>
+                      <span aria-hidden="true"></span>
+                      Drop repeated prices
+                    </label>
+                  </div>
 
-        <div class="lab-card manufactured-lab">
-          <div class="lab-toolbar">
-            <fieldset class="segmented-control" aria-label="Price sequence">
-              <legend class="sr-only">Choose a price sequence</legend>
-              <button type="button" data-sequence="quiet" aria-pressed="true">Quiet</button>
-              <button type="button" data-sequence="mixed" aria-pressed="false">Mixed</button>
-              <button type="button" data-sequence="active" aria-pressed="false">Active</button>
-            </fieldset>
-            <label class="switch-control">
-              <input type="checkbox" data-deduplicate>
-              <span aria-hidden="true"></span>
-              Drop repeated prices
-            </label>
+                  <div class="lab-chart" data-price-chart role="img" aria-label="Illustrative prediction-market price sequence"></div>
+
+                  <dl class="lab-metrics" aria-live="polite">
+                    <div><dt>Observations</dt><dd data-observations>16</dd></div>
+                    <div><dt>Flat steps</dt><dd data-flat-share>—</dd></div>
+                    <div><dt>Persistence direction accuracy</dt><dd data-direction-accuracy>—</dd></div>
+                    <div><dt>Persistence RMSE</dt><dd data-persistence-rmse>—</dd></div>
+                  </dl>
+
+                  <p class="lab-verdict" data-manufactured-verdict>Keep every tick and persistence receives credit for correctly predicting quiet steps.</p>
+                </div>
+              </figure>
+
+              <dl class="lab-notes">
+                <div>
+                  <dt>What is mathematical</dt>
+                  <dd>After deduplication, every remaining transition satisfies <code>pₜ ≠ pₜ₋₁</code>. A no-change forecast therefore has exactly 0% direction accuracy.</dd>
+                </div>
+                <div>
+                  <dt>What the paper measured</dt>
+                  <dd>On a matched population, the same preprocessing inflated persistence RMSE by 27.4%. This toy sequence demonstrates the mechanism, not that empirical estimate.</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section aria-labelledby="coherence">
+              <h2 id="coherence">Hold accuracy constant<a class="heading-anchor" href="#coherence" aria-label="Link to Hold accuracy constant">#</a></h2>
+              <p>Two forecasts can have the same RMSE and disagree on whether they describe a possible market. Switch between them, then edit the probabilities yourself.</p>
+
+              <figure class="writing-figure lab-card coherence-lab">
+                <div class="writing-figure__head"><span class="writing-figure__label">Experiment 2</span><strong>Accuracy and coherence on one ladder</strong></div>
+                <div class="wa-art">
+                  <div class="lab-toolbar">
+                    <fieldset class="lab-seg">
+                      <legend class="sr-only">Choose a ladder geometry</legend>
+                      <button type="button" data-geometry="partition" aria-pressed="true">Weather bins</button>
+                      <button type="button" data-geometry="cdf" aria-pressed="false">Sports totals</button>
+                    </fieldset>
+                    <fieldset class="lab-seg">
+                      <legend class="sr-only">Choose a forecast preset</legend>
+                      <button type="button" data-preset="coherent" aria-pressed="true">Coherent</button>
+                      <button type="button" data-preset="incoherent" aria-pressed="false">Same RMSE</button>
+                    </fieldset>
+                  </div>
+
+                  <div class="lab-ladder" data-ladder></div>
+
+                  <div class="lab-scores" aria-live="polite">
+                    <div class="lab-score">
+                      <span>Accuracy</span>
+                      <strong><span data-ladder-rmse>0.020</span> <small>RMSE</small></strong>
+                      <div class="lab-track" aria-hidden="true"><i data-rmse-track></i></div>
+                    </div>
+                    <div class="lab-score">
+                      <span>Coherence error</span>
+                      <strong><span data-coherence-error>0.000</span> <small data-coherence-unit>mass</small></strong>
+                      <div class="lab-track lab-track--coherence" aria-hidden="true"><i data-coherence-track></i></div>
+                    </div>
+                  </div>
+
+                  <p class="lab-verdict" data-coherence-verdict>This forecast preserves total probability mass. Its accuracy is not the whole story, but it is internally possible.</p>
+                </div>
+              </figure>
+
+              <dl class="lab-notes">
+                <div>
+                  <dt>Weather partitions</dt>
+                  <dd>Mutually exclusive temperature bins form a distribution. The experiment scores the difference between predicted and realized total mass.</dd>
+                </div>
+                <div>
+                  <dt>Sports CDFs</dt>
+                  <dd>As the points threshold rises, <code>P(total &gt; x)</code> cannot increase. Every upward step is a no-arbitrage violation visible before the outcome resolves.</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section aria-labelledby="takeaway">
+              <h2 id="takeaway">Evaluation is part of the model<a class="heading-anchor" href="#takeaway" aria-label="Link to Evaluation is part of the model">#</a></h2>
+              <p>A benchmark decides what counts as skill. A metric decides what kinds of mistakes are visible. In both papers, changing the evaluation changed the scientific conclusion without changing the forecast.</p>
+              <p class="lab-links"><a href="../manufactured-skill-in-prediction-market-forecasting.pdf">Read the benchmark paper</a> · <a href="../coherent-not-merely-accurate.pdf">Read the coherence paper</a> · <a href="../../work/">Back to selected work</a></p>
+            </section>
           </div>
-
-          <div class="price-chart" data-price-chart role="img" aria-label="Illustrative prediction-market price sequence"></div>
-
-          <div class="metric-grid" aria-live="polite">
-            <div><span>Observations</span><strong data-observations>16</strong></div>
-            <div><span>Flat steps</span><strong data-flat-share>—</strong></div>
-            <div><span>Persistence direction accuracy</span><strong data-direction-accuracy>—</strong></div>
-            <div><span>Persistence RMSE</span><strong data-persistence-rmse>—</strong></div>
-          </div>
-
-          <p class="lab-verdict" data-manufactured-verdict>Keep every tick and persistence receives credit for correctly predicting quiet steps.</p>
         </div>
-
-        <div class="explanation-grid">
-          <div>
-            <span>What is mathematical</span>
-            <p>After deduplication, every remaining transition satisfies <code>pₜ ≠ pₜ₋₁</code>. A no-change forecast therefore has exactly 0% direction accuracy.</p>
-          </div>
-          <div>
-            <span>What the paper measured</span>
-            <p>On a matched population, the same preprocessing inflated persistence RMSE by 27.4%. This toy sequence demonstrates the mechanism, not that empirical estimate.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="experiment" id="coherence" aria-labelledby="coherence-title">
-        <div class="experiment-copy">
-          <p class="section-number">Experiment 02</p>
-          <h2 id="coherence-title">Hold accuracy constant</h2>
-          <p>Two forecasts can have the same RMSE and disagree on whether they describe a possible market. Switch between them, then edit the probabilities yourself.</p>
-        </div>
-
-        <div class="lab-card coherence-lab">
-          <div class="lab-toolbar coherence-toolbar">
-            <fieldset class="segmented-control" aria-label="Ladder geometry">
-              <legend class="sr-only">Choose a ladder geometry</legend>
-              <button type="button" data-geometry="partition" aria-pressed="true">Weather bins</button>
-              <button type="button" data-geometry="cdf" aria-pressed="false">Sports totals</button>
-            </fieldset>
-            <fieldset class="segmented-control preset-control" aria-label="Forecast preset">
-              <legend class="sr-only">Choose a forecast preset</legend>
-              <button type="button" data-preset="coherent" aria-pressed="true">Coherent</button>
-              <button type="button" data-preset="incoherent" aria-pressed="false">Same RMSE</button>
-            </fieldset>
-          </div>
-
-          <div class="ladder" data-ladder></div>
-
-          <div class="coherence-readout" aria-live="polite">
-            <div class="score-block">
-              <span>Accuracy</span>
-              <strong><span data-ladder-rmse>0.020</span> <small>RMSE</small></strong>
-              <div class="score-track" aria-hidden="true"><i data-rmse-track></i></div>
-            </div>
-            <div class="score-divider" aria-hidden="true"></div>
-            <div class="score-block">
-              <span>Coherence error</span>
-              <strong><span data-coherence-error>0.000</span> <small data-coherence-unit>mass</small></strong>
-              <div class="score-track score-track--coherence" aria-hidden="true"><i data-coherence-track></i></div>
-            </div>
-          </div>
-
-          <p class="lab-verdict" data-coherence-verdict>This forecast preserves total probability mass. Its accuracy is not the whole story, but it is internally possible.</p>
-        </div>
-
-        <div class="explanation-grid">
-          <div>
-            <span>Weather partitions</span>
-            <p>Mutually exclusive temperature bins form a distribution. The experiment scores the difference between predicted and realized total mass.</p>
-          </div>
-          <div>
-            <span>Sports CDFs</span>
-            <p>As the points threshold rises, <code>P(total &gt; x)</code> cannot increase. Every upward step is a no-arbitrage violation visible before the outcome resolves.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="takeaway" aria-labelledby="takeaway-title">
-        <p class="section-number">The common lesson</p>
-        <h2 id="takeaway-title">Evaluation is part of the model.</h2>
-        <p>A benchmark decides what counts as skill. A metric decides what kinds of mistakes are visible. In both papers, changing the evaluation changed the scientific conclusion without changing the forecast.</p>
-        <div class="takeaway-links">
-          <a href="../manufactured-skill-in-prediction-market-forecasting.pdf">Read the benchmark paper</a>
-          <a href="../coherent-not-merely-accurate.pdf">Read the coherence paper</a>
-          <a href="../../work/">Back to selected work</a>
-        </div>
-      </section>
+      </article>
     </main>
-
   </div>
 
-  <script src="script.js?v=1"></script>
+  <script src="../../writing/writing.js"></script>
+  <script src="script.js?v=2"></script>
 </body>
 </html>

@@ -46,31 +46,31 @@
   }
 
   function renderPriceChart(values) {
-    var width = 900;
-    var height = 260;
-    var inset = { top: 20, right: 18, bottom: 30, left: 42 };
+    var width = Math.max(280, Math.round(chart.clientWidth || 600));
+    var height = width < 480 ? 190 : 230;
+    var inset = { top: 24, right: 8, bottom: 26, left: 36 };
     var min = Math.min.apply(null, values) - 0.02;
     var max = Math.max.apply(null, values) + 0.02;
     var x = function (index) { return inset.left + index * (width - inset.left - inset.right) / Math.max(1, values.length - 1); };
     var y = function (value) { return inset.top + (max - value) * (height - inset.top - inset.bottom) / Math.max(0.01, max - min); };
-    var points = values.map(function (value, index) { return x(index).toFixed(1) + ',' + y(value).toFixed(1); }).join(' ');
+    var path = values.map(function (value, index) { return (index ? 'L' : 'M') + x(index).toFixed(1) + ' ' + y(value).toFixed(1); }).join('');
     var grid = [0, 0.5, 1].map(function (fraction) {
       var gridY = inset.top + fraction * (height - inset.top - inset.bottom);
       var label = (max - fraction * (max - min)).toFixed(2);
-      return '<line class="chart-grid" x1="' + inset.left + '" y1="' + gridY + '" x2="' + (width - inset.right) + '" y2="' + gridY + '"></line>' +
-        '<text class="chart-label" x="0" y="' + (gridY + 3) + '">' + escapeXml(label) + '</text>';
+      return '<path class="wa-grid" d="M' + inset.left + ' ' + gridY.toFixed(1) + 'H' + (width - inset.right) + '"></path>' +
+        '<text class="wa-m" x="' + (inset.left - 6) + '" y="' + (gridY + 3.5).toFixed(1) + '" text-anchor="end">' + escapeXml(label) + '</text>';
     }).join('');
     var dots = values.map(function (value, index) {
       var flat = index > 0 && value === values[index - 1];
-      return '<circle class="chart-dot' + (flat ? ' chart-flat' : '') + '" cx="' + x(index).toFixed(1) + '" cy="' + y(value).toFixed(1) + '" r="4"></circle>';
+      return '<circle class="' + (flat ? 'lab-flat' : 'lab-dot') + '" cx="' + x(index).toFixed(1) + '" cy="' + y(value).toFixed(1) + '" r="' + (flat ? 3.5 : 3) + '"></circle>';
     }).join('');
     var note = deduplicate.checked
-      ? '<text class="chart-note" x="' + (width - inset.right) + '" y="14" text-anchor="end">Every remaining step moves</text>'
-      : '<text class="chart-label" x="' + (width - inset.right) + '" y="14" text-anchor="end">Rust dots are correctly predicted flat steps</text>';
+      ? '<text class="wa-s lab-note" x="' + inset.left + '" y="10">Every remaining step moves</text>'
+      : '<circle class="lab-flat" cx="' + (inset.left + 3) + '" cy="7" r="3.5"></circle><text class="wa-s" x="' + (inset.left + 12) + '" y="10.5">Flat step persistence predicts correctly</text>';
 
-    chart.innerHTML = '<svg viewBox="0 0 ' + width + ' ' + height + '" aria-hidden="true">' + grid +
-      '<polyline class="chart-path" points="' + points + '"></polyline>' + dots + note +
-      '<text class="chart-label" x="' + (width - inset.right) + '" y="' + (height - 3) + '" text-anchor="end">observation →</text></svg>';
+    chart.innerHTML = '<svg viewBox="0 0 ' + width + ' ' + height + '" width="' + width + '" height="' + height + '" aria-hidden="true">' + grid +
+      '<path class="wa-line wa-c1" d="' + path + '"></path>' + dots + note +
+      '<text class="wa-m" x="' + (width - inset.right) + '" y="' + (height - 6) + '" text-anchor="end">observation →</text></svg>';
   }
 
   function updateManufactured() {
@@ -209,4 +209,13 @@
 
   updateManufactured();
   renderLadder();
+
+  var lastWidth = chart.clientWidth;
+  function refit() {
+    if (Math.abs(chart.clientWidth - lastWidth) < 2) return;
+    lastWidth = chart.clientWidth;
+    updateManufactured();
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(refit).observe(chart);
+  else window.addEventListener('resize', refit);
 })();
