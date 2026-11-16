@@ -37,3 +37,23 @@ html:has(.work-page) { background: #f4f4f1; }
 .work-main .work-project a:hover,
 .work-main .work-project a:focus-visible { text-decoration-color: currentColor; }
 .work-main .work-project a:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; }
+
+/* Research archive: same type scale and link treatment as the Math page. */
+.research-archive-page { --border: #dbdbd3; }
+.research-archive-page .research-section > h1 { font: 500 1.375rem/1.22 var(--serif); }
+.research-archive-page .research-group > summary { color: var(--foreground); font: 500 1.0625rem/1.3 var(--serif); }
+.research-archive-page .research-group > summary:hover,
+.research-archive-page .research-group > summary:focus-visible { color: var(--muted); }
+.research-archive-page .research-group > summary:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
+.research-archive-page .research-paper h3 { font: 400 1.1875rem/1.25 var(--serif); }
+.research-archive-page .research-paper p { font: 1.0625rem/1.45 var(--serif); }
+.research-archive-page .research-paper .research-authors { margin-top: 0.3rem; color: var(--muted); font: 0.875rem/1.3 var(--serif); }
+.research-archive-page .research-links { color: var(--muted); font-size: 0.75rem; }
+.research-archive-page .research-paper a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-color: #8f8f83;
+}
+.research-archive-page .research-paper a:hover,
+.research-archive-page .research-paper a:focus-visible { color: var(--foreground); text-decoration-color: currentColor; }
+.research-archive-page .research-paper a:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
