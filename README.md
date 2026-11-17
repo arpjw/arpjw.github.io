@@ -33,7 +33,8 @@ To publish a post:
    stylesheet and put the title block inside the reading column. Keep the
    Home link and desktop table of contents together in `.writing-rail`. Give each
    section a stable ID and add it to both tables of contents.
-   `writing/writing.js` marks the current section in the desktop guide. Put
+   `writing/writing.js` marks the current section in the desktop guide and adds
+   a back-to-top button that appears near the end of each article. Put
    a `.writing-citation__mark` beside the sentence it supports and link it to
    a `.writing-citation__note` in the numbered Notes list. On wide screens the
    script moves the note beside its marker. Give the marker its own ID so the
@@ -57,9 +58,11 @@ To publish a post:
    `<guid>` equal to the article's canonical URL, and set `<pubDate>` to its
    actual publication time on this site in RFC 822 format. Visible publication
    labels use Roman-numeral volumes instead of dates. Keep the same volume on
-   the Writing index and the article header. Existing volumes follow the original
-   editorial date order and remain fixed; assign each new article the next unused
-   volume after checking the latest index. Keep the index newest-first. RSS dates
+   the Writing index and the article header. Volumes number the published essays
+   consecutively in publication order, starting at Volume I: give each new
+   article the next number after the highest volume in the latest index, and
+   when an article is removed, renumber the remaining ones so there are no gaps.
+   Keep the index newest-first. RSS dates
    still record when the article became available, and research/citation dates
    retain their factual meaning. Remove the "No posts yet" paragraph when publishing the
    first post. Add a `Cite this essay` block at the end of the article with a

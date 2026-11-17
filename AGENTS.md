@@ -17,7 +17,9 @@ navigation bars, footers, and social profile links. Keep useful in-page tables o
 contents and links to sources. Link to the RSS feed from the Writing index.
 
 Display Roman-numeral volume labels instead of publication dates on the Writing
-index and in every article header. Keep existing volume assignments fixed and
-assign the next unused volume after pulling the latest index. Use the same label
-on both surfaces. Keep actual publication timestamps in RSS and factual dates
+index and in every article header. Volumes number the published essays
+consecutively in publication order, starting at Volume I. Give a new article
+the next number after the highest volume in the latest index. If an article is
+removed, renumber the remaining ones so the sequence has no gaps. Use the same
+label on both surfaces. Keep actual publication timestamps in RSS and factual dates
 in research text and citations.
