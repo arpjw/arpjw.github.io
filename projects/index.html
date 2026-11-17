@@ -30,10 +30,10 @@
 
       <nav class="project-index" aria-label="Project categories">
         <ul>
+          <li><a href="#post-training">Models</a></li>
+          <li><a href="#kernels-compilers">Kernels &amp; compilers</a></li>
           <li><a href="#finance">Markets</a></li>
           <li><a href="#onchain">Onchain</a></li>
-          <li><a href="#kernels-compilers">Kernels &amp; compilers</a></li>
-          <li><a href="#post-training">Models</a></li>
           <li><a href="#forecasting">Forecasting</a></li>
           <li><a href="#learning-dynamics">Learning dynamics</a></li>
           <li><a href="#math-games">Math &amp; games</a></li>
@@ -42,6 +42,72 @@
       </nav>
 
       <div class="project-groups">
+        <section class="project-group" aria-labelledby="post-training">
+          <h2 id="post-training">Models <span class="project-count" aria-hidden="true">8</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-sft" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-sft</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">A Qwen3 LoRA that learns to revise on evidence and ignore forged records.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-rl" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-rl</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">A GRPO adapter with the best held-out ConvictionBench score among the tested 1.7B models.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-v2" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-v2</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">An SFT and GRPO adapter that learns provenance at a cost to held-out accuracy.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://huggingface.co/arpjw/microreason-43m" target="_blank" rel="noopener noreferrer"><span class="project-name-text">microreason-43M</span> <span class="project-kind">Model</span></a>
+              <span class="project-description">A 43M model for step-by-step arithmetic and linear algebra.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/nemotron" target="_blank" rel="noopener noreferrer"><span class="project-name-text">nemotron</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Post-training Nemotron Mini 4B for banking intents and graph repair.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/rna" target="_blank" rel="noopener noreferrer"><span class="project-name-text">rna</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Adapting Qwen3-8B for RNA inverse folding with supervised training and RL.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/reward-function" target="_blank" rel="noopener noreferrer"><span class="project-name-text">reward-function</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Audited Qwen3-4B reward experiments with no demonstrated practical token savings.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/inkling" target="_blank" rel="noopener noreferrer"><span class="project-name-text">inkling</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A poker probability calibration pilot with inconclusive gains.</span>
+            </li>
+          </ul>
+        </section>
+        <section class="project-group" aria-labelledby="kernels-compilers">
+          <h2 id="kernels-compilers">Kernels &amp; compilers <span class="project-count" aria-hidden="true">6</span></h2>
+          <ul class="project-items" role="list">
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/trainkernel" target="_blank" rel="noopener noreferrer"><span class="project-name-text">trainkernel</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Compiles a supported static PyTorch training step into one cooperative CUDA kernel.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/qwencpu" target="_blank" rel="noopener noreferrer"><span class="project-name-text">qwencpu</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Compiles an 8-bit CPU into Qwen3.5 recurrent layers, with bounded 9B execution checks.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/qwengpu" target="_blank" rel="noopener noreferrer"><span class="project-name-text">qwengpu</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Compiles a small SIMT processor into Qwen3.5, with a verified 16×16 matrix multiply. <a class="project-demo" href="../writing/a-tiny-gpu-inside-qwen" aria-label="Essay: A tiny GPU inside Qwen">Essay</a></span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/tinynpu" target="_blank" rel="noopener noreferrer"><span class="project-name-text">tinynpu</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">A verified 4×4 INT8 systolic array in SystemVerilog. <a class="project-demo" href="https://tinynpu.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="tinyNPU demo: RTL trace viewer">Demo</a></span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/yolk" target="_blank" rel="noopener noreferrer"><span class="project-name-text">yolk</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">An OCaml e-graph engine with relational matching, extraction, and proof explanations.</span>
+            </li>
+            <li>
+              <a class="project-name" href="https://github.com/arpjw/minos" target="_blank" rel="noopener noreferrer"><span class="project-name-text">minos</span> <span class="project-kind">Code</span></a>
+              <span class="project-description">Hindley–Milner type inference with row polymorphism and a browser playground.</span>
+            </li>
+          </ul>
+        </section>
         <section class="project-group" aria-labelledby="finance">
           <h2 id="finance">Markets <span class="project-count" aria-hidden="true">10</span></h2>
           <ul class="project-items" role="list">
@@ -105,68 +171,6 @@
             <li>
               <a class="project-name" href="https://create2-psi.vercel.app" target="_blank" rel="noopener noreferrer"><span class="project-name-text">create2</span> <span class="project-kind">Demo</span></a>
               <span class="project-description">A browser tool for mining deterministic CREATE2 vanity addresses.</span>
-            </li>
-          </ul>
-        </section>
-        <section class="project-group" aria-labelledby="kernels-compilers">
-          <h2 id="kernels-compilers">Kernels &amp; compilers <span class="project-count" aria-hidden="true">5</span></h2>
-          <ul class="project-items" role="list">
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/trainkernel" target="_blank" rel="noopener noreferrer"><span class="project-name-text">trainkernel</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">Compiles a supported static PyTorch training step into one cooperative CUDA kernel.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/qwencpu" target="_blank" rel="noopener noreferrer"><span class="project-name-text">qwencpu</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">Compiles an 8-bit CPU into Qwen3.5 recurrent layers, with bounded 9B execution checks.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/tinynpu" target="_blank" rel="noopener noreferrer"><span class="project-name-text">tinynpu</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">A verified 4×4 INT8 systolic array in SystemVerilog. <a class="project-demo" href="https://tinynpu.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="tinyNPU demo: RTL trace viewer">Demo</a></span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/yolk" target="_blank" rel="noopener noreferrer"><span class="project-name-text">yolk</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">An OCaml e-graph engine with relational matching, extraction, and proof explanations.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/minos" target="_blank" rel="noopener noreferrer"><span class="project-name-text">minos</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">Hindley–Milner type inference with row polymorphism and a browser playground.</span>
-            </li>
-          </ul>
-        </section>
-        <section class="project-group" aria-labelledby="post-training">
-          <h2 id="post-training">Models <span class="project-count" aria-hidden="true">8</span></h2>
-          <ul class="project-items" role="list">
-            <li>
-              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-sft" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-sft</span> <span class="project-kind">Model</span></a>
-              <span class="project-description">A Qwen3 LoRA that learns to revise on evidence and ignore forged records.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-rl" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-rl</span> <span class="project-kind">Model</span></a>
-              <span class="project-description">A GRPO adapter with the best held-out ConvictionBench score among the tested 1.7B models.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://huggingface.co/arpjw/conviction-1.7b-v2" target="_blank" rel="noopener noreferrer"><span class="project-name-text">conviction-1.7b-v2</span> <span class="project-kind">Model</span></a>
-              <span class="project-description">An SFT and GRPO adapter that learns provenance at a cost to held-out accuracy.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://huggingface.co/arpjw/microreason-43m" target="_blank" rel="noopener noreferrer"><span class="project-name-text">microreason-43M</span> <span class="project-kind">Model</span></a>
-              <span class="project-description">A 43M model for step-by-step arithmetic and linear algebra.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/nemotron" target="_blank" rel="noopener noreferrer"><span class="project-name-text">nemotron</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">Post-training Nemotron Mini 4B for banking intents and graph repair.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/rna" target="_blank" rel="noopener noreferrer"><span class="project-name-text">rna</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">Adapting Qwen3-8B for RNA inverse folding with supervised training and RL.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/reward-function" target="_blank" rel="noopener noreferrer"><span class="project-name-text">reward-function</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">Audited Qwen3-4B reward experiments with no demonstrated practical token savings.</span>
-            </li>
-            <li>
-              <a class="project-name" href="https://github.com/arpjw/inkling" target="_blank" rel="noopener noreferrer"><span class="project-name-text">inkling</span> <span class="project-kind">Code</span></a>
-              <span class="project-description">A poker probability calibration pilot with inconclusive gains.</span>
             </li>
           </ul>
         </section>
