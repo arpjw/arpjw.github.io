@@ -132,3 +132,40 @@
     });
   });
 })();
+
+// Back-to-top button: shown once the reader reaches the end of an article.
+(function () {
+  if (!document.body.classList.contains('writing-article-page')) return;
+  var target = document.getElementById('top') || document.querySelector('main');
+  var button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'writing-back-to-top';
+  button.setAttribute('aria-label', 'Back to top');
+  button.innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 13V3M3.5 7.5L8 3l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  document.body.appendChild(button);
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var doc = document.documentElement;
+    var fromBottom = doc.scrollHeight - (window.scrollY + window.innerHeight);
+    var nearEnd = fromBottom < Math.max(480, window.innerHeight * 0.6) && window.scrollY > window.innerHeight;
+    // Keep a focused button visible so keyboard users are not left on a hidden control.
+    button.classList.toggle('is-visible', nearEnd || document.activeElement === button);
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  button.addEventListener('blur', onScroll);
+  button.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion && reduceMotion.matches ? 'auto' : 'smooth' });
+    if (target) {
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    }
+  });
+  update();
+})();
