@@ -1,0 +1,135 @@
+{
+  "article": "https://aryasomu.com/writing/the-truth-behind-ai-doomerism",
+  "compiled": "2026-11-17",
+  "note": "Values plotted in the eight figures, with the location in each source. 'derived' marks values computed here from reported values; the formula is given.",
+  "figures": {
+    "1-grid-upgrade": {
+      "status": "Illustrative arithmetic. Hypothetical 100 MW contract; assumes the customer is subject to both GS-5 minimums.",
+      "source": "Virginia SCC, 2025 Dominion Biennial Review Order Summary (Nov 2025); Energy Tariff Experts for PJM, Retail Large-Load Implementation Report, p. 114 (GS-5 summary)",
+      "inputs": { "contracted_demand_mw": 100, "default_monthly_billing_demand_before_floors_mw": 50, "distribution_floor_share": 0.85, "transmission_floor_share": 0.85, "generation_floor_share": 0.60 },
+      "formulas": {
+        "distribution_demand_base_mw": "max(d, 0.85 * 100)",
+        "transmission_demand_base_mw": "max(d, 0.85 * 100)",
+        "generation_demand_base_mw": "max(d, 0.60 * 100)"
+      },
+      "default_outputs_mw": { "distribution": 85, "transmission": 85, "generation": 60 },
+      "excluded": "Energy (MWh) charges, rates in $/kW, household bills, facility bills, eligibility and exemptions."
+    },
+    "2-global-load": {
+      "global": {
+        "source": "IEA, Key Questions on Energy and AI, executive summary (April 2026 release)",
+        "scope": "Electricity consumption of all data centres, world",
+        "units": "TWh per year",
+        "values": [
+          { "year": 2025, "kind": "estimate", "twh": 485 },
+          { "year": 2030, "kind": "central projection", "twh": 950, "share_of_global_electricity_demand": "around 3%" }
+        ],
+        "verification": "Values as stated in the article text. The IEA page returned HTTP 403 to automated fetches; not re-checked against the primary page."
+      },
+      "virginia_inset": {
+        "source": "Virginia JLARC, Data Centers in Virginia (Report 598, December 2024), printed p. 36 (PDF p. 54)",
+        "events": [
+          { "date": "2022", "event": "Dominion paused adding new data center loads in Loudoun County for three months as it worked to resolve regional transmission constraints." },
+          { "date": "2022 onward", "event": "Dominion incrementally added new data center loads in Loudoun." },
+          { "date": "2025 (expected)", "event": "Dominion expected the constraints that limit new load additions would not be fully resolved until 2025." },
+          { "date": "July 2024", "event": "Dominion letter to customers: future large load additions anywhere in its transmission zone expected to take 12 to 36 months longer than before." }
+        ]
+      }
+    },
+    "3-water-accounting": {
+      "status": "Flow diagram is schematic; flows are not to scale.",
+      "definitions": {
+        "source": "Li et al., arXiv 2304.03271 v5, Section 2.1",
+        "withdrawal": "Freshwater taken from a source, temporarily or permanently.",
+        "consumption": "Withdrawal minus discharge: water evaporated, transpired, incorporated into products, or otherwise removed."
+      },
+      "li_et_al": {
+        "source": "Pengfei Li et al., Making AI Less 'Thirsty', arXiv 2304.03271, v5 (26 March 2025; v1 6 April 2023)",
+        "workload": "GPT-3 (175B) inference; one medium-length response, about 800 words or fewer of input and 150 to 300 words of output; Microsoft U.S. data-center locations",
+        "boundary": "Operational water consumption: scope 1 (on-site cooling) plus scope 2 (location-based electricity generation). Scope 3 excluded.",
+        "headline": "500 mL for roughly 10 to 50 medium-length responses, depending on when and where deployed (Section 1)",
+        "us_average_table_1_ml_per_response": { "on_site": 2.200, "off_site_electricity": 14.704, "total": 16.904, "responses_per_500_ml": 29.6 },
+        "us_average_factors": { "pue": 1.170, "on_site_wue_l_per_kwh": 0.550, "off_site_ewif_l_per_kwh": 3.142, "server_energy_kwh_per_request": 0.004 },
+        "formula": "water = e * (WUE_on_site + PUE * EWIF_off_site); 0.004 * (0.550 + 1.170 * 3.142) L = 16.9 mL"
+      },
+      "google": {
+        "source": "Elsworth et al. (Google), Measuring the Environmental Impact of Delivering AI at Google Scale, arXiv 2508.15734 v1 (21 August 2025)",
+        "workload": "Median Gemini Apps text prompt, Google production serving, measured May 2025",
+        "boundary": "Direct on-site water consumption for cooling (ISO WUE Category 2, 1.15 L/kWh) applied to non-overhead energy. No electricity-generation water term.",
+        "values": { "energy_wh": 0.24, "water_ml": 0.26, "emissions_gco2e": 0.03 },
+        "formula": "Water/prompt = (E_total - E_overhead) * WUE (Section 3.3)"
+      },
+      "water_stress": {
+        "source": "IEA, Powering Artificial Intelligence (October 2026), as stated in the article",
+        "value": "Nearly 40% of identified AI data-centre capacity in areas of high or extremely high baseline water stress (location of capacity, not water use)"
+      }
+    },
+    "4-chatbot-removed": {
+      "source": "Bastani et al., Generative AI without guardrails can harm learning, PNAS 122 (2025), Table 1; read via Europe PMC PMC12232635",
+      "setting": "Large high school in Turkey, Fall 2023-24; about fifty 9th-11th grade classes, nearly 1,000 students; four 90-minute sessions; classroom-level randomization; honors classrooms excluded",
+      "outcome": "Normalized grade on [0, 1]; intention-to-treat regression with previous GPA and session, grader, grade-level and teacher fixed effects; SEs clustered by classroom",
+      "observations": 2848,
+      "arms": {
+        "control": "Course books and notes, no devices",
+        "gpt_base": "Laptop with a GPT-4 interface similar to a standard chatbot",
+        "gpt_tutor": "Laptop with a GPT-4 tutor prompted with teacher hints and the solution; designed not to give the answer"
+      },
+      "practice_assisted": { "control_mean": 0.284, "control_sd": 0.287, "gpt_base": { "coef": 0.137, "se": 0.031 }, "gpt_tutor": { "coef": 0.361, "se": 0.032 } },
+      "exam_unaided": { "condition": "Closed-book, closed-laptop exam, identical across arms", "control_mean": 0.321, "control_sd": 0.277, "gpt_base": { "coef": -0.054, "se": 0.022 }, "gpt_tutor": { "coef": -0.004, "se": 0.013 } },
+      "derived": {
+        "ci95": "coef +/- 1.96 * SE (normal approximation; the paper reports SEs, not intervals)",
+        "percent_vs_control": "coef / control_mean: practice +48% (base), +127% (tutor); exam -17% (base), -1% (tutor)"
+      }
+    },
+    "5-early-career-employment": {
+      "source": "Brynjolfsson, Chandar and Chen, Canaries in the Coal Mine? (revised 12 August 2026), Section on young workers, p. 10-11",
+      "data": "ADP payroll; balanced panel of firms observed monthly January 2021 to June 2026 (3.5 to 5 million employees per month); full-time workers under 70",
+      "exposure": "Eloundou et al. (2024) GPT-4 beta exposure quintiles; most exposed = quintiles 4-5, less exposed = quintiles 1-3",
+      "age": "22-25",
+      "values": {
+        "most_exposed_change_nov2022_to_jun2026": "about -11%",
+        "less_exposed_change_nov2022_to_jun2026": "about +10%",
+        "divergence": "21 percentage points, or 19% relative to growth for the bottom three quintiles"
+      },
+      "derived_index_nov2022_eq_100": { "most_exposed_jun2026": 89, "less_exposed_jun2026": 110, "gap": "1 - 89/110 = 0.19" },
+      "regression_panel_a_22_25": { "quintile_5_vs_1": { "coef": -0.179, "se": 0.036 }, "quintile_4_vs_1": { "coef": -0.145, "se": 0.041 } },
+      "interpretation": "Authors: early, descriptive indicators rather than causal estimates.",
+      "not_plotted": "Monthly path between endpoints (shown only graphically in the paper)."
+    },
+    "6-robocall-timeline": {
+      "source": "FCC, Steve Kramer Forfeiture Order, FCC 24-104 (adopted 26 Sep 2024, released 30 Sep 2024)",
+      "events": [
+        { "date": "2024-01-19", "event": "Kramer asks Voice Broadcasting for a Sunday-night robocall, 'probably 25k' calls", "para": "12" },
+        { "date": "2024-01-20", "event": "Kramer sends the script; Individual-1 creates the AI voice message with ElevenLabs software; paid $150", "para": "10" },
+        { "date": "2024-01-21", "event": "9,581 calls initiated by 7:12 p.m., with spoofed caller ID of a New Hampshire political operative", "para": "6, 12" },
+        { "date": "2024-01-22", "event": "The operative whose number was spoofed complains to the New Hampshire DOJ", "para": "n. 13" },
+        { "date": "2024-01-23", "event": "New Hampshire presidential primary", "para": "1, 6" },
+        { "date": "2024-02-06", "event": "FCC Enforcement Bureau cease-and-desist letter to Lingo Telecom; NH DOJ and the state AG task force demand Life Corp. cease and desist", "para": "17" },
+        { "date": "2024-02-08", "event": "FCC rules that TCPA limits on artificial voices cover AI-generated voices", "para": "5" },
+        { "date": "2024-02-26", "event": "Kramer publicly accepts responsibility", "para": "16" },
+        { "date": "2024-05-23", "event": "Notice of Apparent Liability proposing $6,000,000 adopted (released 24 May)", "para": "3, 18" },
+        { "date": "2024-05-24", "event": "NH Attorney General announces Kramer's indictment", "para": "19" },
+        { "date": "2024-08-21", "event": "Lingo Telecom consent decree: $1 million civil penalty", "para": "n. 65" },
+        { "date": "2024-09-26", "event": "Forfeiture Order adopted: $6,000,000 (3,000 verified calls x $2,000)", "para": "1, 46-47" }
+      ],
+      "effect_on_turnout": "Unknown. The order does not estimate one."
+    },
+    "7-story-diversity": {
+      "source": "Doshi and Hauser, Science Advances 10 (2024) eadn5290, main text; read via Europe PMC PMC11244532",
+      "design": "293 writers (Prolific, UK) each wrote one eight-sentence story; 600 evaluators made 3,519 evaluations",
+      "conditions": { "human_only": "95 writers (derived: 293 - 100 - 98)", "one_genai_idea": 100, "five_genai_ideas": 98 },
+      "ratings_units": "Evaluator ratings on a 1-9 scale; indices are means of three items each (novelty: novel, original, rare; usefulness: appropriate, feasible, publishable)",
+      "ratings_effects_vs_human_only": {
+        "novelty": { "one_idea": { "b": 0.207, "pct": 5.4, "p": "0.021" }, "five_ideas": { "b": 0.311, "pct": 8.1, "p": "<0.001" } },
+        "usefulness": { "one_idea": { "b": 0.185, "pct": 3.7, "p": "0.039" }, "five_ideas": { "b": 0.453, "pct": 9.0, "p": "<0.001" } }
+      },
+      "similarity_units": "Cosine similarity x 100 (0-100) between a story's embedding and the average embedding of all other stories in its condition (OpenAI embeddings API)",
+      "similarity_effects_vs_human_only": { "one_idea": { "b": 0.871, "p": "<0.001", "share_of_human_only_range": "10.7% of 8.10 points" }, "five_ideas": { "b": 0.718, "p": "0.003", "share_of_human_only_range": "8.9% of 8.10 points" } },
+      "missing": "Standard errors and intervals are in supplementary tables S3 and S11, which were not read; not plotted."
+    },
+    "8-capability-to-catastrophe": {
+      "status": "Conceptual diagram; no probabilities or quantities.",
+      "source": "International AI Safety Report 2026 (February 2026); the article's own list of conditions and safeguards"
+    }
+  }
+}
