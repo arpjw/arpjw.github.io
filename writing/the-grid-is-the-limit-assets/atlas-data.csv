@@ -1,0 +1,36 @@
+region,metric,target_year,value,unit,source_date,source_id,evidence_class,scope,caveat
+PJM,summer_peak_forecast,2027,160451,MW,2026-01-14,PJM_LTLF26,forecast,RTO,2026 forecast vintage; not actual demand
+PJM,summer_peak_forecast,2030,183008,MW,2026-01-14,PJM_LTLF26,forecast,RTO,2026 forecast vintage; not a firm connection schedule
+PJM,summer_peak_forecast,2035,216872,MW,2026-01-14,PJM_LTLF26,forecast,RTO,2026 forecast vintage
+PJM,2028_29_capacity_shortfall,2029,6831.4,MW,2026-07-14,PJM_BRA2829,auction,RTO,Requirement minus cleared RPM plus FRR; not a blackout forecast
+PJM,requested_2030_load_adjustments,2030,61322,MW,2026-11-03,PJM_LOAD_FILING26,request,RTO,September submissions unvetted and not additional to forecast
+ERCOT,preliminary_summer_peak_including_requests,2027,152882,MW,2026-04-15,ERCOT_PRELIM26,preliminary forecast,ERCOT region,Operator says method likely overstates realized load
+ERCOT,preliminary_summer_peak_including_requests,2030,319650,MW,2026-04-15,ERCOT_PRELIM26,preliminary forecast,ERCOT region,Includes TSP request inputs and not comparable to adjusted CDR
+ERCOT,preliminary_core_peak_excluding_new_RFI,2030,107287,MW,2026-04-15,ERCOT_PRELIM26,preliminary forecast,ERCOT region,Core forecast excludes new medium and large RFI loads
+ERCOT,adjusted_CDR_summer_peak,2030,138010,MW,2025-12-19,ERCOT_CDR25,forecast,ERCOT region,Older adjusted vintage; do not subtract from April preliminary as a project count
+ERCOT,request_inventory,2030,410618,MW,2026-03-26,ERCOT_LARGE26,request,ERCOT region,March cohort seeking 2030 connection; not forecast
+ERCOT,observed_energized_in_request_inventory,2030,5800,MW,2026-03-26,ERCOT_LARGE26,observed status,ERCOT region,Snapshot of requests shown as energized; not full system load
+ERCOT,preliminary_summer_peak_including_requests,2035,,MW,2026-04-15,ERCOT_PRELIM26,missing,ERCOT region,Published preliminary series ends 2032
+CAISO,summer_peak_50_50,2027,,MW,2026-05,CAISO_SUMMER26,missing,CAISO balancing area,2027 value not extracted from cited overview
+CAISO,summer_peak_50_50,2030,52940,MW,2026-05,CAISO_SUMMER26,forecast,CAISO balancing area,50 percent chance forecast; not state of California
+CAISO,summer_peak_50_50,2035,,MW,2026-05,CAISO_SUMMER26,missing,CAISO balancing area,No comparable 2035 value in cited seasonal overview
+CAISO,modeled_2026_summer_surplus,2026,2547,MW,2026-05,CAISO_SUMMER26,assessment,CAISO balancing area,Above CAISO one-in-ten modeled supply shortage threshold; excludes rare extremes
+MISO,summer_2026_cleared_margin,2026,11.4,percent,2026-05-22,MISO_PRA26,auction,MISO footprint,Compare with same-season target 7.9 percent only
+MISO,summer_2026_initial_target,2026,7.9,percent,2026-05-22,MISO_PRA26,auction,MISO footprint,Seasonal initial target under reliability based demand curve
+MISO,five_year_member_load_CAGR_low,2031,3.1,percent/year,2026-06-03,MISO_OMS26,survey,MISO footprint,Member forecast/request range through 2031/32
+MISO,five_year_member_load_CAGR_high,2031,5.1,percent/year,2026-06-03,MISO_OMS26,survey,MISO footprint,Member forecast/request range through 2031/32
+MISO,summer_peak_forecast,2035,,MW,2026-06-03,MISO_OMS26,missing,MISO footprint,No source-backed comparable value extracted from survey release
+SPP_East,summer_2026_ACAP_margin,2026,17.2,percent,2026-06,SPP_RA26,assessment,SPP East BAA,Accredited-capacity framework; not base reserve margin
+SPP_East,summer_2026_excess_accredited_capacity,2026,5807,MW,2026-06,SPP_RA26,assessment,SPP East BAA,Above total resource adequacy requirement
+SPP_East,2031_existing_only_deficit,2031,11268,MW,2026-06,SPP_RA26,scenario,SPP East BAA,Existing resources only; excludes anticipated additions
+SPP_East,2031_anticipated_ACAP_margin,2031,22.7,percent,2026-06,SPP_RA26,scenario,SPP East BAA,Includes anticipated projects whose completion is uncertain
+SPP_East,summer_peak_forecast,2035,,MW,2026-06,SPP_RA26,missing,SPP East BAA,Cited resource assessment ends 2031
+NYISO,summer_peak_forecast,2027,31880,MW,2026-04,NYISO_GOLD26,forecast,NYCA,Table I-1a expected-weather baseline including T&D losses and modeled large loads; not IRM PBC
+NYISO,summer_peak_forecast,2030,32250,MW,2026-04,NYISO_GOLD26,forecast,NYCA,Table I-1a expected-weather baseline including T&D losses and modeled large loads; not IRM PBC
+NYISO,summer_peak_forecast,2035,33140,MW,2026-04,NYISO_GOLD26,forecast,NYCA,Table I-1a expected-weather baseline including T&D losses and modeled large loads; not IRM PBC
+ISO_NE,annual_energy_growth_2026_to_2035,2035,9,percent,2026-05-01,ISONE_CELT26,forecast,New England,Annual energy not peak power; 2026 to 2035 total growth
+ISO_NE,summer_peak_forecast,2030,25738,MW,2026-05-01,ISONE_CELT26,forecast,New England,2026 CELT Table 1.5.1 net summer 50/50 peak after BTM DER; not gross load
+ISO_NE,winter_peak_forecast,2035,26411,MW,2026-05-01,ISONE_CELT26,forecast,New England,2026 CELT Table 1.5.1 normal winter 2035/36 net peak after BTM DER; winter year spans two calendar years
+NYISO,winter_peak_forecast,2035,28480,MW,2026-04,NYISO_GOLD26,forecast,NYCA,Table I-1a expected-weather baseline for winter 2035/36; includes T&D losses
+ISO_NE,summer_peak_forecast,2027,25290,MW,2026-05-01,ISONE_CELT26,forecast,New England,2026 CELT Table 1.5.1 net summer 50/50 peak after BTM DER
+ISO_NE,summer_peak_forecast,2035,26849,MW,2026-05-01,ISONE_CELT26,forecast,New England,2026 CELT Table 1.5.1 net summer 50/50 peak after BTM DER

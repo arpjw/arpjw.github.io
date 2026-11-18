@@ -1,0 +1,18 @@
+metric,value,unit,status
+iea_2024_total_twh,183,TWh,published rounded input
+lbnl_2024_total_twh,192,TWh,published rounded input
+iea_2030_it_twh,345,TWh,published rounded input
+iea_2030_total_twh,426,TWh,published rounded input
+iea_effective_pue_from_rounded_tables,1.23478261,ratio,derived accounting result
+lbnl_2030_total_twh,649,TWh,published rounded input
+lbnl_published_aggregate_pue,1.36,ratio,published rounded input
+lbnl_implied_it_twh,477.20588235,TWh,derived accounting result
+2030_total_gap_twh,223,TWh,derived accounting result
+2024_total_gap_twh,9,TWh,derived accounting result
+difference_in_2024_to_2030_growth_twh,214,TWh,derived accounting result
+pue_first_intermediate_twh,469.2,TWh,derived accounting result
+pue_first_pue_step_twh,43.2,TWh,derived accounting result
+pue_first_it_step_twh,179.8,TWh,derived accounting result
+it_first_intermediate_twh,589.2455243,TWh,derived accounting result
+it_first_it_step_twh,163.2455243,TWh,derived accounting result
+it_first_pue_step_twh,59.7544757,TWh,derived accounting result

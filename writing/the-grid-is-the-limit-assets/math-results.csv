@@ -1,0 +1,19 @@
+topic,case,value,unit,assumption_or_formula
+annual_energy,1 GW constant load,8.76,TWh/year,1 GW * 8760 h
+annual_energy,"1 GW campus, 4 h/day at 0.7 GW",8.322,TWh/year,(20*1+4*.7) GWh/day *365
+coincident_peak,firm campus increment,1,GW,Assumes full campus demand at system peak
+coincident_peak,verified flexible campus increment,0.7,GW,Assumes 0.3 GW curtailment coincides with peak
+dispatch,baseline hourly cost,90000,USD/hour,Two-node example
+dispatch,expanded-line hourly cost,60000,USD/hour,Line limit 1000 MW
+dispatch,firm-campus hourly cost,190000,USD/hour,1 GW at node B
+dispatch,congestion rent,30000,USD/hour,500 MW * $60/MWh
+reliability,independent LOLP per risk hour,0.18999999999999995,probability,"Two 1 GW units, each 10% FOR"
+reliability,independent EUE per risk hour,105.00000000000001,MWh,Demand 1.5 GW
+reliability,5% common-event LOLP per risk hour,0.23049999999999993,probability,Common event disables both units
+reliability,5% common-event EUE per risk hour,174.75,MWh,Common event disables both units
+storage,rated duration,4,hours,"1 GW / 4 GWh battery, no losses"
+storage,charge energy for 4 GWh discharge,4.444444444444445,GWh,Assumed 90% round-trip efficiency
+rate,20-year 7% capital-recovery factor,0.09439292574325567,fraction/year,r/(1-(1+r)^-n)
+rate,$500m annual payment,47.19646287162784,million USD/year,"Excludes O&M, tax and financing detail"
+rate,payment at 1 GW and 80% load factor,0.6734655090129543,cents/kWh,Energy denominator only
+rate,payment at 0.2 GW and 80% load factor,3.3673275450647715,cents/kWh,Energy denominator only
