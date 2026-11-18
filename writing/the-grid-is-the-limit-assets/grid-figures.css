@@ -408,3 +408,22 @@
 .gl-svg .if-line { stroke: var(--gl-ink-2); stroke-width: 1.5; stroke-dasharray: 3 3; fill: none; }
 .gl-dash--other tbody th small { display: block; color: var(--muted); font-weight: 400; font-size: 0.68rem; }
 .gl-dash--other td b { color: var(--foreground); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* Companion pages: data tables and mathematics (native MathML, no script). */
+.grid-companion-table { overflow-x: auto; }
+.grid-companion-table table { border-collapse: collapse; width: 100%; font-size: 0.85em; }
+.grid-companion-table th, .grid-companion-table td { padding: 0.55em; border-bottom: 1px solid #d0d0cc; text-align: left; vertical-align: top; }
+.grid-companion-table th { white-space: nowrap; }
+.writing-post__body math { font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", math; color: var(--foreground); }
+.writing-post__body p math { font-size: 1.08em; }
+.writing-post__body math mtext { font-family: var(--sans); font-size: 0.86em; }
+.gl-eq { margin: 1.1rem 0 1.25rem; padding: 0.95rem 1.1rem; background: var(--gl-paper); border-left: 2px solid var(--gl-acc); overflow-x: auto; overflow-y: hidden; }
+.gl-eq math { font-size: 1.16em; margin: 0; }
+.gl-eq + p { margin-top: 0; }
+@media print { .gl-eq { background: none; break-inside: avoid; } }
+.gl-eq-lines mtd { padding: 0.12em 0; }
+.gl-eq mtext { white-space: nowrap; }
+@media (max-width: 480px) {
+  .gl-eq { padding: 0.75rem 0.7rem; margin-inline: 0; }
+  .gl-eq math { font-size: 1em; }
+}
