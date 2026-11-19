@@ -23,9 +23,11 @@ html:has(.work-page) { background: #f4f4f1; }
   background: color-mix(in srgb, var(--work-card-tint) 60%, var(--background));
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--work-card-tint) 70%, #c2c2b8);
 }
-.tarot-project { --work-card-tint: #e7edfa; }
+.laplace-project { --work-card-tint: #e7edfa; }
+.conviction-release { margin-top: 1.25rem; }
+.conviction-release > p { margin: 0 0 0.75rem; color: var(--body); font: 1.125rem/1.35 var(--serif); }
+.conviction-release .release-row .release-byline { display: block; margin-top: 0.25rem; color: var(--muted); }
 .vela-project { --work-card-tint: #f1ebdc; }
-.conviction-project { --work-card-tint: #eee8e2; }
 .independent-project { --work-card-tint: #e3eee5; }
 
 .work-main .work-project a {

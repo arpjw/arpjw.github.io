@@ -108,7 +108,7 @@ main { margin-top: 1.5rem; }
 .work-list { display: grid; gap: 1.75rem; margin-top: 1.5rem; }
 .work-project > p { margin: 0.25rem 0 0; color: var(--body); }
 .vela-project { padding: 1.25rem; background: #f5f2e9; }
-.tarot-project { padding: 1.25rem; background: #edf3ff; }
+.laplace-project { padding: 1.25rem; background: #edf3ff; }
 .project-heading { display: flex; align-items: center; gap: 0.75rem; }
 .project-heading img { width: 1.75rem; height: 1.75rem; object-fit: contain; }
 .vela-project .project-heading img { width: 2.5rem; }
@@ -121,25 +121,16 @@ main { margin-top: 1.5rem; }
 .vela-project .release-row > span:first-child { color: #49483f; }
 .vela-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #a6a397; text-underline-offset: 0.18em; }
 .vela-project .release-row a:hover, .vela-project .release-row a:focus-visible { color: #20201e; }
-.tarot-project .release-heading { margin: 1rem 0 0.35rem; color: var(--foreground); font-family: var(--sans); font-size: 0.8rem; font-weight: 600; }
-.tarot-project > .release-byline { margin: 0 0 0.5rem; color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
-.tarot-project .release-byline a { color: inherit; }
-.tarot-project .release-byline a:hover, .tarot-project .release-byline a:focus-visible { color: var(--foreground); }
-.tarot-project .release-list { padding: 0; border-top: 1px solid #d1ddf4; }
-.tarot-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #d1ddf4; color: #667085; font-family: var(--sans); font-size: 0.75rem; }
-.tarot-project .release-row > span { display: inline; margin: 0; }
-.tarot-project .release-row > span:first-child { color: #303846; }
-.tarot-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b9c8e5; text-underline-offset: 0.18em; }
-.tarot-project .release-row a:hover, .tarot-project .release-row a:focus-visible { color: #1646c0; }
-.conviction-project { padding: 1.25rem; background: #efeeeb; }
-.conviction-project .project-heading img { border-radius: 0.4rem; }
-.conviction-project .project-heading a { color: #6b6a66; }
-.conviction-project .project-heading a:hover, .conviction-project .project-heading a:focus-visible { color: #c4501f; }
-.conviction-project .release-list { margin-top: 1rem; padding: 0; border: 0; border-top: 1px solid #dad8d2; }
-.conviction-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #dad8d2; color: #6b6a66; font-family: var(--sans); font-size: 0.75rem; }
-.conviction-project .release-row > span:first-child { color: #34332f; }
-.conviction-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b3b0a8; text-underline-offset: 0.18em; }
-.conviction-project .release-row a:hover, .conviction-project .release-row a:focus-visible { color: #c4501f; }
+.laplace-project .release-heading { margin: 1rem 0 0.35rem; color: var(--foreground); font-family: var(--sans); font-size: 0.8rem; font-weight: 600; }
+.laplace-project > .release-byline { margin: 0 0 0.5rem; color: var(--muted); font-family: var(--sans); font-size: 0.75rem; }
+.laplace-project .release-byline a { color: inherit; }
+.laplace-project .release-byline a:hover, .laplace-project .release-byline a:focus-visible { color: var(--foreground); }
+.laplace-project .release-list { padding: 0; border-top: 1px solid #d1ddf4; }
+.laplace-project .release-row { display: flex; justify-content: space-between; gap: 1rem; margin: 0; padding: 0.55rem 0; border: 0; border-bottom: 1px solid #d1ddf4; color: #667085; font-family: var(--sans); font-size: 0.75rem; }
+.laplace-project .release-row > span { display: inline; margin: 0; }
+.laplace-project .release-row > span:first-child { color: #303846; }
+.laplace-project .release-row a { color: inherit; font-size: inherit; text-decoration-color: #b9c8e5; text-underline-offset: 0.18em; }
+.laplace-project .release-row a:hover, .laplace-project .release-row a:focus-visible { color: #1646c0; }
 .independent-project {
   --paper-border: #cddcd2;
   --paper-muted: #50645a;

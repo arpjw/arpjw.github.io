@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#f4f4f1">
   <link rel="icon" href="../favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="stylesheet" href="../styles.css?v=plain-byline">
-  <link rel="stylesheet" href="work.css">
+  <link rel="stylesheet" href="../styles.css?v=laplace-work">
+  <link rel="stylesheet" href="work.css?v=laplace-work">
   <link rel="canonical" href="https://aryasomu.com/work/">
   <title>Work · Arya Somu</title>
   <meta name="description" content="Selected work by Arya Somu.">
@@ -28,22 +28,42 @@
       <h1>Selected work</h1>
 
       <div class="work-list">
-        <article class="work-project tarot-project">
+        <article class="work-project laplace-project" aria-labelledby="laplace-research">
           <header class="project-heading">
             <img src="../laplace-asterisk.png" alt="" width="32" height="32">
             <div>
-              <h2>Laplace Research</h2>
+              <h2 id="laplace-research">Laplace Research</h2>
               <a href="https://laplaceresearch.org/" target="_blank" rel="noopener noreferrer" aria-label="Laplace Research website">Website ↗</a>
             </div>
           </header>
-          <p>Forecasting models and papers we produced at Laplace Research.</p>
-          <h3 class="release-heading">Models</h3>
+          <p>Forecasting and evidence-sensitive belief revision in language models.</p>
+          <h3 class="release-heading">Tarot-Draw models</h3>
           <div class="release-list">
             <div class="release-row"><span>Tarot-Draw 1.7B</span><span><a href="https://github.com/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-1-7b" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
             <div class="release-row"><span>Tarot-Draw 4B</span><span><a href="https://github.com/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-4b" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
             <div class="release-row"><span>Tarot-Draw 8B</span><span><a href="https://github.com/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://huggingface.co/Laplace-AI-Research/tarot-draw-8b" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
           </div>
-          <h3 class="release-heading">Papers</h3>
+          <h3 class="release-heading">Conviction models</h3>
+          <div class="release-list">
+            <div class="release-row"><span>Conviction Anchor 1.7B</span><span><a href="https://huggingface.co/Laplace-AI-Research/Conviction-Anchor-1.7B" target="_blank" rel="noopener noreferrer" aria-label="Conviction Anchor 1.7B weights and model card">Weights</a></span></div>
+            <div class="release-row"><span>Conviction Vector 1.7B</span><span><a href="https://huggingface.co/Laplace-AI-Research/Conviction-Vector-1.7B" target="_blank" rel="noopener noreferrer" aria-label="Conviction Vector 1.7B weights and model card">Weights</a></span></div>
+            <div class="release-row"><span>Conviction Meridian 1.7B</span><span><a href="https://huggingface.co/Laplace-AI-Research/Conviction-Meridian-1.7B" target="_blank" rel="noopener noreferrer" aria-label="Conviction Meridian 1.7B weights and model card">Weights</a></span></div>
+          </div>
+          <section class="conviction-release" aria-labelledby="convictionbench">
+            <h3 class="release-heading" id="convictionbench">ConvictionBench</h3>
+            <p>A benchmark for when language models keep an answer, revise it in response to evidence, or say they have insufficient information.</p>
+            <div class="release-list">
+              <div class="release-row"><span>Benchmark</span><span><a href="https://convictionbench.org/">Results</a> · <a href="https://convictionbench.org/blog/">Blog</a> · <a href="https://huggingface.co/datasets/Laplace-AI-Research/ConvictionBench" target="_blank" rel="noopener noreferrer">Dataset</a> · <a href="https://github.com/Laplace-AI-Research/conviction" target="_blank" rel="noopener noreferrer">GitHub</a></span></div>
+              <div class="release-row">
+                <span>
+                  <a href="../research/#convictionbench">Evidence-Sensitive Belief Revision in Language Models</a>
+                  <span class="release-byline">By Arya Somu and <a href="https://brucenh.com" target="_blank" rel="noopener noreferrer">Bruce Nshuti Hirwa</a></span>
+                </span>
+                <span><a href="../papers/convictionbench-laplace.pdf" target="_blank" rel="noopener noreferrer" aria-label="Read the Laplace Research edition of ConvictionBench (PDF)">PDF</a></span>
+              </div>
+            </div>
+          </section>
+          <h3 class="release-heading">Forecasting Papers</h3>
           <p class="release-byline">By Arya Somu and <a href="https://brucenh.com" target="_blank" rel="noopener noreferrer">Bruce Nshuti Hirwa</a></p>
           <div class="release-list">
             <div class="release-row"><span><a href="../research/#tarot-draw-report">Tarot-Draw Technical Report</a></span><span><a href="../papers/tarot-draw-technical-report.pdf" target="_blank" rel="noopener noreferrer" aria-label="Read Tarot-Draw Technical Report (PDF)">PDF</a></span></div>
@@ -62,23 +82,6 @@
           <p>A concluded testnet exchange research project spanning deterministic matching, signed orders, and ledger integration.</p>
           <div class="release-list" aria-label="Vela project links">
             <div class="release-row"><span>Exchange</span><span><a href="https://github.com/Vela-Laboratories/vela" target="_blank" rel="noopener noreferrer">GitHub</a></span></div>
-          </div>
-        </article>
-        <article class="work-project conviction-project">
-          <header class="project-heading">
-            <img src="../conviction-mark.svg" alt="" width="32" height="32">
-            <div>
-              <h2>ConvictionBench</h2>
-              <a href="https://convictionbench.org/" target="_blank" rel="noopener noreferrer" aria-label="ConvictionBench results">Results ↗</a>
-            </div>
-          </header>
-          <p>A benchmark for whether language models change their answers for good reasons, and only for good reasons.</p>
-          <div class="release-list" aria-label="ConvictionBench releases">
-            <div class="release-row"><span>Benchmark</span><span><a href="https://convictionbench.org/blog/">Blog</a> · <a href="https://huggingface.co/datasets/arpjw/ConvictionBench" target="_blank" rel="noopener noreferrer">Dataset</a> · <a href="https://github.com/arpjw/conviction" target="_blank" rel="noopener noreferrer">GitHub</a></span></div>
-            <div class="release-row"><span>Paper</span><span><a href="../papers/convictionbench.pdf" target="_blank" rel="noopener noreferrer" aria-label="Read ConvictionBench: Evidence-Sensitive Belief Revision in Language Models (PDF)">PDF</a></span></div>
-            <div class="release-row"><span>Conviction-1.7B SFT</span><span><a href="https://huggingface.co/arpjw/conviction-1.7b-sft" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
-            <div class="release-row"><span>Conviction-1.7B RL</span><span><a href="https://huggingface.co/arpjw/conviction-1.7b-rl" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
-            <div class="release-row"><span>Conviction-1.7B v2</span><span><a href="https://huggingface.co/arpjw/conviction-1.7b-v2" target="_blank" rel="noopener noreferrer">Weights</a></span></div>
           </div>
         </article>
         <article class="work-project independent-project">
