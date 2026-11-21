@@ -65,23 +65,79 @@ html:has(.home-page) { background: #f4f4f1; }
 }
 .home-profiles svg { display: block; width: var(--icon-size); height: var(--icon-size); fill: currentColor; }
 .home-email {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--contact-height);
+  position: relative;
   margin-inline-start: auto;
-  white-space: nowrap;
+  max-width: 100%;
 }
-/* The serif glyphs sit lower than the SVGs in equally centered boxes. */
-.home-email span { line-height: 1; translate: 0 -0.1em; }
+.home-email summary {
+  display: grid;
+  align-content: center;
+  justify-items: end;
+  min-height: var(--contact-height);
+  padding-block-end: 0.2em;
+  color: var(--home-link);
+  line-height: 1;
+  text-align: end;
+  cursor: pointer;
+  list-style: none;
+}
+.home-email summary::-webkit-details-marker { display: none; }
+.home-email summary:focus-visible { outline: 1px solid #59594f; outline-offset: 3px; }
+.home-email summary span {
+  text-decoration: underline dotted 0.75px;
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+.home-email-laplace { display: none; }
 
-.home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a,
-.home-email span {
+@media (hover: hover) {
+  .home-email summary span { grid-area: 1 / 1; }
+  .home-email-laplace { display: block; opacity: 0; }
+  .home-email summary:hover .home-email-ucsd { opacity: 0; }
+  .home-email summary:hover .home-email-laplace { opacity: 1; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .home-email summary span { transition: opacity 200ms ease, transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1); }
+  .home-email-laplace { transform: translateY(0.2em); }
+  .home-email summary:hover .home-email-ucsd { transform: translateY(-0.2em); }
+  .home-email summary:hover .home-email-laplace { transform: translateY(0); }
+}
+
+.home-email-options {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: calc(100% + 0.15rem);
+  inset-inline-end: 0;
+  width: max-content;
+  max-width: calc(100vw - 3.25rem);
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem;
+  border: 1px solid #dcdcd5;
+  border-radius: 0.75rem;
+  background: #fbfbf8;
+  box-shadow: 0 0.5rem 1.5rem #26262514;
+  color: #54544d;
+  font: 0.8125rem/1.25 var(--sans);
+}
+.home-email-options a {
+  display: block;
+  min-height: var(--contact-height);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  overflow-wrap: anywhere;
+}
+.home-email-options a:hover,
+.home-email-options a:focus-visible { background: #eaeae4; }
+.home-column .home-email-options a:focus-visible { outline-offset: -2px; }
+
+.home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a {
   color: var(--home-link);
   text-decoration: underline dashed 0.75px;
   text-underline-offset: 0.2em;
 }
-.home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a:hover,
-.home-email:hover span {
+.home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a:hover {
   color: #4f4f4c;
   background: rgba(52, 52, 52, 0.08);
   text-decoration-style: solid;

@@ -7,7 +7,7 @@
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css?v=footer-alignment">
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="home.css?v=email-morph">
   <link rel="canonical" href="https://aryasomu.com/">
   <link rel="alternate" type="application/rss+xml" title="Arya Somu Writing" href="https://aryasomu.com/writing/feed.xml">
   <title>Arya Somu</title>
@@ -74,7 +74,16 @@
         <a href="https://github.com/arpjw" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg aria-hidden="true"><use href="images/home-social.svg#github"/></svg></a>
         <a href="https://huggingface.co/arpjw" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face" title="Hugging Face"><svg aria-hidden="true"><use href="images/home-social.svg#huggingface"/></svg></a>
       </div>
-      <a class="home-email" href="mailto:arya@laplaceresearch.org"><span>arya@laplaceresearch.org</span></a>
+      <details class="home-email">
+        <summary aria-label="Choose an email address: asomu@ucsd.edu or arya@laplaceresearch.org">
+          <span class="home-email-ucsd" aria-hidden="true">asomu@ucsd.edu</span>
+          <span class="home-email-laplace" aria-hidden="true">arya@laplaceresearch.org</span>
+        </summary>
+        <ul class="home-email-options">
+          <li><a href="mailto:asomu@ucsd.edu">asomu@ucsd.edu</a></li>
+          <li><a href="mailto:arya@laplaceresearch.org">arya@laplaceresearch.org</a></li>
+        </ul>
+      </details>
     </div>
 
     <div class="home-intro">
@@ -98,5 +107,6 @@
       </ol>
     </section>
   </main>
+  <script src="home.js"></script>
 </body>
 </html>
