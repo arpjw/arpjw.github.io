@@ -20,7 +20,7 @@ The catalog and its jump links work without JavaScript.
 
 ## Research
 
-The homepage's Research heading points to `/research/`. Its `.home-research`
+The homepage's Research heading is a plain title. Its `.home-research`
 list highlights selected Laplace papers and independent experiments, with links
 directly to their PDFs in `papers/`. Add papers and supporting
 links to the Research page, then update the homepage selection as needed.
@@ -28,7 +28,7 @@ Research and Writings share the `.home-list` styles in `home.css`.
 
 ## Writing
 
-The homepage's Writings heading points to `/writing/`. Posts are plain HTML files in
+The homepage's Writings heading is a plain title. Posts are plain HTML files in
 `writing/`, so they can be edited locally or in GitHub without a separate service.
 The Writing index links to its RSS feed. It and the article pages share
 `writing/reading-layout.css`, which loads Inter and sets the reading width.
