@@ -128,12 +128,12 @@ html:has(.home-page) { background: #f4f4f1; }
 .home-email-options a:focus-visible { background: #eaeae4; }
 .home-column .home-email-options a:focus-visible { outline-offset: -2px; }
 
-.home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a {
+.home-column :is(.home-photo figcaption, .home-intro, .home-list li) a {
   color: var(--home-link);
   text-decoration: underline dashed 0.75px;
   text-underline-offset: 0.2em;
 }
-.home-column :is(.home-photo figcaption, .home-intro, .home-writings li) a:hover {
+.home-column :is(.home-photo figcaption, .home-intro, .home-list li) a:hover {
   color: #4f4f4c;
   background: rgba(52, 52, 52, 0.08);
   text-decoration-style: solid;
@@ -147,18 +147,18 @@ html:has(.home-page) { background: #f4f4f1; }
 .home-intro li + li { margin-top: 0.2rem; }
 .home-intro li::marker { color: var(--home-faint); }
 
-.home-writings { margin-top: 2.65rem; }
-.home-writings h2 { margin: 0 0 0.65rem; font-size: inherit; font-weight: 400; }
-.home-writings ol { list-style: none; padding: 0; margin: 0; }
-.home-writings li {
+.home-list { margin-top: 2.65rem; }
+.home-list h2 { margin: 0 0 0.65rem; font-size: inherit; font-weight: 400; }
+.home-list ol { list-style: none; padding: 0; margin: 0; }
+.home-list li {
   display: grid;
   grid-template-columns: minmax(0, 1fr) max-content;
   align-items: baseline;
   gap: 0.8rem;
   padding-block: 0.26rem;
 }
-.home-writings li a { width: fit-content; }
-.home-writings li span { color: var(--home-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.home-list li a { width: fit-content; }
+.home-list li span { color: var(--home-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 @media (max-width: 36rem) {
   .home-page { font-size: 1.125rem; }

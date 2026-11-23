@@ -18,6 +18,14 @@ stacks them on phones. Keep the category jump links in the same order as the
 sections, and distinguish links to code, model weights, sites, apps, and demos.
 The catalog and its jump links work without JavaScript.
 
+## Research
+
+The homepage's Research heading points to `/research/`. Its `.home-research`
+list highlights selected Laplace papers and independent experiments, with links
+directly to their PDFs in `papers/`. Add papers and supporting
+links to the Research page, then update the homepage selection as needed.
+Research and Writings share the `.home-list` styles in `home.css`.
+
 ## Writing
 
 The homepage's Writings heading points to `/writing/`. Posts are plain HTML files in
